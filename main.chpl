@@ -21,7 +21,7 @@ config const mlchunk: int = 0; //inter-node chunk.
 config const lchunk: int = 1; //task chunk the inter-node scheduler gives.
 config const slchunk: int = 1; //chunk for the second level of parallelism. 
 
-config const coordinated: bool = true;  //centralized node?
+config const coordinated: bool = true;  //centralized node? Locale 0 is the master
 config const pgas: bool = false; //pgas-based active set?
 config const num_threads: int = here.maxTaskPar; //number of threads. 
 
@@ -54,7 +54,6 @@ proc main(){
 				queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
 			}
 			when "improved"{
-
 				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 							lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose, CPUP, num_gpus);
 			}//improved
