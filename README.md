@@ -1,5 +1,7 @@
-# ChOp
-Chapel-based Optimization 
+# ChOp - Chapel-based Optimization 
+
+
+The objective of this research project is to design and implement large-scale distributed optimization algorithms taking into account CPU-GPU heterogeneity, but also achieving high-productivity and parallel efficiency. 
 
 
 ### Publications:
