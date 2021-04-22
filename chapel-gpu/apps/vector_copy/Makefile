@@ -1,0 +1,2 @@
+TARGET=vc
+include ../Makefile

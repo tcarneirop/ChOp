@@ -1,0 +1,2 @@
+TARGET=stream
+include ../Makefile

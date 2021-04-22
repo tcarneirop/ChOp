@@ -41,6 +41,7 @@ config const CPUP: real = 0.0; //CPU percent
 
 proc main(){
 
+	when "queens"{
 
 		writeln("--- N-QUEENS --- ");
 
@@ -66,5 +67,5 @@ proc main(){
 			}
 
 		}//mode
-
+	}
 }
