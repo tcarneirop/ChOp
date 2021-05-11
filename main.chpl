@@ -32,7 +32,7 @@ config const atype: string = "none"; //atomic type. 'none' when initializing usi
 config const verbose: bool = false; //verbose network communication 
 
 config const real_number_computers: int = 1;
-config const mode: string = "improved";
+config const mode: string = "serial";
 config const mlsearch: string = "mlocale";
 config const num_gpus: c_int = 0; //Get the number of devices of the system if it is not zero
 
@@ -41,7 +41,7 @@ config const CPUP: real = 0.0; //CPU percent
 
 proc main(){
 
-	when "queens"{
+	
 
 		writeln("--- N-QUEENS --- ");
 
@@ -67,5 +67,4 @@ proc main(){
 			}
 
 		}//mode
-	}
 }
