@@ -1,8 +1,10 @@
 
+use SysCTypes;
 use GPUIterator;
 use GPU_aux;
 use CPtr;
 use queens_prefix_generation;
+use queens_tree_explorer;
 use queens_node_module;
 use queens_aux;
 use Time;
@@ -18,6 +20,7 @@ use SysCTypes;
 config const size: uint(16) = 12;
 config const initial_depth: c_int = 7;
 config const distributed: bool = false;
+config const CPUP: int = 100;
 
 ///////////////////////////////////////////////////////////////////////////
 //C-Interoperability
@@ -39,12 +42,12 @@ var vector_of_tree_size_h: [0..#75580635] c_uint;
 var sols_h: [0..#75580635] c_uint;
 
 //var active_set_h: [0..#] queens_node;
-var maximum_number_prefixes: int = 75580635;
-var active_set_h: [0..#maximum_number_prefixes] queens_node;
+var max_number_prefixes: int = 75580635;
+var active_set_h: [0..#max_number_prefixes] queens_node;
 
 
 
-var n_explorers : int; //MUST BE INT!
+var n_explorers : int; 
 	
 
 ///////////////////////////////////////////////////////////////////////////
@@ -120,7 +123,7 @@ if distributed then {
 
 var DISTGPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
 		//pointer arithmetics
-		ref ldist_active_set_h= dist_active_set_h.localSlice(lo .. hi);
+		ref ldist_active_set_h = dist_active_set_h.localSlice(lo .. hi);
   		ref ldist_vector_of_tree_size_h = dist_vector_of_tree_size_h.localSlice(lo .. hi);
 		ref ldist_sols_h = dist_sols_h.localSlice(lo .. hi);
 
@@ -134,6 +137,9 @@ var DISTGPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
 //// Search itself
 ////////////////////////////////////////////////////////////////////
 
+  	proc test(i:int):void{
+  		writeln("value: ", i, ". \n");
+  	}
 
 	writeln("\nSize: ", size, " Survivors: ", n_explorers);        
 
@@ -146,14 +152,20 @@ var DISTGPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
 	
 	if distributed then{
 		writeln("Distributed Search");
-		forall i in GPU(D, DISTGPUWrapper, 0){
+		forall i in GPU(D, DISTGPUWrapper, CPUP){
 			;
 		}
 	}
 	else{
+
+		//I believe the problem lies in the division CPU-GPU. The cpu part alwas writes 0..#nexplores
+		//But i think that if we change the CPUPercent, the i should change
+		//for instance, the position i should be something like i+(initial_range_for_cpu)?
 		writeln("Single Locale");
-		forall i in GPU(0..#(n_explorers:int), GPUWrapper, 0){
-			;
+		forall i in GPU(0..#(n_explorers:int), GPUWrapper, CPUP){
+			writeln(i);
+			(sols_h[i],vector_of_tree_size_h[i]) = 
+				queens_subtree_explorer(size, initial_depth, active_set_h[i]);
 		}
 	}
 
