@@ -45,8 +45,6 @@ var sols_h: [0..#75580635] c_uint;
 var max_number_prefixes: int = 75580635;
 var active_set_h: [0..#max_number_prefixes] queens_node;
 
-
-
 var n_explorers : int; 
 	
 
@@ -55,8 +53,14 @@ var n_explorers : int;
 ///////////////////////////////////////////////////////////////////////////
 
 var GPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
-  		GPU_call_cuda_queens(size, initial_depth, n_explorers:c_uint, 
-		c_ptrTo(active_set_h),c_ptrTo(vector_of_tree_size_h), c_ptrTo(sols_h));
+
+	var sols_ptr : c_ptr(c_uint) = c_ptrTo(sols_h) + lo:c_uint;
+	var tree_ptr : c_ptr(c_uint) = c_ptrTo(vector_of_tree_size_h) + lo:c_uint;
+	var active_set_ptr : c_ptr(queens_node) = c_ptrTo(active_set_h) + lo:c_uint;
+
+	GPU_call_cuda_queens(size, initial_depth, n_explorers:c_uint, 
+		active_set_ptr,tree_ptr, sols_ptr);
+
 };
 
 
@@ -153,17 +157,15 @@ var DISTGPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
 	if distributed then{
 		writeln("Distributed Search");
 		forall i in GPU(D, DISTGPUWrapper, CPUP){
-			;
+			(dist_sols_h[i],dist_vector_of_tree_size_h[i]) = 
+				queens_subtree_explorer(size, initial_depth, dist_active_set_h[i]);
 		}
 	}
 	else{
 
-		//I believe the problem lies in the division CPU-GPU. The cpu part alwas writes 0..#nexplores
-		//But i think that if we change the CPUPercent, the i should change
-		//for instance, the position i should be something like i+(initial_range_for_cpu)?
 		writeln("Single Locale");
 		forall i in GPU(0..#(n_explorers:int), GPUWrapper, CPUP){
-			writeln(i);
+			
 			(sols_h[i],vector_of_tree_size_h[i]) = 
 				queens_subtree_explorer(size, initial_depth, active_set_h[i]);
 		}
