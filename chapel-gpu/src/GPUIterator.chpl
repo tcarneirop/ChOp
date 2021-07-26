@@ -90,7 +90,8 @@ module GPUIterator {
       } else if (GPUrange.size == 0) {
         const numTasks = here.maxTaskPar;
         if (debugGPUIterator) then
-          writeln("[DEBUG GPUITERATOR] CPU portion: ", CPUrange, " by ", numTasks, " tasks", " GPU portion is ZERO");
+          writeln("[DEBUG GPUITERATOR] CPU portion: ", CPUrange, " by ", numTasks, " tasks", " GPU portion is ZERO@", Time.getCurrentTime());
+          //writeln("[DEBUG GPUITERATOR] CPU portion: ", CPUrange, " by ", numTasks, " tasks", " GPU portion is ZERO");
         coforall tid in 0..#numTasks {
           const myIters = computeChunk(CPUrange, tid, numTasks);
           yield (myIters.translate(-r.low),);
@@ -167,7 +168,8 @@ module GPUIterator {
       } else if (GPUrange.size == 0) {
         const numTasks = here.maxTaskPar;
         if (debugGPUIterator) then
-          writeln("[DEBUG GPUITERATOR] CPU portion: ", CPUrange, " by ", numTasks, " tasks", " GPU portion is ZERO");
+          writeln("[DEBUG GPUITERATOR] CPU portion: ", CPUrange, " by ", numTasks, " tasks", " GPU portion is ZERO@", Time.getCurrentTime());
+          //writeln("[DEBUG GPUITERATOR] CPU portion: ", CPUrange, " by ", numTasks, " tasks", " GPU portion is ZERO");
         coforall tid in 0..#numTasks {
           const myIters = computeChunk(CPUrange, tid, numTasks);
           for i in myIters do
@@ -289,7 +291,8 @@ module GPUIterator {
       // for each locale
       coforall loc in D.targetLocales() do on loc {
         for subdom in D.localSubdomains() {
-          if (debugGPUIterator) then writeln("[DEBUG GPUITERATOR]", here, " (", here.name,  ") is responsible for ", subdom);
+           if (debugGPUIterator) then writeln("[DEBUG GPUITERATOR]", here, " (", here.name,  ") is responsible for ", subdom, "@", Time.getCurrentTime());
+          //if (debugGPUIterator) then writeln("[DEBUG GPUITERATOR]", here, " (", here.name,  ") is responsible for ", subdom);
           const (r,) = subdom.dims();
           const (CPURange, GPURange) = computeSubranges(r, CPUPercent);
 
