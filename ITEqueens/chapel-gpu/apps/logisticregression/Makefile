@@ -1,0 +1,2 @@
+TARGET=lr
+include ../Makefile
