@@ -159,7 +159,6 @@ proc main(){
 							writeln("--- N-Queens multi-locale search --- \n\n");
 						}///
 					}///mode
-
 					queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 								lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
 								real_number_computers, CPUP, num_gpus);
