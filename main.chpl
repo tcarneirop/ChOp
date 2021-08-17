@@ -15,16 +15,13 @@ use queens_aux;
 use queens_call_mcore_search;
 use queens_call_multilocale_search;
 
-//TESTING
+//TESTING...
 
 use queens_GPU_single_locale;
 use GPU_mlocale_utils;
 
 
-
 use parameters_record;
-
-
 
 //Variables from the command line
 config const initial_depth: c_int = 4;
@@ -69,7 +66,7 @@ config const CPUP: real = 0.0; //CPU percent
 proc main(){
 
 
-	//@TODO!
+	//@TODO! fix those parameters...
 	var cline_param = new commandline_parameters(initial_depth, second_depth, size, scheduler,
 				mlchunk, lchunk, slchunk, coordinated, mode, pgas, num_threads, profiler, 
 				number_exec, upper_bound, lower_bound, atype: string, instance, verbose);
@@ -89,7 +86,7 @@ proc main(){
 					fsp_simple_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
 				}
 				when "mlocale"{
-					writeln("CHPL-SIMPLE multi-locale search\n\n");
+					writeln("CHPL-SIMPLE multi-locale search\n\n"); //@TODO: remove this.
 					//fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,lchunk,
 					//	num_threads,profiler,atype,instance,mode);
 				}
@@ -120,7 +117,7 @@ proc main(){
 					fsp_johnson_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
 				}//mcode
 				when "mlocale"{
-					writeln("CHPL-Johnson multi-locale search\n\n");
+					writeln("CHPL-Johnson multi-locale search\n\n");  //@TODO: remove this.
 					// fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,chunk,
 					// 	num_threads,profiler,atype,instance,mode);
 				}//default mlocale

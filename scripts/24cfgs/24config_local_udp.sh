@@ -1,9 +1,17 @@
 #!/bin/bash
 
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/distributed/fsp/libs
 
-export CHPL_HOME=~/chapel-1.24.0
+echo " ### exporting...  ### "
+
+export CHPL_HOME=~/chapel-1.24.1
+export CHOP_HOME=~/chapel-basedOPT/ChOp
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$CHOP_HOME"/libs
+
+echo $LD_LIBRARY_PATH
+
+
+
 
 CHPL_BIN_SUBDIR=`"$CHPL_HOME"/util/chplenv/chpl_bin_subdir.py`
 
@@ -41,7 +49,7 @@ echo $here
 cd $CHPL_HOME
 make
 
-echo -e \#\#\# Building runtime 1.24 for QTHREADS, UDP, and Local spawn.  \#\#\#
+echo -e \#\#\# Building runtime 1.24.1  QTHREADS, UDP, and Local spawn.  \#\#\#
 
 cd $here
 

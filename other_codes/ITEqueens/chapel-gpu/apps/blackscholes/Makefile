@@ -1,0 +1,2 @@
+TARGET=bs
+include ../Makefile

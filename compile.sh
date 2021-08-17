@@ -4,8 +4,8 @@
 echo " ### Cleaning... ###"
 
 rm libs/libadd.so
-rm bin/fsp.out
-rm bin/fsp.out_real
+rm bin/chop.out
+rm bin/chop.out_real
 
 echo " ### starting CUDA compilation ### "
 
@@ -17,12 +17,12 @@ echo " ### end of CUDA compilation ### "
 echo " ### starting compilation ### "
 # -s debugDistributedIters=true 
 #chpl -L. -ladd -M modules --fast -s timeDistributedIters=true implementation/fsp_gen.c implementation/simple_bound.c implementation/johnson_bound.c implementation/aux.c main.chpl -o  fsp.out
-chpl -Llibs -ladd -lutil -M modules --fast -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true implementation/fsp_gen.c implementation/simple_bound.c implementation/johnson_bound.c implementation/aux.c main.chpl -o  fsp.out
+chpl -Llibs -ladd -lutil -M modules --fast -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true implementation/fsp_gen.c implementation/simple_bound.c implementation/johnson_bound.c implementation/aux.c main.chpl -o  chop.out
 
-#source export.sh 
+#source export.sh
 
 echo " ### end of compilation ### "
-mv fsp.out fsp.out_real bin/
+mv chop.out chop.out_real bin/
 echo " ### copy is done ### "
 
 ncompi=$(cat ncompilations)
