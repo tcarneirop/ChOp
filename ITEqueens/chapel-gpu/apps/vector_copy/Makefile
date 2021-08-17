@@ -1,2 +1,0 @@
-TARGET=vc
-include ../Makefile

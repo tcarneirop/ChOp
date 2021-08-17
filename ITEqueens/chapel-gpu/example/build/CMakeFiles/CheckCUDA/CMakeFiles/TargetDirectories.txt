@@ -1,2 +1,0 @@
-/home/carneiro/distributed/fsp/other_codes/chapel-gpu/example/build/CMakeFiles/CheckCUDA/CMakeFiles/rebuild_cache.dir
-/home/carneiro/distributed/fsp/other_codes/chapel-gpu/example/build/CMakeFiles/CheckCUDA/CMakeFiles/edit_cache.dir

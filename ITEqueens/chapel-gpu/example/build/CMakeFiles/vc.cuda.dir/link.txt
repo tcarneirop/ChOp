@@ -1,2 +1,0 @@
-/usr/bin/ar qc libvc.cuda.a  CMakeFiles/vc.cuda.dir/vc.cu.o
-/usr/bin/ranlib libvc.cuda.a

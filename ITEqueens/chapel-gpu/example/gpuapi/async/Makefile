@@ -1,2 +1,0 @@
-TARGET=async
-include ../Makefile
