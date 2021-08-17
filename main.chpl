@@ -1,15 +1,32 @@
 
 use SysCTypes;
 
+use fsp_simple_serial;
+use fsp_simple_call_mcore_search;
+use fsp_simple_call_inital_search;
+use fsp_simple_call_multilocale_search;
+
+use fsp_johnson_serial;
+use fsp_johnson_call_mcore_search;
+use fsp_johnson_call_initial_search;
+use fsp_johnson_call_multilocale_search;
+
 use queens_aux;
 use queens_call_mcore_search;
 use queens_call_multilocale_search;
 
+//TESTING
+
 use queens_GPU_single_locale;
 use GPU_mlocale_utils;
 
-//Variables from the command line
 
+
+use parameters_record;
+
+
+
+//Variables from the command line
 config const initial_depth: c_int = 4;
 config const second_depth:  c_int = 7;
 config const size: uint(16) = 12; //queens
@@ -21,50 +38,151 @@ config const mlchunk: int = 0; //inter-node chunk.
 config const lchunk: int = 1; //task chunk the inter-node scheduler gives.
 config const slchunk: int = 1; //chunk for the second level of parallelism. 
 
-config const coordinated: bool = true;  //centralized node? Locale 0 is the master
+config const coordinated: bool = true;  //centralized node?
+//available modes:
+/// mlocale:
+/// improved:
+///	sgpu: single-gpu execution
+/// cpu-gpu: uses all CPUs and GPUs of the locale at once.
+
 config const pgas: bool = false; //pgas-based active set?
+
 config const num_threads: int = here.maxTaskPar; //number of threads. 
-
-config const profiler: bool = false; //to gather profiler metrics and chplvis graphs. 
-
+config const profiler: bool = false; //to gather profiler metrics and execution graphics. 
+config const number_exec: int = 1;   //going to be removed soon. 
+config const upper_bound: c_int = 0; //value for the initial upper bound. If it is zero, the optimal solution is going to be used. 
+config const lower_bound: string = "johnson"; //type of lowerbound. Johnson and simple.
 config const atype: string = "none"; //atomic type. 'none' when initializing using the optimal -- use like that.
+config const instance: int(8) = 13; //fsp instance
 
 config const verbose: bool = false; //verbose network communication 
 
+
 config const real_number_computers: int = 1;
-config const mode: string = "serial";
+config const num_gpus_computer: int = 0;
+config const mode: string = "improved";
 config const mlsearch: string = "mlocale";
-config const num_gpus: c_int = 0; //Get the number of devices of the system if it is not zero
+config const num_gpus: c_int = 0; //if it is not zero, get the number of devices of the system
 
 config const CPUP: real = 0.0; //CPU percent
 
-
 proc main(){
 
+
+	//@TODO!
+	var cline_param = new commandline_parameters(initial_depth, second_depth, size, scheduler,
+				mlchunk, lchunk, slchunk, coordinated, mode, pgas, num_threads, profiler, 
+				number_exec, upper_bound, lower_bound, atype: string, instance, verbose);
+
+	writeln(cline_param);
 	
 
-		writeln("--- N-QUEENS --- ");
+	select lower_bound {
+		when "simple"{//using simple bound
+			select mode{
+				when "serial"{
+					writeln("--- CHPL-SIMPLE serial search --- \n\n");
+					fsp_simple_call_serial(upper_bound,instance);
+				}
+				when "mcore"{
+					writeln(" --- CHPL-SIMPLE mcore search --- \n\n");
+					fsp_simple_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
+				}
+				when "mlocale"{
+					writeln("CHPL-SIMPLE multi-locale search\n\n");
+					//fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,lchunk,
+					//	num_threads,profiler,atype,instance,mode);
+				}
+				when "improved"{
+					writeln("--- CHPL-SIMPLE IMPROVED multi-locale search --- \n");
+					fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
+						lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
+				}
+				when "initial"{
+					writeln("### CHPL-SIMPLE Initial search and PGAS data distribution ###ONLY###.\n\n");
+					fsp_simple_call_initial_search(initial_depth,upper_bound,scheduler,lchunk,
+						num_threads,profiler,atype,instance);
+				}
+				otherwise{
+					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
+				}
+			} 
+		}//end of simple bound
+		when "johnson"{
+			writeln("\n --- JOHNSON LOWER BOUND --- ");
+			select mode{
+				when "serial"{
+					writeln("--- CHPL-Johnson serial search --- \n\n");
+					fsp_johnson_call_serial(upper_bound, instance);
+				}//serial
+				when "mcore"{
+					writeln("--- CHPL-Johnson mcore search --- \n\n");
+					fsp_johnson_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
+				}//mcode
+				when "mlocale"{
+					writeln("CHPL-Johnson multi-locale search\n\n");
+					// fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,chunk,
+					// 	num_threads,profiler,atype,instance,mode);
+				}//default mlocale
+				when "improved"{
+					writeln("--- CHPL-Johnson IMPROVED multi-locale search --- \n");
+					fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
+						lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
+				}//johnson improved
+				when "initial"{
+					writeln("### CHPL-Johnson Initial search and PGAS data distribution ###ONLY###.\n\n");
+					fsp_johnson_call_initial_search(initial_depth,upper_bound,scheduler,lchunk,
+						num_threads,profiler,atype,instance);
+				}//initial only
+				otherwise{
+					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
+				}
+			}//mode
+		}//johnson bound
+		when "queens"{
 
-		select mode{
-			when "serial"{
-				writeln("--- N-Queens serial search --- \n\n");
-				queens_parser(size);
-			}
-			when "mcore"{
-				writeln("--- N-Queens mcore search --- \n\n");
-				queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
-			}
-			when "improved"{
-				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
-							lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose, CPUP, num_gpus);
-			}//improved
-			when "mgpu"{
-				writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
-				GPU_queens_call_search(size,initial_depth,CPUP,lchunk);
-			}
-			otherwise{
-				halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
-			}
+			writeln("\n--- N-QUEENS --- ");
+			select mode{
+				when "serial"{
+					writeln("--- N-Queens serial search --- \n\n");
+					queens_parser(size);
+				}
+				when "mcore"{
+					writeln("--- N-Queens mcore search --- \n\n");
+					queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
+				}
+				when "improved"{
+					//@Todo
+					//We need to clean this... 
+					select mlsearch{
+						when "mlgpu"{
+							writeln("--- N-Queens Multi-GPU search --- \n\n");
+						}
+						otherwise{
+							writeln("--- N-Queens multi-locale search --- \n\n");
+						}///
+					}///mode
 
-		}//mode
+					queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
+								lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
+								real_number_computers, CPUP, num_gpus);
+				}//improved
+				when "qinitial"{
+					writeln("--- N-Queens serial search --- \n\n");
+					queens_call_initial_search(size, initial_depth,number_exec,profiler);
+				}//mgpu is single-locale mgpu
+				when "mgpu"{
+					writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
+					GPU_queens_call_search(size,initial_depth,CPUP,lchunk);
+				}
+				otherwise{
+					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
+				}
+
+			}//mode
+		}//queens
+	
+		
+	}//lower bound
 }
+

@@ -1,5 +1,7 @@
 module queens_call_multilocale_search{
 
+    
+    //use queens_constants;
     use queens_node_module;
     use queens_prefix_generation;
     use queens_mlocale_parameters_parser;
@@ -24,7 +26,7 @@ module queens_call_multilocale_search{
         const coordinated: bool = false, const pgas: bool = false,
         const num_threads: int, const profiler: bool = false, 
         const verbose: bool = false,
-        const CPUP: real, const num_gpus: c_int){
+        const real_number_computers: int,  const CPUP: real, const num_gpus: c_int){
 
 
         queens_print_locales_information();
@@ -43,9 +45,6 @@ module queens_call_multilocale_search{
         var tree_each_locale: [PrivateSpace] uint(64);
         var GPU_id: [PrivateSpace] int;
 
-        //initializes variables on each locale to retrieve the 
-        //size of the solutions space explored by each locale
-        //We need this to verify how effective a load balancing scheme is.
         statistics_all_locales_init_explored_tree(tree_each_locale);
        
         //search metrics
@@ -64,7 +63,6 @@ module queens_call_multilocale_search{
         initial.start();
         var maximum_number_prefixes: uint(64) = queens_get_number_prefixes(size,initial_depth);
         var local_active_set: [0..maximum_number_prefixes-1] queens_node;
-        //this is the initial (partial) search on locale zero, task 0
         metrics+= queens_node_generate_initial_prefixes(size, initial_depth, local_active_set );
         initial.stop(); 
 
@@ -81,7 +79,6 @@ module queens_call_multilocale_search{
 
         distribution.start();
 
-        //VERBOSE///PROFILER
         if(verbose){
             writeln("\n### Starting communication counter ###");
             startCommDiagnostics();
@@ -104,12 +101,13 @@ module queens_call_multilocale_search{
         }
         else{
             writeln("#####  Centralized active set #####");
+            //forall i in Space do
+            //    centralized_active_set[i] = local_active_set[i:uint(64)];
         }        
         distribution.stop();
 
 
         //for mlmgpu and gpucpu
-        //OBS: CPU-GPU feature is beta
         if(num_gpus == 0) then{
             writeln("\n # The total number of GPU is going to be used (DEFAULT): ", GPU_device_count() ,". #");
             for loc in Locales do{
@@ -138,7 +136,6 @@ module queens_call_multilocale_search{
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
-
         final.start();
         writeln("#### Nodes to explore: ", initial_num_prefixes);
         //Launching the search
@@ -162,7 +159,6 @@ module queens_call_multilocale_search{
             stopVdebug();
         }
 
-        //retrieving metrics and results
         queens_mlocale_print_metrics(size,metrics, initial, distribution,final, 
             initial_tree_size, maximum_number_prefixes, initial_num_prefixes, initial_depth,second_depth,tree_each_locale);        
 
@@ -177,6 +173,117 @@ module queens_call_multilocale_search{
         distribution.clear();
 
     }//distributed call
+
+
+
+
+    proc queens_call_initial_search(const size: uint(16), const initial_depth: int(32),
+        const number_exec: int = 1, const profiler: bool = false){
+
+        
+        queens_print_locales_information();//print locale information
+
+        var initial_num_prefixes : uint(64);
+        var initial_tree_size : uint(64) = 0;
+        var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));
+        var performance_metrics: real = 0.0;
+        var total_elapsed: Timer;
+        var initial_procedure: Timer;
+        
+        var set_of_elapsed: [0..number_exec-1] real = 0.0;
+        var real_number_prefixes: uint(64) = queens_how_many_prefixes(size,initial_depth);
+        var maximum_number_prefixes: uint(64) = queens_get_number_prefixes(size,initial_depth);
+        var local_set_of_nodes: [0..maximum_number_prefixes-1] queens_node;
+        
+        //do number_exec times the data structure distribution
+        total_elapsed.start();
+
+        for exec in 0..number_exec-1 do {
+
+            initial_procedure.start(); // Start timer
+
+            metrics = (0:uint(64),0:uint(64));
+            real_number_prefixes = queens_how_many_prefixes(size,initial_depth);
+            maximum_number_prefixes = queens_get_number_prefixes(size,initial_depth);
+           
+
+            const Space = {0..(real_number_prefixes-1):int}; //otherwise 
+            const D: domain(1) dmapped Block(boundingBox=Space) = Space; //1d block
+            //const D = Space dmapped Cyclic(startIdx=Space.low);
+            var set_of_nodes: [D] queens_node;
+
+            metrics+=queens_node_generate_initial_prefixes(size,initial_depth, local_set_of_nodes);
+
+            //profiler
+            if(profiler){
+                startVdebug("search"+(numLocales:string)+(size:string));
+                tagVdebug("initial forall");
+                writeln("Starting profiler");
+            }//end of profiler
+
+            //distributing the data structure
+            forall i in Space do
+                set_of_nodes[i] = local_set_of_nodes[i:uint(64)];
+            
+
+            initial_procedure.stop();
+            set_of_elapsed[exec] = initial_procedure.elapsed();
+            
+            initial_procedure.clear(); 
+
+        }
+
+        total_elapsed.stop();
+
+        results_mean_variance(number_exec,set_of_elapsed);
+
+        initial_num_prefixes = metrics[0];
+        initial_tree_size = metrics[1];
+        
+        writeln("\n### Initial search for N-Queens ###\n\tProblem size (N): ", size,"\n\tCutoff depth: ",
+         initial_depth,"\n\tDistributed active set size: ", initial_num_prefixes,
+         "\n\n\tInitial tree size: ", initial_tree_size);
+        writef("\n\tElapsed time: %.3dr", (total_elapsed.elapsed()*1000));
+        
+        writeln("\nSet of execution times: \n");
+        writeln(set_of_elapsed);
+        
+        writeln("\nSet of metrics: \n");
+        writeln(results_mean_variance(number_exec,set_of_elapsed));
+
+        
+        total_elapsed.clear();          
+    }
+
+    proc results_mean_variance(number_exec: int,  set_of_elapsed: [] real): (real,real,real){
+
+        var results: (real,real,real) = (0.0,0.0,0.0);
+        var mean = (+ reduce set_of_elapsed) / number_exec;
+        var partial: real =  0.0;
+        var variance: real = 0.0;
+        var std_deviation: real = 0.0;
+
+        for i in 0..number_exec-1 do {
+
+            partial = partial + (set_of_elapsed[i]-mean)**2;
+
+        }
+
+        variance = partial / number_exec:real;
+        std_deviation = sqrt(variance);
+
+        results[0] = mean;
+        results[1] = variance;
+        results[2] = std_deviation;
+        return results;
+
+    }//
+
+
+
+
+
+
 
 
 }//end of mudule

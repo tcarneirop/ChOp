@@ -36,15 +36,6 @@ module queens_GPU_call_intermediate_search{
 
 		metrics+= queens_GPU_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
 		 initial_num_prefixes, CPUP, chunk);
-		
-		//}//end of GPU portion of the code
-		//else{//if it is a  CPU locale
-
-		//	forall idx in dynamic(0..#initial_num_prefixes, chunk) with (+ reduce metrics ) do {     
-		//		metrics +=  queens_subtree_explorer(size,second_depth,set_of_nodes[idx:uint]);
-		//	}//search
-
-		//}///else
 	
 		tree_each_locale[here.id] += metrics[1]; //for load statistics
 

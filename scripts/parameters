@@ -1,0 +1,17 @@
+/fsp.out < instance/vrf10101 --mode="mcore" --atype="none" --lower_bound="simple" --scheduler="static" --initial_depth=4 --upper_bound=1097 --profiler=false -nl 10
+
+
+,, ./fsp.out  --instance=22 --mode="improved" --mlchunk=64 --coordinated=false --lower_bound="johnson" --scheduler="dynamic" --initial_depth=4 --second_depth=7 --upper_bound=2000 -nl 4 
+
+
+
+## best ones
+./fsp.out  --instance=24 --mode="improved" --mlchunk=8 --coordinated=true --lower_bound="johnson" --scheduler="dynamic" --initial_depth=4 --second_depth=7  -nl 32 
+
+
+
+
+### FGCS FIRST SUBMISSION:
+
+./fsp.out  --instance=25 --coordinated=false --pgas=true --lower_bound="johnson" -nl X
+

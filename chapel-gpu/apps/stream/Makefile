@@ -1,2 +1,0 @@
-TARGET=stream
-include ../Makefile
