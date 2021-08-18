@@ -7,7 +7,7 @@ The objective of the ChOp project to design and implement large-scale distribute
 The locale 0 (master) is responsible for generating the distribute pool Pd and controlling the search. Each worker locale receives nodes from the master and generates a local pool that is partitioned into CPU and GPU portions. L locales are launched on L-1 computer nodes.
 
 
-<img src="https://tcarneirop.github.io/pictures/overview.png" width="50%">
+<img src="https://tcarneirop.github.io/pictures/overview.png" width="50%" class="center">
 
 
 ## Recent results, GPU-based prototype in Chapel + CUDA, solving the N-Queens: 
@@ -23,16 +23,16 @@ The locale 0 (master) is responsible for generating the distribute pool Pd and c
 
 Execution times of Chapel-BB solving to the optimality Taillard instances ta21-30. The execution time is given relative to the MPI-PBB baseline. Next, normalized the productivity achieved by Chapel compared to its counterpart written in MPI+Cpp. Experiments executed on 1 (32 cores) to 32 nodes (1024 cores). For more details, see [Carneiro et al. (2020)](https://www.sciencedirect.com/science/article/pii/S0167739X1930946X).
 
-![Execution time](https://tcarneirop.github.io/pictures/performance.png){: height=50 width=50};
+<img src="https://tcarneirop.github.io/pictures/performance.png" width="50%" class="center">
 
-![Productivity](https://tcarneirop.github.io/pictures/prod.png){: height=50 width=50};
-
+<img src="https://tcarneirop.github.io/pictures/prod.png" width="50%" class="center">
 
 ## Productivity results of using Chapel for heuristic optimization:
 
 Illustration of the trade-off between relative cost and relative performance of three languages compared to the reference one. In the graph, the arrows point to the desired productivity region (DPR). The trade-off between relative cost and relative performance of Chapel, Julia, and Python compared to the reference implementation. In the graph, the desired productivity region (DPR) is on point 1.2.33. For more details, see [Gmys et al. (2020)](https://doi.org/10.1016/j.swevo.2020.100720).
 
-![Productivity](https://tcarneirop.github.io/pictures/desired.png){: height=50 width=50};
+<img src="https://tcarneirop.github.io/pictures/desired.png" width="50%" class="center">
+
 
 
 ## Publications:
