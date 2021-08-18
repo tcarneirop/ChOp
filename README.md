@@ -1,10 +1,14 @@
 # ChOp - Chapel-based Optimization 
 
+The objective of the ChOp project to design and implement large-scale distributed optimization algorithms taking into account CPU-GPU heterogeneity, but also achieving high productivity and parallel efficiency. The prototypes are programmed to enumerate all feasible and complete configurations of the N-Queens. The final versions of the distributed algorithms solve to the optimality  instances of combinatorial optimization problems, such as the flow-shop scheduling and the ATSP. This study is pioneering within the context of parallel exact optimization.
 
-The objective of this research project is to design and implement large-scale distributed optimization algorithms taking into account CPU-GPU heterogeneity, but also achieving high-productivity and parallel efficiency. 
+## Overview of the algorithm: 
+The locale 0 (master) is responsible for generating the distribute pool Pd and controlling the search. Each worker locale receives nodes from the master and generates a local pool that is partitioned into CPU and GPU portions. L locales are launched on L-1 computer nodes.
+
+![master locale](https://tcarneirop.github.io/pictures/overview.png)
 
 
-### Publications:
+## Publications:
 - Carneiro, T.; Melab, N.; Hayashi, A.; Sarkar, V. [Towards Chapel-based Exascale Tree Search Algorithms: dealing withmultiple GPU accelerators](https://hal.archives-ouvertes.fr/hal-03149394/document). In: The International Conference on High Performance Computing & Simulation - HPCS2020 (2021). [HPCS 2020 Outstanding Paper Award nominee](http://hpcs2020.cisedu.info/2-conference/outstanding-paper-poster-awards).
  
 - Carneiro, T.; Gmys, J.; Melab, N.; Tuyttens, D. [Towards Ultra-scale Branch-and-Bound Using a High-productivity Lan-guage](https://doi.org/10.1016/J.future.2019.11.011). Future Generation Computer Systems, 105: 196-209 (2020). DOI: 10.1016/J.future.2019.11.011.
