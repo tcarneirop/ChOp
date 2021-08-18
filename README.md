@@ -16,8 +16,8 @@ The locale 0 (master) is responsible for generating the distribute pool Pd and c
 
 84% of the linear speedup vs. the same application on one computer node. 74% of the linear speedup vs. the optimized baseline in CUDA on one computer node.  [See Carneiro et al. (2021)](https://hal.archives-ouvertes.fr/hal-03149394/document).
 
-![New results](https://tcarneirop.github.io/pictures/new.png){: height=50 width=50};
 
+<img src="https://tcarneirop.github.io/pictures/new.png" width="50%" class="center">
 
 ## Some productivity/performance results of using Chapel for distributed exact optimization vs MPI+Cpp, flow-shop scheduling problem: 
 
