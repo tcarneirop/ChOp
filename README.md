@@ -6,7 +6,6 @@ The objective of the ChOp project to design and implement large-scale distribute
 ## Overview of the algorithm: 
 The locale 0 (master) is responsible for generating the distribute pool Pd and controlling the search. Each worker locale receives nodes from the master and generates a local pool that is partitioned into CPU and GPU portions. L locales are launched on L-1 computer nodes.
 
-![Master-worker](https://tcarneirop.github.io/pictures/overview.png){width=50%}
 
 <img src="https://tcarneirop.github.io/pictures/overview.png" width="50%">
 
