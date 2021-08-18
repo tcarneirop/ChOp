@@ -6,7 +6,7 @@ The objective of the ChOp project to design and implement large-scale distribute
 ## Overview of the algorithm: 
 The locale 0 (master) is responsible for generating the distribute pool Pd and controlling the search. Each worker locale receives nodes from the master and generates a local pool that is partitioned into CPU and GPU portions. L locales are launched on L-1 computer nodes.
 
-![Master-worker](https://tcarneirop.github.io/pictures/overview.png){height="50%" width="50%"}
+![Master-worker](https://tcarneirop.github.io/pictures/overview.png){:height="50%" width="50%"}
 
 
 
@@ -16,23 +16,23 @@ The locale 0 (master) is responsible for generating the distribute pool Pd and c
 
 84% of the linear speedup vs. the same application on one computer node. 74% of the linear speedup vs. the optimized baseline in CUDA on one computer node.  [See Carneiro et al. (2021)](https://hal.archives-ouvertes.fr/hal-03149394/document).
 
-![New results](https://tcarneirop.github.io/pictures/new.png){height="50%" width="50%"}
+![New results](https://tcarneirop.github.io/pictures/new.png){:height="50%" width="50%"}
 
 
 ## Some productivity/performance results of using Chapel for distributed exact optimization vs MPI+Cpp, flow-shop scheduling problem: 
 
 Execution times of Chapel-BB solving to the optimality Taillard instances ta21-30. The execution time is given relative to the MPI-PBB baseline. Next, normalized the productivity achieved by Chapel compared to its counterpart written in MPI+Cpp. Experiments executed on 1 (32 cores) to 32 nodes (1024 cores). For more details, see [Carneiro et al. (2020)](https://www.sciencedirect.com/science/article/pii/S0167739X1930946X).
 
-![Execution time](https://tcarneirop.github.io/pictures/performance.png){height="50%" width="50%"}
+![Execution time](https://tcarneirop.github.io/pictures/performance.png){:height="50%" width="50%"}
 
-![Productivity](https://tcarneirop.github.io/pictures/prod.png){height="50%" width="50%"}
+![Productivity](https://tcarneirop.github.io/pictures/prod.png){:height="50%" width="50%"}
 
 
 ## Productivity results of using Chapel for heuristic optimization:
 
 Illustration of the trade-off between relative cost and relative performance of three languages compared to the reference one. In the graph, the arrows point to the desired productivity region (DPR). The trade-off between relative cost and relative performance of Chapel, Julia, and Python compared to the reference implementation. In the graph, the desired productivity region (DPR) is on point 1.2.33. For more details, see [Gmys et al. (2020)](https://doi.org/10.1016/j.swevo.2020.100720).
 
-![Productivity](https://tcarneirop.github.io/pictures/desired.png){height="50%" width="50%"}
+![Productivity](https://tcarneirop.github.io/pictures/desired.png){:height="50%" width="50%"}
 
 
 ## Publications:
