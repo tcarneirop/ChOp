@@ -163,6 +163,8 @@ var DISTGPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
 	}
 	else{
 
+
+////HERE!
 		writeln("Single Locale");
 		forall i in GPU(0..#(n_explorers:int), GPUWrapper, CPUP){
 			
