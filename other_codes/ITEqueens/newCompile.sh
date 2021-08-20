@@ -15,8 +15,8 @@ echo " ### end of CUDA compilation ### "
 echo " ### starting compilation ### "
 # -s debugDistributedIters=true 
 #chpl -L. -ladd -M modules --fast -s timeDistributedIters=true implementation/fsp_gen.c implementation/simple_bound.c implementation/johnson_bound.c implementation/aux.c main.chpl -o  fsp.out
-#chpl -Llibs -lite -lutil -lGPUAPI -M modules -M ${GPUITE_HOME}/src --fast -s timeDistributedIters=true -s infoDistributedIters=true -s debugGPUIterator=true -s disableMultiGPUs=true ${GPUITE_HOME}/src/GPUAPI.h newMain.chpl -o  newQueens.out
-chpl -Llibs -lite -lutil -lGPUAPI -M modules -M ${GPUITE_HOME}/src --fast -s timeDistributedIters=true -s infoDistributedIters=true ${GPUITE_HOME}/src/GPUAPI.h DynamicMain.chpl -o  dynamicMain.out
+chpl -Llibs -lite -lutil -lGPUAPI -M modules -M ${GPUITE_HOME}/src --fast -s timeDistributedIters=true -s infoDistributedIters=true -s debugGPUIterator=true -s disableMultiGPUs=true ${GPUITE_HOME}/src/GPUAPI.h newMain.chpl -o newQueens.out
+#chpl -Llibs -lite -lutil -lGPUAPI -M modules -M ${GPUITE_HOME}/src --fast -s timeDistributedIters=true -s infoDistributedIters=true ${GPUITE_HOME}/src/GPUAPI.h DynamicMain.chpl -o  dynamicMain.out
 
 #source export.sh 
 
