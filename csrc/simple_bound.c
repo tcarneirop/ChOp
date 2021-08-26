@@ -4,6 +4,11 @@
 #include <limits.h>
 #include <stdlib.h>
 
+int c_temps[_MAX_S_MCHN_*_MAX_S_JOBS_];
+int minTempsDep_s[_MAX_S_MCHN_];//read only
+int minTempsArr_s[_MAX_S_MCHN_];//read only -- fill once and fire
+
+
 
 int evalsolution(const int permutation[],const int machines, const int jobs, 
     const int *times){
@@ -34,14 +39,14 @@ int evalsolution(const int permutation[],const int machines, const int jobs,
 
 
 void scheduleBack(int *permut, int limit2, const int machines, const int jobs,
-     int *minTempsDep, int* back, const int *times){
+     int *minTempsDep_s, int* back, const int *times){
 
 
     int job;
 
     if(limit2==jobs){
         for(int i=0;i<machines;i++)
-            back[i]=minTempsDep[i];//minArrive[i];
+            back[i]=minTempsDep_s[i];//minArrive[i];
         return;
     }
 
@@ -65,7 +70,7 @@ void scheduleBack(int *permut, int limit2, const int machines, const int jobs,
 
 
 void scheduleFront(int *permut, int limit1,int limit2, 
-    const int machines, const int jobs, int *minTempsArr, 
+    const int machines, const int jobs, int *minTempsArr_s, 
     int *front, const int *times){
 
 
@@ -73,7 +78,7 @@ void scheduleFront(int *permut, int limit1,int limit2,
 
     if(limit1==-1){
         for(int i=0;i<machines;i++)
-            front[i]=minTempsArr[i];//minRelease[i];
+            front[i]=minTempsArr_s[i];//minRelease[i];
         return;
     }
 
@@ -120,14 +125,14 @@ void sumUnscheduled(const int *permut, int limit1, int limit2,
 
 int simple_bornes_calculer(int permutation[], int limite1, int limite2, 
     const int machines, const int jobs, int *remain, int *front, 
-     int *back, int *minTempsArr, int *minTempsDep, const int *times){
+     int *back, int *minTempsArr_s, int *minTempsDep_s, const int *times){
 
 
 
     //scheduleFront(permutation, limite1, limite2);
 
-    scheduleFront(permutation, limite1, limite2, machines, jobs, minTempsArr, front, times);
-    scheduleBack(permutation, limite2, machines, jobs, minTempsDep, back, times);
+    scheduleFront(permutation, limite1, limite2, machines, jobs, minTempsArr_s, front, times);
+    scheduleBack(permutation, limite2, machines, jobs, minTempsDep_s, back, times);
     sumUnscheduled(permutation, limite1, limite2, machines, jobs, remain, times);
 
     //sumUnscheduled(permutation, limite1, limite2);
@@ -168,8 +173,8 @@ void simple_bound_search(int machines, int jobs, int *times){
     //int incumbent = 1713;
     register int p1;
 
-    int minTempsDep[machines];//read only
-    int minTempsArr[machines];//read only -- fill once and fire
+    int minTempsDep_s[machines];//read only
+    int minTempsArr_s[machines];//read only -- fill once and fire
 
     int front[machines];//private could be inside the heap -- insithe the bounding func
     int back[machines];//private
@@ -181,7 +186,7 @@ void simple_bound_search(int machines, int jobs, int *times){
     int position[jobs];//position -- swap stuff:
 
  
-    remplirTempsArriverDepart(minTempsArr, minTempsDep, machines,jobs,times);
+    remplirTempsArriverDepart(minTempsArr_s, minTempsDep_s, machines,jobs,times);
 
     start_vector(position,jobs);
     start_vector(permutation,jobs);
@@ -210,7 +215,7 @@ void simple_bound_search(int machines, int jobs, int *times){
 
                     lowerbound = simple_bornes_calculer(permutation, depth, jobs,
                          machines, jobs, remain, front, back, 
-                         minTempsArr, minTempsDep, times);
+                         minTempsArr_s, minTempsDep_s, times);
                     
                     if(lowerbound<incumbent){//is it feasible
 

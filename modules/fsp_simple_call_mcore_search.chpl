@@ -40,7 +40,7 @@ module fsp_simple_call_mcore_search{
         global_ub.write(upper_bound);
 
         //start read-only data
-        remplirTempsArriverDepart(minTempsArr, minTempsDep, 
+        remplirTempsArriverDepart(minTempsArr_s, minTempsDep_s, 
             machines,jobs,times);
     	//initial search. Maybe, we need to parallelize it
     	metrics += fsp_simple_prefix_generation(machines,jobs,
@@ -97,7 +97,7 @@ module fsp_simple_call_mcore_search{
         final.clear();
         initial.clear();
     	
-	}//Call serial search
+	}//Call mcore search
 
 	
 

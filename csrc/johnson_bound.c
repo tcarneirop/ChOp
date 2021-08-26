@@ -9,12 +9,12 @@
 #define _somme_  (((machines)*(machines-1))/2)
 
 //not in the heap -- initi and then read only
-extern int tempsLag[_MAX_SOMME_*_MAX_J_JOBS_];
-extern int machine[2*_MAX_SOMME_];
-extern int tabJohnson[_MAX_SOMME_*_MAX_J_JOBS_];
+int tempsLag[_MAX_SOMME_*_MAX_J_JOBS_];
+int machine[2*_MAX_SOMME_];
+int tabJohnson[_MAX_SOMME_*_MAX_J_JOBS_];
 
-extern int minTempsDep[_MAX_MCHN_];//read only
-extern int minTempsArr[_MAX_MCHN_];//read only -- fill once and fire
+int minTempsDep[_MAX_MCHN_];//read only
+int minTempsArr[_MAX_MCHN_];//read only -- fill once and fire
 
 
 //temp ...

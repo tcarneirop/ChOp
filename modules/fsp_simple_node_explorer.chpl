@@ -63,7 +63,7 @@ module fsp_simple_node_explorer{
 
                     lowerbound = simple_bornes_calculer(permutation, depth, jobs,
                          machines, jobs, c_ptrTo(remain), c_ptrTo(front), c_ptrTo(back), 
-                         minTempsArr, minTempsDep, times);
+                         minTempsArr_s, minTempsDep_s, times);
 
                     if(lowerbound<incumbent){
 

@@ -66,7 +66,7 @@ module fsp_simple_serial{
 
 
 		//fsp init
-		remplirTempsArriverDepart(minTempsArr, minTempsDep, machines,jobs,times);
+		remplirTempsArriverDepart(minTempsArr_s, minTempsDep_s, machines,jobs,times);
   		//start_vector(c_ptrTo(position),jobs);
     	//start_vector(c_ptrTo(permutation),jobs);
 		
@@ -89,7 +89,7 @@ module fsp_simple_serial{
 
                     lowerbound = simple_bornes_calculer(c_ptrTo(permutation), depth, jobs,
                          machines, jobs, c_ptrTo(remain), c_ptrTo(front), c_ptrTo(back), 
-                         minTempsArr, minTempsDep, times);
+                         minTempsArr_s, minTempsDep_s, times);
 
                     if(lowerbound<incumbent){
 

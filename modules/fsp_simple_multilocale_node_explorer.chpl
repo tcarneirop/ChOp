@@ -54,7 +54,7 @@ module fsp_simple_multilocale_node_explorer{
 
                     lowerbound = simple_bornes_calculer(c_ptrTo(permutation), depth, jobs,
                          machines, jobs, c_ptrTo(remain), c_ptrTo(front), c_ptrTo(back), 
-                         minTempsArr, minTempsDep, c_temps);
+                         minTempsArr_s, minTempsDep_s, c_temps);
 
                     if(lowerbound<incumbent){
 
@@ -136,7 +136,7 @@ module fsp_simple_multilocale_node_explorer{
 
                     lowerbound = simple_bornes_calculer(c_ptrTo(permutation), depth, jobs,
                          machines, jobs, c_ptrTo(remain), c_ptrTo(front), c_ptrTo(back), 
-                         minTempsArr, minTempsDep, c_temps);
+                         minTempsArr_s, minTempsDep_s, c_temps);
 
                     if(lowerbound<incumbent){
 
@@ -216,7 +216,7 @@ module fsp_simple_multilocale_node_explorer{
 
                     lowerbound = simple_bornes_calculer(c_ptrTo(permutation), depth, jobs,
                          machines, jobs, c_ptrTo(remain), c_ptrTo(front), c_ptrTo(back), 
-                         minTempsArr, minTempsDep, c_temps);
+                         minTempsArr_s, minTempsDep_s, c_temps);
 
                     if(lowerbound<incumbent){
 

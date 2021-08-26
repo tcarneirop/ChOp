@@ -52,7 +52,7 @@ module fsp_simple_improved_prefix_gen{
 
                     lowerbound = simple_bornes_calculer(c_ptrTo(permutation), depth, jobs,
                          machines, jobs, c_ptrTo(remain), c_ptrTo(front), c_ptrTo(back), 
-                         minTempsArr, minTempsDep, c_temps);
+                         minTempsArr_s, minTempsDep_s, c_temps);
 
                     if(lowerbound<incumbent){
 

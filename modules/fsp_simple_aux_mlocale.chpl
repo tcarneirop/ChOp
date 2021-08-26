@@ -24,7 +24,7 @@ module fsp_simple_aux_mlocale{
 
     	coforall loc in Locales do{
   			on loc do{//but locale one -- let's put it
-        		remplirTempsArriverDepart(minTempsArr,minTempsDep, machines, jobs, c_temps);
+        		remplirTempsArriverDepart(minTempsArr_s,minTempsDep_s, machines, jobs, c_temps);
         		
     		}
     	}
@@ -49,7 +49,7 @@ module fsp_simple_aux_mlocale{
             on loc do{//but locale one -- let's put it
             	writeln("MinTempsArr on Locale #", here.id);
                 for i in 0..machines-1 do
-                    writeln(minTempsArr[i]);
+                    writeln(minTempsArr_s[i]);
                 writeln("\n\n\n");
             }
         }
@@ -62,7 +62,7 @@ module fsp_simple_aux_mlocale{
             on loc do{//but locale one -- let's put it
             	writeln("MinTempsDep on Locale #", here.id);
                 for i in 0..machines-1 do
-                    writeln(minTempsDep[i]);
+                    writeln(minTempsDep_s[i]);
                 writeln("\n\n\n");
             }
         }
