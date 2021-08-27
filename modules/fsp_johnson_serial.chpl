@@ -90,7 +90,7 @@ module fsp_johnson_serial{
                         depth +=1;
                         tree_size+=1;
 
-                        if (depth == jobs && lowerbound < incumbent){           
+                        if (depth == jobs && lowerbound < incumbent){   //it is a complete solution        
                             num_sols+=1;
                             incumbent = lowerbound;
                             writeln("\nIncumbent of number ", num_sols, " found.\n\t","Cost: " ,incumbent, "\n");
