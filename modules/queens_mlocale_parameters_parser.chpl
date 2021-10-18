@@ -21,35 +21,6 @@ module queens_mlocale_parameters_parser{
 
 		
 		writeln("###### QUEENS IMPROVED MLOCALE ######");
-
-			/////	ATENCAO -- Mlocale nao ta funcionando nao.
-
-				//I would like to know what happens when the locale receives the chunk.
-				//the follower -- leader stuff.
-				//I would like to do such a thing: idx in distributedGPU --> the node instead of executing 
-				//the function once for each node, to run the function for the four nodes, generating the
-				//pool, e.g., the union of |chunk| pools.
-				
-				//moreover, why does Locale 0 always have the biggest load? 
-				//if we increase the load, ok, is less noticeable
-				//however there is something there...
-
-				//-- I believe that using the coordinator is better not because of the coordinator itself, but
-				//because this behavior is modified. 
-
-				//"static" -- ask
-
-				//QUESTION: How does it work if I just have GPUs?
-				//Why do I see high core usage percentage? Does the reduction is performed in parallel? 
-				//@todo: - I need to correct the single-gpu metrics + time
-				// 		 - I need to make it multi-gpu + single locale
-				//@todo2:
-				//		 - Now I also must do this: is I need to create a new locale if I ask mgpu + coordinated.
-				// Acho que o algoritmo ta perdendo MUITO tempo gerando o segundo nivel... PENSAR
-				// Outra coisa -- Eu to criando um processo por GPU. Tem muita conversa ai, nao vai escalar. 
-				//outra coisa -- as vezes as gpus terminam e nao tem carga!!! A CPU fica presa com essa carga -- eh o problema central!
-				//@todo3: I must put the gpu options for other iterators. Maybe guided would be good in such a situation
-				//@todo4: This way I can put the progress bar.
 		
 		if(queens_checkPointer){
 			checkpt.start();

@@ -12,8 +12,6 @@ CUDA_LIB_DIR := $(CUDA_PATH)/lib
 LIBRARY_DIR := ./libs
 C_SOURCES := $(shell find $(C_SRC_DIR) -name '*.c')
 
-#LDFLAGS += $(addprefix -L,$(LIBRARY_DIR)) -L$(CULIB)
-
 CHPL_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true 
 
 
