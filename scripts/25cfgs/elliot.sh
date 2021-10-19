@@ -17,6 +17,11 @@ setupChplenv() {
     export PATH="$PATH":"$CHPL_HOME/bin/$CHPL_BIN_SUBDIR:$CHPL_HOME/util"
   fi
 
+  export CHPL_LLVM=bundled
+  export CHOP_HOME=~/ChOp-main
+  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$CHOP_HOME"/libs
+
+
   # use gasnet-ofi -- from the psm docs "Users of Intel(R) Omni-Path Fabric are
   # recommended to use ofi-conduit"
   export CHPL_COMM='gasnet'
@@ -93,3 +98,4 @@ reserveNodes() {
 }
 
 setupChplenv
+buildChpl

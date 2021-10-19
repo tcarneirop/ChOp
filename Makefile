@@ -15,7 +15,7 @@ C_SOURCES := $(shell find $(C_SRC_DIR) -name '*.c')
 CHPL_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true 
 
 
-chapel: cuda
+chapel: cuda dir
 	@echo 
 	@echo " ### Building the Chapel code... ### "
 	@echo 
@@ -26,13 +26,19 @@ chapel: cuda
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)
 
-cuda: 
+cuda: dir
 	@echo 
 	@echo " ### starting CUDA compilation ### "
 	@echo 
 	$(CUDA_PATH)/bin/nvcc --shared -o $(LIBRARY_DIR)/libqueens.so $(CUDA_SRC_DIR)/GPU_queens_kernels.cu  --compiler-options '-fPIC -O3' -I$(CUDA_INCLUDE_DIR) -L$(CUDA_LIB_DIR) -lcudart
 	$(CUDA_PATH)/bin/nvcc --shared -o $(LIBRARY_DIR)/libutil.so $(CUDA_SRC_DIR)/GPU_aux.cu  --compiler-options '-fPIC -O3' -I$(CUDA_INCLUDE_DIR) -L$(CUDA_LIB_DIR) -lcudart
-	
+
+dir:
+	@echo 
+	@echo " ### creating directories ### "
+	@echo 
+	mkdir $(LIBRARY_DIR)
+	mkdir $(BUILD_DIR)
 
 .PHONY: clean
 clean:
