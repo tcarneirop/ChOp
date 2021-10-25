@@ -5,7 +5,7 @@ CUDA_SRC_DIR := ./kernels
 C_SRC_DIR := ./csrc
 CHPL_MODULES_DIR := ./modules
 CUDA_PATH := /usr/local/cuda
-CULIB := $(CUDA_PATH)lib64
+CULIB := $(CUDA_PATH)/lib64
 
 CUDA_INCLUDE_DIR := $(CUDA_PATH)/include
 CUDA_LIB_DIR := $(CUDA_PATH)/lib
@@ -37,8 +37,8 @@ dir:
 	@echo 
 	@echo " ### creating directories ### "
 	@echo 
-	mkdir $(LIBRARY_DIR)
-	mkdir $(BUILD_DIR)
+	mkdir -p $(LIBRARY_DIR)
+	mkdir -p $(BUILD_DIR)
 
 .PHONY: clean
 clean:

@@ -145,7 +145,7 @@ var DISTGPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
   		writeln("value: ", i, ". \n");
   	}
 
-	writeln("\nSize: ", size, " Survivors: ", n_explorers);        
+	writeln("\nSize: ", size,"\nInitial depth: ", initial_depth," Survivors: ", n_explorers);                
 
 	var num_gpus = GPU_device_count();
 
