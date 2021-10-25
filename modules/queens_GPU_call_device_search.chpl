@@ -8,7 +8,9 @@ module queens_GPU_call_device_search{
 	use DynamicIters;
 	use Math;
 	use CPtr;
-	
+
+	config param CPUGPUVerbose: bool = false;
+
 	require "headers/GPU_queens.h";
 
 
@@ -33,49 +35,69 @@ module queens_GPU_call_device_search{
 
 		//@question: should we use forall or coforall?
 
+		if(cpu_load == 0){
 
-
-		cobegin with (ref metrics){
-
-			if cpu_load > 0 {
-				
-				//writeln("CPUP: ", CPUP);
-				//writeln("num_pref_gpu: ", cpu_load);
-				//writeln("Remaining nodes: ", new_num_prefixes);
-				//writeln("Starting position for GPU: ", cpu_load+1);
-				
-				//writeln("Going on CPU");
-				
-				forall idx in dynamic(0..(cpu_load:int), chunk) with (+ reduce metrics ) do {     
-					metrics +=  queens_subtree_explorer(size,depth,local_active_set[idx:uint]);	
-				}
-				
-				//writeln("End of the CPU search.");
-
-			}//
-
-			//two statements, two tasks
+			
 			forall gpu_id in 0..#num_gpus:c_int do{
 
-				var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
+					var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
+					
+					var starting_position = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint, 
+						gpu_id:c_uint, num_gpus:c_uint, cpu_load:c_uint);
+
+					var sol_ptr : c_ptr(c_uint) = c_ptrTo(sols_h) + starting_position;
+					var tree_ptr : c_ptr(c_uint) = c_ptrTo(vector_of_tree_size_h) + starting_position;
+					var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
+
+					if(CPUGPUVerbose) then 
+						writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
+					
+					GPU_call_cuda_queens(size, depth, gpu_load:c_uint, 
+						nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
+					
+				}//end of gpu search
+
+		}
+		else{
+			cobegin with (ref metrics){
 				
-				var starting_position = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint, 
-					gpu_id:c_uint, num_gpus:c_uint, cpu_load:c_uint);
+				{
+					if(CPUGPUVerbose){
+						writeln("CPUP: ", CPUP);
+						writeln("num_pref_gpu: ", cpu_load);
+						writeln("Remaining nodes: ", new_num_prefixes);
+						writeln("Starting position for GPU: ", cpu_load+1);
+						writeln("Going on CPU");
+					}
+					
+					forall idx in dynamic(0..(cpu_load:int), chunk) with (+ reduce metrics ) do {     
+						metrics +=  queens_subtree_explorer(size,depth,local_active_set[idx:uint]);	
+					}
+					if(CPUGPUVerbose) then writeln("End of the CPU search.");
 
-				var sol_ptr : c_ptr(c_uint) = c_ptrTo(sols_h) + starting_position;
-				var tree_ptr : c_ptr(c_uint) = c_ptrTo(vector_of_tree_size_h) + starting_position;
-				var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
+				}
 
-				writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
-				GPU_call_cuda_queens(size, depth, gpu_load:c_uint, 
-					nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
-				
-			}//end of gpu search
+				//two statements, two tasks
+				forall gpu_id in 0..#num_gpus:c_int do{
 
-		}//end of cobegin
+					var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
+					
+					var starting_position = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint, 
+						gpu_id:c_uint, num_gpus:c_uint, cpu_load:c_uint);
 
+					var sol_ptr : c_ptr(c_uint) = c_ptrTo(sols_h) + starting_position;
+					var tree_ptr : c_ptr(c_uint) = c_ptrTo(vector_of_tree_size_h) + starting_position;
+					var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
 
+					if(CPUGPUVerbose) then 
+						writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
+					GPU_call_cuda_queens(size, depth, gpu_load:c_uint, 
+						nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
+					
+				}//end of gpu search
 
+			}//end of cobegin
+		}//else
 
 
 		//writeln("END OF THE SEARCH!");
