@@ -90,11 +90,6 @@ proc main(){
 					fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
 						lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
 				}
-				when "initial"{
-					writeln("### CHPL-SIMPLE Initial search and PGAS data distribution ###ONLY###.\n\n");
-					fsp_simple_call_initial_search(initial_depth,upper_bound,scheduler,lchunk,
-						num_threads,profiler,atype,instance);
-				}
 				otherwise{
 					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 				}
@@ -116,11 +111,6 @@ proc main(){
 					fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
 						lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
 				}//johnson improved
-				when "initial"{
-					writeln("### CHPL-Johnson Initial search and PGAS data distribution ###ONLY###.\n\n");
-					fsp_johnson_call_initial_search(initial_depth,upper_bound,scheduler,lchunk,
-						num_threads,profiler,atype,instance);
-				}//initial only
 				otherwise{
 					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 				}
@@ -139,24 +129,18 @@ proc main(){
 					queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
 				}
 				when "improved"{
-					//@Todo
-					//We need to clean this... 
 					select mlsearch{
 						when "mlgpu"{
 							writeln("--- N-Queens Multi-GPU search --- \n\n");
 						}
 						otherwise{
-							writeln("--- N-Queens multi-locale search --- \n\n");
+							halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 						}///
 					}///mode
 					queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 								lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
 								real_number_computers, CPUP, num_gpus);
 				}//improved
-				when "qinitial"{
-					writeln("--- N-Queens serial search --- \n\n");
-					queens_call_initial_search(size, initial_depth,number_exec,profiler);
-				}//mgpu is single-locale mgpu
 				when "mgpu"{
 					writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
 					GPU_queens_call_search(size,initial_depth,CPUP,lchunk);

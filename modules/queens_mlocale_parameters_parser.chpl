@@ -18,7 +18,6 @@ module queens_mlocale_parameters_parser{
 		const lchunk: int, const mlchunk: int, const slchunk: int, const flag_coordinated: bool = false,
 		ref distributed_active_set: [] queens_node, const Space: domain, ref metrics,
 		ref tree_each_locale: [] uint(64),const pgas: bool, ref GPU_id: [] int, const CPUP: real){
-
 		
 		writeln("###### QUEENS IMPROVED MLOCALE ######");
 		
@@ -29,6 +28,7 @@ module queens_mlocale_parameters_parser{
 	  	}////
 
 		select scheduler{
+
 			when "static" {
 				if(!pgas){
 					halt("### ERROR ERROR ###\n\t PGAS must be true for using static mlocale load distribution ### ");
