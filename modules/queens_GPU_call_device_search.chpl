@@ -33,6 +33,8 @@ module queens_GPU_call_device_search{
 
 		//@question: should we use forall or coforall?
 
+
+
 		cobegin with (ref metrics){
 
 			if cpu_load > 0 {
@@ -64,7 +66,7 @@ module queens_GPU_call_device_search{
 				var tree_ptr : c_ptr(c_uint) = c_ptrTo(vector_of_tree_size_h) + starting_position;
 				var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
 
-				//writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
+				writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
 				GPU_call_cuda_queens(size, depth, gpu_load:c_uint, 
 					nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
 				
@@ -72,7 +74,11 @@ module queens_GPU_call_device_search{
 
 		}//end of cobegin
 
-		//writeln("END OF SEARCH!");
+
+
+
+
+		//writeln("END OF THE SEARCH!");
 
 		
 		var redTree = (+ reduce vector_of_tree_size_h):uint(64);

@@ -24,7 +24,7 @@ use GPU_mlocale_utils;
 use parameters_record;
 
 //Variables from the command line
-config const initial_depth: c_int = 4;
+config const initial_depth: c_int = 2;
 config const second_depth:  c_int = 7;
 config const size: uint(16) = 12; //queens
 
@@ -85,11 +85,6 @@ proc main(){
 					writeln(" --- CHPL-SIMPLE mcore search --- \n\n");
 					fsp_simple_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
 				}
-				when "mlocale"{
-					writeln("CHPL-SIMPLE multi-locale search\n\n"); //@TODO: remove this.
-					//fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,lchunk,
-					//	num_threads,profiler,atype,instance,mode);
-				}
 				when "improved"{
 					writeln("--- CHPL-SIMPLE IMPROVED multi-locale search --- \n");
 					fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
@@ -116,11 +111,6 @@ proc main(){
 					writeln("--- CHPL-Johnson mcore search --- \n\n");
 					fsp_johnson_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
 				}//mcode
-				when "mlocale"{
-					writeln("CHPL-Johnson multi-locale search\n\n");  //@TODO: remove this.
-					// fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,chunk,
-					// 	num_threads,profiler,atype,instance,mode);
-				}//default mlocale
 				when "improved"{
 					writeln("--- CHPL-Johnson IMPROVED multi-locale search --- \n");
 					fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
