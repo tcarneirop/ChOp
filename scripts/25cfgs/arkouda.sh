@@ -1,4 +1,4 @@
-export CHPL_HOME=~/chapel-1.25.0
+export CHPL_HOME=~/chapel-1.22.0
 
 
 # Add chpl to PATH
