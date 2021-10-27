@@ -12,7 +12,7 @@ CUDA_LIB_DIR := $(CUDA_PATH)/lib
 LIBRARY_DIR := ./libs
 C_SOURCES := $(shell find $(C_SRC_DIR) -name '*.c')
 
-CHPL_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true -s CPUGPUVerbose=false
+CHPL_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true -s CPUGPUVerbose=true
 
 
 chapel: cuda dir
