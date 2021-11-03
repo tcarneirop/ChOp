@@ -129,17 +129,12 @@ proc main(){
 					queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
 				}
 				when "improved"{
-					select mlsearch{
-						when "mlgpu"{
-							writeln("--- N-Queens Multi-GPU search --- \n\n");
-						}
-						otherwise{
-							halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
-						}///
-					}///mode
-					queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
+				
+						writeln("--- N-Queens  --- ", mlsearch ,"\n\n");
+						queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 								lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
 								real_number_computers, CPUP, num_gpus);
+					
 				}//improved
 				when "mgpu"{
 					writeln("--- N-Queens multi-GPU search - single locale --- \n\n");

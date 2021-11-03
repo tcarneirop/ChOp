@@ -33,7 +33,6 @@ module queens_GPU_call_intermediate_search{
 		initial_num_prefixes = metrics[0];//
 		metrics[0] = 0; //restarting for the parallel search_type//
 
-
 		metrics+= queens_GPU_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
 		 initial_num_prefixes, CPUP, chunk);
 	

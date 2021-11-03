@@ -18,8 +18,14 @@ module queens_mlocale_parameters_parser{
 		const lchunk: int, const mlchunk: int, const slchunk: int, const flag_coordinated: bool = false,
 		ref distributed_active_set: [] queens_node, const Space: domain, ref metrics,
 		ref tree_each_locale: [] uint(64),const pgas: bool, ref GPU_id: [] int, const CPUP: real){
+
+		const role_CPU: int = 1;
+		const role_GPU: int = 0;
 		
 		writeln("###### QUEENS IMPROVED MLOCALE ######");
+
+
+
 		
 		if(queens_checkPointer){
 			checkpt.start();
@@ -83,6 +89,7 @@ module queens_mlocale_parameters_parser{
 
 					when "mlgpu"{
 						forall idx in distributedDynamic(c=Space,chunkSize=lchunk,localeChunkSize=mlchunk,coordinated = flag_coordinated) with (+ reduce metrics) do {
+							
 							var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
 								second_depth,slchunk,distributed_active_set[idx],tree_each_locale,
 								GPU_id[here.id], CPUP);
@@ -93,6 +100,33 @@ module queens_mlocale_parameters_parser{
 	                		}//checkpointer
 						}//for  
 					}//mlmgpu
+
+					when "cpugpu"{
+						forall idx in distributedDynamic(c=Space,chunkSize=lchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
+							
+							var role: int = (here.id-flag_coordinated:int)%2;
+							var m1: (uint(64),uint(64));
+							if(role == role_GPU) {
+								//writeln("Going on GPU:");
+								m1 = queens_GPU_call_intermediate_search(size,initial_depth,
+									second_depth, slchunk, distributed_active_set[idx], tree_each_locale,
+									GPU_id[here.id], 0);	
+							}
+							else{
+								//writeln("Going on CPU:");
+								m1 = queens_call_intermediate_search(size,initial_depth,
+								second_depth-2,slchunk,distributed_active_set[idx],tree_each_locale);
+							}
+
+							metrics+=m1;
+							if(queens_checkPointer){
+								checkpt.partial_tree.add(m1[1]);
+	                			checkpt.progress.add(1);
+	                		}//checkpointer
+
+						}//for
+					}//mlocale
+
 					otherwise{
 						 halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 					}//
