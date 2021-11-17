@@ -81,7 +81,7 @@ module queens_GPU_call_device_search{
 
 
 				{
-				//two statements, two tasks
+				//two blocks, two tasks
 
 					if(CPUGPUVerbose){
 						
@@ -110,6 +110,7 @@ module queens_GPU_call_device_search{
 					if(CPUGPUVerbose){
 						writeln("end of the GPU search");
 					}
+  
 
 				}
 
@@ -121,7 +122,7 @@ module queens_GPU_call_device_search{
 			writeln("END OF THE SEARCH!");
 			
 		}
-		halt();
+		
 		var redTree = (+ reduce vector_of_tree_size_h):uint(64);
 		var redSol  = (+ reduce sols_h):uint(64);
 	

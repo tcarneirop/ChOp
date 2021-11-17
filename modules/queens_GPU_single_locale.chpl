@@ -14,8 +14,6 @@ module queens_GPU_single_locale{
 
 
 	use SysCTypes;
-
-
 	   
 	proc GPU_queens_call_search(const size: uint(16), const initial_depth: c_int, const CPUP: real,const lchunk:int){
 

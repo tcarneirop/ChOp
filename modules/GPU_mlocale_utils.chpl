@@ -121,16 +121,21 @@ module GPU_mlocale_utils{
 	/*
 		This fuction is used when the GPUs of the locale are used along with the CPUs;
 	*/
-	proc GPU_mlocale_number_locales_check(const mode: string, const num_gpus_computer: int, 
-		const real_number_computers: int){
+	proc GPU_mlocale_number_locales_check(const mode: string, const real_number_computers: int, const flag_coordinated: int){
+		if(mode == "cpugpu"){
+			var desired_number_locales = 2*real_number_computers+flag_coordinated;
+			
+			writeln("\nReal number of computers: ", real_number_computers,"\nNumber of locales: ", Locales.size, 
+				"\nCoordinated: ", flag_coordinated,"\nCorrect number of locales: ", desired_number_locales );
 
-		var num_locales_computer = if mode == "cpugpu" then num_gpus_computer+1 else num_gpus_computer; //check if the number
-		var desired_number_locales = num_locales_computer*real_number_computers;
-
-		if ((Locales.size != desired_number_locales)) then 
-			halt("Wrong GPU-related nl parameter.");
-		else 
-			writeln("### GPU-related parameter are OK ###\n");
+			if ((Locales.size != desired_number_locales)) then 
+				halt("\n###### Wrong CPU-GPU nl parameter ######");
+			else 
+				writeln("\n### !!! Num locales for the GPU-CPU search is OK !!! ###\n");	
+		}
+		else
+			writeln("\n### !!! Num locales for the GPU-CPU search is OK !!! ###\n");	
+		
 	}////
 
 	//all locales on the same computer must have the same name

@@ -44,6 +44,8 @@ module queens_call_multilocale_search{
         const PrivateSpace: domain(1) dmapped Private();
         var tree_each_locale: [PrivateSpace] uint(64);
         var GPU_id: [PrivateSpace] int;
+        var Locale_role: [PrivateSpace] int;
+   
 
         statistics_all_locales_init_explored_tree(tree_each_locale);
        
@@ -117,18 +119,34 @@ module queens_call_multilocale_search{
             }///fors
         }
         else{
-            if(GPU_device_count()<num_gpus) then
+            if( GPU_device_count()< num_gpus) then
                 halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### NUMBER OF AVAILABLE DEVICES < NUM_GPUS ######");
             
+            //says that each locale must use x gpus
             writeln("\n # Number of GPUs : ", num_gpus ," #");
             for loc in Locales do{
                 on loc do{
                     GPU_id[here.id] = num_gpus:int;                               
                 }//on loc
-            }///fors
+            }///for
         }
         writeln("# GPU Vector: ", GPU_id, " #");
-  
+
+        GPU_mlocale_number_locales_check(mlsearch, real_number_computers, coordinated:int);
+        for loc in Locales do{
+            on loc do{
+                if(here.id == 0 && coordinated==true){
+                    writeln("Coordinator: ", here.id," - ", here.name,"\n");
+
+                }
+                else{
+                    Locale_role[here.id] = (here.id-coordinated:int)%2;
+                    writeln("Locale: ", here.name," - " ,here.id,"\n\tRole: ", Locale_role[here.id]);
+                }
+            }///
+        }///
+     
+          
         //PROFILER
         if(profiler){
             tagVdebug(scheduler);//profiler
@@ -137,7 +155,7 @@ module queens_call_multilocale_search{
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
         final.start();
-        writeln("#### Nodes to explore: ", initial_num_prefixes);
+        writeln("\n\n\n#### Nodes to explore: ", initial_num_prefixes);
         //Launching the search
         //(i)
         if pgas then
