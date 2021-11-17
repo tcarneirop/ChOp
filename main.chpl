@@ -55,7 +55,7 @@ config const instance: int(8) = 13; //fsp instance
 config const verbose: bool = false; //verbose network communication 
 
 
-config const real_number_computers: int = 1;
+config const computers: int = 1;
 config const num_gpus_computer: int = 0;
 config const mode: string = "improved";
 config const mlsearch: string = "mlocale";
@@ -133,7 +133,7 @@ proc main(){
 						writeln("--- N-Queens  --- ", mlsearch ,"\n\n");
 						queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 								lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
-								real_number_computers, CPUP, num_gpus);
+								computers, CPUP, num_gpus);
 					
 				}//improved
 				when "mgpu"{
