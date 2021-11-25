@@ -44,6 +44,7 @@ record Solution{
 	
 	var inner_organization: (int,int, int, int, int, int, int, int);
 	var parameters: (string,int, int, int, int, int, bool, bool);
+	var cost: int = 0;
 	
 	proc init(){
 
@@ -70,6 +71,8 @@ record Solution{
 			coordinated_vector[inner_organization(6)],
 			pgas_vector[inner_organization(7)]
 		);
+		this.complete();
+		setCost();
 	}//init()
 
 
@@ -85,6 +88,8 @@ record Solution{
 			coordinated_vector[inner_organization(6)],
 			pgas_vector[inner_organization(7)]
 		);
+		this.complete();
+		setCost();
 	}//init()
 
 
@@ -122,8 +127,14 @@ record Solution{
 		return neighbor;
 	}///////
 
-	proc getCost():real{
-		return 0.0;
+	proc setCost(){
+		cost = 0;
+		for i in 0..#num_par do{
+			cost+=inner_organization(i);
+		}
+	}
+	proc getCost():int{
+		return cost;
 	}
 }//solution
 
@@ -147,18 +158,59 @@ record Solution{
 // writeln("New sol: \n", sol);
 
 
+// for par in 0..#num_par do{
+
+//  	var sol = new Solution();
+//  	var neighbor_par_right = sol.inner_organization(par) + 1;
+//  	writeln("\n\n#####################");
+//  	writeln("New sol: \n", sol);
+
+//  	if(neighbor_par_right < num_par_vec[par]){
+ 	
+//  		writeln("\n neighbor parameter right: ", par, " \n");
+//  		var newSolRight = sol.neighbor(par,true,false);
+//  		writeln("\n neighbor right:", newSolRight);
+//  	}else{
+//  		writeln("No Right neighbor for parameter ", par);
+//  	}
+
+//  	var neighbor_par_left = sol.inner_organization(par) - 1;
+ 	
+//  	if(neighbor_par_left >= 0){
+//  		writeln("\n Neighbor parameter Left: ", par, " \n");
+//  		var newSolLeft = sol.neighbor(par,false,true);
+//  		writeln("\nNeighbor Left:", newSolLeft);
+//  	}
+//  	else{
+//  		writeln("\nNo Left neighbor for parameter ", par);
+//  	}
+	
+//  }
+
+//lchunk = (1)
+
+var sol = new Solution();
+var qtd_neighbor: int = 0;
+var ls_cost: int = 0;
+var newSolRight: Solution;
+var newSolLeft: Solution;
+var best_sol: Solution = sol;
+var best_neighbor: Solution;
+var min_sol_cost:int;
+
+writeln("\n\n#####################");
+writeln("Initial sol: \n", sol);
+
 for par in 0..#num_par do{
 
- 	var sol = new Solution();
+
  	var neighbor_par_right = sol.inner_organization(par) + 1;
- 	writeln("\n\n#####################");
- 	writeln("New sol: \n", sol);
 
  	if(neighbor_par_right < num_par_vec[par]){
  	
- 		writeln("\n neighbor parameter right: ", par, " \n");
- 		var newSolRight = sol.neighbor(par,true,false);
- 		writeln("\n neighbor right:", newSolRight);
+ 		//writeln("\n neighbor parameter right: ", par, " \n");
+ 		newSolRight = sol.neighbor(par,true,false);
+ 		//writeln("\n neighbor right:", newSolRight);
  	}else{
  		writeln("No Right neighbor for parameter ", par);
  	}
@@ -166,19 +218,28 @@ for par in 0..#num_par do{
  	var neighbor_par_left = sol.inner_organization(par) - 1;
  	
  	if(neighbor_par_left >= 0){
- 		writeln("\n Neighbor parameter Left: ", par, " \n");
- 		var newSolLeft = sol.neighbor(par,false,true);
- 		writeln("\nNeighbor Left:", newSolLeft);
+ 		//writeln("\n Neighbor parameter Left: ", par, " \n");
+ 		newSolLeft = sol.neighbor(par,false,true);
+ 		//writeln("\nNeighbor Left:", newSolLeft);
  	}
  	else{
  		writeln("\nNo Left neighbor for parameter ", par);
  	}
+
+ 	if(newSolRight.getCost() < newSolLeft.getCost()) then best_neighbor = newSolRight; else best_neighbor = newSolLeft;
+
+ 	if(best_neighbor.getCost()< best_sol.getCost()){
+ 		best_sol = best_neighbor;
+ 	}
 	
  }
 
-//lchunk = (1)
 
 
+writeln("\n\n#####################");
+writeln("Initial Solution: \n", sol);
 
+writeln("\n\n#####################");
+writeln("Local search solution: \n", best_sol);
 
 //----  3*3*3*5*5*2*2 (2700)
