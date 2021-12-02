@@ -63,9 +63,12 @@ module queens_GPU_single_locale{
 		
 		var final_tree_size = initial_tree_size+metrics[1];
 
+		writeln("\n### End of the single-locale Multi-GPU search ###\n");
 		writeln("Final tree size: ", final_tree_size);
+		writeln("\tCPU tree size: ", initial_tree_size);
+		writeln("\tGPU tree size: ", metrics[1]);
 		writeln("Number of solutions: ", metrics[0]);
-		writeln("Elapsed time: ", final.elapsed()+initial.elapsed());
+		writeln("Elapsed time: ", final.elapsed()+initial.elapsed(),"\n\n");
 
 	}//single-locale-single-GPU search
 

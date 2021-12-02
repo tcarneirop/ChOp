@@ -16,8 +16,8 @@ module queens_GPU_call_device_search{
 
 
 	extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint, 
-		root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_uint), 
-		sols_h: c_ptr(c_uint),gpu_id:c_int): void;
+		root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong), 
+		sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
 
 
 	proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depth: c_int, 
@@ -25,8 +25,8 @@ module queens_GPU_call_device_search{
 		const CPUP: real, const chunk: int ): (uint(64), uint(64)){
 	
 
-		var vector_of_tree_size_h: [0..#initial_num_prefixes] c_uint;
-		var sols_h: [0..#initial_num_prefixes] c_uint;
+		var vector_of_tree_size_h: [0..#initial_num_prefixes] c_ulonglong;
+		var sols_h: [0..#initial_num_prefixes] c_ulonglong;
 
 
 		//calculating the CPU load in terms of nodes
@@ -46,8 +46,8 @@ module queens_GPU_call_device_search{
 					var starting_position = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint, 
 						gpu_id:c_uint, num_gpus:c_uint, cpu_load:c_uint);
 
-					var sol_ptr : c_ptr(c_uint) = c_ptrTo(sols_h) + starting_position;
-					var tree_ptr : c_ptr(c_uint) = c_ptrTo(vector_of_tree_size_h) + starting_position;
+					var sol_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;
+					var tree_ptr : c_ptr(c_ulonglong) = c_ptrTo(vector_of_tree_size_h) + starting_position;
 					var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
 
 					if(CPUGPUVerbose) then 
@@ -64,7 +64,7 @@ module queens_GPU_call_device_search{
 			cobegin with (ref metrics){
 				
 				{/////
-					if(CPUGPUVerbose){
+					if(CPUGPUVerbose){//use this variable to see the debug messages
 						writeln("CPUP: ", CPUP);
 						writeln("Going on CPU");
 					}
@@ -98,8 +98,8 @@ module queens_GPU_call_device_search{
 						var starting_position = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint, 
 							gpu_id:c_uint, num_gpus:c_uint, cpu_load:c_uint);
 
-						var sol_ptr : c_ptr(c_uint) = c_ptrTo(sols_h) + starting_position;
-						var tree_ptr : c_ptr(c_uint) = c_ptrTo(vector_of_tree_size_h) + starting_position;
+						var sol_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;
+						var tree_ptr : c_ptr(c_ulonglong) = c_ptrTo(vector_of_tree_size_h) + starting_position;
 						var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
 
 						if(CPUGPUVerbose) then writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);

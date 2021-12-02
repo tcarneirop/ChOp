@@ -11,7 +11,7 @@ typedef struct queen_root{
 extern "C" {
 #endif
 void GPU_call_cuda_queens(short size, int initial_depth, unsigned int n_explorers, QueenRoot *root_prefixes_h, 
-	unsigned int *vector_of_tree_size_h, unsigned int *sols_h);
+	unsigned long long *vector_of_tree_size_h, unsigned long long *sols_h);
 #ifdef __cplusplus
 }
 #endif

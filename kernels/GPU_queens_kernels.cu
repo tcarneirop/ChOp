@@ -42,18 +42,18 @@ __device__  bool GPU_queens_stillLegal(const char *board, const int r){
 
 
 __global__ void BP_queens_root_dfs(int N, unsigned int nPreFixos, int depthPreFixos,
-    QueenRoot *root_prefixes,unsigned int *vector_of_tree_size, unsigned int *sols){
+    QueenRoot *root_prefixes,unsigned long long *vector_of_tree_size, unsigned long long *sols){
 
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx < nPreFixos) {
         register unsigned int flag = 0;
         register unsigned int bit_test = 0;
-        register char vertice[20]; //representa o ciclo
+        char vertice[20]; //representa o ciclo
         register int N_l = N;
         register int i, depth; 
-        register int qtd_solucoes_thread = 0;
+        register unsigned long long qtd_sols_thread = 0;
         register int depthGlobal = depthPreFixos;
-        register unsigned int tree_size = 0;
+        register unsigned long long tree_size = 0;
 
         #pragma unroll 2
         for (i = 0; i < N_l; ++i) {
@@ -85,7 +85,7 @@ __global__ void BP_queens_root_dfs(int N, unsigned int nPreFixos, int depthPreFi
                     depth++;
 
                     if (depth == N_l) { //sol
-                        ++qtd_solucoes_thread; 
+                        ++qtd_sols_thread; 
                     }else continue;
                 }else continue;
 
@@ -94,7 +94,7 @@ __global__ void BP_queens_root_dfs(int N, unsigned int nPreFixos, int depthPreFi
 
             }while(depth >= depthGlobal); //FIM DO DFS_BNB
 
-        sols[idx] = qtd_solucoes_thread;
+        sols[idx] = qtd_sols_thread;
         vector_of_tree_size[idx] = tree_size;
     }//if
 }//kernel
@@ -102,37 +102,33 @@ __global__ void BP_queens_root_dfs(int N, unsigned int nPreFixos, int depthPreFi
 
 
 extern "C" void GPU_call_cuda_queens(short size, int initial_depth, unsigned int n_explorers, QueenRoot *root_prefixes_h ,
-	unsigned int *vector_of_tree_size_h, unsigned int *sols_h, int gpu_id){
+	unsigned long long *vector_of_tree_size_h, unsigned long long *sols_h, int gpu_id){
     
     cudaSetDevice(gpu_id);
    // cudaFuncSetCacheConfig(BP_queens_root_dfs,cudaFuncCachePreferL1);
    
 
-    unsigned int *vector_of_tree_size_d;
-    unsigned int *sols_d;
+    unsigned long long *vector_of_tree_size_d;
+    unsigned long long *sols_d;
     QueenRoot *root_prefixes_d;
 
     int num_blocks = ceil((double)n_explorers/_QUEENS_BLOCK_SIZE_);
 
-    cudaMalloc((void**) &vector_of_tree_size_d,n_explorers*sizeof(unsigned int));
-    cudaMalloc((void**) &sols_d,n_explorers*sizeof(unsigned int));
+    cudaMalloc((void**) &vector_of_tree_size_d,n_explorers*sizeof(unsigned long long));
+    cudaMalloc((void**) &sols_d,n_explorers*sizeof(unsigned long long));
     cudaMalloc((void**) &root_prefixes_d,n_explorers*sizeof(QueenRoot));
 
-    //I Think this is not possible in Chapel. It must be internal
+    //I Think this is not possible in Chapel ---
+    //@todo -- use the Chapel GPU API By Akihiro
     cudaMemcpy(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot), cudaMemcpyHostToDevice);
 
-    //printf("\n### Regular BP-DFS search. ###\n");
-    
-    //kernel_start =  rtclock();
     
     BP_queens_root_dfs<<< num_blocks,_QUEENS_BLOCK_SIZE_>>> (size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
 
-    //kernel_stop = rtclock();
-
-    cudaMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,n_explorers*sizeof(unsigned int),cudaMemcpyDeviceToHost);
-    cudaMemcpy(sols_h,sols_d,n_explorers*sizeof(unsigned int),cudaMemcpyDeviceToHost);
+    cudaMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,n_explorers*sizeof(unsigned long long),cudaMemcpyDeviceToHost);
+    cudaMemcpy(sols_h,sols_d,n_explorers*sizeof(unsigned long long),cudaMemcpyDeviceToHost);
     
     cudaFree(vector_of_tree_size_d);
     cudaFree(sols_d);
