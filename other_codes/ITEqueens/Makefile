@@ -23,7 +23,7 @@ chapel: dir gitgpuite cuda
 	@echo 
 	@echo " ### Building Chapel code... ### "
 	@echo 
-	chpl -Llibs -lite -lutil -lGPUAPI -M $(CHPL_MODULES_DIR) -M $(GPUITE_HOME)/src --fast $(CHPL_DEBUG_FLAGS) $(GPUITE_HOME)/src/GPUAPI.h newMain.chpl -o $(BUILD_DIR)/ITEQueens.out
+	chpl -Llibs -lite -lutil -lGPUAPI -M $(CHPL_MODULES_DIR) -M $(GPUITE_HOME)/src --fast $(CHPL_DEBUG_FLAGS) $(GPUITE_HOME)/src/GPUAPI.h itequeens.chpl -o $(BUILD_DIR)/ITEQueens.out
 	@echo 
 	@echo " ### Compilation done ### "
 

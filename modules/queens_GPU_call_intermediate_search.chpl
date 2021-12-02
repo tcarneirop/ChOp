@@ -10,10 +10,7 @@ module queens_GPU_call_intermediate_search{
 	use DynamicIters;
 	use SysCTypes;
 
-	extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint, 
-		root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_int), 
-		sols_h: c_ptr(c_int), gpu_id:c_int): void;
-
+	
 	proc queens_GPU_call_intermediate_search(const size: uint(16), const initial_depth: c_int, 
 		const second_depth: c_int, const chunk: int, ref node: queens_node,
 		ref tree_each_locale: [] uint(64), const GPU: int, const CPUP: real):(uint(64),uint(64)){
