@@ -30,16 +30,16 @@ require "headers/GPU_queens.h";
 
 
 extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint, 
-		active_set_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_uint), 
-		sols_h: c_ptr(c_uint)): void;
+		active_set_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_longlong), 
+		sols_h: c_ptr(c_longlong)): void;
 
 
 ///////////////////////////////////////////////////////////////////////////
 //CUDA Vectors
 ///////////////////////////////////////////////////////////////////////////
 
-var vector_of_tree_size_h: [0..#75580635] c_uint;
-var sols_h: [0..#75580635] c_uint;
+var vector_of_tree_size_h: [0..#75580635] c_longlong;
+var sols_h: [0..#75580635] c_longlong;
 
 //var active_set_h: [0..#] queens_node;
 var max_number_prefixes: int = 75580635;
@@ -54,8 +54,8 @@ var n_explorers : int;
 
 var GPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
 
-	var sols_ptr : c_ptr(c_uint) = c_ptrTo(sols_h) + lo:c_uint;
-	var tree_ptr : c_ptr(c_uint) = c_ptrTo(vector_of_tree_size_h) + lo:c_uint;
+	var sols_ptr : c_ptr(c_longlong) = c_ptrTo(sols_h) + lo:c_longlong;
+	var tree_ptr : c_ptr(c_longlong) = c_ptrTo(vector_of_tree_size_h) + lo:c_longlong;
 	var active_set_ptr : c_ptr(queens_node) = c_ptrTo(active_set_h) + lo:c_uint;
 
 	GPU_call_cuda_queens(size, initial_depth, n_explorers:c_uint, 
@@ -99,8 +99,8 @@ metrics[1] = 0;
 writeln("It is distributed: ", distributed);
 
 var D: domain(1) dmapped Block(boundingBox = {0..#n_explorers}) = {0..#n_explorers};
-var dist_vector_of_tree_size_h: [D] c_uint;
-var dist_sols_h: [D] c_uint;
+var dist_vector_of_tree_size_h: [D] c_longlong;
+var dist_sols_h: [D] c_longlong;
 var dist_active_set_h: [D] queens_node;
 
 if distributed then {
@@ -141,10 +141,6 @@ var DISTGPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
 //// Search itself
 ////////////////////////////////////////////////////////////////////
 
-  	proc test(i:int):void{
-  		writeln("value: ", i, ". \n");
-  	}
-
 	writeln("\nSize: ", size,"\nInitial depth: ", initial_depth," Survivors: ", n_explorers);                
 
 	var num_gpus = GPU_device_count();
@@ -163,8 +159,6 @@ var DISTGPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
 	}
 	else{
 
-
-////HERE!
 		writeln("Single Locale");
 		forall i in GPU(0..#(n_explorers:int), GPUWrapper, CPUP){
 			
@@ -208,5 +202,3 @@ var DISTGPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
 		writeln("Elapsed time: ", final.elapsed()+initial.elapsed()+bulktransfer.elapsed());
 	else
 		writeln("Elapsed time: ", final.elapsed()+initial.elapsed());
-//
-

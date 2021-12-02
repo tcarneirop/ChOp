@@ -60,6 +60,8 @@ config const num_gpus_computer: int = 0;
 config const mode: string = "improved";
 config const mlsearch: string = "mlocale";
 config const num_gpus: c_int = 0; //if it is not zero, get the number of devices of the system
+config param build_gpu_code: bool = true;
+config param build_mlocale_code: bool = true;
 
 config const CPUP: real = 0.0; //CPU percent
 
@@ -77,6 +79,7 @@ proc main(){
 	select lower_bound {
 		when "simple"{//using simple bound
 			select mode{
+
 				when "serial"{
 					writeln("--- CHPL-SIMPLE serial search --- \n\n");
 					fsp_simple_call_serial(upper_bound,instance);
@@ -85,11 +88,13 @@ proc main(){
 					writeln(" --- CHPL-SIMPLE mcore search --- \n\n");
 					fsp_simple_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
 				}
-				when "improved"{
-					writeln("--- CHPL-SIMPLE IMPROVED multi-locale search --- \n");
-					fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
-						lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
-				}
+			
+					when "improved"{
+						writeln("--- CHPL-SIMPLE IMPROVED multi-locale search --- \n");
+						fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
+							lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
+					}
+				
 				otherwise{
 					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 				}
@@ -106,11 +111,13 @@ proc main(){
 					writeln("--- CHPL-Johnson mcore search --- \n\n");
 					fsp_johnson_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
 				}//mcode
-				when "improved"{
-					writeln("--- CHPL-Johnson IMPROVED multi-locale search --- \n");
-					fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
-						lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
-				}//johnson improved
+				
+					when "improved"{
+						writeln("--- CHPL-Johnson IMPROVED multi-locale search --- \n");
+						fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
+							lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
+					}//johnson improved
+			
 				otherwise{
 					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 				}
@@ -129,17 +136,19 @@ proc main(){
 					queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
 				}
 				when "improved"{
-				
-						writeln("--- N-Queens  --- ", mlsearch ,"\n\n");
+					writeln("--- N-Queens  --- ", mlsearch ,"\n\n");
 						queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
-								lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
-								computers, CPUP, num_gpus);
+							lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
+							computers, CPUP, num_gpus);
 					
 				}//improved
-				when "mgpu"{
-					writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
-					GPU_queens_call_search(size,initial_depth,CPUP,lchunk);
-				}
+				
+				
+					when "mgpu"{
+						writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
+						GPU_queens_call_search(size,initial_depth,CPUP,lchunk);
+					}
+				
 				otherwise{
 					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 				}
