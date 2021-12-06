@@ -139,12 +139,30 @@ record Solution{
 
 var initial_solution = new Solution();
 
-local_search(initial_solution);
+hillClimb(initial_solution);
 
 proc hillClimb(initial_solution){
 
+	var cost: int = initial_solution.getCost();
+	var new_cost: int = 0;
+	var workingSolution: Solution = initial_solution;
+	var newSolution: Solution;
 
+	writeln("\n\n##################### hillClimb");
+	writeln("Initial sol: \n", initial_solution);
 
+	while(new_cost<cost){
+		cost = workingSolution.getCost();
+		newSolution = local_search(workingSolution);
+		new_cost = newSolution.getCost();
+		workingSolution = newSolution;
+	}
+
+	writeln("\n\n##################### hillClimb - Initial Sol");
+	writeln("Initial sol: \n", initial_solution);
+
+	writeln("\n\n##################### hillClimb - Final Sol");
+	writeln("Initial sol: \n", workingSolution);
 
 }
 

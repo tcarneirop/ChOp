@@ -116,7 +116,7 @@ int* get_instance(int *machines, int *jobs, short inst_num){
     int *instance = (int*)(malloc(sizeof(int)*5000));
     generate_flow_shop(inst_num, instance,machines,jobs);
 
-    print_instance( *machines,*jobs, instance);
+    // print_instance( *machines,*jobs, instance);
     //write_problem(inst_num,instance); 
 
     // for (i = 0; i < ( m * j ); i++) {

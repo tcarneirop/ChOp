@@ -13,10 +13,13 @@ module fsp_johnson_call_mcore_search{
     use CPtr;
     config param methodStealing = Method.WholeTail;
 
-	proc fsp_johnson_call_multicore_search(initial_depth: c_int, upper: c_int, 
-        const scheduler: string, const chunk: int, const num_threads, const instance: c_short){
+	proc fsp_johnson_call_multicore_search(initial_depth: c_int, upper: c_int = 0, 
+        const scheduler: string, const chunk: int, const num_threads, const instance: c_short, verbose: bool = true): (real,real,real){
 
 		var initial,final: Timer;
+        var return_initial: real;
+        var return_final: real;
+        var return_total: real;
 
 		//FSP Variables
 		var jobs: c_int;
@@ -49,6 +52,8 @@ module fsp_johnson_call_mcore_search{
 
         initial_num_prefixes = metrics[0];
         initial_tree_size = metrics[1];
+        if(initial_num_prefixes == 0) then halt();
+
 
         metrics[0] = 0; //restarting for the parallel search_type
         metrics[1] = 0;
@@ -56,7 +61,7 @@ module fsp_johnson_call_mcore_search{
         var aux: int = initial_num_prefixes: int;
         var rangeDynamic: range = 0..aux-1;
         
-        fsp_print_mcore_initial_info(initial_depth, upper_bound, scheduler, chunk,num_threads,instance);
+        if(verbose) then fsp_print_mcore_initial_info(initial_depth, upper_bound, scheduler, chunk,num_threads,instance);
 
 
         final.start();//calculating time
@@ -100,15 +105,17 @@ module fsp_johnson_call_mcore_search{
         }//select
         final.stop();
         
+        if(verbose) then fsp_print_metrics( machines, jobs, metrics, initial,final, initial_tree_size, 
+            maximum_number_prefixes,initial_num_prefixes, upper_bound, global_ub);   
 
-        fsp_print_metrics( machines, jobs, metrics, initial,final, initial_tree_size, 
-            maximum_number_prefixes,initial_num_prefixes, upper_bound, global_ub);        
+
+        return_initial = initial.elapsed();
+        return_final = final.elapsed();
+        return_total = initial.elapsed()+final.elapsed();
 
         final.clear();
         initial.clear();
-
-
-
+        return (return_initial,return_final,return_total);
 
     }
 
