@@ -19,8 +19,7 @@ CHPL_BUILD_HEURISTIC_TRUE  = -s build_heuristic_only=true
 
 
 
-#chapel: cuda dir
-chapel: dir
+chapel: cuda dir
 	@echo 
 	@echo " ### Building the Chapel code... ### "
 	@echo 

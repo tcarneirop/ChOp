@@ -7,12 +7,13 @@ module parametrization_solution{
     use CPtr;
 	use fsp_johnson_call_mcore_search;
 	use fsp_simple_call_mcore_search;
+	use fsp_johnson_call_multilocale_search;
 
 	var num_depths : int = 3;
 	var num_schedulers: int = 3;
 	var num_blocks: int = 5;
 	var num_chunks: int = 5; 
-	var num_max_threads: int = 4;
+	var num_max_threads: int = 3;
 	var max_threads = here.maxTaskPar;
 	var num_par: int;
 
@@ -40,7 +41,7 @@ module parametrization_solution{
 
 	var pgas_vector: [0..1] bool = [true,false];
 
-	var num_threads_vector: [0..#num_max_threads] int  = [max_threads,max_threads/2,max_threads/3,max_threads/4];
+	var num_threads_vector: [0..#num_max_threads] int  = [max_threads,max_threads/2,max_threads/3];
 
 
 	record Solution{
@@ -75,6 +76,9 @@ module parametrization_solution{
 				coordinated_vector[inner_organization(6)],
 				pgas_vector[inner_organization(7)]
 			);
+
+			if(parameters(0)=="static") then parameters(7)=true;
+
 			this.complete();
 			setCost();
 		}//init()
@@ -92,6 +96,7 @@ module parametrization_solution{
 				coordinated_vector[inner_organization(6)],
 				pgas_vector[inner_organization(7)]
 			);
+			if(parameters(0)=="static") then parameters(7)=true;
 			this.complete();
 			setCost();
 		}//init()
@@ -132,8 +137,23 @@ module parametrization_solution{
 		}///////
 
 		proc setCost(){
-			cost_tuple = fsp_simple_call_multicore_search(parameters(1):c_int,0:c_int,parameters(0),
-				parameters(4),parameters(5),13,false);
+			//cost_tuple = fsp_johnson_call_multicore_search(parameters(1):c_int,0:c_int,parameters(0),
+			//	parameters(4),parameters(5),13,false);
+
+			// scheduler_vector[inner_organization(0)],
+			// 	initial_depth_vector[inner_organization(1)], 
+			// 	second_depth_vector[inner_organization(2)], 
+			// 	mlchunk_vector[inner_organization(3)], 
+			// 	slchunk_vector[inner_organization(4)],
+			// 	num_threads_vector[inner_organization(5)], 
+			// 	coordinated_vector[inner_organization(6)],
+			// 	pgas_vector[inner_organization(7)]
+
+			cost_tuple = fsp_johnson_call_multilocale_search(parameters(1):c_int,parameters(2):c_int,0:c_int,parameters(0),
+				 		1,parameters(3),parameters(4),parameters(6),parameters(7),parameters(5),false,"none",13);
+			//9 is fast
+			//11-15 1sec
+
 			cost = cost_tuple(2);
 			
 		}

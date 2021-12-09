@@ -12,7 +12,6 @@ use fsp_johnson_call_initial_search;
 use fsp_johnson_call_multilocale_search;
 
 
-
 use parametrization_local_search;
 use queens_aux;
 use queens_call_mcore_search;
@@ -56,7 +55,8 @@ config const instance: int(8) = 13; //fsp instance
 
 config const verbose: bool = false; //verbose network communication 
 
-
+config const heuristic: string = "none";
+config const problem: string = "simple"; //fsp - johnson, fsp - simple, queens, minla
 config const computers: int = 1;
 config const num_gpus_computer: int = 0;
 config const mode: string = "improved";
@@ -73,10 +73,10 @@ proc main(){
 
 
 	//@todo -- these chunks are confusing..
+	if(heuristic!="none") then initialization(heuristic);
+	else{
+
 	select lower_bound {
-		when "heuristic"{
-			initialization();
-		}
 		when "simple"{//using simple bound
 			select mode{
 
@@ -89,11 +89,11 @@ proc main(){
 					fsp_simple_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
 				}
 			
-				// when "improved"{
-				// 		writeln("--- CHPL-SIMPLE IMPROVED multi-locale search --- \n");
-				// 		fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
-				// 			lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
-				// }
+				when "improved"{
+				 		writeln("--- CHPL-SIMPLE IMPROVED multi-locale search --- \n");
+				 		fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
+				 			lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
+				}
 				
 				otherwise{
 					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
@@ -112,12 +112,12 @@ proc main(){
 					fsp_johnson_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance,true);
 				}//mcode
 				
-					// when "improved"{
-					// 	writeln("--- CHPL-Johnson IMPROVED multi-locale search --- \n");
-					// 	fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
-					// 		lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
-					// }//johnson improved
-			
+				when "improved"{
+				 	writeln("--- CHPL-Johnson IMPROVED multi-locale search --- \n");
+				 	fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
+				 		lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
+				 }//johnson improved
+		
 				otherwise{
 					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 				}
@@ -159,5 +159,6 @@ proc main(){
 		
 	}//lower bound
 
+}
 }
 
