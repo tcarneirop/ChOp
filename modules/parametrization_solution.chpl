@@ -8,6 +8,8 @@ module parametrization_solution{
 	use fsp_johnson_call_mcore_search;
 	use fsp_simple_call_mcore_search;
 	use fsp_johnson_call_multilocale_search;
+	use fsp_simple_call_multilocale_search;
+	use queens_call_multilocale_search;
 
 	var num_depths : int = 3;
 	var num_schedulers: int = 3;
@@ -50,8 +52,42 @@ module parametrization_solution{
 		var parameters: (string,int, int, int, int, int, bool, bool);
 		var cost_tuple: (real,real,real);
 		var cost: real = 0.0;
+		var instance: int = 15;
+		var problem: string;
 		
 		proc init(){
+			var randStream = new owned RandomStream(int);
+			
+			inner_organization = (
+				abs(randStream.getNext()) % (num_schedulers),
+				abs(randStream.getNext()) % (num_depths), 
+				abs(randStream.getNext()) % (num_depths), 
+				abs(randStream.getNext()) % (num_chunks), 
+				abs(randStream.getNext()) % (num_chunks),
+				abs(randStream.getNext()) % (num_max_threads), 
+				abs(randStream.getNext()) % (2),			
+				abs(randStream.getNext()) % (2)
+			);
+
+			parameters =  (
+				scheduler_vector[inner_organization(0)],
+				initial_depth_vector[inner_organization(1)], 
+				second_depth_vector[inner_organization(2)], 
+				mlchunk_vector[inner_organization(3)], 
+				slchunk_vector[inner_organization(4)],
+				num_threads_vector[inner_organization(5)], 
+				coordinated_vector[inner_organization(6)],
+				pgas_vector[inner_organization(7)]
+			);
+
+			if(parameters(0)=="static") then parameters(7)=true;
+			this.complete();
+			cost = 9999999999;
+			//setCost();
+
+		}
+
+		proc init(const problem_to_solve: string, const instance_or_size: int ){
 
 			var randStream = new owned RandomStream(int);
 			
@@ -80,11 +116,15 @@ module parametrization_solution{
 			if(parameters(0)=="static") then parameters(7)=true;
 
 			this.complete();
+
+			instance = instance_or_size;
+			problem = problem_to_solve;
 			setCost();
 		}//init()
 
+		proc init(neighbor_inner_organization: (int,int, int, int, int, int, int, int), 
+			const problem_to_solve: string, const instance_or_size: int){
 
-		proc init(neighbor_inner_organization: (int,int, int, int, int, int, int, int)){
 			inner_organization = neighbor_inner_organization;
 			parameters =  (
 				scheduler_vector[inner_organization(0)],
@@ -97,7 +137,10 @@ module parametrization_solution{
 				pgas_vector[inner_organization(7)]
 			);
 			if(parameters(0)=="static") then parameters(7)=true;
+			
 			this.complete();
+			instance = instance_or_size;
+			problem = problem_to_solve;
 			setCost();
 		}//init()
 
@@ -132,15 +175,32 @@ module parametrization_solution{
 		
 			}
 		
-			var neighbor = new Solution(neighbor_inner_organization);
+			var neighbor = new Solution(neighbor_inner_organization, problem, instance);
 			return neighbor;
 		}///////
 
 		proc setCost(){
-			//cost_tuple = fsp_johnson_call_multicore_search(parameters(1):c_int,0:c_int,parameters(0),
-			//	parameters(4),parameters(5),13,false);
+			select problem {
+			 	when "simple"{//using simple bound
+			 		cost_tuple = fsp_simple_call_multilocale_search(parameters(1):c_int,parameters(2):c_int,0:c_int,parameters(0),
+			 		 		1,parameters(3),parameters(4),parameters(6),parameters(7),parameters(5),false,"none",instance:c_short);
+			 	}
+			 	when "johnson"{
+			 		cost_tuple = fsp_johnson_call_multilocale_search(parameters(1):c_int,parameters(2):c_int,0:c_int,parameters(0),
+			 		 		1,parameters(3),parameters(4),parameters(6),parameters(7),parameters(5),false,"none",instance:c_short);
+			 	}
+			 	when "queens"{
+			 		cost_tuple = queens_call_multilocale_search(instance:uint(16),parameters(1):c_int,parameters(2):c_int,parameters(0),"improved","mlocale",
+		 					1,parameters(3),parameters(4),parameters(6),parameters(7),parameters(5),false,false,
+		 					1, 0, 0);
+			 	}
+			 	otherwise{
+			 		halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
+			 	}
+			}
 
-			// scheduler_vector[inner_organization(0)],
+			// parameters =  (
+			// 	scheduler_vector[inner_organization(0)],
 			// 	initial_depth_vector[inner_organization(1)], 
 			// 	second_depth_vector[inner_organization(2)], 
 			// 	mlchunk_vector[inner_organization(3)], 
@@ -148,11 +208,13 @@ module parametrization_solution{
 			// 	num_threads_vector[inner_organization(5)], 
 			// 	coordinated_vector[inner_organization(6)],
 			// 	pgas_vector[inner_organization(7)]
+			// );
 
-			cost_tuple = fsp_johnson_call_multilocale_search(parameters(1):c_int,parameters(2):c_int,0:c_int,parameters(0),
-				 		1,parameters(3),parameters(4),parameters(6),parameters(7),parameters(5),false,"none",13);
-			//9 is fast
-			//11-15 1sec
+
+			// cost = 0.0;
+			// for i in 0..#max_par do{
+			// 	cost+=inner_organization(i):real;
+			// }
 
 			cost = cost_tuple(2);
 			

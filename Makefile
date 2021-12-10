@@ -28,6 +28,8 @@ chapel: cuda dir
 	
 	@echo 
 	@echo " ### Compilation done ### "
+	$(shell sh ./ncomp.sh)
+	
 
 cuda: dir
 	@echo 

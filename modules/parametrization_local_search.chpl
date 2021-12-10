@@ -3,9 +3,10 @@ module parametrization_local_search{
 	use parametrization_solution;
 	var num_solutions: int = 0;
 
-	proc initialization(const heuristic: string, const mode: string = "mcore", const problem: string = "simple"){
+	proc initialization(const heuristic: string, const problem: string = "simple", const instance: int, const mode: string = "mcore" ){
+		
 		writeln("\n\n##################### creating the first solution");
-		var initial_solution = new Solution();
+		var initial_solution = new Solution(problem,instance);
 		num_solutions+=1;
 
 		if(heuristic == "hc"){
@@ -26,9 +27,7 @@ module parametrization_local_search{
 		var workingSolution: Solution = initial_solution;
 		var newSolution: Solution;
 		var iteration = 0;
-		//@Todo: is it instancianting a sol? I just want a pointer..
 
-	
 		writeln("Initial sol: \n", initial_solution);
 
 		new_cost = 0.0;
@@ -57,13 +56,13 @@ module parametrization_local_search{
 		
 		var ls_cost: real = 0.0;
 		
-		var newSolRight: Solution;
-		
-		var newSolLeft: Solution;
-		
-		var best_sol: Solution = initial_solution;
+		//var newSolRight: Solution;
 
+		var newSolRight: Solution;
+		var newSolLeft: Solution;
 		var best_neighbor: Solution;
+
+		var best_sol: Solution = initial_solution;
 		
 		var min_sol_cost: real = initial_solution.getCost();
 
@@ -71,7 +70,6 @@ module parametrization_local_search{
 		writeln("Initial sol: \n", initial_solution);
 
 		for par in 0..#max_par do{
-
 
 		 	var neighbor_par_right = initial_solution.inner_organization(par) + 1;
 
@@ -101,7 +99,7 @@ module parametrization_local_search{
 		 		best_neighbor = newSolLeft;
 		 	}
 
-		 	if(best_neighbor.getCost()< best_sol.getCost()){
+		 	if(best_neighbor.getCost() < best_sol.getCost()){
 		 		writeln("\n\n#################################### improvement found: from ", best_sol.getCost(), " to ", best_neighbor.getCost() );
 		 		best_sol = best_neighbor;
 

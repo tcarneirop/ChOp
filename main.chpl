@@ -71,19 +71,17 @@ config const CPUP: real = 0.0; //CPU percent
 
 proc main(){
 
-
 	//@todo -- these chunks are confusing..
-	if(heuristic!="none") then initialization(heuristic);
+	if(heuristic!="none") then initialization(heuristic,lower_bound, instance, mode);
 	else{
 
 	select lower_bound {
 		when "simple"{//using simple bound
 			select mode{
-
-				// when "serial"{
-				// 	writeln("--- CHPL-SIMPLE serial search --- \n\n");
-				// 	fsp_simple_call_serial(upper_bound,instance);
-				// }
+				 when "serial"{
+				 	writeln("--- CHPL-SIMPLE serial search --- \n\n");
+				 	fsp_simple_call_serial(upper_bound,instance);
+				 }
 				when "mcore"{
 					writeln(" --- CHPL-SIMPLE mcore search --- \n\n");
 					fsp_simple_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
@@ -103,10 +101,10 @@ proc main(){
 		when "johnson"{
 			writeln("\n --- JOHNSON LOWER BOUND --- ");
 			select mode{
-				// when "serial"{
-				// 	writeln("--- CHPL-Johnson serial search --- \n\n");
-				// 	fsp_johnson_call_serial(upper_bound, instance);
-				// }//serial
+				when "serial"{
+				 	writeln("--- CHPL-Johnson serial search --- \n\n");
+				 	fsp_johnson_call_serial(upper_bound, instance);
+				 }//serial
 				when "mcore"{
 					writeln("--- CHPL-Johnson mcore search --- \n\n");
 					fsp_johnson_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance,true);
@@ -123,40 +121,38 @@ proc main(){
 				}
 			}//mode
 		}//johnson bound
-		// when "queens"{
+		when "queens"{
 
-		// 	writeln("\n--- N-QUEENS --- ");
-		// 	select mode{
-		// 		when "serial"{
-		// 			writeln("--- N-Queens serial search --- \n\n");
-		// 			queens_parser(size);
-		// 		}
-		// 		when "mcore"{
-		// 			writeln("--- N-Queens mcore search --- \n\n");
-		// 			queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
-		// 		}
-		// 		when "improved"{
-		// 			writeln("--- N-Queens  --- ", mlsearch ,"\n\n");
-		// 				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
-		// 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
-		// 					computers, CPUP, num_gpus);
+		 	writeln("\n--- N-QUEENS --- ");
+		 	select mode{
+		 		when "serial"{
+		 			writeln("--- N-Queens serial search --- \n\n");
+		 			queens_parser(size);
+		 		}
+		 		when "mcore"{
+		 			writeln("--- N-Queens mcore search --- \n\n");
+		 			queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
+		 		}
+		 		when "improved"{
+		 			writeln("--- N-Queens  --- ", mlsearch ,"\n\n");
+		 				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
+		 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
+		 					computers, CPUP, num_gpus);
 					
-		// 		}//improved
+		 		}//improved
 				
+		 			when "mgpu"{
+		 				writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
+		 				GPU_queens_call_search(size,initial_depth,CPUP,lchunk);
+		 			}
 				
-		// 			when "mgpu"{
-		// 				writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
-		// 				GPU_queens_call_search(size,initial_depth,CPUP,lchunk);
-		// 			}
-				
-		// 		otherwise{
-		// 			halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
-		// 		}
+		 		otherwise{
+		 			halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
+		 		}
 
-		// 	}//mode
-		// }//queens
+		 	}//mode
+		}//queens
 	
-		
 	}//lower bound
 
 }
