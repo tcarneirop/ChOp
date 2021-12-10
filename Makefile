@@ -14,6 +14,10 @@ C_SOURCES := $(shell find $(C_SRC_DIR) -name '*.c')
 
 CHPL_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true -s CPUGPUVerbose=false
 
+CHPL_BUILD_HEURISTIC_FALSE = -s build_heuristic_only=false
+CHPL_BUILD_HEURISTIC_TRUE  = -s build_heuristic_only=true
+
+
 
 chapel: cuda dir
 	@echo 
@@ -25,6 +29,7 @@ chapel: cuda dir
 	@echo 
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)
+	
 
 cuda: dir
 	@echo 
@@ -40,8 +45,20 @@ dir:
 	mkdir -p $(LIBRARY_DIR)
 	mkdir -p $(BUILD_DIR)
 
+heuristic: dir
+	@echo 
+	@echo " ### Building the Heuristic code... ### "
+	@echo 
+
+	chpl -M $(CHPL_MODULES_DIR) --fast $(CHPL_BUILD_HEURISTIC_TRUE) $(C_SOURCES) main.chpl -o  $(BUILD_DIR)/heuristic.out
+	
+	@echo 
+	@echo " ### Compilation done ### "
+
 .PHONY: clean
 clean:
 	$(RM) $(LIBRARY_DIR)/*.so
 	$(RM) $(BUILD_DIR)/chop.out
-	$(RM) $(BUILD_DIR)/chop.out_real
+	$(RM) $(BUILD_DIR)/heuristic.out
+	$(RM) $(BUILD_DIR)/chop.out
+	$(RM) $(BUILD_DIR)/heuristic.out_real
