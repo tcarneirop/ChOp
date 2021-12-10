@@ -28,13 +28,17 @@ module fsp_johnson_call_multilocale_search{
         const scheduler: string, const lchunk, const mlchunk, const slchunk,
         const coordinated: bool = false, const pgas: bool = false,
         const num_threads: int, const profiler: bool = false, const atype: string = "none", const instance: c_short, 
-        const mode: string, const verbose: bool = false
-        ){
+        const mode: string = "improved", const verbose: bool = false, const diagnostics: bool = false
+        ): (real,real,real){
 
 
 		print_locales_information();
 
 		var initial,final, initialization,distribution: Timer;
+        var return_initial: real;
+        var return_final: real;
+        var return_total: real;
+
 
 		//FSP Variables
 		var jobs: c_int;
@@ -114,7 +118,7 @@ module fsp_johnson_call_multilocale_search{
 
         //Distributer or centralized active set?
 
-        if(verbose){
+        if(diagnostics){
             writeln("\n### Starting communication counter ###");
             startCommDiagnostics();
         }
@@ -195,16 +199,21 @@ module fsp_johnson_call_multilocale_search{
             maximum_number_prefixes,initial_num_prefixes, upper_bound, global_ub.read(), 
             initial_depth, second_depth,tree_each_locale, mlchunk);        
 
-        if(verbose){
+        if(diagnostics){
             writeln("### Stopping communication counter ###");
             stopCommDiagnostics();
             writeln("\n ### Communication results ### \n",getCommDiagnostics());
         }
         
+        return_initial = initial.elapsed();
+        return_final = final.elapsed();
+        return_total = initial.elapsed()+final.elapsed();
+
         final.clear();
         initial.clear();
         initialization.clear();
         distribution.clear();
+        return (return_initial,return_final,return_total);
 
 	}//distributed call
 

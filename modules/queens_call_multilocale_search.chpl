@@ -26,10 +26,10 @@ module queens_call_multilocale_search{
         const coordinated: bool = false, const pgas: bool = false,
         const num_threads: int, const profiler: bool = false, 
         const verbose: bool = false,
-        const real_number_computers: int,  const CPUP: real, const num_gpus: c_int){
+        const real_number_computers: int,  const CPUP: real, const num_gpus: c_int):(real,real,real){
 
 
-        queens_print_locales_information();
+        if verbose then queens_print_locales_information();
         queens_print_mlocale_initial_info(size, initial_depth, second_depth, scheduler,lchunk, mlchunk, slchunk, 
             coordinated,num_threads, mode,pgas);
     
@@ -40,6 +40,10 @@ module queens_call_multilocale_search{
         var parallel_tree_size: uint(64) = 0;
    
         var initial, final, distribution: Timer;
+        var return_initial: real;
+        var return_final: real;
+        var return_total: real;
+
 
         const PrivateSpace: domain(1) dmapped Private();
         var tree_each_locale: [PrivateSpace] uint(64);
@@ -111,7 +115,7 @@ module queens_call_multilocale_search{
 
         //for mlmgpu and gpucpu
         if(num_gpus == 0) then{
-            writeln("\n # The total number of GPU is going to be used (DEFAULT): ", GPU_device_count() ,". #");
+            if verbose then writeln("\n # The total number of GPU is going to be used (DEFAULT): ", GPU_device_count() ,". #");
             for loc in Locales do{
                 on loc do{
                     GPU_id[here.id] = GPU_device_count():int;                               
@@ -130,18 +134,18 @@ module queens_call_multilocale_search{
                 }//on loc
             }///for
         }
-        writeln("# GPU Vector: ", GPU_id, " #");
+        if verbose then writeln("# GPU Vector: ", GPU_id, " #");
 
         GPU_mlocale_number_locales_check(mlsearch, real_number_computers, coordinated:int);
         for loc in Locales do{
             on loc do{
                 if(here.id == 0 && coordinated==true){
-                    writeln("Coordinator: ", here.id," - ", here.name,"\n");
+                    if verbose then writeln("Coordinator: ", here.id," - ", here.name,"\n");
 
                 }
                 else{
                     Locale_role[here.id] = (here.id-coordinated:int)%2;
-                    writeln("Locale: ", here.name," - " ,here.id,"\n\tRole: ", Locale_role[here.id]);
+                    if verbose then writeln("Locale: ", here.name," - " ,here.id,"\n\tRole: ", Locale_role[here.id]);
                 }
             }///
         }///
@@ -185,10 +189,15 @@ module queens_call_multilocale_search{
             stopCommDiagnostics();
             writeln("\n ### Communication results ### \n",getCommDiagnostics());
         }
-        
+
+        return_initial = initial.elapsed();
+        return_final = final.elapsed();
+        return_total = initial.elapsed()+final.elapsed();
+
         final.clear();
         initial.clear();
         distribution.clear();
+        return (return_initial,return_final,return_total);
 
     }//distributed call
 

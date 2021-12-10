@@ -207,8 +207,7 @@ void write_problem(short p,int *times)  /* write out problem */
 {
   short i, j;
 
-//QUERO USAR O NOME
-  printf("\nInstance Number: %hu\n", p);
+  //printf("\nInstance Number: %hu\n", p);
   // printf("\nMachnes: %d\n", S[p].num_mach);
   // printf("\nJobs: %d\n", S[p].num_jobs);
 
