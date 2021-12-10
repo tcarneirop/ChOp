@@ -19,6 +19,7 @@ double rtclock()
 }
 
 
+
 typedef struct queen_root{
     unsigned int control;
     int8_t board[12];
@@ -194,8 +195,6 @@ unsigned long long int BP_queens_prefixes(int size, int initialDepth ,unsigned l
     return num_sol;
 }
 
-
-
 void GPU_call_cuda_queens(int size, int initial_depth, int block_size, bool set_cache, unsigned int n_explorers, QueenRoot *root_prefixes_h ,
 	unsigned long long int *vector_of_tree_size_h, unsigned long long int *sols_h, int gpu_id){
     
@@ -205,11 +204,13 @@ void GPU_call_cuda_queens(int size, int initial_depth, int block_size, bool set_
         cudaFuncSetCacheConfig(BP_queens_root_dfs,cudaFuncCachePreferL1);
     }
 
+
     unsigned long long int *vector_of_tree_size_d;
     unsigned long long int *sols_d;
     QueenRoot *root_prefixes_d;
 
     int num_blocks = ceil((double)n_explorers/block_size);
+
 
     cudaMalloc((void**) &vector_of_tree_size_d,n_explorers*sizeof(unsigned long long int));
     cudaMalloc((void**) &sols_d,n_explorers*sizeof(unsigned long long int));
@@ -222,6 +223,7 @@ void GPU_call_cuda_queens(int size, int initial_depth, int block_size, bool set_
     
     //kernel_start =  rtclock();
     
+
     BP_queens_root_dfs<<< num_blocks,block_size>>> (size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
     gpuErrchk( cudaPeekAtLastError() );
     gpuErrchk( cudaDeviceSynchronize() );
@@ -236,15 +238,18 @@ void GPU_call_cuda_queens(int size, int initial_depth, int block_size, bool set_
     cudaFree(root_prefixes_d);
 
 
+
     //After that, Chapel reduces the values
 }
 
 double call_queens(int size, int initialDepth, int block_size, int set_cache){
 
 
+
     unsigned long long initial_tree_size = 0ULL;
     unsigned long long qtd_sols_global = 0ULL;
     unsigned long long gpu_tree_size = 0ULL;
+
 
     unsigned int nMaxPrefixos = 75580635;
 
@@ -259,12 +264,12 @@ double call_queens(int size, int initialDepth, int block_size, int set_cache){
     unsigned long long n_explorers = BP_queens_prefixes((short)size, initialDepth ,&initial_tree_size, root_prefixes_h);
 
     //calling the gpu-based search
+
     GPU_call_cuda_queens(size, initialDepth, block_size, (bool)set_cache,n_explorers, root_prefixes_h ,vector_of_tree_size_h, solutions_h, 0);
 
     printf("\nInitial tree size: %llu", initial_tree_size );
 
     double final_time = rtclock();
-
 
     for(int i = 0; i<n_explorers;++i){
         if(solutions_h[i]>0)
@@ -273,6 +278,7 @@ double call_queens(int size, int initialDepth, int block_size, int set_cache){
             gpu_tree_size +=vector_of_tree_size_h[i];
 
     }
+
     printf("\nGPU Tree size: %llu\nTotal tree size: %llu\nNumber of solutions found: %llu.\n", gpu_tree_size,(initial_tree_size+gpu_tree_size),qtd_sols_global );
     printf("\nElapsed total: %.3f\n", (final_time-initial_time));   
 
