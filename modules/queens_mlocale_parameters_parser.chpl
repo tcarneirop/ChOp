@@ -25,8 +25,6 @@ module queens_mlocale_parameters_parser{
 		writeln("###### QUEENS IMPROVED MLOCALE ######");
 
 
-
-		
 		if(queens_checkPointer){
 			checkpt.start();
 	  		begin checkpt.checkpointer(progress,partial_tree,synch_with_checkpointer,Space.size); 

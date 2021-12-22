@@ -4,8 +4,7 @@ BUILD_DIR := ./bin
 CUDA_SRC_DIR := ./kernels
 C_SRC_DIR := ./csrc
 CHPL_MODULES_DIR := ./modules
-CUDA_PATH := /usr/local/cuda
-CULIB := $(CUDA_PATH)/lib64
+CUDA_PATH := $(CUDA_HOME)
 
 CUDA_INCLUDE_DIR := $(CUDA_PATH)/include
 CUDA_LIB_DIR := $(CUDA_PATH)/lib
@@ -13,11 +12,6 @@ LIBRARY_DIR := ./libs
 C_SOURCES := $(shell find $(C_SRC_DIR) -name '*.c')
 
 CHPL_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true -s CPUGPUVerbose=false
-
-CHPL_BUILD_HEURISTIC_FALSE = -s build_heuristic_only=false
-CHPL_BUILD_HEURISTIC_TRUE  = -s build_heuristic_only=true
-
-
 
 chapel: cuda dir
 	@echo 
@@ -59,6 +53,5 @@ heuristic: dir
 clean:
 	$(RM) $(LIBRARY_DIR)/*.so
 	$(RM) $(BUILD_DIR)/chop.out
-	$(RM) $(BUILD_DIR)/heuristic.out
 	$(RM) $(BUILD_DIR)/chop.out
-	$(RM) $(BUILD_DIR)/heuristic.out_real
+

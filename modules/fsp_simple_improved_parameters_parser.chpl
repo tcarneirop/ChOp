@@ -8,6 +8,9 @@ module fsp_simple_improved_parameters_parser{
     use fsp_node_module;
 	use fsp_simple_call_improved_mlocale_search;
 
+	//@todo: 
+	config param simple_checkPointer: bool = false;
+
 	proc fsp_simple_improved_mlocale_parameters_parser(const atmc_type: string, 
     	const scheduler: string, const machines: c_int,const jobs: c_int,
     	const initial_depth: c_int, const second_depth: c_int,
