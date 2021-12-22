@@ -6,7 +6,7 @@ module load PrgEnv-gnu
 module unload perftools-base
 
 # Load hugepages (required for good comm=ugni perf)
-module load craype-hugepages16M
+module load craype-hugepages2M
 
 # Load Chapel (only if you want to use 1.19 instead of building from source)
 module load chapel

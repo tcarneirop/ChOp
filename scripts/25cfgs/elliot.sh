@@ -11,7 +11,7 @@ setupChplenv() {
   # Ignore our errors about ofi/psm not being supported
   export CHPL_GASNET_ALLOW_BAD_SUBSTRATE=true
 
-  export CHPL_HOME=~/chapel-1.25.0
+  export CHPL_HOME=~/chapel-1.25.1
   if [ -d "$CHPL_HOME" ]; then
     CHPL_BIN_SUBDIR=`"$CHPL_HOME"/util/chplenv/chpl_bin_subdir.py`
     export PATH="$PATH":"$CHPL_HOME/bin/$CHPL_BIN_SUBDIR:$CHPL_HOME/util"
@@ -44,7 +44,7 @@ downloadChpl() {
   if [ ! -d "$CHPL_HOME" ]; then
     cd ~/
     # Download Chapel 1.24
-    wget -c https://github.com/chapel-lang/chapel/releases/download/1.24.0/chapel-1.24.0.tar.gz -O - | tar xz
+    wget -c https://github.com/chapel-lang/chapel/releases/download/1.25.1/chapel-1.25.0.tar.gz -O - | tar xz
 
     # Replace GASNet-EX with GASNet-1
     wget -c https://gasnet.lbl.gov/download/GASNet-1.32.0.tar.gz -O - | tar xz
