@@ -15,7 +15,7 @@ module parametrization_solution{
 	var num_schedulers: int = 3;
 	var num_blocks: int = 5;
 	var num_chunks: int = 5; 
-	var num_max_threads: int = 3;
+	var num_max_threads: int = 2;
 	var max_threads = here.maxTaskPar;
 	var num_par: int;
 
@@ -43,7 +43,7 @@ module parametrization_solution{
 
 	var pgas_vector: [0..1] bool = [true,false];
 
-	var num_threads_vector: [0..#num_max_threads] int  = [max_threads,max_threads/2,max_threads/3];
+	var num_threads_vector: [0..#num_max_threads] int  = [max_threads,max_threads/2];
 
 
 	record Solution{

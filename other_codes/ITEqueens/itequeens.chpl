@@ -96,7 +96,7 @@ metrics[1] = 0;
 //Distributed -- generating distributed Pool
 ///////////////////////////////////////////////////////////////////////////
 
-writeln("It is distributed: ", distributed);
+writeln("### Is the centralized pool distributed?: ", distributed);
 
 var D: domain(1) dmapped Block(boundingBox = {0..#n_explorers}) = {0..#n_explorers};
 var dist_vector_of_tree_size_h: [D] c_longlong;
@@ -105,7 +105,7 @@ var dist_active_set_h: [D] queens_node;
 
 if distributed then {
 
-	writeln("Starting copy and bulk transfer");
+	writeln("### Starting the copy and the bulk transfer");
 
 	bulktransfer.start();
 	var centralized_active_set: [0..#n_explorers] queens_node;
@@ -116,7 +116,7 @@ if distributed then {
    
     dist_active_set_h = centralized_active_set;
     bulktransfer.stop();
-    writeln("Bulk transfer elapsed: ", bulktransfer.elapsed());
+    writeln("\tBulk transfer elapsed: ", bulktransfer.elapsed());
 }
 
 

@@ -93,12 +93,16 @@ module parametrization_local_search{
 		 		writeln("\nNo Left neighbor for parameter ", par);
 		 	}
 
+		 	//@todo -- min()
+
 		 	if(newSolRight.getCost() < newSolLeft.getCost()){ 
 		 		best_neighbor = newSolRight; 
 		 	}else{
 		 		best_neighbor = newSolLeft;
 		 	}
 
+		 	//@todo -- min()
+		 	
 		 	if(best_neighbor.getCost() < best_sol.getCost()){
 		 		writeln("\n\n#################################### improvement found: from ", best_sol.getCost(), " to ", best_neighbor.getCost() );
 		 		best_sol = best_neighbor;
