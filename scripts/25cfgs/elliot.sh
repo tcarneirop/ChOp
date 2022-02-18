@@ -36,6 +36,10 @@ setupChplenv() {
   export CHPL_GASNET_MORE_CFG_OPTIONS="--with-ofi-spawner=ssh --disable-mpi-compat"
   # TODO force psm provider
   export GASNET_OFI_SPAWNER='ssh'
+  
+  NUM_T_LOCALE=$(cat /proc/cpuinfo | grep processor | wc -l)
+
+  export CHPL_RT_NUM_THREADS_PER_LOCALE=$NUM_T_LOCALE
 }
 
 downloadChpl() {
