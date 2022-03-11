@@ -35,6 +35,7 @@ module parametrization_local_search{
 		while(new_cost<cost){
 			writeln("### Hillclimb iteration: ", iteration,"\n\tWorking cost: ", cost,"\n\tNew cost: ", new_cost);
 			cost = workingSolution.getCost();
+			//@todo -- stop by workingSol.getcost()?
 			newSolution = local_search(workingSolution);
 			new_cost = newSolution.getCost();
 			workingSolution = newSolution;
