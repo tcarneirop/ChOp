@@ -58,7 +58,7 @@ config const verbose: bool = false; //verbose network communication
 config const heuristic: string = "none";
 config const problem: string = "simple"; //fsp - johnson, fsp - simple, queens, minla
 config const computers: int = 1;
-config const num_gpus_computer: int = 0;
+
 config const mode: string = "improved";
 config const mlsearch: string = "mlocale";
 config const num_gpus: c_int = 0; //if it is not zero, get the number of devices of the system
@@ -137,7 +137,7 @@ proc main(){
 		 			writeln("--- N-Queens  --- ", mlsearch ,"\n\n");
 		 				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 		 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
-		 					computers, CPUP, num_gpus);
+		 					CPUP, num_gpus);
 					
 		 		}//improved
 				

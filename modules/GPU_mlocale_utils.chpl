@@ -121,40 +121,34 @@ module GPU_mlocale_utils{
 	/*
 		This fuction is used when the GPUs of the locale are used along with the CPUs;
 	*/
-	proc GPU_mlocale_number_locales_check(const mode: string, const real_number_computers: int, const flag_coordinated: int){
-		if(mode == "cpugpu"){
-			var desired_number_locales = 2*real_number_computers+flag_coordinated;
-			
-			writeln("\nReal number of computers: ", real_number_computers,"\nNumber of locales: ", Locales.size, 
-				"\nCoordinated: ", flag_coordinated,"\nCorrect number of locales: ", desired_number_locales );
+	proc GPU_mlocale_number_locales_check(const mode: string, const flag_coordinated: int){
 
-			if ((Locales.size != desired_number_locales)) then 
+		if(mode == "cpugpu"){
+		
+			
+			writeln("\nReal number of computers: ", Locales.size/2+flag_coordinated,"\nNumber of locales: ", Locales.size, 
+				"\nCoordinated: ", flag_coordinated);
+
+			if (((Locales.size - flag_coordinated) % 2 )) then 
 				halt("\n###### Wrong CPU-GPU nl parameter ######");
 			else 
 				writeln("\n### !!! Num locales for the GPU-CPU search is OK !!! ###\n");	
 		}
 		else
 			writeln("\n### !!! Num locales for the GPU-CPU search is OK !!! ###\n");	
-		
-	}////
-
-	//all locales on the same computer must have the same name
-	proc GPU_mlocale_print_gpu_status(const mode: string, const num_gpus_computer: int, const real_number_computers: int){
-		
-
-		writeln("Number of locales: ", Locales.size);
-		writeln("Real number of computers: ", real_number_computers);
-		writeln("Number of GPUs per computer:", num_gpus_computer,"\n\n");
 
 		for loc in Locales do{
-			on loc do{
-				var gpu_status = GPU_mlocale_get_locale_role(mode, real_number_computers, num_gpus_computer, here.id);
-				writeln("Ola, sou locale ", here.id, " of name: ", loc.name,"\n\tMinha GPU eh: ", 
-					gpu_status[1],"\n\tE estou no computador: ", gpu_status[3] );
+            on loc do{
+                if(here.id == 0 && flag_coordinated==true){
+                    writeln("Coordinator: ", here.id," - ", here.name,"\n");
 
-			}//on loc
-		}//for
-	}///
-
+                }
+                else{
+                    writeln("Locale: ", here.name," - " ,here.id,"\n\tRole: ", (here.id-flag_coordinated)%2);
+                }
+            }///
+        }///
+     
+	}////
 
 }/////module

@@ -1,0 +1,20 @@
+time: cannot run (mpirun: No such file or directory
+Command exited with non-zero status 127
+0.00user 0.00system 0:00.00elapsed ?%CPU (0avgtext+0avgdata 1196maxresident)k
+0inputs+8outputs (0major+27minor)pagefaults 0swaps
+
+real	0m2.547s
+user	0m36.236s
+sys	0m0.160s
+
+real	0m2.565s
+user	0m36.212s
+sys	0m0.172s
+
+real	0m2.536s
+user	0m36.284s
+sys	0m0.156s
+
+real	0m2.659s
+user	0m36.272s
+sys	0m0.164s

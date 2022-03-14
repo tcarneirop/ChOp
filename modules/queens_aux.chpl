@@ -50,8 +50,10 @@ module queens_aux{
          "\n\n\tNumber of solutions found: ", number_of_solutions
          );
 
-         writef("\n\nElapsed time: %.3dr", timer.elapsed());
-         writef("\n\tPerformance: %.3dr (n/s)\n\n\n",  performance_metrics);
+        writef("\n\nElapsed time: %.3dr", timer.elapsed());
+        writef("\n\tPerformance: %.3dr (n/s)",  performance_metrics);
+        writef("\n\tPerformance: %.3dr (solutions/s)\n\n",  (metrics[0]:real)/timer.elapsed());
+
 	}//print serial report
 
 
@@ -96,11 +98,13 @@ module queens_aux{
         second_depth: c_int,  ref tree_each_locale: [] uint(64)){
         
         var performance_metrics: real = 0.0;
+        var solutions_per_second: real = 0.0;
+        var total_time: real = (final.elapsed()+initial.elapsed()+distribution.elapsed());
         var total_tree: uint(64) = (metrics[1]+initial_tree_size);
 
 
-        performance_metrics = ((metrics[1]+initial_tree_size):real)/(final.elapsed()+initial.elapsed()+distribution.elapsed());
-      
+        performance_metrics = ((metrics[1]+initial_tree_size):real)/total_time;
+        solutions_per_second = metrics[0]/total_time;
 
         writef("\n\tInitial depth: %u", initial_depth);
         writef("\n\tSecond depth: %u", second_depth);
@@ -114,13 +118,14 @@ module queens_aux{
         writef("\n\tElapsed PGAS Data Distribution: %.3dr", distribution.elapsed());
         writef("\n\tElapsed Final Search: %.3dr",     final.elapsed());
         writef("\n\tElapsed TOTAL: %.3dr\n",  final.elapsed()+initial.elapsed()+distribution.elapsed());
-        writef("\n\tPGAS proportion: %.3dr\n", (distribution.elapsed())/(final.elapsed()+initial.elapsed()+distribution.elapsed())*100);
+        writef("\n\tPGAS proportion: %.3dr\n", (distribution.elapsed())/(total_time)*100);
 
         
         writef("\n\tInitial Tree size: %u",initial_tree_size);
         writef("\n\tFinal Tree size: %u",  metrics[1]);
         writef("\n\tTOTAL Tree size: %u",  metrics[1]+initial_tree_size);
-        writef("\n\n\tPerformance: %.3dr (n/s)\n\n",  performance_metrics);
+        writef("\n\n\tPerformance (nodes/s): %.3dr \n",  performance_metrics);
+        writef("\n\n\tPerformance (solutions/s): %.3dr \n\n",  solutions_per_second);
 
         statistics_tree_statistics(tree_each_locale, total_tree);
  

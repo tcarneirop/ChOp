@@ -1,0 +1,30 @@
+time: cannot run (mpirun: No such file or directory
+Command exited with non-zero status 127
+0.00user 0.00system 0:00.00elapsed ?%CPU (0avgtext+0avgdata 1180maxresident)k
+0inputs+8outputs (0major+27minor)pagefaults 0swaps
+0.22user 0.16system 0:01.04elapsed 37%CPU (0avgtext+0avgdata 46120maxresident)k
+0inputs+8outputs (0major+14258minor)pagefaults 0swaps
+0.23user 0.15system 0:01.02elapsed 38%CPU (0avgtext+0avgdata 46128maxresident)k
+0inputs+8outputs (0major+14251minor)pagefaults 0swaps
+0.19user 0.20system 0:01.03elapsed 38%CPU (0avgtext+0avgdata 46112maxresident)k
+0inputs+8outputs (0major+14219minor)pagefaults 0swaps
+time: cannot run (: No such file or directory
+Command exited with non-zero status 127
+real 0.00
+user 0.00
+sys 0.00
+time: cannot run (: No such file or directory
+Command exited with non-zero status 127
+real 0.00
+user 0.00
+sys 0.00
+time: cannot run (: No such file or directory
+Command exited with non-zero status 127
+real 0.00
+user 0.00
+sys 0.00
+time: cannot run (: No such file or directory
+Command exited with non-zero status 127
+real 0.00
+user 0.00
+sys 0.00

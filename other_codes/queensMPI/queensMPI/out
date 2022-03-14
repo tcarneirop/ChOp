@@ -1,0 +1,100 @@
+
+ MPI-Queens. 
+	Size: 10
+	Initial Depth: 4
+Hello world from processor headnode.lia.ufc.br, rank 1 out of 4 processors
+
+ MPI-Queens. 
+	Size: 10
+
+ MPI-Queens. 
+	Size: 10
+	Initial Depth: 4
+
+ MPI-Queens. 
+	Size: 10
+	Initial Depth: 4
+Hello world from processor headnode.lia.ufc.br, rank 3 out of 4 processors
+
+ Number of threads now: 1
+ Number of processors: 20
+ Maximum number of threads: 20
+ Local chunk for process 1: 350.
+	Range start: 350 - Range end: 700.
+
+	Initial Depth: 4
+Hello world from processor headnode.lia.ufc.br, rank 0 out of 4 processors
+Hello world from processor headnode.lia.ufc.br, rank 2 out of 4 processors
+
+ Number of threads now: 1
+ Number of processors: 20
+ Maximum number of threads: 20
+ Local chunk for process 3: 350.
+	Range start: 1050 - Range end: 1400.
+
+
+ Number of threads now: 1
+ Number of processors: 20
+
+ Number of threads now: 1
+ Number of processors: 20
+ Maximum number of threads: 20
+ Maximum number of threads: 20
+ Local chunk for process 2: 350.
+	 Local chunk for process 0: 350.
+	Range start: 0 - Range end: 350.
+
+Range start: 700 - Range end: 1050.
+
+
+Size: 10 x 10.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 5040.
+	Survivors: 1400, i.e, 27.78 % of the maximum number. 
+
+	Serial tree size: 1846
+	Multicore tree size: 7031
+	Tree size: 8877
+
+
+Execution time: 0.010. 
+
+
+Size: 10 x 10.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 5040.
+	Survivors: 1400, i.e, 27.78 % of the maximum number. 
+
+	Serial tree size: 1846
+	Multicore tree size: 7031
+	Tree size: 8877
+
+
+Execution time: 0.011. 
+
+
+Size: 10 x 10.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 5040.
+	Survivors: 1400, i.e, 27.78 % of the maximum number. 
+
+	Serial tree size: 1846
+	Multicore tree size: 7031
+	Tree size: 8877
+
+
+Execution time: 0.014. 
+
+
+Size: 10 x 10.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 5040.
+	Survivors: 1400, i.e, 27.78 % of the maximum number. 
+
+	Serial tree size: 1846
+	Multicore tree size: 7031
+	Tree size: 8877
+
+
+Execution time: 0.015. 
+

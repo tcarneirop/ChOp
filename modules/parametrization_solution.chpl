@@ -192,7 +192,7 @@ module parametrization_solution{
 			 	when "queens"{
 			 		cost_tuple = queens_call_multilocale_search(instance:uint(16),parameters(1):c_int,parameters(2):c_int,parameters(0),"improved","mlocale",
 		 					1,parameters(3),parameters(4),parameters(6),parameters(7),parameters(5),false,false,
-		 					1, 0, 0);
+		 					0, 0);
 			 	}
 			 	otherwise{
 			 		halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");

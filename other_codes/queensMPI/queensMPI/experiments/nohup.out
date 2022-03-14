@@ -1,0 +1,8002 @@
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 0: 436.
+	Range start: 0 - Range end: 436.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 5: 436.
+	Range start: 2180 - Range end: 2616.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 2: 436.
+	Range start: 872 - Range end: 1308.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 4: 436.
+	Range start: 1744 - Range end: 2180.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 11: 436.
+	Range start: 4796 - Range end: 5232.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-35.sophia.grid5000.fr, rank 19 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 12: 436.
+	Range start: 5232 - Range end: 5668.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 8: 436.
+	Range start: 3488 - Range end: 3924.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 6: 436.
+	Range start: 2616 - Range end: 3052.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 19: 436.
+	Range start: 8284 - Range end: 8720.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 10: 436.
+	Range start: 4360 - Range end: 4796.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-34.sophia.grid5000.fr, rank 18 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 9: 436.
+	Range start: 3924 - Range end: 4360.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 18: 436.
+	Range start: 7848 - Range end: 8284.
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 14: 436.
+	Range start: 6104 - Range end: 6540.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-42.sophia.grid5000.fr, rank 25 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 13: 436.
+	Range start: 5668 - Range end: 6104.
+
+
+
+Dynamic: 
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 7: 436.
+	Range start: 3052 - Range end: 3488.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 25: 436.
+	Range start: 10900 - Range end: 11336.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-33.sophia.grid5000.fr, rank 17 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-38.sophia.grid5000.fr, rank 22 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-44.sophia.grid5000.fr, rank 27 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 15: 436.
+	Range start: 6540 - Range end: 6976.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-43.sophia.grid5000.fr, rank 26 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 3: 436.
+	Range start: 1308 - Range end: 1744.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-4.sophia.grid5000.fr, rank 23 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 22: 436.
+	Range start: 9592 - Range end: 10028.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-31.sophia.grid5000.fr, rank 16 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-36.sophia.grid5000.fr, rank 20 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-37.sophia.grid5000.fr, rank 21 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-6.sophia.grid5000.fr, rank 29 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 17: 436.
+	Range start: 7412 - Range end: 7848.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 27: 436.
+	Range start: 11772 - Range end: 12208.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-8.sophia.grid5000.fr, rank 30 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 26: 436.
+	Range start: 11336 - Range end: 11772.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-41.sophia.grid5000.fr, rank 24 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 16: 436.
+	Range start: 6976 - Range end: 7412.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 23: 436.
+	Range start: 10028 - Range end: 10464.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-9.sophia.grid5000.fr, rank 31 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-5.sophia.grid5000.fr, rank 28 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 1: 436.
+	Range start: 436 - Range end: 872.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 20: 436.
+	Range start: 8720 - Range end: 9156.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 21: 436.
+	Range start: 9156 - Range end: 9592.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 29: 436.
+	Range start: 12644 - Range end: 13080.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 30: 436.
+	Range start: 13080 - Range end: 13516.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 24: 436.
+	Range start: 10464 - Range end: 10900.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 28: 436.
+	Range start: 12208 - Range end: 12644.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 31: 464.
+	Range start: 13516 - Range end: 13980.
+
+
+
+Dynamic: 
+
+
+Size: 15 x 15.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 32760.
+	Survivors: 13980, i.e, 42.67 % of the maximum number. 
+
+	Serial tree size: 15941
+	Multicore tree size: 3718966
+	Tree size: 171129071
+
+
+Execution time: 0.078 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 0: 615.
+	Range start: 0 - Range end: 615.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 1: 615.
+	Range start: 615 - Range end: 1230.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 4: 615.
+	Range start: 2460 - Range end: 3075.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 5: 615.
+	Range start: 3075 - Range end: 3690.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 32 processors
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 32 processors
+
+Num threads: 24.
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-5.sophia.grid5000.fr, rank 28 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 9: 615.
+	Range start: 5535 - Range end: 6150.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 2: 615.
+	Range start: 1230 - Range end: 1845.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-33.sophia.grid5000.fr, rank 17 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-9.sophia.grid5000.fr, rank 31 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 28: 615.
+	Range start: 17220 - Range end: 17835.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 11: 615.
+	Range start: 6765 - Range end: 7380.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-4.sophia.grid5000.fr, rank 23 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 6: 615.
+	Range start: 3690 - Range end: 4305.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 31: 623.
+	Range start: 19065 - Range end: 19688.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 7: 615.
+	Range start: 4305 - Range end: 4920.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 17: 615.
+	Range start: 10455 - Range end: 11070.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 23: 615.
+	Range start: 14145 - Range end: 14760.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-44.sophia.grid5000.fr, rank 27 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-34.sophia.grid5000.fr, rank 18 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 10: 615.
+	Range start: 6150 - Range end: 6765.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-37.sophia.grid5000.fr, rank 21 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 3: 615.
+	Range start: 1845 - Range end: 2460.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 27: 615.
+	Range start: 16605 - Range end: 17220.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 18: 615.
+	Range start: 11070 - Range end: 11685.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 21: 615.
+	Range start: 12915 - Range end: 13530.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 8: 615.
+	Range start: 4920 - Range end: 5535.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-41.sophia.grid5000.fr, rank 24 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-36.sophia.grid5000.fr, rank 20 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-6.sophia.grid5000.fr, rank 29 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-42.sophia.grid5000.fr, rank 25 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-35.sophia.grid5000.fr, rank 19 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 12: 615.
+	Range start: 7380 - Range end: 7995.
+
+
+
+Dynamic: 
+
+Hello world from processor uvb-31.sophia.grid5000.fr, rank 16 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-8.sophia.grid5000.fr, rank 30 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 24: 615.
+	Range start: 14760 - Range end: 15375.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-38.sophia.grid5000.fr, rank 22 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 20: 615.
+	Range start: 12300 - Range end: 12915.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-43.sophia.grid5000.fr, rank 26 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 15: 615.
+	Range start: 9225 - Range end: 9840.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 25: 615.
+	Range start: 15375 - Range end: 15990.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 29: 615.
+	Range start: 17835 - Range end: 18450.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 19: 615.
+	Range start: 11685 - Range end: 12300.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 13: 615.
+	Range start: 7995 - Range end: 8610.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 16: 615.
+	Range start: 9840 - Range end: 10455.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 30: 615.
+	Range start: 18450 - Range end: 19065.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 22: 615.
+	Range start: 13530 - Range end: 14145.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 26: 615.
+	Range start: 15990 - Range end: 16605.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 14: 615.
+	Range start: 8610 - Range end: 9225.
+
+
+
+Dynamic: 
+
+
+Size: 16 x 16.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 43680.
+	Survivors: 19688, i.e, 45.07 % of the maximum number. 
+
+	Serial tree size: 22150
+	Multicore tree size: 24645653
+	Tree size: 1141190302
+
+
+Execution time: 0.499 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 0: 844.
+	Range start: 0 - Range end: 844.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 32 processors
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 3: 844.
+	Range start: 2532 - Range end: 3376.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 32 processors
+
+Num threads: 24.
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 2: 844.
+	Range start: 1688 - Range end: 2532.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 1: 844.
+	Range start: 844 - Range end: 1688.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-6.sophia.grid5000.fr, rank 29 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 7: 844.
+	Range start: 5908 - Range end: 6752.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 4: 844.
+	Range start: 3376 - Range end: 4220.
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 32 processors
+
+
+Dynamic: 
+
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 10: 844.
+	Range start: 8440 - Range end: 9284.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-35.sophia.grid5000.fr, rank 19 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-9.sophia.grid5000.fr, rank 31 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 6: 844.
+	Range start: 5064 - Range end: 5908.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-4.sophia.grid5000.fr, rank 23 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 29: 844.
+	Range start: 24476 - Range end: 25320.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 12: 844.
+	Range start: 10128 - Range end: 10972.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 5: 844.
+	Range start: 4220 - Range end: 5064.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-33.sophia.grid5000.fr, rank 17 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 19: 844.
+	Range start: 16036 - Range end: 16880.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-44.sophia.grid5000.fr, rank 27 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 31: 856.
+	Range start: 26164 - Range end: 27020.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-5.sophia.grid5000.fr, rank 28 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-34.sophia.grid5000.fr, rank 18 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 11: 844.
+	Range start: 9284 - Range end: 10128.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 23: 844.
+	Range start: 19412 - Range end: 20256.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-38.sophia.grid5000.fr, rank 22 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 17: 844.
+	Range start: 14348 - Range end: 15192.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-43.sophia.grid5000.fr, rank 26 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 9: 844.
+	Range start: 7596 - Range end: 8440.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-36.sophia.grid5000.fr, rank 20 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 27: 844.
+	Range start: 22788 - Range end: 23632.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 18: 844.
+	Range start: 15192 - Range end: 16036.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 28: 844.
+	Range start: 23632 - Range end: 24476.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-37.sophia.grid5000.fr, rank 21 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-41.sophia.grid5000.fr, rank 24 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-42.sophia.grid5000.fr, rank 25 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 22: 844.
+	Range start: 18568 - Range end: 19412.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-8.sophia.grid5000.fr, rank 30 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 13: 844.
+	Range start: 10972 - Range end: 11816.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 20: 844.
+	Range start: 16880 - Range end: 17724.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-31.sophia.grid5000.fr, rank 16 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 26: 844.
+	Range start: 21944 - Range end: 22788.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 15: 844.
+	Range start: 12660 - Range end: 13504.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 21: 844.
+	Range start: 17724 - Range end: 18568.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 8: 844.
+	Range start: 6752 - Range end: 7596.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 24: 844.
+	Range start: 20256 - Range end: 21100.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 14: 844.
+	Range start: 11816 - Range end: 12660.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 25: 844.
+	Range start: 21100 - Range end: 21944.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 30: 844.
+	Range start: 25320 - Range end: 26164.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 16: 844.
+	Range start: 13504 - Range end: 14348.
+
+
+
+Dynamic: 
+
+
+Size: 17 x 17.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 57120.
+	Survivors: 27020, i.e, 47.30 % of the maximum number. 
+
+	Serial tree size: 30063
+	Multicore tree size: 171937210
+	Tree size: 8017021931
+
+
+Execution time: 3.633 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 0: 1133.
+	Range start: 0 - Range end: 1133.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 8: 1133.
+	Range start: 9064 - Range end: 10197.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 32 processors
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 32 processors
+
+Num threads: 24.
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 10: 1133.
+	Range start: 11330 - Range end: 12463.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 6: 1133.
+	Range start: 6798 - Range end: 7931.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-38.sophia.grid5000.fr, rank 22 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 1: 1133.
+	Range start: 1133 - Range end: 2266.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-33.sophia.grid5000.fr, rank 17 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-34.sophia.grid5000.fr, rank 18 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 2: 1133.
+	Range start: 2266 - Range end: 3399.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-4.sophia.grid5000.fr, rank 23 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 5: 1133.
+	Range start: 5665 - Range end: 6798.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 15: 1133.
+	Range start: 16995 - Range end: 18128.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-31.sophia.grid5000.fr, rank 16 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 22: 1133.
+	Range start: 24926 - Range end: 26059.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 17: 1133.
+	Range start: 19261 - Range end: 20394.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 14: 1133.
+	Range start: 15862 - Range end: 16995.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-36.sophia.grid5000.fr, rank 20 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-37.sophia.grid5000.fr, rank 21 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-6.sophia.grid5000.fr, rank 29 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-35.sophia.grid5000.fr, rank 19 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 4: 1133.
+	Range start: 4532 - Range end: 5665.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 23: 1133.
+	Range start: 26059 - Range end: 27192.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-42.sophia.grid5000.fr, rank 25 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 18: 1133.
+	Range start: 20394 - Range end: 21527.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-5.sophia.grid5000.fr, rank 28 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 13: 1133.
+	Range start: 14729 - Range end: 15862.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 16: 1133.
+	Range start: 18128 - Range end: 19261.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-41.sophia.grid5000.fr, rank 24 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 11: 1133.
+	Range start: 12463 - Range end: 13596.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-9.sophia.grid5000.fr, rank 31 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-8.sophia.grid5000.fr, rank 30 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 20: 1133.
+	Range start: 22660 - Range end: 23793.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 19: 1133.
+	Range start: 21527 - Range end: 22660.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 29: 1133.
+	Range start: 32857 - Range end: 33990.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 21: 1133.
+	Range start: 23793 - Range end: 24926.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-43.sophia.grid5000.fr, rank 26 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 3: 1133.
+	Range start: 3399 - Range end: 4532.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 7: 1133.
+	Range start: 7931 - Range end: 9064.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 28: 1133.
+	Range start: 31724 - Range end: 32857.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-44.sophia.grid5000.fr, rank 27 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 25: 1133.
+	Range start: 28325 - Range end: 29458.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 9: 1133.
+	Range start: 10197 - Range end: 11330.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 24: 1133.
+	Range start: 27192 - Range end: 28325.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 30: 1133.
+	Range start: 33990 - Range end: 35123.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 31: 1141.
+	Range start: 35123 - Range end: 36264.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 12: 1133.
+	Range start: 13596 - Range end: 14729.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 26: 1133.
+	Range start: 29458 - Range end: 30591.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 27: 1133.
+	Range start: 30591 - Range end: 31724.
+
+
+
+Dynamic: 
+
+
+Size: 18 x 18.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 73440.
+	Survivors: 36264, i.e, 49.38 % of the maximum number. 
+
+	Serial tree size: 39974
+	Multicore tree size: 1264714061
+	Tree size: 59365844490
+
+
+Execution time: 27.951 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 0: 1491.
+	Range start: 0 - Range end: 1491.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 1: 1491.
+	Range start: 1491 - Range end: 2982.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 8: 1491.
+	Range start: 11928 - Range end: 13419.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 3: 1491.
+	Range start: 4473 - Range end: 5964.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-31.sophia.grid5000.fr, rank 16 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 2: 1491.
+	Range start: 2982 - Range end: 4473.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-33.sophia.grid5000.fr, rank 17 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 4: 1491.
+	Range start: 5964 - Range end: 7455.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-37.sophia.grid5000.fr, rank 21 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 6: 1491.
+	Range start: 8946 - Range end: 10437.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-34.sophia.grid5000.fr, rank 18 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 5: 1491.
+	Range start: 7455 - Range end: 8946.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 16: 1491.
+	Range start: 23856 - Range end: 25347.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-38.sophia.grid5000.fr, rank 22 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 17: 1491.
+	Range start: 25347 - Range end: 26838.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-41.sophia.grid5000.fr, rank 24 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-43.sophia.grid5000.fr, rank 26 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 15: 1491.
+	Range start: 22365 - Range end: 23856.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 9: 1491.
+	Range start: 13419 - Range end: 14910.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-5.sophia.grid5000.fr, rank 28 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-35.sophia.grid5000.fr, rank 19 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-36.sophia.grid5000.fr, rank 20 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 7: 1491.
+	Range start: 10437 - Range end: 11928.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-4.sophia.grid5000.fr, rank 23 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 21: 1491.
+	Range start: 31311 - Range end: 32802.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 11: 1491.
+	Range start: 16401 - Range end: 17892.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-9.sophia.grid5000.fr, rank 31 out of 32 processors
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 18: 1491.
+	Range start: 26838 - Range end: 28329.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 32 processors
+
+Num threads: 24.
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-6.sophia.grid5000.fr, rank 29 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-8.sophia.grid5000.fr, rank 30 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-44.sophia.grid5000.fr, rank 27 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 22: 1491.
+	Range start: 32802 - Range end: 34293.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-42.sophia.grid5000.fr, rank 25 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 24: 1491.
+	Range start: 35784 - Range end: 37275.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 13: 1491.
+	Range start: 19383 - Range end: 20874.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 19: 1491.
+	Range start: 28329 - Range end: 29820.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 20: 1491.
+	Range start: 29820 - Range end: 31311.
+
+
+
+Dynamic: 
+
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 26: 1491.
+	Range start: 38766 - Range end: 40257.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 28: 1491.
+	Range start: 41748 - Range end: 43239.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 23: 1491.
+	Range start: 34293 - Range end: 35784.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 10: 1491.
+	Range start: 14910 - Range end: 16401.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 12: 1491.
+	Range start: 17892 - Range end: 19383.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 14: 1491.
+	Range start: 20874 - Range end: 22365.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 31: 1511.
+	Range start: 46221 - Range end: 47732.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 29: 1491.
+	Range start: 43239 - Range end: 44730.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 30: 1491.
+	Range start: 44730 - Range end: 46221.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 27: 1491.
+	Range start: 40257 - Range end: 41748.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 25: 1491.
+	Range start: 37275 - Range end: 38766.
+
+
+
+Dynamic: 
+
+
+Size: 19 x 19.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 93024.
+	Survivors: 47732, i.e, 51.31 % of the maximum number. 
+
+	Serial tree size: 52201
+	Multicore tree size: 9770013658
+	Tree size: 461939618823
+
+
+Execution time: 235.918 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 0: 1930.
+	Range start: 0 - Range end: 1930.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-33.sophia.grid5000.fr, rank 17 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 3: 1930.
+	Range start: 5790 - Range end: 7720.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-37.sophia.grid5000.fr, rank 21 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-31.sophia.grid5000.fr, rank 16 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 6: 1930.
+	Range start: 11580 - Range end: 13510.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 7: 1930.
+	Range start: 13510 - Range end: 15440.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 5: 1930.
+	Range start: 9650 - Range end: 11580.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-41.sophia.grid5000.fr, rank 24 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-43.sophia.grid5000.fr, rank 26 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 13: 1930.
+	Range start: 25090 - Range end: 27020.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 32 processors
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-35.sophia.grid5000.fr, rank 19 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 1: 1930.
+	Range start: 1930 - Range end: 3860.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 17: 1930.
+	Range start: 32810 - Range end: 34740.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 32 processors
+
+Num threads: 24.
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 12: 1930.
+	Range start: 23160 - Range end: 25090.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-34.sophia.grid5000.fr, rank 18 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 21: 1930.
+	Range start: 40530 - Range end: 42460.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-9.sophia.grid5000.fr, rank 31 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-36.sophia.grid5000.fr, rank 20 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 16: 1930.
+	Range start: 30880 - Range end: 32810.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-4.sophia.grid5000.fr, rank 23 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-5.sophia.grid5000.fr, rank 28 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 9: 1930.
+	Range start: 17370 - Range end: 19300.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-38.sophia.grid5000.fr, rank 22 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 10: 1930.
+	Range start: 19300 - Range end: 21230.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-6.sophia.grid5000.fr, rank 29 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 24: 1930.
+	Range start: 46320 - Range end: 48250.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-8.sophia.grid5000.fr, rank 30 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 26: 1930.
+	Range start: 50180 - Range end: 52110.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-42.sophia.grid5000.fr, rank 25 out of 32 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-44.sophia.grid5000.fr, rank 27 out of 32 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 2: 1930.
+	Range start: 3860 - Range end: 5790.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 19: 1930.
+	Range start: 36670 - Range end: 38600.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 11: 1930.
+	Range start: 21230 - Range end: 23160.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 31: 1930.
+	Range start: 59830 - Range end: 61760.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 14: 1930.
+	Range start: 27020 - Range end: 28950.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 8: 1930.
+	Range start: 15440 - Range end: 17370.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 15: 1930.
+	Range start: 28950 - Range end: 30880.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 18: 1930.
+	Range start: 34740 - Range end: 36670.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 4: 1930.
+	Range start: 7720 - Range end: 9650.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 23: 1930.
+	Range start: 44390 - Range end: 46320.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 28: 1930.
+	Range start: 54040 - Range end: 55970.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 20: 1930.
+	Range start: 38600 - Range end: 40530.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 22: 1930.
+	Range start: 42460 - Range end: 44390.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 29: 1930.
+	Range start: 55970 - Range end: 57900.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 30: 1930.
+	Range start: 57900 - Range end: 59830.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 25: 1930.
+	Range start: 48250 - Range end: 50180.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 27: 1930.
+	Range start: 52110 - Range end: 54040.
+
+
+
+Dynamic: 
+
+
+Size: 20 x 20.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 116280.
+	Survivors: 61760, i.e, 53.11 % of the maximum number. 
+
+	Serial tree size: 67086
+	Multicore tree size: 79347029289
+	Tree size: 3769977745908
+
+
+Execution time: 2093.832 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 0: 873.
+	Range start: 0 - Range end: 873.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 4: 873.
+	Range start: 3492 - Range end: 4365.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 1: 873.
+	Range start: 873 - Range end: 1746.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 9: 873.
+	Range start: 7857 - Range end: 8730.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 8: 873.
+	Range start: 6984 - Range end: 7857.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 3: 873.
+	Range start: 2619 - Range end: 3492.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 2: 873.
+	Range start: 1746 - Range end: 2619.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 11: 873.
+	Range start: 9603 - Range end: 10476.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 7: 873.
+	Range start: 6111 - Range end: 6984.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 15: 885.
+	Range start: 13095 - Range end: 13980.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 12: 873.
+	Range start: 10476 - Range end: 11349.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 13: 873.
+	Range start: 11349 - Range end: 12222.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 10: 873.
+	Range start: 8730 - Range end: 9603.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 6: 873.
+	Range start: 5238 - Range end: 6111.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 5: 873.
+	Range start: 4365 - Range end: 5238.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 14: 873.
+	Range start: 12222 - Range end: 13095.
+
+
+
+Dynamic: 
+
+
+Size: 15 x 15.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 32760.
+	Survivors: 13980, i.e, 42.67 % of the maximum number. 
+
+	Serial tree size: 15941
+	Multicore tree size: 7844016
+	Tree size: 171129071
+
+
+Execution time: 0.151 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 0: 1230.
+	Range start: 0 - Range end: 1230.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 16 processors
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 16 processors
+
+Num threads: 24.
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 9: 1230.
+	Range start: 11070 - Range end: 12300.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 7: 1230.
+	Range start: 8610 - Range end: 9840.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 2: 1230.
+	Range start: 2460 - Range end: 3690.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 8: 1230.
+	Range start: 9840 - Range end: 11070.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 10: 1230.
+	Range start: 12300 - Range end: 13530.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 5: 1230.
+	Range start: 6150 - Range end: 7380.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 12: 1230.
+	Range start: 14760 - Range end: 15990.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 6: 1230.
+	Range start: 7380 - Range end: 8610.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 1: 1230.
+	Range start: 1230 - Range end: 2460.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 4: 1230.
+	Range start: 4920 - Range end: 6150.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 11: 1230.
+	Range start: 13530 - Range end: 14760.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 13: 1230.
+	Range start: 15990 - Range end: 17220.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 3: 1230.
+	Range start: 3690 - Range end: 4920.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 14: 1230.
+	Range start: 17220 - Range end: 18450.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 15: 1238.
+	Range start: 18450 - Range end: 19688.
+
+
+
+Dynamic: 
+
+
+Size: 16 x 16.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 43680.
+	Survivors: 19688, i.e, 45.07 % of the maximum number. 
+
+	Serial tree size: 22150
+	Multicore tree size: 50575659
+	Tree size: 1141190302
+
+
+Execution time: 1.024 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 0: 1688.
+	Range start: 0 - Range end: 1688.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 6: 1688.
+	Range start: 10128 - Range end: 11816.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 4: 1688.
+	Range start: 6752 - Range end: 8440.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 12: 1688.
+	Range start: 20256 - Range end: 21944.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 3: 1688.
+	Range start: 5064 - Range end: 6752.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 9: 1688.
+	Range start: 15192 - Range end: 16880.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 7: 1688.
+	Range start: 11816 - Range end: 13504.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 15: 1700.
+	Range start: 25320 - Range end: 27020.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 2: 1688.
+	Range start: 3376 - Range end: 5064.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 14: 1688.
+	Range start: 23632 - Range end: 25320.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 10: 1688.
+	Range start: 16880 - Range end: 18568.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 1: 1688.
+	Range start: 1688 - Range end: 3376.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 8: 1688.
+	Range start: 13504 - Range end: 15192.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 13: 1688.
+	Range start: 21944 - Range end: 23632.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 11: 1688.
+	Range start: 18568 - Range end: 20256.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 5: 1688.
+	Range start: 8440 - Range end: 10128.
+
+
+
+Dynamic: 
+
+
+Size: 17 x 17.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 57120.
+	Survivors: 27020, i.e, 47.30 % of the maximum number. 
+
+	Serial tree size: 30063
+	Multicore tree size: 346628477
+	Tree size: 8017021931
+
+
+Execution time: 7.095 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 0: 2266.
+	Range start: 0 - Range end: 2266.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 6: 2266.
+	Range start: 13596 - Range end: 15862.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 5: 2266.
+	Range start: 11330 - Range end: 13596.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 7: 2266.
+	Range start: 15862 - Range end: 18128.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 9: 2266.
+	Range start: 20394 - Range end: 22660.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 3: 2266.
+	Range start: 6798 - Range end: 9064.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 4: 2266.
+	Range start: 9064 - Range end: 11330.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 14: 2266.
+	Range start: 31724 - Range end: 33990.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 12: 2266.
+	Range start: 27192 - Range end: 29458.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 2: 2266.
+	Range start: 4532 - Range end: 6798.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 1: 2266.
+	Range start: 2266 - Range end: 4532.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 13: 2266.
+	Range start: 29458 - Range end: 31724.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 8: 2266.
+	Range start: 18128 - Range end: 20394.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 10: 2266.
+	Range start: 22660 - Range end: 24926.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 11: 2266.
+	Range start: 24926 - Range end: 27192.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 15: 2274.
+	Range start: 33990 - Range end: 36264.
+
+
+
+Dynamic: 
+
+
+Size: 18 x 18.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 73440.
+	Survivors: 36264, i.e, 49.38 % of the maximum number. 
+
+	Serial tree size: 39974
+	Multicore tree size: 2478937712
+	Tree size: 59365844490
+
+
+Execution time: 54.671 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 0: 2983.
+	Range start: 0 - Range end: 2983.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 6: 2983.
+	Range start: 17898 - Range end: 20881.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 1: 2983.
+	Range start: 2983 - Range end: 5966.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 2: 2983.
+	Range start: 5966 - Range end: 8949.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 4: 2983.
+	Range start: 11932 - Range end: 14915.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 5: 2983.
+	Range start: 14915 - Range end: 17898.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 7: 2983.
+	Range start: 20881 - Range end: 23864.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 11: 2983.
+	Range start: 32813 - Range end: 35796.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 10: 2983.
+	Range start: 29830 - Range end: 32813.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 13: 2983.
+	Range start: 38779 - Range end: 41762.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 9: 2983.
+	Range start: 26847 - Range end: 29830.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 3: 2983.
+	Range start: 8949 - Range end: 11932.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 8: 2983.
+	Range start: 23864 - Range end: 26847.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 14: 2983.
+	Range start: 41762 - Range end: 44745.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 12: 2983.
+	Range start: 35796 - Range end: 38779.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 15: 2987.
+	Range start: 44745 - Range end: 47732.
+
+
+
+Dynamic: 
+
+
+Size: 19 x 19.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 93024.
+	Survivors: 47732, i.e, 51.31 % of the maximum number. 
+
+	Serial tree size: 52201
+	Multicore tree size: 18912672332
+	Tree size: 461939618823
+
+
+Execution time: 458.553 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-21.sophia.grid5000.fr, rank 9 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-27.sophia.grid5000.fr, rank 13 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-28.sophia.grid5000.fr, rank 14 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 0: 3860.
+	Range start: 0 - Range end: 3860.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-26.sophia.grid5000.fr, rank 12 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-22.sophia.grid5000.fr, rank 10 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-29.sophia.grid5000.fr, rank 15 out of 16 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-20.sophia.grid5000.fr, rank 8 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 3: 3860.
+	Range start: 11580 - Range end: 15440.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 4: 3860.
+	Range start: 15440 - Range end: 19300.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 1: 3860.
+	Range start: 3860 - Range end: 7720.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 2: 3860.
+	Range start: 7720 - Range end: 11580.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 9: 3860.
+	Range start: 34740 - Range end: 38600.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 6: 3860.
+	Range start: 23160 - Range end: 27020.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-25.sophia.grid5000.fr, rank 11 out of 16 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 13: 3860.
+	Range start: 50180 - Range end: 54040.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 7: 3860.
+	Range start: 27020 - Range end: 30880.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 5: 3860.
+	Range start: 19300 - Range end: 23160.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 14: 3860.
+	Range start: 54040 - Range end: 57900.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 12: 3860.
+	Range start: 46320 - Range end: 50180.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 10: 3860.
+	Range start: 38600 - Range end: 42460.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 15: 3860.
+	Range start: 57900 - Range end: 61760.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 8: 3860.
+	Range start: 30880 - Range end: 34740.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 11: 3860.
+	Range start: 42460 - Range end: 46320.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 8 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 0: 1747.
+	Range start: 0 - Range end: 1747.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 8 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 3: 1747.
+	Range start: 5241 - Range end: 6988.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 1: 1747.
+	Range start: 1747 - Range end: 3494.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 5: 1747.
+	Range start: 8735 - Range end: 10482.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 2: 1747.
+	Range start: 3494 - Range end: 5241.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 6: 1747.
+	Range start: 10482 - Range end: 12229.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 4: 1747.
+	Range start: 6988 - Range end: 8735.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 8 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 7: 1751.
+	Range start: 12229 - Range end: 13980.
+
+
+
+Dynamic: 
+
+
+Size: 15 x 15.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 32760.
+	Survivors: 13980, i.e, 42.67 % of the maximum number. 
+
+	Serial tree size: 15941
+	Multicore tree size: 16297544
+	Tree size: 171129071
+
+
+Execution time: 0.328 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 8 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 0: 2461.
+	Range start: 0 - Range end: 2461.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 8 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 1: 2461.
+	Range start: 2461 - Range end: 4922.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 3: 2461.
+	Range start: 7383 - Range end: 9844.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 4: 2461.
+	Range start: 9844 - Range end: 12305.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 7: 2461.
+	Range start: 17227 - Range end: 19688.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 6: 2461.
+	Range start: 14766 - Range end: 17227.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 5: 2461.
+	Range start: 12305 - Range end: 14766.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 2: 2461.
+	Range start: 4922 - Range end: 7383.
+
+
+
+Dynamic: 
+
+
+Size: 16 x 16.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 43680.
+	Survivors: 19688, i.e, 45.07 % of the maximum number. 
+
+	Serial tree size: 22150
+	Multicore tree size: 107666250
+	Tree size: 1141190302
+
+
+Execution time: 2.140 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 8 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 0: 3377.
+	Range start: 0 - Range end: 3377.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 8 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 4: 3377.
+	Range start: 13508 - Range end: 16885.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 7: 3381.
+	Range start: 23639 - Range end: 27020.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 1: 3377.
+	Range start: 3377 - Range end: 6754.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 2: 3377.
+	Range start: 6754 - Range end: 10131.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 6: 3377.
+	Range start: 20262 - Range end: 23639.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 5: 3377.
+	Range start: 16885 - Range end: 20262.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 3: 3377.
+	Range start: 10131 - Range end: 13508.
+
+
+
+Dynamic: 
+
+
+Size: 17 x 17.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 57120.
+	Survivors: 27020, i.e, 47.30 % of the maximum number. 
+
+	Serial tree size: 30063
+	Multicore tree size: 741176607
+	Tree size: 8017021931
+
+
+Execution time: 15.217 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 8 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 0: 4533.
+	Range start: 0 - Range end: 4533.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 8 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 4: 4533.
+	Range start: 18132 - Range end: 22665.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 2: 4533.
+	Range start: 9066 - Range end: 13599.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 1: 4533.
+	Range start: 4533 - Range end: 9066.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 3: 4533.
+	Range start: 13599 - Range end: 18132.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 5: 4533.
+	Range start: 22665 - Range end: 27198.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 7: 4533.
+	Range start: 31731 - Range end: 36264.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 6: 4533.
+	Range start: 27198 - Range end: 31731.
+
+
+
+Dynamic: 
+
+
+Size: 18 x 18.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 73440.
+	Survivors: 36264, i.e, 49.38 % of the maximum number. 
+
+	Serial tree size: 39974
+	Multicore tree size: 5317846317
+	Tree size: 59365844490
+
+
+Execution time: 118.294 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 8 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 0: 5966.
+	Range start: 0 - Range end: 5966.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 1: 5966.
+	Range start: 5966 - Range end: 11932.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 5: 5966.
+	Range start: 29830 - Range end: 35796.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 2: 5966.
+	Range start: 11932 - Range end: 17898.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 4: 5966.
+	Range start: 23864 - Range end: 29830.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 7: 5970.
+	Range start: 41762 - Range end: 47732.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 3: 5966.
+	Range start: 17898 - Range end: 23864.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 6: 5966.
+	Range start: 35796 - Range end: 41762.
+
+
+
+Dynamic: 
+
+
+Size: 19 x 19.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 93024.
+	Survivors: 47732, i.e, 51.31 % of the maximum number. 
+
+	Serial tree size: 52201
+	Multicore tree size: 40562958957
+	Tree size: 461939618823
+
+
+Execution time: 979.078 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-17.sophia.grid5000.fr, rank 5 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-16.sophia.grid5000.fr, rank 4 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-18.sophia.grid5000.fr, rank 6 out of 8 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-2.sophia.grid5000.fr, rank 7 out of 8 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 0: 7720.
+	Range start: 0 - Range end: 7720.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 1: 7720.
+	Range start: 7720 - Range end: 15440.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 5: 7720.
+	Range start: 38600 - Range end: 46320.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 3: 7720.
+	Range start: 23160 - Range end: 30880.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 4: 7720.
+	Range start: 30880 - Range end: 38600.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 2: 7720.
+	Range start: 15440 - Range end: 23160.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 6: 7720.
+	Range start: 46320 - Range end: 54040.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 7: 7720.
+	Range start: 54040 - Range end: 61760.
+
+
+
+Dynamic: 
+
+
+Size: 20 x 20.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 116280.
+	Survivors: 61760, i.e, 53.11 % of the maximum number. 
+
+	Serial tree size: 67086
+	Multicore tree size: 331839591899
+	Tree size: 3769977745908
+
+
+Execution time: 8683.858 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 4 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 0: 3495.
+	Range start: 0 - Range end: 3495.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 4 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 2: 3495.
+	Range start: 6990 - Range end: 10485.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 3: 3495.
+	Range start: 10485 - Range end: 13980.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 1: 3495.
+	Range start: 3495 - Range end: 6990.
+
+
+
+Dynamic: 
+
+
+Size: 15 x 15.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 32760.
+	Survivors: 13980, i.e, 42.67 % of the maximum number. 
+
+	Serial tree size: 15941
+	Multicore tree size: 36364547
+	Tree size: 171129071
+
+
+Execution time: 0.669 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 4 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 0: 4922.
+	Range start: 0 - Range end: 4922.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 4 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 1: 4922.
+	Range start: 4922 - Range end: 9844.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 3: 4922.
+	Range start: 14766 - Range end: 19688.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 2: 4922.
+	Range start: 9844 - Range end: 14766.
+
+
+
+Dynamic: 
+
+
+Size: 16 x 16.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 43680.
+	Survivors: 19688, i.e, 45.07 % of the maximum number. 
+
+	Serial tree size: 22150
+	Multicore tree size: 245772467
+	Tree size: 1141190302
+
+
+Execution time: 4.608 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 4 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 0: 6755.
+	Range start: 0 - Range end: 6755.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 3: 6755.
+	Range start: 20265 - Range end: 27020.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 2: 6755.
+	Range start: 13510 - Range end: 20265.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 1: 6755.
+	Range start: 6755 - Range end: 13510.
+
+
+
+Dynamic: 
+
+
+Size: 17 x 17.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 57120.
+	Survivors: 27020, i.e, 47.30 % of the maximum number. 
+
+	Serial tree size: 30063
+	Multicore tree size: 1705807647
+	Tree size: 8017021931
+
+
+Execution time: 34.077 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 4 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 0: 9066.
+	Range start: 0 - Range end: 9066.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 2: 9066.
+	Range start: 18132 - Range end: 27198.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 3: 9066.
+	Range start: 27198 - Range end: 36264.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 1: 9066.
+	Range start: 9066 - Range end: 18132.
+
+
+
+Dynamic: 
+
+
+Size: 18 x 18.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 73440.
+	Survivors: 36264, i.e, 49.38 % of the maximum number. 
+
+	Serial tree size: 39974
+	Multicore tree size: 12448649418
+	Tree size: 59365844490
+
+
+Execution time: 274.335 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 4 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 0: 11933.
+	Range start: 0 - Range end: 11933.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 2: 11933.
+	Range start: 23866 - Range end: 35799.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 1: 11933.
+	Range start: 11933 - Range end: 23866.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 3: 11933.
+	Range start: 35799 - Range end: 47732.
+
+
+
+Dynamic: 
+
+
+Size: 19 x 19.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 93024.
+	Survivors: 47732, i.e, 51.31 % of the maximum number. 
+
+	Serial tree size: 52201
+	Multicore tree size: 97638229554
+	Tree size: 461939618823
+
+
+Execution time: 2347.376 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-12.sophia.grid5000.fr, rank 2 out of 4 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-14.sophia.grid5000.fr, rank 3 out of 4 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 0: 15440.
+	Range start: 0 - Range end: 15440.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 1: 15440.
+	Range start: 15440 - Range end: 30880.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 2: 15440.
+	Range start: 30880 - Range end: 46320.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 3: 15440.
+	Range start: 46320 - Range end: 61760.
+
+
+
+Dynamic: 
+
+
+Size: 20 x 20.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 116280.
+	Survivors: 61760, i.e, 53.11 % of the maximum number. 
+
+	Serial tree size: 67086
+	Multicore tree size: 799471963553
+	Tree size: 3769977745908
+
+
+Execution time: 20776.944 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 2 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 0: 6990.
+	Range start: 0 - Range end: 6990.
+
+
+
+Dynamic: 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 2 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 1: 6990.
+	Range start: 6990 - Range end: 13980.
+
+
+
+Dynamic: 
+
+
+Size: 15 x 15.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 32760.
+	Survivors: 13980, i.e, 42.67 % of the maximum number. 
+
+	Serial tree size: 15941
+	Multicore tree size: 85556565
+	Tree size: 171129071
+
+
+Execution time: 1.531 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 2 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 2 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 0: 9844.
+	Range start: 0 - Range end: 9844.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 1: 9844.
+	Range start: 9844 - Range end: 19688.
+
+
+
+Dynamic: 
+
+
+Size: 16 x 16.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 43680.
+	Survivors: 19688, i.e, 45.07 % of the maximum number. 
+
+	Serial tree size: 22150
+	Multicore tree size: 570584076
+	Tree size: 1141190302
+
+
+Execution time: 10.403 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 2 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 2 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 0: 13510.
+	Range start: 0 - Range end: 13510.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 1: 13510.
+	Range start: 13510 - Range end: 27020.
+
+
+
+Dynamic: 
+
+
+Size: 17 x 17.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 57120.
+	Survivors: 27020, i.e, 47.30 % of the maximum number. 
+
+	Serial tree size: 30063
+	Multicore tree size: 4008495934
+	Tree size: 8017021931
+
+
+Execution time: 79.917 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 2 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 2 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 0: 18132.
+	Range start: 0 - Range end: 18132.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 1: 18132.
+	Range start: 18132 - Range end: 36264.
+
+
+
+Dynamic: 
+
+
+Size: 18 x 18.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 73440.
+	Survivors: 36264, i.e, 49.38 % of the maximum number. 
+
+	Serial tree size: 39974
+	Multicore tree size: 29682902258
+	Tree size: 59365844490
+
+
+Execution time: 652.572 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 2 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 2 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 0: 23866.
+	Range start: 0 - Range end: 23866.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 1: 23866.
+	Range start: 23866 - Range end: 47732.
+
+
+
+Dynamic: 
+
+
+Size: 19 x 19.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 93024.
+	Survivors: 47732, i.e, 51.31 % of the maximum number. 
+
+	Serial tree size: 52201
+	Multicore tree size: 230969783311
+	Tree size: 461939618823
+
+
+Execution time: 5530.175 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 2 processors
+
+Num threads: 24.
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-11.sophia.grid5000.fr, rank 1 out of 2 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 0: 30880.
+	Range start: 0 - Range end: 30880.
+
+
+
+Dynamic: 
+
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 1: 30880.
+	Range start: 30880 - Range end: 61760.
+
+
+
+Dynamic: 
+
+
+Size: 20 x 20.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 116280.
+	Survivors: 61760, i.e, 53.11 % of the maximum number. 
+
+	Serial tree size: 67086
+	Multicore tree size: 1884988839411
+	Tree size: 3769977745908
+
+
+Execution time: 48736.441 
+
+
+ MPI-Queens. 
+	Size: 15
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 1 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 13980.
+	 Local chunk for process 0: 13980.
+	Range start: 0 - Range end: 13980.
+
+
+
+Dynamic: 
+
+
+Size: 15 x 15.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 32760.
+	Survivors: 13980, i.e, 42.67 % of the maximum number. 
+
+	Serial tree size: 15941
+	Multicore tree size: 171113130
+	Tree size: 171129071
+
+
+Execution time: 2.950 
+
+
+ MPI-Queens. 
+	Size: 16
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 1 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 19688.
+	 Local chunk for process 0: 19688.
+	Range start: 0 - Range end: 19688.
+
+
+
+Dynamic: 
+
+
+Size: 16 x 16.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 43680.
+	Survivors: 19688, i.e, 45.07 % of the maximum number. 
+
+	Serial tree size: 22150
+	Multicore tree size: 1141168152
+	Tree size: 1141190302
+
+
+Execution time: 20.669 
+
+
+ MPI-Queens. 
+	Size: 17
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 1 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 27020.
+	 Local chunk for process 0: 27020.
+	Range start: 0 - Range end: 27020.
+
+
+
+Dynamic: 
+
+
+Size: 17 x 17.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 57120.
+	Survivors: 27020, i.e, 47.30 % of the maximum number. 
+
+	Serial tree size: 30063
+	Multicore tree size: 8016991868
+	Tree size: 8017021931
+
+
+Execution time: 160.476 
+
+
+ MPI-Queens. 
+	Size: 18
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 1 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 36264.
+	 Local chunk for process 0: 36264.
+	Range start: 0 - Range end: 36264.
+
+
+
+Dynamic: 
+
+
+Size: 18 x 18.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 73440.
+	Survivors: 36264, i.e, 49.38 % of the maximum number. 
+
+	Serial tree size: 39974
+	Multicore tree size: 59365804516
+	Tree size: 59365844490
+
+
+Execution time: 1307.794 
+
+
+ MPI-Queens. 
+	Size: 19
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 1 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 47732.
+	 Local chunk for process 0: 47732.
+	Range start: 0 - Range end: 47732.
+
+
+
+Dynamic: 
+
+
+Size: 19 x 19.
+	Depth of initial search: 4.
+	Maximum number of nodes at depth 4: 93024.
+	Survivors: 47732, i.e, 51.31 % of the maximum number. 
+
+	Serial tree size: 52201
+	Multicore tree size: 461939566622
+	Tree size: 461939618823
+
+
+Execution time: 11043.120 
+
+
+ MPI-Queens. 
+	Size: 20
+	Initial Depth: 4
+Hello world from processor uvb-10.sophia.grid5000.fr, rank 0 out of 1 processors
+
+Num threads: 24.
+
+ Number of threads now: 1
+ Number of processors: 24
+ Maximum number of threads: 24
+
+Survivors: 61760.
+	 Local chunk for process 0: 61760.
+	Range start: 0 - Range end: 61760.
+
+
+
+Dynamic: 
+
