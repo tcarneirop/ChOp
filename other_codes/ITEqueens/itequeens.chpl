@@ -22,6 +22,11 @@ config const initial_depth: c_int = 7;
 config const distributed: bool = false;
 config const CPUP: int = 100;
 
+
+
+//@@
+// @@ TODO: I must organize those types. This code came from an old c code that has several type inconsistencies
+
 ///////////////////////////////////////////////////////////////////////////
 //C-Interoperability
 ///////////////////////////////////////////////////////////////////////////
@@ -126,7 +131,7 @@ if distributed then {
 ///////////////////////////////////////////////////////////////////////////
 
 var DISTGPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
-		//pointer arithmetics
+		//pointer arithmetic
 		ref ldist_active_set_h = dist_active_set_h.localSlice(lo .. hi);
   		ref ldist_vector_of_tree_size_h = dist_vector_of_tree_size_h.localSlice(lo .. hi);
 		ref ldist_sols_h = dist_sols_h.localSlice(lo .. hi);

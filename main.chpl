@@ -63,14 +63,21 @@ config const computers: int = 1;
 config const mode: string = "improved";
 config const mlsearch: string = "mlocale";
 config const num_gpus: c_int = 0; //if it is not zero, get the number of devices of the system
-config param build_gpu_code: bool = true;
-config param build_mlocale_code: bool = true;
 
-config const CPUP: real = 0.0; //CPU percent
+
+//config param build_gpu_code: bool = true;
+//config param build_mlocale_code: bool = true;
+
+config const CPUP: int = 100; //CPU percent
+config const itedistributed: bool = false; //for ITEQueens
 
 
 
 proc main(){
+
+	ITE_queens_search(15:uint(16), 7:c_int, false, 100);
+	halt();
+
 
 	//@todo -- these chunks are confusing..
 	if(heuristic!="none") then initialization(heuristic,lower_bound, instance, mode);
