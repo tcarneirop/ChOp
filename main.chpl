@@ -35,7 +35,7 @@ config const scheduler: string = "dynamic";
 
 config const mlchunk: int = 0; //inter-node chunk.
 config const lchunk: int = 1; //task chunk the inter-node scheduler gives.
-config const slchunk: int = 1; //chunk for the second level of parallelism. 
+config const slchunk: int = 1; //chunk for the second level of parallelism.
 
 config const coordinated: bool = true;  //centralized node?
 //available modes:
@@ -46,15 +46,15 @@ config const coordinated: bool = true;  //centralized node?
 
 config const pgas: bool = false; //pgas-based active set?
 
-config const num_threads: int = here.maxTaskPar; //number of threads. 
-config const profiler: bool = false; //to gather profiler metrics and execution graphics. 
-config const number_exec: int = 1;   //going to be removed soon. 
-config const upper_bound: c_int = 0; //value for the initial upper bound. If it is zero, the optimal solution is going to be used. 
+config const num_threads: int = here.maxTaskPar; //number of threads.
+config const profiler: bool = false; //to gather profiler metrics and execution graphics.
+config const number_exec: int = 1;   //going to be removed soon.
+config const upper_bound: c_int = 0; //value for the initial upper bound. If it is zero, the optimal solution is going to be used.
 config const lower_bound: string = "johnson"; //type of lowerbound. Johnson and simple.
 config const atype: string = "none"; //atomic type. 'none' when initializing using the optimal -- use like that.
 config const instance: int(8) = 13; //fsp instance
 
-config const verbose: bool = false; //verbose network communication 
+config const verbose: bool = false; //verbose network communication
 
 config const heuristic: string = "none";
 config const problem: string = "simple"; //fsp - johnson, fsp - simple, queens, minla
@@ -76,6 +76,7 @@ config const itedistributed: bool = false; //for ITEQueens
 proc main(){
 
 	ITE_queens_search(15:uint(16), 7:c_int, false, 100);
+	
 	halt();
 
 
@@ -94,17 +95,17 @@ proc main(){
 					writeln(" --- CHPL-SIMPLE mcore search --- \n\n");
 					fsp_simple_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
 				}
-			
+
 				when "improved"{
 				 		writeln("--- CHPL-SIMPLE IMPROVED multi-locale search --- \n");
 				 		fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
 				 			lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
 				}
-				
+
 				otherwise{
 					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 				}
-			} 
+			}
 		}//end of simple bound
 		when "johnson"{
 			writeln("\n --- JOHNSON LOWER BOUND --- ");
@@ -117,13 +118,13 @@ proc main(){
 					writeln("--- CHPL-Johnson mcore search --- \n\n");
 					fsp_johnson_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance,true);
 				}//mcode
-				
+
 				when "improved"{
 				 	writeln("--- CHPL-Johnson IMPROVED multi-locale search --- \n");
 				 	fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
 				 		lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
 				 }//johnson improved
-		
+
 				otherwise{
 					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 				}
@@ -146,23 +147,22 @@ proc main(){
 		 				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 		 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
 		 					CPUP, num_gpus);
-					
+
 		 		}//improved
-				
+
 		 			when "mgpu"{
 		 				writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
 		 				GPU_queens_call_search(size,initial_depth,CPUP,lchunk);
 		 			}
-				
+
 		 		otherwise{
 		 			halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 		 		}
 
 		 	}//mode
 		}//queens
-	
+
 	}//lower bound
 
 }
 }
-
