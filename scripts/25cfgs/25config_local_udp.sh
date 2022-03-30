@@ -7,7 +7,7 @@ echo " ### exporting...  ### "
 export CHPL_HOME=~/chapel-1.25.0
 
 #export CHPL_LLVM=system
-export CHPL_LLVM=bundled
+export CHPL_LLVM=none
 export CHOP_HOME=~/ChOp/ChOp
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$CHOP_HOME"/libs
 
