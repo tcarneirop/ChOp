@@ -1,6 +1,6 @@
 module ITE_queens_chpl{
 
-		
+
 	use SysCTypes;
 	use GPUIterator;
 	use GPU_aux;
@@ -32,9 +32,8 @@ module ITE_queens_chpl{
 	require "headers/GPU_queens.h";
 
 
-	extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint, 
-			active_set_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_longlong), 
-			sols_h: c_ptr(c_longlong)): void;
+	extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
+			active_set_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_longlong), sols_h: c_ptr(c_longlong)): void;
 
 	var size: uint(16) = 12;
 	var initial_depth: c_int = 7;
@@ -53,7 +52,7 @@ module ITE_queens_chpl{
 	var max_number_prefixes: uint(64) = 75580635;
 	var active_set_h: [0:uint(64)..#max_number_prefixes] queens_node;
 
-	var n_explorers : int; 
+	var n_explorers : int;
 
 
 
@@ -67,8 +66,7 @@ module ITE_queens_chpl{
 		var tree_ptr : c_ptr(c_longlong) = c_ptrTo(vector_of_tree_size_h) + lo:c_longlong;
 		var active_set_ptr : c_ptr(queens_node) = c_ptrTo(active_set_h) + lo:c_uint;
 
-		GPU_call_cuda_queens(size, initial_depth, n_explorers:c_uint, 
-			active_set_ptr,tree_ptr, sols_ptr);
+		GPU_call_cuda_queens(size, initial_depth, n_explorers:c_uint, active_set_ptr,tree_ptr, sols_ptr);
 
 	};
 
@@ -88,16 +86,16 @@ module ITE_queens_chpl{
   		ref ldist_vector_of_tree_size_h = dist_vector_of_tree_size_h.localSlice(lo .. hi);
 		ref ldist_sols_h = dist_sols_h.localSlice(lo .. hi);
 
-  		GPU_call_cuda_queens(size, initial_depth, n_explorers:c_uint, 
+  		GPU_call_cuda_queens(size, initial_depth, n_explorers:c_uint,
 			c_ptrTo(ldist_active_set_h),c_ptrTo(ldist_vector_of_tree_size_h), c_ptrTo(ldist_sols_h));
 	};
 
 
-	proc ITE_queens_search(const itesize: uint(16), const iteinitial_depth: c_int , 
+	proc ITE_queens_search(const itesize: uint(16), const iteinitial_depth: c_int ,
 		const itedistributed: bool, const iteCPUP: int){
 
 
-		size = itesize; initial_depth = iteinitial_depth; 
+		size = itesize; initial_depth = iteinitial_depth;
 		distributed = itedistributed;
 		CPUP = iteCPUP;
 
@@ -121,7 +119,7 @@ module ITE_queens_chpl{
 		metrics+= queens_node_generate_initial_prefixes(size, initial_depth, active_set_h);
 
 
-		initial.stop(); 
+		initial.stop();
 
 		n_explorers = metrics[0]:int;
 		initial_tree_size = metrics[1];
@@ -140,7 +138,7 @@ module ITE_queens_chpl{
 			forall i in 0..#(n_explorers) do
 		    	centralized_active_set[i:int(64)] = active_set_h[i:uint(64)];
 
-		   
+
 		    dist_active_set_h = centralized_active_set;
 		    bulktransfer.stop();
 		    writeln("\tBulk transfer elapsed: ", bulktransfer.elapsed());
@@ -151,19 +149,19 @@ module ITE_queens_chpl{
 		//// Search itself
 		////////////////////////////////////////////////////////////////////
 
-		writeln("\nSize: ", size,"\nInitial depth: ", initial_depth," Survivors: ", n_explorers);                
+		writeln("\nSize: ", size,"\nInitial depth: ", initial_depth," Survivors: ", n_explorers);
 
 		var num_gpus = GPU_device_count();
 
-		writeln("Number of GPUs to use: ", num_gpus);   
-		
-		
+		writeln("Number of GPUs to use: ", num_gpus);
+
+
 		final.start();
-		
+
 		if distributed then{
 			writeln("Distributed Search");
 			forall i in GPU(D, DISTGPUWrapper, CPUP){
-				(dist_sols_h[i]:uint(64),dist_vector_of_tree_size_h[i]:uint(64)) = 
+				(dist_sols_h[i]:uint(64),dist_vector_of_tree_size_h[i]:uint(64)) =
 					queens_subtree_explorer(size, initial_depth, dist_active_set_h[i]);
 			}
 		}
@@ -171,8 +169,8 @@ module ITE_queens_chpl{
 
 			writeln("Single Locale");
 			forall i in GPU(0..#(n_explorers:int), GPUWrapper, CPUP){
-				
-				(sols_h[i]:uint(64),vector_of_tree_size_h[i]:uint(64)) = 
+
+				(sols_h[i]:uint(64),vector_of_tree_size_h[i]:uint(64)) =
 					queens_subtree_explorer(size, initial_depth, active_set_h[i:uint(64)]);
 			}
 		}
@@ -199,11 +197,11 @@ module ITE_queens_chpl{
 			final_tree_size = redTree + initial_tree_size;
 			final_sol = redSol;
 		}
-		
-		
+
+
 
 		final.stop();
-		
+
 		//var final_tree_size = initial_tree_size+metrics[2];
 		writeln("Initial tree size: ", initial_tree_size);
 		writeln("Final tree size: ", final_tree_size);
