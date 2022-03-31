@@ -22,8 +22,17 @@ module ITE_queens_chpl{
 
 
 	//@@
-	// @@ TODO: I must organize those types. This code came from an old c code that has several type inconsistencies
+	//@@ TODO: I must organize those types. 
+	//This code came from an old c code that has several type inconsistencies
 
+	//@@
+	//@@ TODO: the queens from the project is 
+	//
+	//extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint, 
+	//	root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong), 
+	//	sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
+
+	//In the project, I need to setdevice(gpu_id) to unify the cuda functions
 
 	///////////////////////////////////////////////////////////////////////////
 	//C-Interoperability
@@ -31,9 +40,14 @@ module ITE_queens_chpl{
 
 	require "headers/GPU_queens.h";
 
+	//@@see TODO
+	//extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
+	//		active_set_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_longlong), sols_h: c_ptr(c_longlong)): void;
 
-	extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
-			active_set_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_longlong), sols_h: c_ptr(c_longlong)): void;
+
+	extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint, 
+		root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong), 
+		sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
 
 	var size: uint(16) = 12;
 	var initial_depth: c_int = 7;
@@ -45,8 +59,8 @@ module ITE_queens_chpl{
 	//CUDA Vectors
 	///////////////////////////////////////////////////////////////////////////
 
-	var vector_of_tree_size_h: [0..#75580635] c_longlong;
-	var sols_h: [0..#75580635] c_longlong;
+	var vector_of_tree_size_h: [0..#75580635] c_ulonglong;
+	var sols_h: [0..#75580635] c_ulonglong;
 
 	//var active_set_h: [0..#] queens_node;
 	var max_number_prefixes: uint(64) = 75580635;
@@ -62,11 +76,12 @@ module ITE_queens_chpl{
 
 	var GPUWrapper = lambda (lo:int, hi: int, n_explorers: int) {
 
-		var sols_ptr : c_ptr(c_longlong) = c_ptrTo(sols_h) + lo:c_longlong;
-		var tree_ptr : c_ptr(c_longlong) = c_ptrTo(vector_of_tree_size_h) + lo:c_longlong;
+		var sols_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + lo:c_ulonglong;
+		var tree_ptr : c_ptr(c_ulonglong) = c_ptrTo(vector_of_tree_size_h) + lo:c_ulonglong;
 		var active_set_ptr : c_ptr(queens_node) = c_ptrTo(active_set_h) + lo:c_uint;
 
-		GPU_call_cuda_queens(size, initial_depth, n_explorers:c_uint, active_set_ptr,tree_ptr, sols_ptr);
+		//See @@TODO
+		GPU_call_cuda_queens(size, initial_depth, n_explorers:c_uint, active_set_ptr,tree_ptr, sols_ptr,0:c_int);
 
 	};
 
@@ -75,8 +90,8 @@ module ITE_queens_chpl{
 	///////////////////////////////////////////////////////////////////////////
 
 	var D: domain(1) dmapped Block(boundingBox = {0..#75580635}) = {0..#75580635};
-	var dist_vector_of_tree_size_h: [D] c_longlong;
-	var dist_sols_h: [D] c_longlong;
+	var dist_vector_of_tree_size_h: [D] c_ulonglong;
+	var dist_sols_h: [D] c_ulonglong;
 	var dist_active_set_h: [D] queens_node;
 
 
@@ -87,7 +102,7 @@ module ITE_queens_chpl{
 		ref ldist_sols_h = dist_sols_h.localSlice(lo .. hi);
 
   		GPU_call_cuda_queens(size, initial_depth, n_explorers:c_uint,
-			c_ptrTo(ldist_active_set_h),c_ptrTo(ldist_vector_of_tree_size_h), c_ptrTo(ldist_sols_h));
+			c_ptrTo(ldist_active_set_h),c_ptrTo(ldist_vector_of_tree_size_h), c_ptrTo(ldist_sols_h),0:c_int);
 	};
 
 

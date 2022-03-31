@@ -146,14 +146,8 @@ proc main(){
 		 			writeln("--- N-Queens  --- ", mlsearch ,"\n\n");
 		 				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 		 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
-<<<<<<< HEAD
 		 					CPUP);
-					
-=======
-		 					CPUP, num_gpus);
-
->>>>>>> a4d7dbda2638bc0732dd985f0414f3803dc67df8
-		 		}//improved
+			 		}//improved
 
 		 			when "mgpu"{
 		 				writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
