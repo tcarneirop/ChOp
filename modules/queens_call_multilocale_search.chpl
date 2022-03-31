@@ -26,7 +26,7 @@ module queens_call_multilocale_search{
         const coordinated: bool = false, const pgas: bool = false,
         const num_threads: int, const profiler: bool = false, 
         const verbose: bool = false,
-        const CPUP: real, const num_gpus: c_int):(real,real,real){
+        const CPUP: real):(real,real,real){
 
 
         if verbose then queens_print_locales_information();
@@ -43,6 +43,7 @@ module queens_call_multilocale_search{
         var return_initial: real;
         var return_final: real;
         var return_total: real;
+        const num_gpus: c_int;
 
 
         const PrivateSpace: domain(1) dmapped Private();
@@ -113,34 +114,21 @@ module queens_call_multilocale_search{
         distribution.stop();
 
 
-        //for mlmgpu and gpucpu
-        //When one wants to use less GPUs than the available number
-        if(num_gpus == 0) then{
-            if verbose then writeln("\n # The total number of GPU is going to be used (DEFAULT): ", GPU_device_count() ,". #");
+        //setting up the number of GPUs on each computer
+        if (mode == "mlgpu" || mode == "cpugpu"){
+
+            writeln("\n # The total number of GPU is going to be used (DEFAULT): ", GPU_device_count() ,". #");
             for loc in Locales do{
                 on loc do{
                     GPU_id[here.id] = GPU_device_count():int;                               
                 }//on loc
-            }///fors
-        }
-        else{
-            if( GPU_device_count()< num_gpus) then
-                halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### NUMBER OF AVAILABLE DEVICES < NUM_GPUS ######");
-            //says that each locale must use x gpus
-            writeln("\n # Number of GPUs : ", num_gpus ," #");
-            for loc in Locales do{
-                on loc do{
-                    GPU_id[here.id] = num_gpus:int;                               
-                }//on loc
-            }///for
+            }///forsGPU_mlocale_number_locales_check
         }
 
-  
 
         //@todo @todo
         //@todo: going to perform the check here. 
         GPU_mlocale_number_locales_check(mlsearch, coordinated:int);
-
 
           
         //PROFILER

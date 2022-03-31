@@ -62,7 +62,7 @@ config const computers: int = 1;
 
 config const mode: string = "improved";
 config const mlsearch: string = "mlocale";
-config const num_gpus: c_int = 0; //if it is not zero, get the number of devices of the system
+//config const num_gpus: c_int = 0; //if it is not zero, get the number of devices of the system
 
 
 //config param build_gpu_code: bool = true;
@@ -145,7 +145,7 @@ proc main(){
 		 			writeln("--- N-Queens  --- ", mlsearch ,"\n\n");
 		 				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 		 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
-		 					CPUP, num_gpus);
+		 					CPUP);
 					
 		 		}//improved
 				

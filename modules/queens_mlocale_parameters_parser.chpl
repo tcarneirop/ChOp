@@ -146,7 +146,7 @@ module queens_mlocale_parameters_parser{
 	                		}//checkpointer
 						 }//
 					}//mlocale
-					when "mlmgpu"{
+					when "mlgpu"{
 						forall idx in distributedGuided(c=Space,minChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
 							var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
 								second_depth,slchunk,distributed_active_set[idx],tree_each_locale,
