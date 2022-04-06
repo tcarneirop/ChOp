@@ -29,7 +29,7 @@ typedef struct queen_root{
 #define gpuErrchk(ans) { gpuAssert((ans), __FILE__, __LINE__); }
 inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=true)
 {
-   if (code != cudaSuccess) 
+   if (code != cudaSuccess)
    {
       fprintf(stderr,"GPUassert: %s %s %d\n", cudaGetErrorString(code), file, line);
       if (abort) exit(code);
@@ -47,7 +47,7 @@ inline void prefixesHandleSol(QueenRoot *root_prefixes,unsigned int flag,char *b
 
 inline bool MCstillLegal(const char *board, const int r)
 {
-    
+
     int i;
     int ld;
     int rd;
@@ -95,19 +95,18 @@ __global__ void BP_queens_root_dfs(int N, unsigned int nPreFixos, int depthPreFi
         register unsigned int bit_test = 0;
         register char vertice[20]; //representa o ciclo
         register int N_l = N;
-        register int i, depth; 
+        register int i, depth;
         register unsigned long long  qtd_solucoes_thread = 0ULL;
         register int depthGlobal = depthPreFixos;
         register unsigned long long int tree_size = 0ULL;
 
-        #pragma unroll 2
         for (i = 0; i < N_l; ++i) {
             vertice[i] = _EMPTY_;
         }
 
         flag = root_prefixes[idx].control;
 
-        #pragma unroll 2
+
         for (i = 0; i < depthGlobal; ++i)
             vertice[i] = root_prefixes[idx].board[i];
 
@@ -130,7 +129,7 @@ __global__ void BP_queens_root_dfs(int N, unsigned int nPreFixos, int depthPreFi
                     depth++;
 
                     if (depth == N_l) { //sol
-                        ++qtd_solucoes_thread; 
+                        ++qtd_solucoes_thread;
                     }else continue;
                 }else continue;
 
@@ -197,7 +196,7 @@ unsigned long long int BP_queens_prefixes(int size, int initialDepth ,unsigned l
 
 void GPU_call_cuda_queens(int size, int initial_depth, int block_size, bool set_cache, unsigned int n_explorers, QueenRoot *root_prefixes_h ,
 	unsigned long long int *vector_of_tree_size_h, unsigned long long int *sols_h, int gpu_id){
-    
+
     cudaSetDevice(gpu_id);
     if(set_cache){
         printf("\n ### nSeeting up the cache ###\n");
@@ -220,9 +219,9 @@ void GPU_call_cuda_queens(int size, int initial_depth, int block_size, bool set_
     cudaMemcpy(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot), cudaMemcpyHostToDevice);
 
     printf("\n### Regular BP-DFS search. ###\n");
-    
+
     //kernel_start =  rtclock();
-    
+
 
     BP_queens_root_dfs<<< num_blocks,block_size>>> (size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
     gpuErrchk( cudaPeekAtLastError() );
@@ -232,7 +231,7 @@ void GPU_call_cuda_queens(int size, int initial_depth, int block_size, bool set_
 
     cudaMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,n_explorers*sizeof(unsigned long long int),cudaMemcpyDeviceToHost);
     cudaMemcpy(sols_h,sols_d,n_explorers*sizeof(unsigned long long int),cudaMemcpyDeviceToHost);
-    
+
     cudaFree(vector_of_tree_size_d);
     cudaFree(sols_d);
     cudaFree(root_prefixes_d);
@@ -253,7 +252,7 @@ double call_queens(int size, int initialDepth, int block_size, int set_cache){
 
     unsigned int nMaxPrefixos = 75580635;
 
-    printf("\n### Queens size: %d, Initial depth: %d, Block size: %d, set cache: %d", initialDepth, size, block_size, set_cache);
+    printf("\n### Queens size: %d, Initial depth: %d, Block size: %d, set cache: %d", initialDepth, size, block_size);
     double initial_time = rtclock();
 
     QueenRoot* root_prefixes_h = (QueenRoot*)malloc(sizeof(QueenRoot)*nMaxPrefixos);
@@ -274,13 +273,13 @@ double call_queens(int size, int initialDepth, int block_size, int set_cache){
     for(int i = 0; i<n_explorers;++i){
         if(solutions_h[i]>0)
             qtd_sols_global += solutions_h[i];
-        if(vector_of_tree_size_h[i]>0) 
+        if(vector_of_tree_size_h[i]>0)
             gpu_tree_size +=vector_of_tree_size_h[i];
 
     }
 
     printf("\nGPU Tree size: %llu\nTotal tree size: %llu\nNumber of solutions found: %llu.\n", gpu_tree_size,(initial_tree_size+gpu_tree_size),qtd_sols_global );
-    printf("\nElapsed total: %.3f\n", (final_time-initial_time));   
+    printf("\nElapsed total: %.3f\n", (final_time-initial_time));
 
     return (final_time-initial_time);
 }
@@ -292,14 +291,12 @@ int main(int argc, char *argv[]){
     int initialDepth;
     int size;
     int block_size;
-    int set_cache;
 
-    set_cache = atoi(argv[4]);
     block_size = atoi(argv[3]);
     initialDepth = atoi(argv[2]);
     size = atoi(argv[1]);
 
-    call_queens(size, initialDepth, block_size, (bool)set_cache);
+    call_queens(size, initialDepth, block_size);
 
     return 0;
-}  
+}

@@ -1,0 +1,53 @@
+1 - Setup your CUDA Path
+2- source export.sh before execution or update your library path
+3- To execute the code: ./bin/chop.out --size=15 --initial_depth=7 -nl1
+
+-Size may vary from 12 to something around 22, which might take a lot of time to complete.
+-Initial depth controls the granularity of the subtrees -- recomend from 5 to 8.
+- 
+
+4- To execute the multicore version:
+./bin/chop.out --mode="mcore" --size=15 --initial_depth=6 --lchunk=32 -nl1
+
+5 - To execute the serial version:
+./bin/chop.out --mode="serial" --size=15 --initial_depth=6 -nl1
+
+
+
+
+Some results to verify if your code is working (initial_depth  = 7):
+
+N=15
+
+
+Final tree size: 171129071
+	CPU tree size: 2466109
+	GPU tree size: 168662962
+Number of solutions: 2279184
+
+
+N=16
+
+
+Final tree size: 1141190302
+	CPU tree size: 5001234
+	GPU tree size: 1136189068
+Number of solutions: 14772512
+
+N=17
+
+Final tree size: 8017021931
+	CPU tree size: 9602091
+	GPU tree size: 8007419840
+Number of solutions: 95815104
+
+
+N=18
+
+
+Final tree size: 59365844490
+	CPU tree size: 17578266
+	GPU tree size: 59348266224
+Number of solutions: 666090624
+
+

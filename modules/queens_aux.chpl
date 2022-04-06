@@ -14,12 +14,15 @@ module queens_aux{
         }//end for
     }//print locales
 
-	proc queens_parser(const size: uint(16)){
+	proc queens_serial_caller(const size: uint(16), const mode: string = "serial", const prepro: bool = false){
 
 		use Time; // Import the Time module to use Timer objects
 		var timer: Timer;
 		var metrics: (uint(64),uint(64));
 		timer.start(); // Start timer
+
+		if(mode=="first") then queens_first_serial_bitset( size: int, prepro);
+
 		metrics = queens_serial_bitset(size);
 		timer.stop(); // Start timer
 
@@ -34,7 +37,7 @@ module queens_aux{
 
 	proc queens_print_serial_report(timer: Timer, size: uint(16), metrics: (uint(64),uint(64)),
 		initial_num_prefixes : uint(64), initial_tree_size: uint(64), parallel_tree_size: uint(64),
-		const initial_depth: int(32), 
+		const initial_depth: int(32),
         const scheduler: string){
 
         var number_of_solutions = metrics[0];
@@ -58,15 +61,15 @@ module queens_aux{
 
 
 	proc queens_print_initial_info(const size: uint(16), const scheduler: string, const lchunk: int = 1, const num_threads: int){
-		
+
         writeln("N-Queens for size: ", size);
-		writeln("\nCHPL Task layer: ", CHPL_TASKS,"\n\tNum created tasks: ",num_threads,"\n\tMax num tasks: ",here.maxTaskPar);       
+		writeln("\nCHPL Task layer: ", CHPL_TASKS,"\n\tNum created tasks: ",num_threads,"\n\tMax num tasks: ",here.maxTaskPar);
 		writeln("\tScheduler: ", scheduler);
         writeln("\tLocal Chunk size: ", lchunk);
 
 	}//initial information
-      
-    proc queens_print_mlocale_initial_info(const size: uint(16), initial_depth: c_int, second_depth: c_int, 
+
+    proc queens_print_mlocale_initial_info(const size: uint(16), initial_depth: c_int, second_depth: c_int,
         const scheduler: string, const lchunk: int, const mlchunk: int, const slchunk: int, const coordinated: bool,
         const num_threads: int, const mode: string, const pgas: bool){
 
@@ -76,9 +79,9 @@ module queens_aux{
         writeln("\tSecond depth: ",   second_depth);
 
         writeln("\n#### PARAMETERS ####");
-        writeln("\n\tCHPL Task layer: ", CHPL_TASKS,"\n\tNum tasks: ",num_threads,"\n\tMax tasks: ",here.maxTaskPar);       
-        
-        
+        writeln("\n\tCHPL Task layer: ", CHPL_TASKS,"\n\tNum tasks: ",num_threads,"\n\tMax tasks: ",here.maxTaskPar);
+
+
         writeln("\tCoordinated (centralized node): ", coordinated);
         writeln("\tDistributed active set (PGAS): ", pgas);
         writeln("\n\tDistributed scheduler: ", scheduler);
@@ -92,11 +95,11 @@ module queens_aux{
 
 
 
-	proc queens_mlocale_print_metrics(size: uint(16), ref metrics: (uint(64),uint(64)), 
-        ref initial: Timer, ref distribution: Timer, ref final: Timer, initial_tree_size: uint(64), 
-        maximum_num_prefixes: uint(64),initial_num_prefixes: uint(64), initial_depth: c_int, 
+	proc queens_mlocale_print_metrics(size: uint(16), ref metrics: (uint(64),uint(64)),
+        ref initial: Timer, ref distribution: Timer, ref final: Timer, initial_tree_size: uint(64),
+        maximum_num_prefixes: uint(64),initial_num_prefixes: uint(64), initial_depth: c_int,
         second_depth: c_int,  ref tree_each_locale: [] uint(64)){
-        
+
         var performance_metrics: real = 0.0;
         var solutions_per_second: real = 0.0;
         var total_time: real = (final.elapsed()+initial.elapsed()+distribution.elapsed());
@@ -110,7 +113,7 @@ module queens_aux{
         writef("\n\tSecond depth: %u", second_depth);
         writef("\n\tMaximum possible prefixes: %u", maximum_num_prefixes);
         writef("\n\tInitial number of prefixes: %u", initial_num_prefixes);
-        writef("\n\tPercentage of the maximum number: %.3dr\n", 
+        writef("\n\tPercentage of the maximum number: %.3dr\n",
             (initial_num_prefixes:real/maximum_num_prefixes:real)*100);
 
         writef("\n\tNumber of solutions found: %u", metrics[0]);
@@ -120,7 +123,7 @@ module queens_aux{
         writef("\n\tElapsed TOTAL: %.3dr\n",  final.elapsed()+initial.elapsed()+distribution.elapsed());
         writef("\n\tPGAS proportion: %.3dr\n", (distribution.elapsed())/(total_time)*100);
 
-        
+
         writef("\n\tInitial Tree size: %u",initial_tree_size);
         writef("\n\tFinal Tree size: %u",  metrics[1]);
         writef("\n\tTOTAL Tree size: %u",  metrics[1]+initial_tree_size);
@@ -128,7 +131,7 @@ module queens_aux{
         writef("\n\n\tPerformance (solutions/s): %.3dr \n\n",  solutions_per_second);
 
         statistics_tree_statistics(tree_each_locale, total_tree);
- 
+
     }//
 
 

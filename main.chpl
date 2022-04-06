@@ -20,8 +20,6 @@ use queens_call_multilocale_search;
 use queens_GPU_single_locale;
 use GPU_mlocale_utils;
 
-use ITE_queens_chpl;
-
 
 use parameters_record;
 
@@ -29,7 +27,7 @@ use parameters_record;
 config const initial_depth: c_int = 2;
 config const second_depth:  c_int = 7;
 config const size: uint(16) = 12; //queens
-
+config const prepro: bool = false; //queens first solution
 //the default coordinated is TRUE
 config const scheduler: string = "dynamic";
 
@@ -128,7 +126,11 @@ proc main(){
 		 	select mode{
 		 		when "serial"{
 		 			writeln("--- N-Queens serial search --- \n\n");
-		 			queens_parser(size);
+		 			queens_serial_caller(size, mode, prepro);
+		 		}
+				when "first"{
+		 			writeln("--- N-Queens serial -- First Solution --- \n\n");
+		 			queens_serial_caller(size, mode, prepro);
 		 		}
 		 		when "mcore"{
 		 			writeln("--- N-Queens mcore search --- \n\n");
