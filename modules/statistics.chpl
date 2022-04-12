@@ -1,7 +1,7 @@
 
 
 module statistics{
-    
+
     use Math;
 
     proc statistics_all_locales_init_explored_tree(ref tree_each_locale: [] uint(64)){
@@ -19,9 +19,9 @@ module statistics{
         var biggest_idx:   int = 0;
         var smallest_idx:   int = 0;
 
-        forall (a,b) in zip(local_tree_each_locale, tree_each_locale) do 
+        forall (a,b) in zip(local_tree_each_locale, tree_each_locale) do
             a = b;
-       
+
         writeln("\n### Locales statistics: ###\n");
 
         for i in 0..numLocales-1 do{

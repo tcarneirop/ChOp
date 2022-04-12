@@ -2,7 +2,7 @@ module fsp_simple_aux_mlocale{
 
 
 	use Time;
-    use SysCTypes;
+    use CTypes;
     use fsp_node_module;
     use fsp_simple_chpl_c_headers;
 
@@ -17,15 +17,15 @@ module fsp_simple_aux_mlocale{
     	}//for
 	}//get instance
 
-	
+
 	proc fsp_simple_all_locales_init_data(machines: c_int, jobs: c_int){
-        
+
         writeln("### Starting data on all locales ###");
 
     	coforall loc in Locales do{
   			on loc do{//but locale one -- let's put it
         		remplirTempsArriverDepart(minTempsArr_s,minTempsDep_s, machines, jobs, c_temps);
-        		
+
     		}
     	}
 	}//init
@@ -44,7 +44,7 @@ module fsp_simple_aux_mlocale{
 
 
 	proc fsp_simple_all_locales_print_minTempsArr(machines: c_int){
-  		
+
         for loc in Locales do{
             on loc do{//but locale one -- let's put it
             	writeln("MinTempsArr on Locale #", here.id);
@@ -57,7 +57,7 @@ module fsp_simple_aux_mlocale{
 
 
 	proc fsp_simple_all_locales_print_minTempsDep(machines: c_int){
-  		
+
         for loc in Locales do{
             on loc do{//but locale one -- let's put it
             	writeln("MinTempsDep on Locale #", here.id);
@@ -69,4 +69,3 @@ module fsp_simple_aux_mlocale{
 	}//print mintempsdep
 
 }//module
-	

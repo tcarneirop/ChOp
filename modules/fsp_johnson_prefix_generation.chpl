@@ -4,11 +4,11 @@ module fsp_johnson_prefix_generation{
     use fsp_johnson_chpl_c_headers;
     use fsp_node_module;
     use fsp_constants;
-    use SysCTypes;
-    use CPtr;    
-    
+    use CTypes;
+    //use CPtr;
 
-    proc fsp_johnson_prefix_generation(const machines: c_int, const jobs: c_int, upper_bound: c_int , 
+
+    proc fsp_johnson_prefix_generation(const machines: c_int, const jobs: c_int, upper_bound: c_int ,
       const times:c_ptr(c_int), const initial_depth: c_int,  set_of_nodes: [] fsp_node):  (uint(64),uint(64)){
 
       var depth: c_int = 0; //needs to be int because -1 is the break condition
@@ -23,7 +23,7 @@ module fsp_johnson_prefix_generation{
       var permutation: [0.._MAX_J_JOBS_] c_int = [i in 0.._MAX_J_JOBS_] i;
       var control: [0.._MAX_J_JOBS_] bool = false;
 
-      //aux 
+      //aux
       var incumbent: c_int = upper_bound;
       var lowerbound: c_int = 0;
       var p1: c_int;
@@ -72,7 +72,7 @@ module fsp_johnson_prefix_generation{
                     set_of_nodes[num_prefixes].permutation[i] = permutation[i];
                     set_of_nodes[num_prefixes].control[i] = control[i];
                   }
-                  num_prefixes+=1;             
+                  num_prefixes+=1;
               }//prefix copy
               else continue;
             }//
@@ -94,6 +94,3 @@ module fsp_johnson_prefix_generation{
 
 
 }//module
-
-
-

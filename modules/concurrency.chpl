@@ -1,10 +1,10 @@
 module concurrency{
-	
-	use SysCTypes;
+
+	use CTypes;
 
 	proc min(a: c_int, b: c_int): c_int{
 
-		if a<b then 
+		if a<b then
 			return a;
 		else
 			return b;
@@ -19,7 +19,7 @@ module concurrency{
 	        if local_upper_bound >= curMin then
 	            break;
 	        global_upper_bound.compareExchangeWeak(curMin, local_upper_bound);
-        }//minExchange    
+        }//minExchange
 	}
 
 	proc new_concurrency_minExchange(local_upper_bound: c_int, ref global_upper_bound: atomic c_int): c_int{
@@ -31,7 +31,7 @@ module concurrency{
 	        	break;
 	        }
 	        global_upper_bound.compareExchangeWeak(curMin, local_upper_bound);
-        }//minExchange    
+        }//minExchange
         return curMin;
 	}
 
@@ -61,7 +61,7 @@ module concurrency{
 	       //  global_upper_bound.compareExchangeWeak(curMin, incumbent);
 	       //  local_upper_bound.compareExchangeWeak(curMin, incumbent);
 
-        // }//minExchange  
+        // }//minExchange
 
 
         return curMin;

@@ -1,11 +1,11 @@
 module fsp_simple_call_inital_search{
-	
+
 	use Time;
     use Math;
-    use CPtr;
+    //use CPtr;
 
     use BlockDist;
-    use SysCTypes;
+    use CTypes;
     use CyclicDist;
     use PrivateDist;
     use VisualDebug;
@@ -19,7 +19,7 @@ module fsp_simple_call_inital_search{
     use fsp_simple_chpl_c_headers;
     use fsp_simple_prefix_generation;
 
-	proc fsp_simple_call_initial_search(initial_depth: c_int = 4, upper_bound: c_int = _FSP_INF_, 
+	proc fsp_simple_call_initial_search(initial_depth: c_int = 4, upper_bound: c_int = _FSP_INF_,
         const scheduler: string = "dynamic", const chunk: int = 1, const num_threads: int,
         const profiler: bool = false, const atype: string = "none",const instance: c_short){
 
@@ -33,7 +33,7 @@ module fsp_simple_call_inital_search{
     	var local_times: [0..(machines*jobs)-1] c_int = [i in 0..(machines*jobs)-1] times[i];
 
 
-        var global_ub: atomic c_int; 
+        var global_ub: atomic c_int;
 
         const PrivateSpace: domain(1) dmapped Private();
         var set_of_atomics: [PrivateSpace] atomic c_int;
@@ -66,8 +66,8 @@ module fsp_simple_call_inital_search{
         //initial backtracking untill the cutoff depth
     	metrics += fsp_simple_prefix_generation(machines,jobs,
     		upper_bound,times,initial_depth,local_active_set);
-    	
-        initial.stop(); 
+
+        initial.stop();
 
         initial_num_prefixes = metrics[0];
         initial_tree_size = metrics[1];
@@ -83,7 +83,7 @@ module fsp_simple_call_inital_search{
         writeln("####  PGAS Data Distribution  ####");
         distribution.start();
         //Distributed range
-    	const Space = {0..(initial_num_prefixes-1):int}; //otherwise 
+    	const Space = {0..(initial_num_prefixes-1):int}; //otherwise
 		const D: domain(1) dmapped Block(boundingBox=Space) = Space; //1d block
         var distributed_active_set: [D] fsp_node;
         //let's distribute the active set
@@ -97,9 +97,9 @@ module fsp_simple_call_inital_search{
         }
 
 
-        fsp_call_initial_print_metrics(instance,  machines, jobs, initial,initialization,distribution, 
-            initial_tree_size, maximum_number_prefixes,initial_num_prefixes, 
-            upper_bound);        
+        fsp_call_initial_print_metrics(instance,  machines, jobs, initial,initialization,distribution,
+            initial_tree_size, maximum_number_prefixes,initial_num_prefixes,
+            upper_bound);
 
         distribution.clear();
         initial.clear();
@@ -108,5 +108,5 @@ module fsp_simple_call_inital_search{
 
 	}//distributed call
 
-	
+
 }

@@ -4,10 +4,10 @@ module queens_prefix_generation{
 	use queens_node_evaluation;
 	use queens_constants;
 	use queens_node_module;
-	use SysCTypes;
+	use CTypes;
 
 	proc queens_improved_prefix_gen(const size: uint(16),
-		const initial_depth: c_int, const second_depth: c_int, ref node: queens_node, 
+		const initial_depth: c_int, const second_depth: c_int, ref node: queens_node,
 		set_of_nodes: [] queens_node): (uint(64),uint(64)){
 
 		var bit_test : uint(32) = 0;
@@ -86,11 +86,11 @@ module queens_prefix_generation{
  	}//get maximum number of prefixes
 
 
-	 
-	proc queens_node_generate_initial_prefixes(const size: uint(16), const initial_depth: int(32), 
+
+	proc queens_node_generate_initial_prefixes(const size: uint(16), const initial_depth: int(32),
 		set_of_nodes: [] queens_node): (uint(64),uint(64)){
-	 
-					
+
+
 		var bit_test : uint(32) = 0;
 		var control: uint(32) = 0;
 		var board: [0..MAX] int(8) = __EMPTY__;
@@ -146,10 +146,10 @@ module queens_prefix_generation{
 	}
 
 
-	
-	proc queens_mlocale_generate_initial_prefixes(const size: uint(16), const initial_depth: int(32), 
+
+	proc queens_mlocale_generate_initial_prefixes(const size: uint(16), const initial_depth: int(32),
 		set_of_nodes: [] queens_node): (uint(64),uint(64)){
-					
+
 		var bit_test : uint(32) = 0;
 		var control: uint(32) = 0;
 		var board: [0..MAX] int(8) = __EMPTY__;
@@ -206,7 +206,7 @@ module queens_prefix_generation{
 
 
 	proc queens_how_many_prefixes(const size: uint(16), const initial_depth: int(32)): (uint(64)){
-					
+
 		var bit_test : uint(32) = 0;
 		var control: uint(32) = 0;
 		var board: [0..MAX] int(8) = __EMPTY__;

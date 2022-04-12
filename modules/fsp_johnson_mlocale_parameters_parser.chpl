@@ -2,7 +2,7 @@ module fsp_johnson_mlocale_parameters_parser{
 
 
 	use Time;
-    use SysCTypes;
+    use CTypes;
     use fsp_node_module;
     use fsp_johnson_multilocale_node_explorer;
 
@@ -28,13 +28,13 @@ module fsp_johnson_mlocale_parameters_parser{
 	                when "dynamic" {
 	                    forall idx in distributedDynamic(c=Space, chunkSize=chunk) with (+ reduce metrics) do {
 	                        metrics += fsp_johnson_mlocale_global_atomic_node_explorer(machines,jobs,initial_depth,
-	                            distributed_active_set[idx], global_ub); 
+	                            distributed_active_set[idx], global_ub);
 	                    }
 	                }//dynami
-	                when "guided" {      
+	                when "guided" {
 	                    forall idx in distributedDynamic(c=Space, chunkSize=chunk) with (+ reduce metrics) do {
 	                        metrics += fsp_johnson_mlocale_global_atomic_node_explorer(machines,jobs,initial_depth,
-	                            distributed_active_set[idx], global_ub); 
+	                            distributed_active_set[idx], global_ub);
 	                    }
 	                }//guided
 	                otherwise{
@@ -60,7 +60,7 @@ module fsp_johnson_mlocale_parameters_parser{
 	                            distributed_active_set[idx], global_ub, set_of_atomics);
 	                    }
 	                }//dynamic
-	                when "guided" {        
+	                when "guided" {
 	                    forall idx in distributedGuided(c=Space) with (+ reduce metrics) do {
 	                        metrics += fsp_johnson_mlocale_array_node_explorer(machines,jobs,initial_depth,
 	                            distributed_active_set[idx], global_ub, set_of_atomics);
@@ -91,7 +91,7 @@ module fsp_johnson_mlocale_parameters_parser{
 	                            distributed_active_set[idx], ub);
 	                    }
 	                }
-	                when "guided" {        
+	                when "guided" {
 	                    forall idx in distributedGuided(c=Space) with (+ reduce metrics) do {
 	                        metrics += fsp_johnson_mlocale_node_explorer(machines,jobs,initial_depth,
 	                            distributed_active_set[idx], ub);
@@ -100,7 +100,7 @@ module fsp_johnson_mlocale_parameters_parser{
 	                otherwise{
 	                    writeln("\n\n ###### error ######\n\n ###### error ######\n\n ###### error ###### \n\n ###### WRONG PARAMETERS ###### ");
 	                }
-	                
+
 	           }//node
 	        }//no atomics
 	        otherwise{

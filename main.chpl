@@ -1,5 +1,5 @@
 
-use SysCTypes;
+use CTypes;
 
 use fsp_simple_serial;
 use fsp_simple_call_mcore_search;

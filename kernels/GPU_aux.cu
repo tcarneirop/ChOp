@@ -9,3 +9,7 @@ extern "C" int GPU_device_count(){
     cudaGetDeviceCount(&deviceCount);
     return deviceCount;
 }
+
+extern "C" int GPU_set_device(int device){
+    return cudaSetDevice(device);
+}

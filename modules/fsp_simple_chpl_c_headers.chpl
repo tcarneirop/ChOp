@@ -1,8 +1,8 @@
 module fsp_simple_chpl_c_headers{
-	
-	use SysCTypes;
-	use CPtr;
-	
+
+	use CTypes;
+	//use CPtr;
+
 	require "headers/simple_bound.h";
 	require "headers/aux.h";
 
@@ -13,8 +13,8 @@ module fsp_simple_chpl_c_headers{
 	extern var minTempsArr_s : c_ptr(c_int);
 	extern var c_temps: c_ptr(c_int);
 
-	
-	
+
+
   	extern proc simple_bornes_calculer(permutation : c_ptr(c_int), limite1 : c_int, limite2 : c_int, machines : c_int, jobs : c_int,  remain : c_ptr(c_int), front : c_ptr(c_int), back :c_ptr(c_int),
   		minTempsArr_s : c_ptr(c_int), minTempsDep_s : c_ptr(c_int), times : c_ptr(c_int)) : c_int;
 

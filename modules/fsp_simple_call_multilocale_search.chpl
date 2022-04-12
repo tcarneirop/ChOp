@@ -1,10 +1,10 @@
 module fsp_simple_call_multilocale_search{
-    use CPtr;	
+    //use CPtr;
 	use Time;
     use Math;
     use List;
     use BlockDist;
-    use SysCTypes;
+    use CTypes;
     use CyclicDist;
     use PrivateDist;
     use VisualDebug;
@@ -21,10 +21,10 @@ module fsp_simple_call_multilocale_search{
     use fsp_simple_improved_parameters_parser;
 
 
-	proc fsp_simple_call_multilocale_search(initial_depth: c_int, second_depth: c_int, upper: c_int, 
+	proc fsp_simple_call_multilocale_search(initial_depth: c_int, second_depth: c_int, upper: c_int,
         const scheduler: string, const lchunk, const mlchunk, const slchunk,
         const coordinated: bool = false, const pgas: bool = false,
-        const num_threads: int, const profiler: bool = false, const atype: string = "none", const instance: c_short, 
+        const num_threads: int, const profiler: bool = false, const atype: string = "none", const instance: c_short,
         const mode: string = "improved", const verbose: bool = false, const diagnostics: bool = false): (real,real,real){
 
 		print_locales_information();
@@ -42,15 +42,15 @@ module fsp_simple_call_multilocale_search{
 
         //ub initialization
         var global_ub: atomic c_int;
-        var upper_bound: c_int = fsp_get_upper_bound(upper,instance); 
-   
+        var upper_bound: c_int = fsp_get_upper_bound(upper,instance);
+
         //one atomic for each node
         const PrivateSpace: domain(1) dmapped Private();
         var set_of_atomics: [PrivateSpace] atomic c_int;
         var tree_each_locale: [PrivateSpace] uint(64);
 
         //var chunk_weight: [LocaleSpace] list(uint(64));
-        
+
         //search metrics
         var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));
         var initial_num_prefixes : uint(64) = 0;
@@ -72,8 +72,8 @@ module fsp_simple_call_multilocale_search{
 
         //initialization
         initialization.start();
-        fsp_new_print_initial_info(initial_depth, second_depth, upper_bound, 
-        scheduler,lchunk, mlchunk, slchunk, coordinated,num_threads, 
+        fsp_new_print_initial_info(initial_depth, second_depth, upper_bound,
+        scheduler,lchunk, mlchunk, slchunk, coordinated,num_threads,
         atype,instance,mode, pgas);
         writeln("\n### 1 ###");
         fsp_all_locales_init_ub(upper_bound,global_ub,set_of_atomics);
@@ -91,7 +91,7 @@ module fsp_simple_call_multilocale_search{
         //initial search untill the cutoff depth
     	metrics += fsp_simple_prefix_generation(machines,jobs,
     		upper_bound,times,initial_depth,local_active_set);
-        initial.stop(); 
+        initial.stop();
 
         initial_num_prefixes = metrics[0];
         initial_tree_size = metrics[1];
@@ -121,7 +121,7 @@ module fsp_simple_call_multilocale_search{
         var pgas_active_set: [D] fsp_node; //1d block DISTRIBUTED
         var centralized_active_set: [Space] fsp_node; //on node 0
 
-        //let's distribute the active set 
+        //let's distribute the active set
         writeln("####  initialization of the Active Set  ####\n");
         forall i in Space do
             centralized_active_set[i] = local_active_set[i:uint(64)];
@@ -149,11 +149,11 @@ module fsp_simple_call_multilocale_search{
         final.start();
         writeln("#### Nodes to explore: ", initial_num_prefixes);
 
-       
+
             select mode {
-            
+
                 when "mlocale"{
-                    if pgas then 
+                    if pgas then
                         fsp_simple_mlocale_parameters_parser(atype, scheduler, machines,jobs, initial_depth,lchunk,
                             pgas_active_set, set_of_atomics, global_ub, Space, metrics);
                     else
@@ -162,13 +162,13 @@ module fsp_simple_call_multilocale_search{
 
                 }
                 when "improved"{
-                    if pgas then 
+                    if pgas then
                         fsp_simple_improved_mlocale_parameters_parser(atype, scheduler, machines,jobs, initial_depth,
-                            second_depth,lchunk, mlchunk, slchunk, coordinated,pgas_active_set, set_of_atomics, 
+                            second_depth,lchunk, mlchunk, slchunk, coordinated,pgas_active_set, set_of_atomics,
                             global_ub, Space, metrics,tree_each_locale,pgas);
                     else
                         fsp_simple_improved_mlocale_parameters_parser(atype, scheduler, machines,jobs, initial_depth,
-                            second_depth,lchunk, mlchunk, slchunk, coordinated,centralized_active_set, set_of_atomics, 
+                            second_depth,lchunk, mlchunk, slchunk, coordinated,centralized_active_set, set_of_atomics,
                             global_ub, Space, metrics,tree_each_locale,pgas);
                 }
                 otherwise{
@@ -185,10 +185,10 @@ module fsp_simple_call_multilocale_search{
             stopVdebug();
         }
 
-        fsp_mlocale_print_metrics(instance, machines, jobs, metrics, initial,initialization,distribution,final, 
-            initial_tree_size, maximum_number_prefixes,initial_num_prefixes, 
-            upper_bound, global_ub.read(),initial_depth,second_depth,tree_each_locale, mlchunk);        
-        
+        fsp_mlocale_print_metrics(instance, machines, jobs, metrics, initial,initialization,distribution,final,
+            initial_tree_size, maximum_number_prefixes,initial_num_prefixes,
+            upper_bound, global_ub.read(),initial_depth,second_depth,tree_each_locale, mlchunk);
+
         if(diagnostics){
             writeln("### Stopping communication counter ###");
             stopCommDiagnostics();
@@ -209,5 +209,5 @@ module fsp_simple_call_multilocale_search{
 
 	}//distributed call
 
-	
+
 }

@@ -1,15 +1,15 @@
 
 module fsp_aux{
-	
+
 	use Time;
-    use SysCTypes;
+    use CTypes;
+	use ChplConfig;
 
 
 
 
-
-    var optimal: [1..120] int = [1278,1359,1081,1293,1235,1195,1234,1206,1230,1108,  
-        1582,1659,1496,1377,1419,1397,1484,1538,1593,1591,  
+    var optimal: [1..120] int = [1278,1359,1081,1293,1235,1195,1234,1206,1230,1108,
+        1582,1659,1496,1377,1419,1397,1484,1538,1593,1591,
         2297,2099,2326,2223,2291,2226,2273,2200,2237,2178,
         2724,2834,2621,2751,2863,2829,2725,2683,2552,2782,
         2991,2867,2839,3063,2976,3006,3093,3037,2897,3065,
@@ -33,7 +33,7 @@ module fsp_aux{
         }
 
     }
- 
+
     proc fsp_get_number_prefixes(const jobs: c_int, const initial_depth: c_int): uint(64){
 
        var number: uint(64) = jobs:uint(64);
@@ -58,7 +58,7 @@ module fsp_aux{
     }
 
 
-    proc fsp_print_serial_report(timer: Timer, machines: c_int, jobs: c_int, 
+    proc fsp_print_serial_report(timer: Timer, machines: c_int, jobs: c_int,
         metrics: (uint(64),uint(64),c_int), upper_bound: c_int){
 
         var final_tree_size: uint(64) = 0;
@@ -79,7 +79,7 @@ module fsp_aux{
 
     proc fsp_print_initial_info(const scheduler: string, const chunk: int = 1, const num_threads: int){
 
-        writeln("\nCHPL Task layer: ", CHPL_TASKS,"\n\tNum created tasks: ",num_threads,"\n\tMax num tasks: ",here.maxTaskPar);       
+        writeln("\nCHPL Task layer: ", CHPL_TASKS,"\n\tNum created tasks: ",num_threads,"\n\tMax num tasks: ",here.maxTaskPar);
         writeln("\tScheduler: ", scheduler);
         if(scheduler == "dynamic"){
             writeln("\tChunk size: ", chunk);
@@ -87,23 +87,23 @@ module fsp_aux{
 
     }//initial information
 
-    proc fsp_print_mcore_initial_info(initial_depth: c_int, upper_bound: c_int, 
+    proc fsp_print_mcore_initial_info(initial_depth: c_int, upper_bound: c_int,
         const scheduler: string, const lchunk: int,const num_threads: int, const instance: c_short){
 
         writeln("\n#### Multicore BnB #### \n\n\tInstance: ", instance, "\n\tUpper bound: ", upper_bound);
         writeln("\tInitial depth: ",  initial_depth);
         writeln("\n#### PARAMETERS ####");
-        writeln("\tCHPL Task layer: ", CHPL_TASKS,"\n\tNum tasks: ",num_threads,"\n\tMax tasks: ",here.maxTaskPar);       
+        writeln("\tCHPL Task layer: ", CHPL_TASKS,"\n\tNum tasks: ",num_threads,"\n\tMax tasks: ",here.maxTaskPar);
         writeln("\tScheduler: ", scheduler);
         writeln("\tLocal chunk size: ", lchunk);
 
     }//initial information
 
 
-    proc fsp_new_print_initial_info(initial_depth: c_int, second_depth: c_int, upper_bound: c_int, 
-        const scheduler: string, 
+    proc fsp_new_print_initial_info(initial_depth: c_int, second_depth: c_int, upper_bound: c_int,
+        const scheduler: string,
         const lchunk: int, const mlchunk: int, const slchunk: int,  const coordinated: bool,
-        const num_threads: int,const atype: string, const instance: c_short, 
+        const num_threads: int,const atype: string, const instance: c_short,
         const mode: string, const pgas: bool){
 
 
@@ -112,8 +112,8 @@ module fsp_aux{
         writeln("\tSecond depth: ",   second_depth);
 
         writeln("\n#### PARAMETERS ####");
-        writeln("\n\tCHPL Task layer: ", CHPL_TASKS,"\n\tNum tasks: ",num_threads,"\n\tMax tasks: ",here.maxTaskPar);       
-        
+        writeln("\n\tCHPL Task layer: ", CHPL_TASKS,"\n\tNum tasks: ",num_threads,"\n\tMax tasks: ",here.maxTaskPar);
+
         writeln("\n\tDistributed scheduler: ", scheduler);
         writeln("\tDistributed active set (PGAS): ", pgas);
         writeln("\tMultilocale chunk size: ", mlchunk);
@@ -127,31 +127,31 @@ module fsp_aux{
     }//initial information
 
 
-	proc fsp_print_metrics( machines: c_int, jobs: c_int, ref metrics: (uint(64),uint(64)), 
+	proc fsp_print_metrics( machines: c_int, jobs: c_int, ref metrics: (uint(64),uint(64)),
         ref initial: Timer, ref final: Timer, initial_tree_size: uint(64), maximum_num_prefixes: uint(64),initial_num_prefixes: uint(64),
         initial_ub:c_int, ref final_ub: atomic c_int ){
-        
+
         var performance_metrics: real = 0.0;
 
         performance_metrics = ((metrics[1]+initial_tree_size):real)/(final.elapsed() + initial.elapsed());
-        
+
         writeln("### Metrics ###");
         writef("\n\tMaximum possible prefixes: %u", maximum_num_prefixes);
         writef("\n\tInitial number of prefixes: %u", initial_num_prefixes);
-        writef("\n\tPercentage of the maximum number: %.3dr\n", 
+        writef("\n\tPercentage of the maximum number: %.3dr\n",
         	(initial_num_prefixes:real/maximum_num_prefixes:real)*100);
 
         writef("\n\tNumber of solutions found: %u", metrics[0]);
         writef("\n\tInitial solution: %i", initial_ub);
         writef("\n\tOptimal solution: %i\n", final_ub.read());
-        
+
         writef("\n\tElapsed Initial: %.3dr", initial.elapsed());
         writef("\n\tElapsed Final: %.3dr",   final.elapsed());
         writef("\n\tElapsed TOTAL: %.3dr\n",   final.elapsed()+initial.elapsed());
 
         writef("\n\tTree size: %u",  metrics[1]+initial_tree_size);
         writef("\n\tPerformance: %.3dr (n/s)\n\n",  performance_metrics);
-        
+
     }//
 
 }//module

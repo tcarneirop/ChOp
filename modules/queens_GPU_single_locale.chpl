@@ -13,14 +13,14 @@ module queens_GPU_single_locale{
 	use DistributedIters;
 
 
-	use SysCTypes;
-	   
+	use CTypes;
+
 	proc GPU_queens_call_search(const size: uint(16), const initial_depth: c_int, const CPUP: real,const lchunk:int){
 
 
 		var initial_num_prefixes : uint(64);
 		var initial_tree_size : uint(64) = 0;
-	
+
 		var initial, final: Timer;
 
 		//search metrics
@@ -34,7 +34,7 @@ module queens_GPU_single_locale{
 		var local_active_set: [0..maximum_number_prefixes-1] queens_node;
 		metrics+= queens_node_generate_initial_prefixes(size, initial_depth, local_active_set);
 
-		initial.stop(); 
+		initial.stop();
 
 
 		initial_num_prefixes = metrics[0];
@@ -46,21 +46,21 @@ module queens_GPU_single_locale{
 		////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////////////
-		
-		writeln("\nSize: ", size, " Survivors: ", initial_num_prefixes);        
-	
+
+		writeln("\nSize: ", size, " Survivors: ", initial_num_prefixes);
+
 		var num_gpus = GPU_device_count();
 
-		writeln("Number of GPUs to use: ", num_gpus);   
-		
-	
+		writeln("Number of GPUs to use: ", num_gpus);
+
+
 		final.start();
-		
+
 		metrics+=queens_GPU_call_device_search(num_gpus, size,
 			initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
 
 		final.stop();
-		
+
 		var final_tree_size = initial_tree_size+metrics[1];
 
 		writeln("\n### End of the single-locale Multi-GPU search ###\n");

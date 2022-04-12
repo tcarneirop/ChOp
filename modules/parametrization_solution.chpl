@@ -2,9 +2,9 @@
 module parametrization_solution{
 
 	use Random;
-	use SysCTypes;
+	use CTypes;
 	use Time;
-    use CPtr;
+    //use CPtr;
 	use fsp_johnson_call_mcore_search;
 	use fsp_simple_call_mcore_search;
 	use fsp_johnson_call_multilocale_search;
@@ -14,7 +14,7 @@ module parametrization_solution{
 	var num_depths : int = 3;
 	var num_schedulers: int = 3;
 	var num_blocks: int = 5;
-	var num_chunks: int = 5; 
+	var num_chunks: int = 5;
 	var num_max_threads: int = 2;
 	var max_threads = here.maxTaskPar;
 	var num_par: int;
@@ -23,12 +23,12 @@ module parametrization_solution{
 
 	var num_par_vec: [0..#max_par] int = [
 				num_schedulers,
-				num_depths, 
-				num_depths, 
-				num_chunks, 
+				num_depths,
+				num_depths,
 				num_chunks,
-				num_max_threads, 
-				2,			
+				num_chunks,
+				num_max_threads,
+				2,
 				2];
 
 
@@ -47,35 +47,35 @@ module parametrization_solution{
 
 
 	record Solution{
-		
+
 		var inner_organization: (int,int, int, int, int, int, int, int);
 		var parameters: (string,int, int, int, int, int, bool, bool);
 		var cost_tuple: (real,real,real);
 		var cost: real = 0.0;
 		var instance: int = 15;
 		var problem: string;
-		
+
 		proc init(){
 			var randStream = new owned RandomStream(int);
-			
+
 			inner_organization = (
 				abs(randStream.getNext()) % (num_schedulers),
-				abs(randStream.getNext()) % (num_depths), 
-				abs(randStream.getNext()) % (num_depths), 
-				abs(randStream.getNext()) % (num_chunks), 
+				abs(randStream.getNext()) % (num_depths),
+				abs(randStream.getNext()) % (num_depths),
 				abs(randStream.getNext()) % (num_chunks),
-				abs(randStream.getNext()) % (num_max_threads), 
-				abs(randStream.getNext()) % (2),			
+				abs(randStream.getNext()) % (num_chunks),
+				abs(randStream.getNext()) % (num_max_threads),
+				abs(randStream.getNext()) % (2),
 				abs(randStream.getNext()) % (2)
 			);
 
 			parameters =  (
 				scheduler_vector[inner_organization(0)],
-				initial_depth_vector[inner_organization(1)], 
-				second_depth_vector[inner_organization(2)], 
-				mlchunk_vector[inner_organization(3)], 
+				initial_depth_vector[inner_organization(1)],
+				second_depth_vector[inner_organization(2)],
+				mlchunk_vector[inner_organization(3)],
 				slchunk_vector[inner_organization(4)],
-				num_threads_vector[inner_organization(5)], 
+				num_threads_vector[inner_organization(5)],
 				coordinated_vector[inner_organization(6)],
 				pgas_vector[inner_organization(7)]
 			);
@@ -90,25 +90,25 @@ module parametrization_solution{
 		proc init(const problem_to_solve: string, const instance_or_size: int ){
 
 			var randStream = new owned RandomStream(int);
-			
+
 			inner_organization = (
 				abs(randStream.getNext()) % (num_schedulers),
-				abs(randStream.getNext()) % (num_depths), 
-				abs(randStream.getNext()) % (num_depths), 
-				abs(randStream.getNext()) % (num_chunks), 
+				abs(randStream.getNext()) % (num_depths),
+				abs(randStream.getNext()) % (num_depths),
 				abs(randStream.getNext()) % (num_chunks),
-				abs(randStream.getNext()) % (num_max_threads), 
-				abs(randStream.getNext()) % (2),			
+				abs(randStream.getNext()) % (num_chunks),
+				abs(randStream.getNext()) % (num_max_threads),
+				abs(randStream.getNext()) % (2),
 				abs(randStream.getNext()) % (2)
 			);
 
 			parameters =  (
 				scheduler_vector[inner_organization(0)],
-				initial_depth_vector[inner_organization(1)], 
-				second_depth_vector[inner_organization(2)], 
-				mlchunk_vector[inner_organization(3)], 
+				initial_depth_vector[inner_organization(1)],
+				second_depth_vector[inner_organization(2)],
+				mlchunk_vector[inner_organization(3)],
 				slchunk_vector[inner_organization(4)],
-				num_threads_vector[inner_organization(5)], 
+				num_threads_vector[inner_organization(5)],
 				coordinated_vector[inner_organization(6)],
 				pgas_vector[inner_organization(7)]
 			);
@@ -122,22 +122,22 @@ module parametrization_solution{
 			setCost();
 		}//init()
 
-		proc init(neighbor_inner_organization: (int,int, int, int, int, int, int, int), 
+		proc init(neighbor_inner_organization: (int,int, int, int, int, int, int, int),
 			const problem_to_solve: string, const instance_or_size: int){
 
 			inner_organization = neighbor_inner_organization;
 			parameters =  (
 				scheduler_vector[inner_organization(0)],
-				initial_depth_vector[inner_organization(1)], 
-				second_depth_vector[inner_organization(2)], 
-				mlchunk_vector[inner_organization(3)], 
+				initial_depth_vector[inner_organization(1)],
+				second_depth_vector[inner_organization(2)],
+				mlchunk_vector[inner_organization(3)],
 				slchunk_vector[inner_organization(4)],
-				num_threads_vector[inner_organization(5)], 
+				num_threads_vector[inner_organization(5)],
 				coordinated_vector[inner_organization(6)],
 				pgas_vector[inner_organization(7)]
 			);
 			if(parameters(0)=="static") then parameters(7)=true;
-			
+
 			this.complete();
 			instance = instance_or_size;
 			problem = problem_to_solve;
@@ -159,22 +159,22 @@ module parametrization_solution{
 				}else{
 	 				//writeln("####### FUNCTION No Right neighbor for parameter ", par);
 	 			}
-		
+
 
 			}
 
 			if(left){
 				var neighbor_par_left = inner_organization(par) - 1;
-			
+
 				if(neighbor_par_left >= 0){
 					neighbor_inner_organization(par) = neighbor_par_left;
 					//writeln("\n ####### FUNCTION neighbor parameter left ", par, " : ", neighbor_inner_organization);
 				}else{
 	 				//writeln("####### FUNCTION No Left neighbor for parameter ", par);
 	 			}
-		
+
 			}
-		
+
 			var neighbor = new Solution(neighbor_inner_organization, problem, instance);
 			return neighbor;
 		}///////
@@ -201,11 +201,11 @@ module parametrization_solution{
 
 			// parameters =  (
 			// 	scheduler_vector[inner_organization(0)],
-			// 	initial_depth_vector[inner_organization(1)], 
-			// 	second_depth_vector[inner_organization(2)], 
-			// 	mlchunk_vector[inner_organization(3)], 
+			// 	initial_depth_vector[inner_organization(1)],
+			// 	second_depth_vector[inner_organization(2)],
+			// 	mlchunk_vector[inner_organization(3)],
 			// 	slchunk_vector[inner_organization(4)],
-			// 	num_threads_vector[inner_organization(5)], 
+			// 	num_threads_vector[inner_organization(5)],
 			// 	coordinated_vector[inner_organization(6)],
 			// 	pgas_vector[inner_organization(7)]
 			// );
@@ -217,7 +217,7 @@ module parametrization_solution{
 			// }
 
 			cost = cost_tuple(2);
-			
+
 		}
 
 		proc getCost():real{

@@ -3,7 +3,8 @@ module queens_aux{
 	use queens_serial;
 	use Time; // Import the Time module to use Timer objects
     use statistics;
-    use SysCTypes;
+    use CTypes;
+	use ChplConfig;
 
 	proc queens_print_locales_information(){
         writeln("\nNumber of locales: ",numLocales,".");

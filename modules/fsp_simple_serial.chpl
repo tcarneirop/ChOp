@@ -6,10 +6,10 @@ module fsp_simple_serial{
 	use fsp_simple_chpl_c_headers;
 	use fsp_constants;
 	use fsp_aux;
-	use SysCTypes;
+	use CTypes;
 	use Time;
-	use CPtr;
-	
+	//use CPtr;
+
 	proc fsp_simple_call_serial(upper_bound: c_int = _FSP_INF_, const instance_num: c_short){
 
 		var timer: Timer;
@@ -20,7 +20,7 @@ module fsp_simple_serial{
     	var metrics: (uint(64),uint(64),c_int);
 
     	var times: c_ptr(c_int) = get_instance(machines,jobs, instance_num);
-    	
+
     	writeln("Machines: ", machines);
     	writeln("Jobs: ", jobs);
     	print_instance(machines,jobs,times);
@@ -28,20 +28,20 @@ module fsp_simple_serial{
 
   		timer.start();
     	metrics = fsp_simple_serial(machines,jobs,upper_bound,times);
-    	timer.stop(); 
-    	
+    	timer.stop();
+
     	fsp_print_serial_report(timer, machines, jobs, metrics, upper_bound);
 
     	timer.clear();
 
-        
+
 	}//Call serial search
 
 
 
 	proc fsp_simple_serial(const machines: c_int, const jobs: c_int, upper_bound: c_int , const times:c_ptr(c_int) ):  (uint(64),uint(64),c_int){
 
-				
+
 		var depth: c_int = 0; //needs to be int because -1 is the break condition
 
 		var front: [0.._MAX_MACHINES_] c_int;//private - search
@@ -53,8 +53,8 @@ module fsp_simple_serial{
 	    var position: [0.._MAX_JOBS_] c_int =  [i in 0.._MAX_JOBS_] i;
 	    var permutation: [0.._MAX_JOBS_] c_int = [i in 0.._MAX_JOBS_] i;
 	    var control: [0.._MAX_JOBS_] bool = false;
-	
-		//aux 
+
+		//aux
 		var incumbent: c_int = upper_bound;
     	var lowerbound: c_int = 0;
     	var p1: c_int;
@@ -69,10 +69,10 @@ module fsp_simple_serial{
 		remplirTempsArriverDepart(minTempsArr_s, minTempsDep_s, machines,jobs,times);
   		//start_vector(c_ptrTo(position),jobs);
     	//start_vector(c_ptrTo(permutation),jobs);
-		
+
 
 		depth = 0;
-    	
+
 
 		while(true){//Search
 
@@ -88,7 +88,7 @@ module fsp_simple_serial{
                     swap(position[scheduled[depth]],position[p1]);
 
                     lowerbound = simple_bornes_calculer(c_ptrTo(permutation), depth, jobs,
-                         machines, jobs, c_ptrTo(remain), c_ptrTo(front), c_ptrTo(back), 
+                         machines, jobs, c_ptrTo(remain), c_ptrTo(front), c_ptrTo(back),
                          minTempsArr_s, minTempsDep_s, times);
 
                     if(lowerbound<incumbent){
@@ -97,7 +97,7 @@ module fsp_simple_serial{
 						depth +=1;
 						tree_size+=1;
 
-						if (depth == jobs && lowerbound < incumbent){			
+						if (depth == jobs && lowerbound < incumbent){
 							num_sols+=1;
                             incumbent = lowerbound;
                             writeln("\nIncumbent of number ", num_sols, " found.\n\t","Cost: " ,incumbent, "\n");

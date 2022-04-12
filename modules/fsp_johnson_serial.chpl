@@ -4,11 +4,11 @@ module fsp_johnson_serial{
 	use fsp_johnson_chpl_c_headers;
 	use fsp_constants;
     use fsp_aux;
-	use SysCTypes;
+	use CTypes;
 	use Time;
-    use CPtr;
+    //use CPtr;
 
-	
+
 	proc fsp_johnson_call_serial(upper_bound: c_int = _FSP_INF_,const instance: c_short){
 
 		var timer: Timer;
@@ -23,19 +23,19 @@ module fsp_johnson_serial{
 
   		timer.start();
     	metrics = fsp_johnson_serial(machines,jobs,upper_bound,times);
-    	timer.stop(); 
-    	
+    	timer.stop();
+
         fsp_print_serial_report(timer, machines, jobs, metrics, upper_bound);
 
     	timer.clear();
-  
+
 	}//Call serial search
 
 
 
     proc fsp_johnson_serial(const machines: c_int, const jobs: c_int, upper_bound: c_int , const times:c_ptr(c_int) ):  (uint(64),uint(64),c_int){
 
-                
+
         var depth: c_int = 0; //needs to be int because -1 is the break condition
 
         var tempsMachinesFin: [0.._MAX_MCHN_] c_int; //front
@@ -48,7 +48,7 @@ module fsp_johnson_serial{
         var permutation: [0.._MAX_J_JOBS_] c_int = [i in 0.._MAX_J_JOBS_] i;
         var control: [0.._MAX_J_JOBS_] bool = false;
 
-        //aux 
+        //aux
         var incumbent: c_int = upper_bound;
         var lowerbound: c_int = 0;
         var p1: c_int;
@@ -90,7 +90,7 @@ module fsp_johnson_serial{
                         depth +=1;
                         tree_size+=1;
 
-                        if (depth == jobs && lowerbound < incumbent){   //it is a complete solution        
+                        if (depth == jobs && lowerbound < incumbent){   //it is a complete solution
                             num_sols+=1;
                             incumbent = lowerbound;
                             writeln("\nIncumbent of number ", num_sols, " found.\n\t","Cost: " ,incumbent, "\n");

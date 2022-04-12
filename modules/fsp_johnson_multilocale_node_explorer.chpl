@@ -1,14 +1,14 @@
 module fsp_johnson_multilocale_node_explorer{
-	
+
 	use fsp_node_module;
 	use fsp_johnson_chpl_c_headers;
 	use fsp_constants;
-	use SysCTypes;
-	use concurrency;	
-	use CPtr;
+	use CTypes;
+	use concurrency;
+	//use CPtr;
 
-	proc fsp_johnson_mlocale_array_node_explorer(const machines: c_int, const jobs: c_int, 
-		const initial_depth: c_int, ref node: fsp_node, ref global_upper_bound: atomic c_int, 
+	proc fsp_johnson_mlocale_array_node_explorer(const machines: c_int, const jobs: c_int,
+		const initial_depth: c_int, ref node: fsp_node, ref global_upper_bound: atomic c_int,
 		ref set_of_atomics: [] atomic c_int): (uint(64),uint(64)){
 
       	var depth: c_int; //needs to be int because -1 is the break condition
@@ -18,13 +18,13 @@ module fsp_johnson_multilocale_node_explorer{
         var tempsMachines: [0.._MAX_MCHN_] c_int; //back
         var job: [0.._MAX_J_JOBS_] c_int;
 
-      	//state of the search 	//SEARCH initialization		
+      	//state of the search 	//SEARCH initialization
       	var control: [0..(jobs)-1] bool = [i in 0..(jobs)-1] node.control[i];
       	var scheduled: [0..(jobs)-1] c_int = [i in 0..(jobs)-1] node.scheduled[i];
       	var position: [0..(jobs)-1] c_int = [i in 0..(jobs)-1] node.position[i];
       	var permutation: [0..(jobs)-1] c_int = [i in 0..(jobs)-1] node.permutation[i];
-	
-		//aux 
+
+		//aux
 		var incumbent: c_int;
     	var lowerbound: c_int = 0;
     	var p1: c_int;
@@ -90,7 +90,7 @@ module fsp_johnson_multilocale_node_explorer{
 	}//node explorer
 
 
-	proc fsp_johnson_mlocale_global_atomic_node_explorer(const machines: c_int, const jobs: c_int, 
+	proc fsp_johnson_mlocale_global_atomic_node_explorer(const machines: c_int, const jobs: c_int,
 		const initial_depth: c_int, ref node: fsp_node, ref global_upper_bound: atomic c_int ): (uint(64),uint(64)){
 
       	var depth: c_int; //needs to be int because -1 is the break condition
@@ -100,13 +100,13 @@ module fsp_johnson_multilocale_node_explorer{
         var tempsMachines: [0.._MAX_MCHN_] c_int; //back
         var job: [0.._MAX_J_JOBS_] c_int;
 
-      	//state of the search 	//SEARCH initialization		
+      	//state of the search 	//SEARCH initialization
       	var control: [0..(jobs)-1] bool = [i in 0..(jobs)-1] node.control[i];
       	var scheduled: [0..(jobs)-1] c_int = [i in 0..(jobs)-1] node.scheduled[i];
       	var position: [0..(jobs)-1] c_int = [i in 0..(jobs)-1] node.position[i];
       	var permutation: [0..(jobs)-1] c_int = [i in 0..(jobs)-1] node.permutation[i];
-	
-		//aux 
+
+		//aux
 		// var incumbent: c_int = global_upper_bound.read();
 		var incumbent: c_int;
     	var lowerbound: c_int = 0;
@@ -117,7 +117,7 @@ module fsp_johnson_multilocale_node_explorer{
 		var tree_size: uint(64) = 0;
 		var metrics: (uint(64),uint(64));
 
-		//SEARCH initialization		
+		//SEARCH initialization
 		depth = initial_depth;
 
 		while(true){//Search
@@ -172,7 +172,7 @@ module fsp_johnson_multilocale_node_explorer{
 	}//node explorer
 
 
-	proc fsp_johnson_mlocale_node_explorer(const machines: c_int, const jobs: c_int, 
+	proc fsp_johnson_mlocale_node_explorer(const machines: c_int, const jobs: c_int,
 		const initial_depth: c_int, ref node: fsp_node, global_upper_bound:c_int ): (uint(64),uint(64)){
 
       	var depth: c_int; //needs to be int because -1 is the break condition
@@ -182,13 +182,13 @@ module fsp_johnson_multilocale_node_explorer{
         var tempsMachines: [0.._MAX_MCHN_] c_int; //back
         var job: [0.._MAX_J_JOBS_] c_int;
 
-      	//state of the search 	//SEARCH initialization		
+      	//state of the search 	//SEARCH initialization
       	var control: [0..(jobs)-1] bool = [i in 0..(jobs)-1] node.control[i];
       	var scheduled: [0..(jobs)-1] c_int = [i in 0..(jobs)-1] node.scheduled[i];
       	var position: [0..(jobs)-1] c_int = [i in 0..(jobs)-1] node.position[i];
       	var permutation: [0..(jobs)-1] c_int = [i in 0..(jobs)-1] node.permutation[i];
 
-		//aux 
+		//aux
 		// var incumbent: c_int = global_upper_bound.read();
 		var incumbent: c_int = global_upper_bound;
     	var lowerbound: c_int = 0;
@@ -199,7 +199,7 @@ module fsp_johnson_multilocale_node_explorer{
 		var tree_size: uint(64) = 0;
 		var metrics: (uint(64),uint(64));
 
-		//SEARCH initialization		
+		//SEARCH initialization
 		depth = initial_depth;
 
 		while(true){//Search

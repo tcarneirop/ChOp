@@ -1,14 +1,14 @@
 module fsp_simple_node_explorer{
-	
+
 	use fsp_node_module;
 	use fsp_simple_chpl_c_headers;
 	use fsp_constants;
-	use SysCTypes;
+	use CTypes;
 	use concurrency;
-	use CPtr;
-	
-	proc fsp_simple_node_explorer(const machines: c_int, const jobs: c_int, ref global_upper_bound: atomic c_int, 
-		const times:c_ptr(c_int), const initial_depth: c_int,  
+	//use CPtr;
+
+	proc fsp_simple_node_explorer(const machines: c_int, const jobs: c_int, ref global_upper_bound: atomic c_int,
+		const times:c_ptr(c_int), const initial_depth: c_int,
     	ref node: fsp_node): (uint(64),uint(64)){
 
 
@@ -24,8 +24,8 @@ module fsp_simple_node_explorer{
 		var scheduled: c_ptr(c_int);
       	var position: c_ptr(c_int);
       	var permutation: c_ptr(c_int);
-      	
-		//aux 
+
+		//aux
 		var incumbent: c_int;
     	var lowerbound: c_int = 0;
     	var p1: c_int;
@@ -35,7 +35,7 @@ module fsp_simple_node_explorer{
 		var tree_size: uint(64) = 0;
 		var metrics: (uint(64),uint(64));
 
-		//SEARCH initialization		
+		//SEARCH initialization
 		scheduled = c_ptrTo(node.scheduled);
         position = c_ptrTo(node.position);
         permutation = c_ptrTo(node.permutation);
@@ -62,7 +62,7 @@ module fsp_simple_node_explorer{
                     swap(position[scheduled[depth]],position[p1]);
 
                     lowerbound = simple_bornes_calculer(permutation, depth, jobs,
-                         machines, jobs, c_ptrTo(remain), c_ptrTo(front), c_ptrTo(back), 
+                         machines, jobs, c_ptrTo(remain), c_ptrTo(front), c_ptrTo(back),
                          minTempsArr_s, minTempsDep_s, times);
 
                     if(lowerbound<incumbent){

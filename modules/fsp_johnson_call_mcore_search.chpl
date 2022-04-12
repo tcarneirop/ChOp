@@ -6,14 +6,14 @@ module fsp_johnson_call_mcore_search{
 	use fsp_node_module;
 	use fsp_aux;
 	//use fsp_constants;
-    use fsp_johnson_node_explorer;	
+    use fsp_johnson_node_explorer;
     use DynamicIters;
-	use SysCTypes;
+	use CTypes;
 	use Time;
-    use CPtr;
+    //use CPtr;
     config param methodStealing = Method.WholeTail;
 
-	proc fsp_johnson_call_multicore_search(initial_depth: c_int, upper: c_int = 0, 
+	proc fsp_johnson_call_multicore_search(initial_depth: c_int, upper: c_int = 0,
         const scheduler: string, const chunk: int, const num_threads, const instance: c_short, verbose: bool = true): (real,real,real){
 
 		var initial,final: Timer;
@@ -35,20 +35,20 @@ module fsp_johnson_call_mcore_search{
         var initial_num_prefixes : uint(64) = 0;
         var initial_tree_size : uint(64) = 0;
 
-        var upper_bound: c_int = fsp_get_upper_bound(upper,instance); 
-        var global_ub: atomic c_int; 
+        var upper_bound: c_int = fsp_get_upper_bound(upper,instance);
+        var global_ub: atomic c_int;
         global_ub.write(upper_bound);
-    	
+
         //start read-only data
         johnson_remplirMachine(machines, machine);
         remplirTempsArriverDepart(minTempsArr,minTempsDep, machines, jobs, times);
         johnson_remplirLag(machines, jobs, machine, tempsLag,times);
         johnson_remplirTabJohnson(machines, jobs, tabJohnson, tempsLag, times);
-        
+
     	metrics += fsp_johnson_prefix_generation(machines,jobs,
     		upper_bound,times,initial_depth,set_of_nodes);
-    	
-        initial.stop(); 
+
+        initial.stop();
 
         initial_num_prefixes = metrics[0];
         initial_tree_size = metrics[1];
@@ -60,7 +60,7 @@ module fsp_johnson_call_mcore_search{
 
         var aux: int = initial_num_prefixes: int;
         var rangeDynamic: range = 0..aux-1;
-        
+
         if(verbose) then fsp_print_mcore_initial_info(initial_depth, upper_bound, scheduler, chunk,num_threads,instance);
 
 
@@ -69,34 +69,34 @@ module fsp_johnson_call_mcore_search{
 
             when "static" {
                  forall idx in 0..initial_num_prefixes-1 with (+ reduce metrics) do {
-           
+
                     metrics +=  fsp_johnson_node_explorer(machines,jobs,global_ub,times,initial_depth,
                         set_of_nodes[idx:uint]);
-                   
+
                  }//search
             }//static
-            when "dynamic" {            
+            when "dynamic" {
                 forall idx in dynamic(rangeDynamic, chunk, num_threads) with (+ reduce metrics ) do {
-                    
+
                     metrics +=  fsp_johnson_node_explorer(machines,jobs,global_ub,times,initial_depth,
                         set_of_nodes[idx:uint]);
-                   
+
                 }//search
             }//dynamic
             when "guided" {
                 forall idx in guided(rangeDynamic,num_threads) with (+ reduce metrics ) do {
-                  
+
                     metrics +=  fsp_johnson_node_explorer(machines,jobs,global_ub,times,initial_depth,
                         set_of_nodes[idx:uint]);
-                   
+
                 }//search
             }//guided
             when "stealing" {
                 forall idx in adaptive(rangeDynamic, num_threads) with (+ reduce metrics ) do {
-                   
+
                     metrics +=  fsp_johnson_node_explorer(machines,jobs,global_ub,times,initial_depth,
                         set_of_nodes[idx:uint]);
-                  
+
                 }//work stealing
             }//search
             otherwise{
@@ -104,9 +104,9 @@ module fsp_johnson_call_mcore_search{
             }
         }//select
         final.stop();
-        
-        if(verbose) then fsp_print_metrics( machines, jobs, metrics, initial,final, initial_tree_size, 
-            maximum_number_prefixes,initial_num_prefixes, upper_bound, global_ub);   
+
+        if(verbose) then fsp_print_metrics( machines, jobs, metrics, initial,final, initial_tree_size,
+            maximum_number_prefixes,initial_num_prefixes, upper_bound, global_ub);
 
 
         return_initial = initial.elapsed();

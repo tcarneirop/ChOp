@@ -1,6 +1,6 @@
 module GPU_aux{
-	
-	use SysCTypes;
+
+	use CTypes;
 
     require "headers/GPU_aux.h";
 

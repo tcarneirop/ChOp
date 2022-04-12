@@ -53,5 +53,5 @@ heuristic: dir
 clean:
 	$(RM) $(LIBRARY_DIR)/*.so
 	$(RM) $(BUILD_DIR)/chop.out
-	$(RM) $(BUILD_DIR)/chop.out
+	$(RM) $(BUILD_DIR)/chop.out_real
 

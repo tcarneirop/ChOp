@@ -2,12 +2,12 @@ module fsp_johnson_aux_mlocale{
 
 
 	use Time;
-    use SysCTypes;
+	use CTypes;
     use fsp_node_module;
     use fsp_johnson_chpl_c_headers;
 
 	proc fsp_johnson_all_locales_get_instance(ref local_times: [] c_int, machines: c_int, jobs: c_int){
-        
+
         writeln("## Starting instance on all locales ##");
   		coforall loc in Locales do{
             on loc do{
@@ -17,7 +17,7 @@ module fsp_johnson_aux_mlocale{
     	}//for
 	}//get instance
 
-	
+
 	proc fsp_johnson_all_locales_init_data(machines: c_int, jobs: c_int){
 
         writeln("### Starting data on all locales ###");
@@ -45,7 +45,7 @@ module fsp_johnson_aux_mlocale{
 
 
 	proc fsp_johnson_all_locales_print_machine(machines: c_int){
-		
+
   		for loc in Locales do{
         	on loc do{//but locale one -- let's put it
         		writeln("Machines on Locale #", here.id);
@@ -58,7 +58,7 @@ module fsp_johnson_aux_mlocale{
 
 
 	proc fsp_johnson_all_locales_print_minTempsArr(machines: c_int){
-  		
+
         for loc in Locales do{
             on loc do{//but locale one -- let's put it
             	writeln("MinTempsArr on Locale #", here.id);
@@ -71,7 +71,7 @@ module fsp_johnson_aux_mlocale{
 
 
 	proc fsp_johnson_all_locales_print_minTempsDep(machines: c_int){
-  		
+
         for loc in Locales do{
             on loc do{//but locale one -- let's put it
             	writeln("MinTempsDep on Locale #", here.id);
@@ -83,7 +83,7 @@ module fsp_johnson_aux_mlocale{
 	}//print mintempsdep
 
 	proc fsp_johnson_all_locales_print_tabJohnson(jobs: c_int){
-  		
+
         for loc in Locales do{
             on loc do{//but locale one -- let's put it
             	writeln("TabJohnson on Locale #", here.id);
@@ -97,4 +97,3 @@ module fsp_johnson_aux_mlocale{
 	}//print tabjohnson
 
 }//module
-	

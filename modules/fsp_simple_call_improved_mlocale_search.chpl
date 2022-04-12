@@ -10,7 +10,7 @@ module fsp_simple_call_improved_mlocale_search{
 	//use fsp_constants;
 
     use DynamicIters;
-	use SysCTypes;
+	use CTypes;
     use DistributedIters;
 
 
@@ -35,7 +35,7 @@ module fsp_simple_call_improved_mlocale_search{
 
     	metrics += fsp_simple_improved_prefix_gen(machines,jobs, initial_depth, second_depth, node,
     		set_of_nodes, global_ub);
-    	
+
 
         initial_num_prefixes = metrics[0];
         metrics[0] = 0; //restarting for the parallel search_type
@@ -43,9 +43,9 @@ module fsp_simple_call_improved_mlocale_search{
 
         var aux: int = initial_num_prefixes: int;
         var rangeDynamic: range = 0..aux-1;
-        
-        
-        forall idx in dynamic(rangeDynamic, chunk) with (+ reduce metrics ) do {     
+
+
+        forall idx in dynamic(rangeDynamic, chunk) with (+ reduce metrics ) do {
         	metrics +=  fsp_simple_mlocale_node_explorer(machines,jobs,second_depth,
                 set_of_nodes[idx:uint], global_ub);
         }//search
@@ -53,9 +53,9 @@ module fsp_simple_call_improved_mlocale_search{
 
         tree_each_locale[here.id] += metrics[1];
 
-		return metrics;	
+		return metrics;
 
-	}//proc 
+	}//proc
 
 
 }//module
