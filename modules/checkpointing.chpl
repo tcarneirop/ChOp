@@ -1,10 +1,11 @@
 module checkpointing{
-	
+
 	use Time;
 
 
 	var progress: atomic uint(64);
 	var partial_tree: atomic uint(64);
+	var partial_num_sol: atomic uint(64);
 	var synch_with_checkpointer: atomic bool;
 
 	var start_chkpt: real(64);
@@ -16,6 +17,7 @@ module checkpointing{
 	proc start(){
 		progress.write(0:uint(64));
 	  	partial_tree.write(0:uint(64));
+		partial_num_sol.write(0:uint(64));
 	  	synch_with_checkpointer.write(false);
 	  	start_chkpt = getCurrentTime();
 	}
@@ -32,8 +34,18 @@ module checkpointing{
 		}
 
 		write("] ");
+
 		const elapsed = getCurrentTime() - start_chkpt;
-		writeln(interval, "% # Nodes remaining: ", max_val-current, "#\n # < Partial tree: ", partial_tree," > < Elapsed time: ",  elapsed," (s) > #");
+
+		const current_performance = partial_tree/elapsed;
+
+		const time_per_pool_subproblem = elapsed/(current:real);
+
+		const remaining = max_val-current;
+
+		const time_remaining = time_per_pool_subproblem*remaining;
+
+		writeln(interval, "% \n# < Subproblems remaining: ", remaining, " > < Estimated remaining time: ", time_remaining, "(s) > #\n# < Partial tree: ", partial_tree," > < Number of sols: " , partial_num_sol, " > < Elapsed time: ",  elapsed," (s) > #");
 	}///////////
 
 
@@ -46,9 +58,7 @@ module checkpointing{
 		var local_tree = partial_tree.read();
 
 		while( local_value==0 ){
-			//writeln("Vou dormir");
 			sleep(sleep_time);
-			//writeln("Dormi");
 			local_value = progress.read():int;
 		}///
 
@@ -65,7 +75,7 @@ module checkpointing{
 			sleep(1);
 			//writeln("Slept.");
 			local_value = progress.read():int;
-			
+
 		}//
 
 		//show_status(max_val, local_value);
@@ -85,6 +95,6 @@ module checkpointing{
 		//@endtodo -s if checkpointer
 
 	}//
-	
+
 
 }//modules

@@ -47,7 +47,8 @@ module queens_mlocale_parameters_parser{
 							metrics+=m1;
 							if(queens_checkPointer){
 								checkpt.partial_tree.add(m1[1]);
-	                			checkpt.progress.add(1);
+								checkpt.partial_num_sol.add(m1[0]);
+	                			checkpt.progress.add(1); //for each ite
 	                		}//checkpointer
 
 						}//for
@@ -60,6 +61,7 @@ module queens_mlocale_parameters_parser{
 							metrics+=m1;
 							if(queens_checkPointer){
 								checkpt.partial_tree.add(m1[1]);
+								checkpt.partial_num_sol.add(m1[0]);
 	                			checkpt.progress.add(1);
 	                		}//checkpointer
 						}//for
@@ -79,7 +81,8 @@ module queens_mlocale_parameters_parser{
 							metrics+=m1;
 							if(queens_checkPointer){
 								checkpt.partial_tree.add(m1[1]);
-	                			checkpt.progress.add(1);
+								checkpt.partial_num_sol.add(m1[0]);
+								checkpt.progress.add(1);
 	                		}//checkpointer
 
 						}//for
@@ -94,6 +97,7 @@ module queens_mlocale_parameters_parser{
 							metrics+=m1;
 							if(checkpointer){
 								checkpt.partial_tree.add(m1[1]);
+								checkpt.partial_num_sol.add(m1[0]);
 	                			checkpt.progress.add(1);
 	                		}//checkpointer
 						}//for
@@ -119,7 +123,8 @@ module queens_mlocale_parameters_parser{
 							metrics+=m1;
 							if(queens_checkPointer){
 								checkpt.partial_tree.add(m1[1]);
-	                			checkpt.progress.add(1);
+								checkpt.partial_num_sol.add(m1[0]);
+								checkpt.progress.add(1);
 	                		}//checkpointer
 
 						}//for
@@ -142,7 +147,8 @@ module queens_mlocale_parameters_parser{
 							metrics+=m1;
 							if(queens_checkPointer){
 								checkpt.partial_tree.add(m1[1]);
-	                			checkpt.progress.add(1);
+								checkpt.partial_num_sol.add(m1[0]);
+								checkpt.progress.add(1);
 	                		}//checkpointer
 						 }//
 					}//mlocale
@@ -154,6 +160,7 @@ module queens_mlocale_parameters_parser{
 							metrics+=m1;
 							if(queens_checkPointer){
 								checkpt.partial_tree.add(m1[1]);
+								checkpt.partial_num_sol.add(m1[0]);
 	                			checkpt.progress.add(1);
 	                		}//checkpointer
 						}//
