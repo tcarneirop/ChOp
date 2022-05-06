@@ -5,7 +5,10 @@
 
 # setup env for Chapel 1.24 using ofi
 setupChplenv() {
+
+ module use /grid5000/spack/share/spack/modules/linux-debian9-x86_64/
   module load gcc/6.4.0_gcc-6.4.0
+  module load cmake
   module load libfabric
 
   # Ignore our errors about ofi/psm not being supported
