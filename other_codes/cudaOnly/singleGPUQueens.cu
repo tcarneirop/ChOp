@@ -22,7 +22,7 @@ double rtclock()
 
 typedef struct queen_root{
     unsigned int control;
-    int8_t board[12];
+    int8_t board[12]; //maximum depth of the solution space.
 } QueenRoot;
 
 
@@ -86,59 +86,59 @@ __device__  bool GPU_queens_stillLegal(const char *board, const int r){
 }
 
 
-__global__ void BP_queens_root_dfs(int N, unsigned int nPreFixos, int depthPreFixos,
+__global__ void BP_queens_root_dfs(int N, unsigned int nPrefixes, int initial_depth,
     QueenRoot *root_prefixes,unsigned long long int *vector_of_tree_size, unsigned long long int *sols){
 
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
-    if (idx < nPreFixos) {
-        register unsigned int flag = 0;
-        register unsigned int bit_test = 0;
-        register char vertice[20]; //representa o ciclo
-        register int N_l = N;
-        register int i, depth;
-        register unsigned long long  qtd_solucoes_thread = 0ULL;
-        register int depthGlobal = depthPreFixos;
-        register unsigned long long int tree_size = 0ULL;
+    if (idx < nPrefixes) {
+        unsigned int flag = 0;
+        unsigned int bit_test = 0;
+        char board[32]; //representa o ciclo
+        int N_l = N;
+        int i, depth;
+        unsigned long long  qtd_sols_thread = 0ULL;
+        int depthGlobal = initial_depth;
+        unsigned long long int tree_size = 0ULL;
 
         for (i = 0; i < N_l; ++i) {
-            vertice[i] = _EMPTY_;
+            board[i] = _EMPTY_;
         }
 
         flag = root_prefixes[idx].control;
 
 
         for (i = 0; i < depthGlobal; ++i)
-            vertice[i] = root_prefixes[idx].board[i];
+            board[i] = root_prefixes[idx].board[i];
 
         depth=depthGlobal;
 
         do{
 
-            vertice[depth]++;
+            board[depth]++;
             bit_test = 0;
-            bit_test |= (1<<vertice[depth]);
+            bit_test |= (1<<board[depth]);
 
-            if(vertice[depth] == N_l){
-                vertice[depth] = _EMPTY_;
+            if(board[depth] == N_l){
+                board[depth] = _EMPTY_;
                 //if(block_ub > upper)   block_ub = upper;
-            }else if (!(flag &  bit_test ) && GPU_queens_stillLegal(vertice, depth)){
+            }else if (!(flag &  bit_test ) && GPU_queens_stillLegal(board, depth)){
 
                     ++tree_size;
-                    flag |= (1ULL<<vertice[depth]);
+                    flag |= (1ULL<<board[depth]);
 
                     depth++;
 
                     if (depth == N_l) { //sol
-                        ++qtd_solucoes_thread;
+                        ++qtd_sols_thread ;
                     }else continue;
                 }else continue;
 
             depth--;
-            flag &= ~(1ULL<<vertice[depth]);
+            flag &= ~(1ULL<<board[depth]);
 
             }while(depth >= depthGlobal); //FIM DO DFS_BNB
 
-        sols[idx] = qtd_solucoes_thread;
+        sols[idx] = qtd_sols_thread ;
         vector_of_tree_size[idx] = tree_size;
     }//if
 }//kernel
@@ -150,7 +150,7 @@ unsigned long long int BP_queens_prefixes(int size, int initialDepth ,unsigned l
 
     unsigned int flag = 0;
     int bit_test = 0;
-    char vertice[20]; //representa o ciclo
+    char board[32]; //representa o ciclo
     int i, depth; //para dizer que 0-1 ja foi visitado e a busca comeca de 1, bote 2
     unsigned long long int local_tree = 0ULL;
     unsigned long long int num_sol = 0;
@@ -158,34 +158,34 @@ unsigned long long int BP_queens_prefixes(int size, int initialDepth ,unsigned l
 
     /*initialization*/
     for (i = 0; i < size; ++i) { //
-        vertice[i] = -1;
+        board[i] = -1;
     }
 
     depth = 0;
 
     do{
 
-        vertice[depth]++;
+        board[depth]++;
         bit_test = 0;
-        bit_test |= (1<<vertice[depth]);
+        bit_test |= (1<<board[depth]);
 
 
-        if(vertice[depth] == size){
-            vertice[depth] = _EMPTY_;
+        if(board[depth] == size){
+            board[depth] = _EMPTY_;
                 //if(block_ub > upper)   block_ub = upper;
-        }else if ( MCstillLegal(vertice, depth) && !(flag &  bit_test ) ){ //is legal
+        }else if ( MCstillLegal(board, depth) && !(flag &  bit_test ) ){ //is legal
 
-                flag |= (1ULL<<vertice[depth]);
+                flag |= (1ULL<<board[depth]);
                 depth++;
                 ++local_tree;
                 if (depth == initialDepth){ //handle solution
-                   prefixesHandleSol(root_prefixes,flag,vertice,initialDepth,num_sol);
+                   prefixesHandleSol(root_prefixes,flag,board,initialDepth,num_sol);
                    num_sol++;
             }else continue;
         }else continue;
 
         depth--;
-        flag &= ~(1ULL<<vertice[depth]);
+        flag &= ~(1ULL<<board[depth]);
 
     }while(depth >= 0);
 
@@ -194,14 +194,9 @@ unsigned long long int BP_queens_prefixes(int size, int initialDepth ,unsigned l
     return num_sol;
 }
 
-void GPU_call_cuda_queens(int size, int initial_depth, int block_size, bool set_cache, unsigned int n_explorers, QueenRoot *root_prefixes_h ,
-	unsigned long long int *vector_of_tree_size_h, unsigned long long int *sols_h, int gpu_id){
+void GPU_call_cuda_queens(int size, int initial_depth, int block_size,unsigned int n_explorers, QueenRoot *root_prefixes_h ,
+	unsigned long long int *vector_of_tree_size_h, unsigned long long int *sols_h){
 
-    cudaSetDevice(gpu_id);
-    if(set_cache){
-        printf("\n ### nSeeting up the cache ###\n");
-        cudaFuncSetCacheConfig(BP_queens_root_dfs,cudaFuncCachePreferL1);
-    }
 
 
     unsigned long long int *vector_of_tree_size_d;
@@ -241,30 +236,28 @@ void GPU_call_cuda_queens(int size, int initial_depth, int block_size, bool set_
     //After that, Chapel reduces the values
 }
 
-double call_queens(int size, int initialDepth, int block_size, int set_cache){
-
+double call_queens(int size, int initialDepth){
 
 
     unsigned long long initial_tree_size = 0ULL;
     unsigned long long qtd_sols_global = 0ULL;
     unsigned long long gpu_tree_size = 0ULL;
 
+    unsigned int nMaxPrefixes = 75580635;
 
-    unsigned int nMaxPrefixos = 75580635;
-
-    printf("\n### Queens size: %d, Initial depth: %d, Block size: %d, set cache: %d", initialDepth, size, block_size);
+    printf("\n### Queens size: %d, Initial depth: %d, Block size: %d", initialDepth, size, _QUEENS_BLOCK_SIZE_);
     double initial_time = rtclock();
 
-    QueenRoot* root_prefixes_h = (QueenRoot*)malloc(sizeof(QueenRoot)*nMaxPrefixos);
-    unsigned long long int *vector_of_tree_size_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*nMaxPrefixos);
-    unsigned long long int *solutions_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*nMaxPrefixos);
+    QueenRoot* root_prefixes_h = (QueenRoot*)malloc(sizeof(QueenRoot)*nMaxPrefixes);
+    unsigned long long int *vector_of_tree_size_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*nMaxPrefixes);
+    unsigned long long int *solutions_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*nMaxPrefixes);
 
     //initial search, getting the tree root nodes for the gpu;
     unsigned long long n_explorers = BP_queens_prefixes((short)size, initialDepth ,&initial_tree_size, root_prefixes_h);
 
     //calling the gpu-based search
 
-    GPU_call_cuda_queens(size, initialDepth, block_size, (bool)set_cache,n_explorers, root_prefixes_h ,vector_of_tree_size_h, solutions_h, 0);
+    GPU_call_cuda_queens(size, initialDepth,_QUEENS_BLOCK_SIZE_,n_explorers, root_prefixes_h ,vector_of_tree_size_h, solutions_h);
 
     printf("\nInitial tree size: %llu", initial_tree_size );
 
@@ -290,13 +283,11 @@ int main(int argc, char *argv[]){
 
     int initialDepth;
     int size;
-    int block_size;
 
-    block_size = atoi(argv[3]);
     initialDepth = atoi(argv[2]);
     size = atoi(argv[1]);
 
-    call_queens(size, initialDepth, block_size);
+    call_queens(size, initialDepth);
 
     return 0;
 }
