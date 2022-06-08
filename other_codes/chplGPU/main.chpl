@@ -1,5 +1,5 @@
 
-use SysCTypes;
+use CTypes;
 
 
 use queens_aux;

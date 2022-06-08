@@ -4,7 +4,7 @@ module queens_prefix_generation{
 	use queens_node_evaluation;
 	use queens_constants;
 	use queens_node_module;
-	use SysCTypes;
+	use CTypes;
 
 
 	proc queens_get_number_prefixes(const size: uint(16), const initial_depth: int(32)): uint(64){

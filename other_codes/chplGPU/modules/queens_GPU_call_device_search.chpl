@@ -3,22 +3,14 @@ module queens_GPU_call_device_search{
 	use queens_tree_exploration;
 	use queens_node_module;
 	use GPU_mlocale_utils;
-	use SysCTypes;
-	use GPU_aux;
-	use DynamicIters;
+	use CTypes;
+	//use GPU_aux;
 	use Math;
-	use CPtr;
+	//use CPtr;
 	use DateTime;
         use GPUDiagnostics;
 
 	config const CPUGPUVerbose: bool = false;
-
-	require "headers/GPU_queens.h";
-
-
-	extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
-		root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong),
-		sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
 
 
 	proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depthPreFixos: c_int,
@@ -59,7 +51,7 @@ module queens_GPU_call_device_search{
                                   var sols: [sols_h.domain] sols_h.eltType;
                                   var vector_of_tree_size: [vector_of_tree_size_h.domain] vector_of_tree_size_h.eltType;
 
-                                  writeln("starting loop");
+                                //  writeln("starting loop");
                                   foreach idx in 0..#gpu_load {
                                     var flag = 0: uint;
                                     var bit_test = 0: uint;

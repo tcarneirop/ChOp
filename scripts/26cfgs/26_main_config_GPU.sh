@@ -27,7 +27,7 @@ export MANPATH="$MANPATH":"$CHPL_HOME"/man
 NUM_T_LOCALE=$(cat /proc/cpuinfo | grep processor | wc -l)
 
 export CHPL_TARGET_ARCH=native
-export CHPL_RT_NUM_THREADS_PER_LOCALE=$NUM_T_LOCALE
+export CHPL_RT_NUM_THREADS_PER_LOCALE=1
 export CHPL_TASKS=qthreads
 
 echo -e \#\#\#QThreads set for $NUM_T_LOCALE threads\#\#\#.

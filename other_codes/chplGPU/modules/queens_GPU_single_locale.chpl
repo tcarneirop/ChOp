@@ -1,10 +1,9 @@
 module queens_GPU_single_locale{
 
-	use GPU_aux;
+	//use GPU_aux;
 	use queens_GPU_call_device_search;
 	use queens_prefix_generation;
 	use queens_node_module;
-	use queens_aux;
 	use Time;
 
 	use BlockDist;
@@ -13,7 +12,7 @@ module queens_GPU_single_locale{
 	use DistributedIters;
 
 
-	use SysCTypes;
+	use CTypes;
 
 	proc GPU_queens_call_search(const size: uint(16), const initial_depth: c_int){
 
@@ -49,8 +48,8 @@ module queens_GPU_single_locale{
 
 		writeln("\nSize: ", size, " Survivors: ", initial_num_prefixes);
 
-		var num_gpus = GPU_device_count();
-
+		//var num_gpus = GPU_device_count();
+		var num_gpus = 1:c_int;
 		writeln("Number of GPUs to use: ", num_gpus);
 
 
