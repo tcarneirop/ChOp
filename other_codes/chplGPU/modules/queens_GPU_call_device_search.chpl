@@ -3,25 +3,20 @@ module queens_GPU_call_device_search{
 	use queens_tree_exploration;
 	use queens_node_module;
 	use GPU_mlocale_utils;
-	use SysCTypes;
-	use GPU_aux;
-	use DynamicIters;
+	use CTypes;
+	//use GPU_aux;
 	use Math;
-	use CPtr;
+	//use CPtr;
 	use DateTime;
+        use GPUDiagnostics;
 
-	config param CPUGPUVerbose: bool = false;
-
-	require "headers/GPU_queens.h";
-
-
-	extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
-		root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong),
-		sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
+	config const CPUGPUVerbose: bool = false;
 
 
-	proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depth: c_int,
+	proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depthPreFixos: c_int,
 		ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64)): (uint(64), uint(64)){
+
+                startVerboseGPU();
 
 
 		var vector_of_tree_size_h: [0..#initial_num_prefixes] c_ulonglong;
@@ -34,7 +29,7 @@ module queens_GPU_call_device_search{
 
 		//@question: should we use forall or coforall?
 
-		forall gpu_id in 0..#num_gpus:c_int do{
+		for gpu_id in 0..#num_gpus:c_int do{
 
 				var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
 
@@ -48,15 +43,108 @@ module queens_GPU_call_device_search{
 				if(CPUGPUVerbose) then
 					writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
 
-				GPU_call_cuda_queens(size, depth, gpu_load:c_uint,
-					nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
+                                param _EMPTY_ = -1;
+
+                                on here.gpus[gpu_id] {
+
+                                  var root_prefixes = local_active_set;
+                                  var sols: [sols_h.domain] sols_h.eltType;
+                                  var vector_of_tree_size: [vector_of_tree_size_h.domain] vector_of_tree_size_h.eltType;
+
+                                //  writeln("starting loop");
+                                  foreach idx in 0..#gpu_load {
+                                    var flag = 0: uint;
+                                    var bit_test = 0: uint;
+                                    /*var board: [0..31] int(8);*/
+                                    var board: c_array(int(8), 32);
+
+                                    var depth;
+
+                                    var N_l = size;
+                                    var qtd_solucoes_thread = 0: uint(64);
+                                    var depthGlobal = depthPreFixos;
+                                    var tree_size = 0: uint(64);
+
+                                    for i in 0..<N_l do  // what happens if I use promotion here?
+                                      board[i] = _EMPTY_;
+
+                                    flag = root_prefixes[idx:uint(64)].control;
+
+
+                                    for i in 0..<depthGlobal do
+                                      board[i] = root_prefixes[idx:uint(64)].board[i];
+
+                                    depth=depthGlobal;
+
+                                    do{
+
+                                      board[depth] += 1;
+                                      bit_test = 0;
+                                      bit_test |= 1<<board[depth];
+
+                                      if(board[depth] == N_l){
+                                        board[depth] = _EMPTY_;
+                                        //if(block_ub > upper)   block_ub = upper;
+                                      }else if (!(flag &  bit_test ) && GPU_queens_stillLegal(board, depth)){
+
+                                        tree_size += 1;
+                                        flag |= (1<<board[depth]);
+
+                                        depth += 1;
+
+                                        if (depth == N_l) { //sol
+                                          qtd_solucoes_thread += 1;
+                                        }else continue;
+                                      }else continue;
+
+                                      depth -= 1;
+                                      flag &= ~(1<<board[depth]);
+
+                                    }while(depth >= depthGlobal); //FIM DO DFS_BNB
+
+                                    /*writeln("Sols: ", qtd_solucoes_thread);*/
+                                    sols[idx] = qtd_solucoes_thread;
+                                    vector_of_tree_size[idx] = tree_size;
+
+                                  }
+
+                                  sols_h = sols;
+                                  vector_of_tree_size_h = vector_of_tree_size;
+
+                                }
 
 			}//end of gpu search
 
 		var redTree = (+ reduce vector_of_tree_size_h):uint(64);
 		var redSol  = (+ reduce sols_h):uint(64);
 
+                stopVerboseGPU();
+
 		return ((redSol,redTree)+metrics);
 
 	}///
+
+        proc  GPU_queens_stillLegal(board, r){
+
+          var safe = true;
+          var i: int;
+          var ld: int;
+          var rd: int;
+          // Check vertical
+          /*for ( i = 0; i < r; ++i)*/
+          for i in 0..<r {
+            if (board[i] == board[r]) then safe = false;
+            // Check diagonals
+            ld = board[r];  //left diagonal columns
+            rd = board[r];  // right diagonal columns
+            for i in 0..<r by -1 {
+              ld -= 1;
+              rd += 1;
+              if (board[i] == ld || board[i] == rd) then safe = false;
+            }
+          }
+
+          return safe;
+        }
+
 }

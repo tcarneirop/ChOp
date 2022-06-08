@@ -103,7 +103,7 @@ module queens_mlocale_parameters_parser{
 						}//for
 					}//mlmgpu
 
-					when "cpugpu"{
+					when "dcpugpu"{
 						forall idx in distributedDynamic(c=Space,chunkSize=lchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
 
 							var role: int = (here.id-flag_coordinated:int)%2;
@@ -129,6 +129,24 @@ module queens_mlocale_parameters_parser{
 
 						}//for
 					}//mlocale
+
+					when "scpugpu"{
+
+						if(CPUP == 0.0){
+							halt("###### ERROR ######\n Expecting CPUP > 0.0 \n");
+						}
+
+						const cpu_load = (Space.size * CPUP):int;
+						const gpu_load = (Space.size - cpu_load):int;
+						const cpu_space = {0..#cpu_load};
+						const gpu_space = {cpu_load..Space.size-1};
+
+
+						writeln("Space size:", Space.size, "Cpu load: ", cpu_load, " Gpu_load: ", gpu_load, " cpu_space:  ", cpu_space, "gpu_space: ", gpu_space);
+						halt(" ");
+
+					}//mlocale
+
 
 					otherwise{
 						 halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");

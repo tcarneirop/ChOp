@@ -1,12 +1,12 @@
 
 module queens_tree_exploration{
-    
+
     use queens_constants;
     use queens_node_module;
     use queens_node_evaluation;
-    use SysCTypes;
-    use CPtr;
-    
+    use CTypes;
+    //use CPtr;
+
     proc queens_subtree_explorer(const size: uint(16),const cutoff_depth: int(32), ref node: queens_node ):(uint(64),uint(64)){
 
         var bit_test : uint(32) = 0;
@@ -17,7 +17,7 @@ module queens_tree_exploration{
         var tree_size: uint(64) = 0;
         var _ONE_: uint(32) =  1;
         var cutoff64: int(64) = cutoff_depth:int(64);
-        
+
         //initialization
         depth = cutoff_depth;
         control = node.control;
@@ -25,7 +25,7 @@ module queens_tree_exploration{
         for i in 0..cutoff64-1{
             board[i] = node.board[i];
         }
-        
+
         while(true){
 
             board[depth] = board[depth]+1;
@@ -64,7 +64,7 @@ module queens_tree_exploration{
     }//end of subtree explorer
 
 
-    proc queens_node_subtree_exporer(const size: uint(16),const cutoff_depth: int(32), 
+    proc queens_node_subtree_exporer(const size: uint(16),const cutoff_depth: int(32),
          node_board: c_array(c_char,12), node_control: uint(32) ):(uint(64),uint(64)){
 
         //writeln("\n##################################################\n");
@@ -77,7 +77,7 @@ module queens_tree_exploration{
         var tree_size: uint(64) = 0;
         var _ONE_: uint(32) =  1;
         var cutoff64: int(64) = cutoff_depth:int(64);
-        
+
         //initialization
         depth = cutoff_depth;
         control = node_control;
@@ -85,7 +85,7 @@ module queens_tree_exploration{
         for i in 0..cutoff64-1{
             board[i] = node_board[i];
         }
-        
+
         while(true){
 
             board[depth] = board[depth]+1;

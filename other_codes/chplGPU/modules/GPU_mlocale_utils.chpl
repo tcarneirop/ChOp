@@ -1,6 +1,6 @@
 module GPU_mlocale_utils{
 
-	use SysCTypes;
+	use CTypes;
 
 	proc GPU_mlocale_get_gpu_load(const survivors: c_uint, const gpu_id:c_int, const num_gpus: c_int ): c_uint{
 
