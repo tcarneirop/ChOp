@@ -236,12 +236,10 @@ void GPU_call_cuda_queens(int size, int initial_depth, int block_size,unsigned i
     //After that, Chapel reduces the values
 }
 
-<<<<<<< HEAD
-double call_queens(int size, int initialDepth){
-=======
+
 double call_queens(int size, int initialDepth, int block_size, bool set_cache){
 
->>>>>>> staticcpugpu
+
 
 
     unsigned long long initial_tree_size = 0ULL;
@@ -250,13 +248,8 @@ double call_queens(int size, int initialDepth, int block_size, bool set_cache){
 
     unsigned int nMaxPrefixes = 75580635;
 
-<<<<<<< HEAD
-    printf("\n### Queens size: %d, Initial depth: %d, Block size: %d", initialDepth, size, _QUEENS_BLOCK_SIZE_);
-=======
-    unsigned int nMaxPrefixos = 75580635;
-
     printf("\n### Queens size: %d, Initial depth: %d, Block size: %d, set cache: %d", initialDepth, size, block_size,(int)set_cache);
->>>>>>> staticcpugpu
+
     double initial_time = rtclock();
 
     QueenRoot* root_prefixes_h = (QueenRoot*)malloc(sizeof(QueenRoot)*nMaxPrefixes);
@@ -268,11 +261,7 @@ double call_queens(int size, int initialDepth, int block_size, bool set_cache){
 
     //calling the gpu-based search
 
-<<<<<<< HEAD
-    GPU_call_cuda_queens(size, initialDepth,_QUEENS_BLOCK_SIZE_,n_explorers, root_prefixes_h ,vector_of_tree_size_h, solutions_h);
-=======
     GPU_call_cuda_queens(size, initialDepth, block_size, set_cache,n_explorers, root_prefixes_h ,vector_of_tree_size_h, solutions_h, 0);
->>>>>>> staticcpugpu
 
     printf("\nInitial tree size: %llu", initial_tree_size );
 
@@ -295,18 +284,17 @@ double call_queens(int size, int initialDepth, int block_size, bool set_cache){
 
 int main(int argc, char *argv[]){
 
-
+    int block_size;
     int initialDepth;
     int size;
 
+  block_size =   atoi(argv[3]);
     initialDepth = atoi(argv[2]);
     size = atoi(argv[1]);
 
-<<<<<<< HEAD
-    call_queens(size, initialDepth);
-=======
     call_queens(size, initialDepth, block_size,false);
->>>>>>> staticcpugpu
+
+
 
     return 0;
 }
