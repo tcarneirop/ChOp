@@ -7,9 +7,9 @@ use queens_call_mcore_search;
 use queens_GPU_single_locale;
 
 //Variables from the command line
-config const initial_depth: c_int = 6;
+config const initial_depth: c_int = 5;
 
-config const size: uint(16) = 12; //queens
+config const size: uint(16) = 16; //queens
 config const prepro: bool = false; //queens first solution
 //the default coordinated is TRUE
 config const scheduler: string = "dynamic";

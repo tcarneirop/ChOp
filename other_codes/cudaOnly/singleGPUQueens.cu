@@ -237,9 +237,7 @@ void GPU_call_cuda_queens(int size, int initial_depth, int block_size,unsigned i
 }
 
 
-double call_queens(int size, int initialDepth, int block_size, bool set_cache){
-
-
+double call_queens(int size, int initialDepth, int block_size){
 
 
     unsigned long long initial_tree_size = 0ULL;
@@ -248,7 +246,9 @@ double call_queens(int size, int initialDepth, int block_size, bool set_cache){
 
     unsigned int nMaxPrefixes = 75580635;
 
-    printf("\n### Queens size: %d, Initial depth: %d, Block size: %d, set cache: %d", initialDepth, size, block_size,(int)set_cache);
+
+
+    printf("\n### Queens size: %d, Initial depth: %d, Block size: %d", initialDepth, size, block_size);
 
     double initial_time = rtclock();
 
@@ -260,8 +260,7 @@ double call_queens(int size, int initialDepth, int block_size, bool set_cache){
     unsigned long long n_explorers = BP_queens_prefixes((short)size, initialDepth ,&initial_tree_size, root_prefixes_h);
 
     //calling the gpu-based search
-
-    GPU_call_cuda_queens(size, initialDepth, block_size, set_cache,n_explorers, root_prefixes_h ,vector_of_tree_size_h, solutions_h, 0);
+    GPU_call_cuda_queens(size, initialDepth, block_size, n_explorers, root_prefixes_h ,vector_of_tree_size_h, solutions_h);
 
     printf("\nInitial tree size: %llu", initial_tree_size );
 
@@ -292,7 +291,7 @@ int main(int argc, char *argv[]){
     initialDepth = atoi(argv[2]);
     size = atoi(argv[1]);
 
-    call_queens(size, initialDepth, block_size,false);
+    call_queens(size, initialDepth, block_size);
 
 
 

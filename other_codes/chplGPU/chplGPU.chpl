@@ -3,9 +3,9 @@ use CTypes;
 use queens_GPU_single_locale;
 
 //Variables from the command line
-config const initial_depth: c_int = 6;
+config const initial_depth: c_int = 5;
 
-config const size: uint(16) = 12; //queens
+config const size: uint(16) = 15; //queens
 
 proc main(){
 
