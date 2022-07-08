@@ -40,6 +40,8 @@ module queens_call_mcore_search{
         
         var aux: int = initial_num_prefixes: int;
         var rangeDynamic: range = 0..aux-1;
+
+        //writeln(set_of_nodes);
         
         select scheduler{
 
