@@ -134,6 +134,7 @@ proc main(){
 		 		}
 		 		when "mcore"{
 		 			writeln("--- N-Queens mcore search --- \n\n");
+
 		 			queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
 		 		}
 		 		when "improved"{

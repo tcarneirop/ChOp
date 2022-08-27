@@ -12,7 +12,7 @@ module queens_call_mcore_search{
 
 
 
-    proc queens_node_call_search(const size: uint(16), const initial_depth: int(32), 
+    proc queens_node_call_search(size: uint(16), const initial_depth: int(32), 
         const scheduler: string, const chunk: int, const num_threads){
 
         var maximum_number_prefixes: uint(64) = queens_get_number_prefixes(size,initial_depth);
