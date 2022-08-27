@@ -5,12 +5,11 @@
 #include <time.h>
 #include <string.h>
 #include <cmath>
-
+#include <omp.h>
 
 
 #define MAX_BOARDSIZE 64
 typedef unsigned long long SOLUTIONTYPE;
-
 
 #define MIN_BOARDSIZE 2
 
@@ -44,20 +43,15 @@ typedef struct subproblem{
     long long  aQueenBitPosDiag[MAX_BOARDSIZE]; /* marks "positive diagonals" which already have queens */
     long long  aQueenBitNegDiag[MAX_BOARDSIZE]; /* marks "negative diagonals" which already have queens */
     long long  subproblem_stack[MAX_BOARDSIZE + 2]; /* we use a stack instead of recursion */
-    long long  permutation[MAX_BOARDSIZE]; /* we use a stack instead of recursion */
-
+  
     long long int pnStackPos;
     long long numrows; /* numrows redundant - could use stack */
-    unsigned long long lsb; /* least significant bit */
-    unsigned long long bitfield; /* bits which are set mark possible positions for a queen */
-    long long odd; /* 0 if board_size even, 1 if odd */
-    long long board_minus;
-    long long mask; /* if board size is N, mask consists of N 1's */
-   
+    unsigned long long num_sols_sub;
+  
 } Subproblem;
 
 
-//Problem -- the subproblem is removing the bit of the last element
+
 unsigned long long partial_search(long long board_size, long long cutoff_depth, Subproblem *subproblem_pool)
 {
 
@@ -79,11 +73,6 @@ unsigned long long partial_search(long long board_size, long long cutoff_depth, 
     long long i;
     long long odd = board_size & 1LL; /* 0 if board_size even, 1 if odd */
     
-
-    //cutoff here
-    //long long board_minus = cutoff_depth+1; /* board size - 1 */
-
-
     //Change here for the pool
     //long long int board_minus = 45LL; /* board size - 1 */
     long long mask = (1LL << board_size) - 1LL; /* if board size is N, mask consists of N 1's */
@@ -118,7 +107,6 @@ unsigned long long partial_search(long long board_size, long long cutoff_depth, 
             aQueenBitRes[0] = 0LL;
             aQueenBitCol[0] = aQueenBitPosDiag[0] = aQueenBitNegDiag[0] = 0LL;
 
-
         }
         else
         {
@@ -152,9 +140,7 @@ unsigned long long partial_search(long long board_size, long long cutoff_depth, 
         /* this is the critical loop */
         for (;;)
         {
-            /* could use
-               lsb = bitfield ^ (bitfield & (bitfield -1));
-               to get first (least sig) "1" bit, but that's slower. */
+         
             lsb = -((signed long long)bitfield) & bitfield; /* this assumes a 2's complement architecture */
             
             if (0ULL == bitfield)
@@ -192,33 +178,20 @@ unsigned long long partial_search(long long board_size, long long cutoff_depth, 
 
                 if(numrows == cutoff_depth){
 
-                    //*pnStack++ = bitfield;
-                    //++pnStackPos;
-
-                    //pnStack--;
-                        
-                    printf("\nSub: ");
-                    for(int i = 0; i<cutoff_depth;++i){
-                         printf(" %d - ", (unsigned int)(log2(aQueenBitRes[i])+1));
-                    }
-                    
+                   // printf("\nSub: ");
+                   // for(int i = 0; i<cutoff_depth;++i){
+                   //      printf(" %d - ", (unsigned int)(log2(aQueenBitRes[i])+1));
+                   // }
                     
                     printf("\n");
-                   // for(int i = 0; i<pnStackPos; ++i){
-                   //     displayBitsLLU(*(pnStack-i));
-                   // }
-                    displayBitsLLU(bitfield);
-
-                    printf("\nBacktracking- numrows - %lld, stack position: %lld\n", numrows,pnStackPos);
-                    
+                 
                     memcpy(subproblem_pool[g_numsolutions].aQueenBitRes, aQueenBitRes, sizeof(long long)*MAX_BOARDSIZE);
                     memcpy(subproblem_pool[g_numsolutions].aQueenBitCol, aQueenBitCol, sizeof(long long)*MAX_BOARDSIZE);
                     memcpy(subproblem_pool[g_numsolutions].aQueenBitPosDiag, aQueenBitPosDiag, sizeof(long long)*MAX_BOARDSIZE);
                     memcpy(subproblem_pool[g_numsolutions].aQueenBitNegDiag, aQueenBitNegDiag, sizeof(long long)*MAX_BOARDSIZE);
                     
                     memcpy(subproblem_pool[g_numsolutions].subproblem_stack, aStack, sizeof(long long)*(MAX_BOARDSIZE+2));
-                    //subproblem_pool[g_numsolutions].pnStackPos = pnStackPos;
-
+                   
                     ++g_numsolutions;
 
                 } //if partial solution
@@ -243,7 +216,7 @@ unsigned long long partial_search(long long board_size, long long cutoff_depth, 
 unsigned long long parallel_search(long long board_size, long long cutoff_depth, Subproblem* subproblem, int index)
 {
 
-    long long* permutation = subproblem->permutation; 
+ 
     long long* aQueenBitRes = subproblem->aQueenBitRes; 
     long long* aQueenBitCol = subproblem->aQueenBitCol; 
     long long* aQueenBitPosDiag = subproblem->aQueenBitPosDiag; 
@@ -258,99 +231,97 @@ unsigned long long parallel_search(long long board_size, long long cutoff_depth,
     long long int board_minus = board_size - 1LL; /* board size - 1 */
     long long int mask = (1LL << board_size) - 1LL; /* if board size is N, mask consists of N 1's */
 
+    unsigned long long local_num_sols = 0ULL;
+
     register unsigned long long lsb; 
     register unsigned long long bitfield; 
+
     
 
-    printf("\nSubproblem: %d :\n\t ", index);
-        for(int i = 0; i<cutoff_depth;++i){
-            printf(" %d - ", (unsigned int)(log2(aQueenBitRes[i])+1));
-        }
-    printf("\n");
+   // printf("\nSubproblem: %d :\n\t ", index);
+   //     for(int i = 0; i<cutoff_depth;++i){
+   //         printf(" %d - ", (unsigned int)(log2(aQueenBitRes[i])+1));
+   //     }
+   // printf("\n");
 
-    //cutoff here
-    //dont know how to start... should i also modify the sentinell
     unsigned long long tree_size = 0ULL;
-
-
-                //bitfield = *--pnStack;
-                //pnStackPos--;
-                //--numrows;
 
 
     register long long numrows = cutoff_depth;
 
     pnStack = aStack + pnStackPos; /* stack pointer */
-    //bitfield = *(pnStack);
     bitfield = mask & ~(aQueenBitCol[numrows] | aQueenBitNegDiag[numrows] | aQueenBitPosDiag[numrows]);
             
-    displayBitsLLU(bitfield);
-    //return 0;
+   // displayBitsLLU(bitfield);
+    
+    /* this is the critical loop */
+    for (;;)
+    {
+    
+        lsb = -((signed long long)bitfield) & bitfield; /* this assumes a 2's complement architecture */
+        
+        if (0ULL == bitfield)
+        {
+           
+            if(numrows <= cutoff_depth){ 
+                //printf("\nEND OF THE SUBPROBLEM EXPLORATION! %d", numrows);
+                break ;
+            }
 
-        /* this is the critical loop */
-        for (;;)
+            bitfield = *--pnStack; /* get prev. bitfield from stack */
+            
+            //printf("Backtracking!");
+            --numrows;
+            continue;
+        }
+
+        bitfield &= ~lsb; /* toggle off this bit so we don't try it again */
+
+        aQueenBitRes[numrows] = lsb; /* save the result */
+        if (numrows < board_minus) /* we still have more rows to process? */
         {
         
-            lsb = -((signed long long)bitfield) & bitfield; /* this assumes a 2's complement architecture */
-            
-            if (0ULL == bitfield)
-            {
-               
-                
-                if(numrows <= cutoff_depth){ 
-                    printf("\nBREAKING! %d", numrows);
-                    break ;
-                }
+            long long n = numrows++;
+            aQueenBitCol[numrows] = aQueenBitCol[n] | lsb;
+            aQueenBitNegDiag[numrows] = (aQueenBitNegDiag[n] | lsb) >> 1LL;
+            aQueenBitPosDiag[numrows] = (aQueenBitPosDiag[n] | lsb) << 1LL;
+            *pnStack++ = bitfield;
 
-                bitfield = *--pnStack; /* get prev. bitfield from stack */
-                
-                //printf("Backtracking!");
-                --numrows;
-                continue;
-            }
-
-            bitfield &= ~lsb; /* toggle off this bit so we don't try it again */
-
-            aQueenBitRes[numrows] = lsb; /* save the result */
-            if (numrows < board_minus) /* we still have more rows to process? */
-            {
-            
-                long long n = numrows++;
-                aQueenBitCol[numrows] = aQueenBitCol[n] | lsb;
-                aQueenBitNegDiag[numrows] = (aQueenBitNegDiag[n] | lsb) >> 1LL;
-                aQueenBitPosDiag[numrows] = (aQueenBitPosDiag[n] | lsb) << 1LL;
-                *pnStack++ = bitfield;
-
-                bitfield = mask & ~(aQueenBitCol[numrows] | aQueenBitNegDiag[numrows] | aQueenBitPosDiag[numrows]);
-                ++tree_size;
-                continue;
-            }
-            else
-            {
-
-                printf("\n");
-                 for(int i = 0; i<board_size;++i){
-                      printf(" %d - ", (unsigned int)(log2(aQueenBitRes[i])+1));
-                }
-                // printf("\n");
-
-                ++g_numsolutions;
-                bitfield = *--pnStack;
-                --numrows;
-                //exit(1);
-                continue;
-            }
+            bitfield = mask & ~(aQueenBitCol[numrows] | aQueenBitNegDiag[numrows] | aQueenBitPosDiag[numrows]);
+            ++tree_size;
+            continue;
         }
-   // }//for odd
+        else
+        {
+
+           // printf("\n");
+           //  for(int i = 0; i<board_size;++i){
+           //       printf(" %d - ", (unsigned int)(log2(aQueenBitRes[i])+1));
+           // }
+            // printf("\n");
+
+            //++g_numsolutions;
+            ++local_num_sols;
+            bitfield = *--pnStack;
+            --numrows;
+            continue;
+        }
+    }
+
+    //returning the number of solutions
+    subproblem->num_sols_sub = local_num_sols;
 
     return tree_size;
 }
 
 
 
+
+
 void call_parallel_search(long long board_size, long long cutoff_depth){
 
-    g_numsolutions = 0 ;
+    
+    unsigned long long num_sols_search = 0ULL;
     unsigned long long num_subproblems = 0ULL;
     Subproblem *subproblem_pool = (Subproblem*)(malloc(sizeof(Subproblem)* 1000000));
 
@@ -364,17 +335,19 @@ void call_parallel_search(long long board_size, long long cutoff_depth){
     printf("\n - Parallel search! \n");
     for(int s = 0; s<num_subproblems; ++s){
         tree_size+=parallel_search(board_size, cutoff_depth, subproblem_pool+s, s);
+        num_sols_search+=subproblem_pool[s].num_sols_sub;
     }
 
-     if (g_numsolutions != 0)
+    if (num_sols_search != 0)
     {
-        printf("PARALLEL SEARCH: size %lld, Tree: %llu,  solutions: %llu\n", board_size, tree_size, g_numsolutions*2);
+        printf("PARALLEL SEARCH: size %lld, Tree: %llu,  solutions: %llu\n", board_size, tree_size, num_sols_search*2);
     }
     else
     {
         printf("No solutions found.\n");
     }
     printf("\n#######################################\n");
+    free(subproblem_pool);
 
 }////////////////////////////////////////////////
 
