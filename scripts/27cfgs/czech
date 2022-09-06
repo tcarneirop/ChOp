@@ -5,7 +5,7 @@ module load make/4.2.1-GCCcore-10.2.0
 module load GCC/10.2.0
 module load MPICH
 
-
+export  GASNET_PHYSMEM_MAX='10 GB'
 
 # Setup Chapel Home
 export CHPL_VERSION="1.27.0"

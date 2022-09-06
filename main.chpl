@@ -26,7 +26,7 @@ use parameters_record;
 //Variables from the command line
 config const initial_depth: c_int = 2;
 config const second_depth:  c_int = 7;
-config const size: uint(16) = 12; //queens
+config const size: uint(16) = 15; //queens
 config const prepro: bool = false; //queens first solution
 //the default coordinated is TRUE
 config const scheduler: string = "dynamic";
