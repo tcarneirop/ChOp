@@ -4,7 +4,7 @@
 echo " ### exporting...  ### "
 
 
-export CHPL_HOME=~/chapel-1.26.0
+export CHPL_HOME=~/chapel-1.28.0
 
 #export CHPL_LLVM=system
 export CHPL_LLVM=none
@@ -41,7 +41,7 @@ echo $here
 cd $CHPL_HOME
 make
 
-echo -e \#\#\# Building runtime 1.27  QTHREADS, UDP, and Local spawn.  \#\#\#
+echo -e \#\#\# Building runtime 1.28  QTHREADS, UDP, and Local spawn.  \#\#\#
 
 cd $here
 
