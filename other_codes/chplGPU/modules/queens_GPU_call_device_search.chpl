@@ -7,7 +7,7 @@ module queens_GPU_call_device_search{
 	//use GPU_aux;
 	use Math;
 	//use CPtr;
-	use DateTime;
+	use Time;
         use GPUDiagnostics;
 
 	config const CPUGPUVerbose: bool = false;
