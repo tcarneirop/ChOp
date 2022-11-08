@@ -74,15 +74,16 @@ __device__  bool GPU_queens_stillLegal(const char *board, const int r){
   // Check vertical
   for ( i = 0; i < r; ++i)
     if (board[i] == board[r]) safe = false;
-    // Check diagonals
-    ld = board[r];  //left diagonal columns
-    rd = board[r];  // right diagonal columns
-    for ( i = r-1; i >= 0; --i) {
-      --ld; ++rd;
-      if (board[i] == ld || board[i] == rd) safe = false;
-    }
 
-    return safe;
+  // Check diagonals
+  ld = board[r];  //left diagonal columns
+  rd = board[r];  // right diagonal columns
+  for ( i = r-1; i >= 0; --i) {
+    --ld; ++rd;
+    if (board[i] == ld || board[i] == rd) safe = false;
+  }
+
+  return safe;
 }
 
 
