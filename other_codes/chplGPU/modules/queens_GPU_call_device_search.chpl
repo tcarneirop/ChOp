@@ -132,7 +132,7 @@ module queens_GPU_call_device_search{
           var rd: int;
           // Check vertical
           /*for ( i = 0; i < r; ++i)*/
-          for i in 0..<r {
+          for i in 0..<r do
             if (board[i] == board[r]) then safe = false;
             // Check diagonals
             ld = board[r];  //left diagonal columns
@@ -142,7 +142,7 @@ module queens_GPU_call_device_search{
               rd += 1;
               if (board[i] == ld || board[i] == rd) then safe = false;
             }
-          }
+          
 
           return safe;
         }
