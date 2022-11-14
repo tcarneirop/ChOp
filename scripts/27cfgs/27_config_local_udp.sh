@@ -4,7 +4,7 @@
 echo " ### exporting...  ### "
 
 
-export CHPL_HOME=~/chapel-1.26.0
+export CHPL_HOME=~/chapel-1.27.0
 
 #export CHPL_LLVM=system
 export CHPL_LLVM=none

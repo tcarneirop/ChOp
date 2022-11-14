@@ -14,7 +14,7 @@ setupChplenv() {
   # Ignore our errors about ofi/psm not being supported
   #export CHPL_GASNET_ALLOW_BAD_SUBSTRATE=true
 
-  export CHPL_HOME=~/chapel-1.27.0
+  export CHPL_HOME=~/chapel-1.28.0
   if [ -d "$CHPL_HOME" ]; then
     CHPL_BIN_SUBDIR=`"$CHPL_HOME"/util/chplenv/chpl_bin_subdir.py`
     export PATH="$PATH":"$CHPL_HOME/bin/$CHPL_BIN_SUBDIR:$CHPL_HOME/util"
