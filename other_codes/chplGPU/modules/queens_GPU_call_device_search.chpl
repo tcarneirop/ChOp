@@ -49,12 +49,12 @@ module queens_GPU_call_device_search{
 
           //writeln("starting loop");
           foreach idx in 0..#gpu_load {
-            var flag = 0: uint;
-            var bit_test = 0: uint;
+            var flag = 0: uint(32);
+            var bit_test = 0: uint(32);
             /*var board: [0..31] int(8);*/
             var board: c_array(int(8), 32);
 
-            var depth;
+            var depth: int(32);
 
             var N_l = size;
             var qtd_solucoes_thread = 0: uint(64);
@@ -64,17 +64,17 @@ module queens_GPU_call_device_search{
             for i in 0..<N_l do  // what happens if I use promotion here?
               board[i] = _EMPTY_;
 
-            flag = root_prefixes[idx:uint(64)].control;
+            flag = root_prefixes[idx].control;
 
             for i in 0..<depthGlobal do
-              board[i] = root_prefixes[idx:uint(64)].board[i];
+              board[i] = root_prefixes[idx].board[i];
 
             depth=depthGlobal;
 
             do{
               board[depth] += 1;
               bit_test = 0;
-              bit_test |= 1<<board[depth];
+              bit_test |= 1:int(32)<<board[depth];
 
               if(board[depth] == N_l){
                 board[depth] = _EMPTY_;
@@ -82,7 +82,7 @@ module queens_GPU_call_device_search{
               }else if (!(flag &  bit_test ) && GPU_queens_stillLegal(board, depth)){
 
                 tree_size += 1;
-                flag |= (1<<board[depth]);
+                flag |= (1:int(32)<<board[depth]);
 
                 depth += 1;
 
@@ -92,7 +92,7 @@ module queens_GPU_call_device_search{
               }else continue;
 
               depth -= 1;
-              flag &= ~(1<<board[depth]);
+              flag &= ~(1:int(32)<<board[depth]);
 
             }while(depth >= depthGlobal); //FIM DO DFS_BNB
 
