@@ -119,10 +119,8 @@ module queens_GPU_call_device_search{
     var safe = true;
     const base = board[r];
     for (i, rev_i, offset) in zip(0..<r, 0..<r by -1, 1..r) {
-      if (board[i] == base) || (board[rev_i] == base-offset ||
-                                board[rev_i] == base+offset) {
-        safe = false;
-      }
+      safe &= !((board[i] == base) || (board[rev_i] == base-offset ||
+                                        board[rev_i] == base+offset));
     }
     return safe;
   }
