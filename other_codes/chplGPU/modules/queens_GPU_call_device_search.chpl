@@ -116,21 +116,12 @@ module queens_GPU_call_device_search{
 
   proc  GPU_queens_stillLegal(board, r) {
     var safe = true;
-    var i: int;
-    var ld: int(32);
-    var rd: int(32);
-
-    // Check vertical
-    for i in 0..<r do
-      if (board[i] == board[r]) then safe = false;
-
-    // Check diagonals
-    ld = board[r];  //left diagonal columns
-    rd = board[r];  // right diagonal columns
-    for i in 0..<r by -1 {
-      ld -= 1;
-      rd += 1;
-      if (board[i] == ld || board[i] == rd) then safe = false;
+    const base = board[r];
+    for (i, rev_i, offset) in zip(0..<r, 0..<r by -1, 1..r) {
+      if (board[i] == base) || (board[rev_i] == base-offset ||
+                                board[rev_i] == base+offset) {
+        safe = false;
+      }
     }
     return safe;
   }
