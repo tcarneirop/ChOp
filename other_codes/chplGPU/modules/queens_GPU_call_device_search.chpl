@@ -73,26 +73,27 @@ module queens_GPU_call_device_search{
 
             do{
               board[depth] += 1;
-              bit_test = 0;
-              bit_test |= 1:int(32)<<board[depth];
+              const mask = 1:int(32)<<board[depth];
 
               if(board[depth] == N_l){
                 board[depth] = _EMPTY_;
                 //if(block_ub > upper)   block_ub = upper;
-              }else if (!(flag &  bit_test ) && GPU_queens_stillLegal(board, depth)){
+                depth -= 1;
+                flag &= ~(1:int(32)<<board[depth]);
+              } else if (!(flag &  mask ) && GPU_queens_stillLegal(board, depth)){
 
                 tree_size += 1;
-                flag |= (1:int(32)<<board[depth]);
+                flag |= mask;
 
                 depth += 1;
 
                 if (depth == N_l) { //sol
                   qtd_solucoes_thread += 1;
-                }else continue;
-              }else continue;
 
-              depth -= 1;
-              flag &= ~(1:int(32)<<board[depth]);
+                  depth -= 1;
+                  flag &= ~mask;
+                }
+              }
 
             }while(depth >= depthGlobal); //FIM DO DFS_BNB
 
