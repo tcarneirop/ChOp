@@ -12,6 +12,13 @@ module queens_GPU_call_device_search{
 
 	config const CPUGPUVerbose: bool = false;
 
+        proc getAligned(x: c_ptr, param alignment=32) {
+          var xAsInt = x:int;
+          xAsInt += alignment-(xAsInt%alignment);
+
+          return __primitive("cast", x.type, xAsInt);
+        }
+
 	proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depthPreFixos: c_int,
 		ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64)): (uint(64), uint(64)) {
 
@@ -52,7 +59,8 @@ module queens_GPU_call_device_search{
             var flag = 0: uint(32);
             var bit_test = 0: uint(32);
             /*var board: [0..31] int(8);*/
-            var board: c_array(int(8), 32);
+            var _board: c_array(int(8), 64);
+            var board = getAligned(c_ptrTo(_board[0]), 32);
 
             var depth: int(32);
 
