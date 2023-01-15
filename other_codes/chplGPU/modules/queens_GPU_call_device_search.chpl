@@ -60,8 +60,8 @@ module queens_GPU_call_device_search{
             var bit_test = 0: uint(32);
             /*var board: [0..31] int(8);*/
             // alignment didn't help
-            var _board: c_array(int(8), 64);
-            var board = getAligned(c_ptrTo(_board[0]), 32);
+            var board: c_array(int(8), 32);
+            /*var board = getAligned(c_ptrTo(_board[0]), 32);*/
 
             var depth: int(32);
 
@@ -129,8 +129,8 @@ module queens_GPU_call_device_search{
     const base = board[r];
     for (i, rev_i, offset) in zip(0..<r, 0..<r by -1, 1..r) {
       // why can't I use bitwise OR for the second case?
-      safe &= !((board[i] == base) | (board[rev_i] == base-offset ||
-                                      board[rev_i] == base+offset));
+      safe &= !((board[i] == base) | ( (board[rev_i] == base-offset) |
+                                       (board[rev_i] == base+offset)));
     }
     return safe;
   }
