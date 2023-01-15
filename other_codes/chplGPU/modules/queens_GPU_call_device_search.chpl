@@ -59,6 +59,7 @@ module queens_GPU_call_device_search{
             var flag = 0: uint(32);
             var bit_test = 0: uint(32);
             /*var board: [0..31] int(8);*/
+            // alignment didn't help
             var _board: c_array(int(8), 64);
             var board = getAligned(c_ptrTo(_board[0]), 32);
 
