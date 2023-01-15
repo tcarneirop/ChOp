@@ -119,8 +119,9 @@ module queens_GPU_call_device_search{
     var safe = true;
     const base = board[r];
     for (i, rev_i, offset) in zip(0..<r, 0..<r by -1, 1..r) {
-      safe &= !((board[i] == base) || (board[rev_i] == base-offset ||
-                                        board[rev_i] == base+offset));
+      // why can't I use bitwise OR for the second case?
+      safe &= !((board[i] == base) | (board[rev_i] == base-offset ||
+                                      board[rev_i] == base+offset));
     }
     return safe;
   }
