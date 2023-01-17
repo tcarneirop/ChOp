@@ -57,10 +57,10 @@ module queens_GPU_call_device_search{
           //writeln("starting loop");
           foreach idx in 0..#gpu_load {
             var flag = 0: uint(32);
-            var bit_test = 0: uint(32);
+            /*var bit_test = 0: uint(32);*/
             /*var board: [0..31] int(8);*/
             // alignment didn't help
-            var board: c_array(int(8), 32);
+            var board: c_array(int(8), 64);
             /*var board = getAligned(c_ptrTo(_board[0]), 32);*/
 
             var depth: int(32);
