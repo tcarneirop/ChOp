@@ -68,21 +68,12 @@ inline bool MCstillLegal(const char *board, const int r)
 __device__  bool GPU_queens_stillLegal(const char *board, const int r){
 
   bool safe = true;
-  int i;
-  register int ld;
-  register int rd;
+  int i, rev_i, offset;
+  const char base = board[r];
   // Check vertical
-  for ( i = 0; i < r; ++i)
-    if (board[i] == board[r]) safe = false;
-
-  // Check diagonals
-  ld = board[r];  //left diagonal columns
-  rd = board[r];  // right diagonal columns
-  for ( i = r-1; i >= 0; --i) {
-    --ld; ++rd;
-    if (board[i] == ld || board[i] == rd) safe = false;
-  }
-
+  for ( i = 0, rev_i = r-1, offset=1; i < r; ++i, --rev_i, offset++)
+    safe &= !((board[i] == base) | ( (board[rev_i] == base-offset) |
+                                     (board[rev_i] == base+offset)));
   return safe;
 }
 
@@ -116,26 +107,32 @@ __global__ void BP_queens_root_dfs(int N, unsigned int nPrefixes, int initial_de
         do{
 
             board[depth]++;
-            bit_test = 0;
-            bit_test |= (1<<board[depth]);
+            const int mask = 1<<board[depth];
+            //bit_test = 0;
+            //bit_test |= (1<<board[depth]);
 
             if(board[depth] == N_l){
                 board[depth] = _EMPTY_;
                 //if(block_ub > upper)   block_ub = upper;
-            }else if (!(flag &  bit_test ) && GPU_queens_stillLegal(board, depth)){
+                depth--;
+                flag &= ~(1<<board[depth]);
+            }else if (!(flag &  mask ) && GPU_queens_stillLegal(board, depth)){
 
                     ++tree_size;
-                    flag |= (1ULL<<board[depth]);
+                    flag |= mask;
 
                     depth++;
 
                     if (depth == N_l) { //sol
                         ++qtd_sols_thread ;
-                    }else continue;
-                }else continue;
 
-            depth--;
-            flag &= ~(1ULL<<board[depth]);
+                        depth--;
+                        flag &= ~mask;
+                    }
+                }
+
+            //depth--;
+            //flag &= ~(1<<board[depth]);
 
             }while(depth >= depthGlobal); //FIM DO DFS_BNB
 
