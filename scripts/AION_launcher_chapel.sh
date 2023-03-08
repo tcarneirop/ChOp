@@ -40,7 +40,7 @@ export GASNET_IBV_SPAWNER=ssh
 
 if [ ! -d "$CHPL_HOME" ]; then
     module load devel/CMake/3.18.4-GCCcore-10.2.0
-    wget -c https://github.com/chapel-lang/chapel/releases/download/1.25.0/chapel-${CHPL_VERSION}.tar.gz -O - | tar xz
+    wget -c https://github.com/chapel-lang/chapel/releases/download/${CHPL_VERSION}/chapel-${CHPL_VERSION}.tar.gz -O - | tar xz
     cd chapel-${CHPL_VERSION}
     make -j ${SLURM_CPUS_PER_TASK}
     cd ..
