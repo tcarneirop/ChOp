@@ -12,13 +12,6 @@ module queens_GPU_call_device_search{
 
 	config const CPUGPUVerbose: bool = false;
 
-        proc getAligned(x: c_ptr, param alignment=32) {
-          var xAsInt = x:int;
-          xAsInt += alignment-(xAsInt%alignment);
-
-          return __primitive("cast", x.type, xAsInt);
-        }
-
 	proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depthPreFixos: c_int,
 		ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64)): (uint(64), uint(64)) {
 
@@ -57,7 +50,7 @@ module queens_GPU_call_device_search{
           //writeln("starting loop");
           foreach idx in 0..#gpu_load {
             var flag = 0: uint(32);
-            // alignment didn't help
+            // alignment doesn't seem to help
             var board: c_array(int(8), 64);
 
             var depth: int(32);
@@ -86,7 +79,7 @@ module queens_GPU_call_device_search{
                 //if(block_ub > upper)   block_ub = upper;
                 depth -= 1;
                 flag &= ~(1:int(32)<<board[depth]);
-              } else if (!(flag &  mask ) && GPU_queens_stillLegal(board, depth)){
+              } else if (!(flag & mask ) && GPU_queens_stillLegal(board, depth)){
 
                 tree_size += 1;
                 flag |= mask;

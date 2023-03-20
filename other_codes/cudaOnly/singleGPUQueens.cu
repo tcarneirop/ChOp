@@ -108,8 +108,6 @@ __global__ void BP_queens_root_dfs(int N, unsigned int nPrefixes, int initial_de
 
             board[depth]++;
             const int mask = 1<<board[depth];
-            //bit_test = 0;
-            //bit_test |= (1<<board[depth]);
 
             if(board[depth] == N_l){
                 board[depth] = _EMPTY_;
@@ -130,10 +128,6 @@ __global__ void BP_queens_root_dfs(int N, unsigned int nPrefixes, int initial_de
                         flag &= ~mask;
                     }
                 }
-
-            //depth--;
-            //flag &= ~(1<<board[depth]);
-
             }while(depth >= depthGlobal); //FIM DO DFS_BNB
 
         sols[idx] = qtd_sols_thread ;
