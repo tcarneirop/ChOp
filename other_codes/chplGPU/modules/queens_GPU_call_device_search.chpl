@@ -56,6 +56,7 @@ module queens_GPU_call_device_search{
 
                                         var depth;
 
+
                                         var N_l = size;
                                         var qtd_solucoes_thread = 0: uint(64);
                                         var depthGlobal = depthPreFixos;
@@ -64,12 +65,15 @@ module queens_GPU_call_device_search{
                                         for i in 0..<N_l do  // what happens if I use promotion here?
                                                 board[i] = _EMPTY_;
 
+
                                         flag = root_prefixes[idx:uint(64)].control;
 
                                         for i in 0..<depthGlobal do
                                                 board[i] = root_prefixes[idx:uint(64)].board[i];
 
+
                                         depth=depthGlobal;
+
 
                                         do{
                                                 board[depth] += 1;
@@ -84,7 +88,9 @@ module queens_GPU_call_device_search{
                                                         tree_size += 1;
                                                         flag |= (1<<board[depth]);
 
+
                                                         depth += 1;
+
 
                                                         if (depth == N_l) { //sol
                                                                 qtd_solucoes_thread += 1;
@@ -134,4 +140,5 @@ module queens_GPU_call_device_search{
                 }
                 return safe;
         }
+
 }
