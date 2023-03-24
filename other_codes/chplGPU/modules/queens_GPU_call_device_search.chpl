@@ -13,7 +13,7 @@ module queens_GPU_call_device_search{
         config const CPUGPUVerbose: bool = false;
 
         proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depthPreFixos: c_int,
-                                           ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64)): (uint(64), uint(64)) {
+                        ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64)): (uint(64), uint(64)) {
 
                 startVerboseGpu();
 
@@ -49,13 +49,11 @@ module queens_GPU_call_device_search{
 
                                 //writeln("starting loop");
                                 foreach idx in 0..#gpu_load {
-                                        var flag = 0: uint;
-                                        var bit_test = 0: uint;
-                                        /*var board: [0..31] int(8);*/
-                                        var board: c_array(int(8), 32);
+                                        var flag = 0: uint(32);
+                                        // alignment doesn't seem to help
+                                        var board: c_array(int(8), 64);
 
-                                        var depth;
-
+                                        var depth: int(32);
 
                                         var N_l = size;
                                         var qtd_solucoes_thread = 0: uint(64);
@@ -65,40 +63,36 @@ module queens_GPU_call_device_search{
                                         for i in 0..<N_l do  // what happens if I use promotion here?
                                                 board[i] = _EMPTY_;
 
-
-                                        flag = root_prefixes[idx:uint(64)].control;
+                                        flag = root_prefixes[idx].control;
 
                                         for i in 0..<depthGlobal do
-                                                board[i] = root_prefixes[idx:uint(64)].board[i];
-
+                                                board[i] = root_prefixes[idx].board[i];
 
                                         depth=depthGlobal;
 
-
                                         do{
                                                 board[depth] += 1;
-                                                bit_test = 0;
-                                                bit_test |= 1<<board[depth];
+                                                const mask = 1:int(32)<<board[depth];
 
                                                 if(board[depth] == N_l){
                                                         board[depth] = _EMPTY_;
                                                         //if(block_ub > upper)   block_ub = upper;
-                                                }else if (!(flag &  bit_test ) && GPU_queens_stillLegal(board, depth)){
+                                                        depth -= 1;
+                                                        flag &= ~(1:int(32)<<board[depth]);
+                                                } else if (!(flag & mask ) && GPU_queens_stillLegal(board, depth)){
 
                                                         tree_size += 1;
-                                                        flag |= (1<<board[depth]);
-
+                                                        flag |= mask;
 
                                                         depth += 1;
 
-
                                                         if (depth == N_l) { //sol
                                                                 qtd_solucoes_thread += 1;
-                                                        }else continue;
-                                                }else continue;
 
-                                                depth -= 1;
-                                                flag &= ~(1<<board[depth]);
+                                                                depth -= 1;
+                                                                flag &= ~mask;
+                                                        }
+                                                }
 
                                         }while(depth >= depthGlobal); //FIM DO DFS_BNB
 
@@ -122,23 +116,11 @@ module queens_GPU_call_device_search{
 
         proc  GPU_queens_stillLegal(board, r) {
                 var safe = true;
-                var i: int;
-                var ld: int;
-                var rd: int;
-
-                // Check vertical
-                for i in 0..<r do
-                        if (board[i] == board[r]) then safe = false;
-
-                // Check diagonals
-                ld = board[r];  //left diagonal columns
-                rd = board[r];  // right diagonal columns
-                for i in 0..<r by -1 {
-                        ld -= 1;
-                        rd += 1;
-                        if (board[i] == ld || board[i] == rd) then safe = false;
+                const base = board[r];
+                for (i, rev_i, offset) in zip(0..<r, 0..<r by -1, 1..r) {
+                        safe &= !((board[i] == base) | ( (board[rev_i] == base-offset) |
+                                                (board[rev_i] == base+offset)));
                 }
                 return safe;
         }
-
 }
