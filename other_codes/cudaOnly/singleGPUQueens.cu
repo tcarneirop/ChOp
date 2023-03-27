@@ -64,6 +64,8 @@ inline bool MCstillLegal(const char *board, const int r)
     return true;
 }
 
+
+
 __device__  bool GPU_queens_stillLegal(const char *board, const int r){
 
   bool safe = true;
@@ -77,8 +79,11 @@ __device__  bool GPU_queens_stillLegal(const char *board, const int r){
 }
 
 
-__global__ void BP_queens_root_dfs(int N, unsigned int nPrefixes, int initial_depth,
-    QueenRoot *root_prefixes,unsigned long long int *vector_of_tree_size, unsigned long long int *sols){
+__global__ void BP_queens_root_dfs(const int N, const unsigned int nPrefixes, 
+    const int initial_depth,
+    QueenRoot *__restrict__ root_prefixes,
+    unsigned long long int *__restrict__ vector_of_tree_size, 
+    unsigned long long int *__restrict__ sols){
 
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx < nPrefixes) {
@@ -134,12 +139,13 @@ __global__ void BP_queens_root_dfs(int N, unsigned int nPrefixes, int initial_de
 }//kernel
 
 
-unsigned long long int BP_queens_prefixes(int size, int initialDepth ,unsigned long long *tree_size, QueenRoot *root_prefixes){
+unsigned long long int BP_queens_prefixes(int size, int initialDepth,
+    unsigned long long *tree_size, QueenRoot *root_prefixes){
 
     unsigned int flag = 0;
     int bit_test = 0;
-    char board[32]; //representa o ciclo
-    int i, depth; //para dizer que 0-1 ja foi visitado e a busca comeca de 1, bote 2
+    char board[32]; 
+    int i, depth; 
     unsigned long long int local_tree = 0ULL;
     unsigned long long int num_sol = 0;
 
