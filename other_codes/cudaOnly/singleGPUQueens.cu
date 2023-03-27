@@ -205,7 +205,6 @@ void GPU_call_cuda_queens(int size, int initial_depth, int block_size,unsigned i
     cudaMalloc((void**) &vector_of_tree_size_d,n_explorers*sizeof(unsigned long long int));
     cudaMalloc((void**) &sols_d,n_explorers*sizeof(unsigned long long int));
     cudaMalloc((void**) &root_prefixes_d,n_explorers*sizeof(QueenRoot));
-
     cudaMemcpy(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot), cudaMemcpyHostToDevice);
 
     //kernel_start =  rtclock();
