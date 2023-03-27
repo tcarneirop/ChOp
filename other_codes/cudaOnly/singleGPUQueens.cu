@@ -166,7 +166,7 @@ unsigned long long int BP_queens_prefixes(int size, int initialDepth,
         if(board[depth] == size){
             board[depth] = _EMPTY_;
                 //if(block_ub > upper)   block_ub = upper;
-        }else if ( MCstillLegal(board, depth) && !(flag &  bit_test ) ){ //is legal
+        }else if ( MCstillLegal(board, depth) && !(flag &  bit_test ) ){ //it is a valid subsol 
 
                 flag |= (1ULL<<board[depth]);
                 depth++;
@@ -186,6 +186,10 @@ unsigned long long int BP_queens_prefixes(int size, int initialDepth,
 
     return num_sol;
 }
+
+
+
+
 
 void GPU_call_cuda_queens(int size, int initial_depth, int block_size,unsigned int n_explorers, QueenRoot *root_prefixes_h ,
 	unsigned long long int *vector_of_tree_size_h, unsigned long long int *sols_h){
@@ -239,7 +243,7 @@ double call_queens(int size, int initialDepth, int block_size){
 
     double initial_time = rtclock();
 
-    //initial search, getting the Feasible, Valid and Incomplete solutions -- subproblems;
+    //initial search, getting Feasible, Valid and Incomplete solutions -- subproblems;
     unsigned long long n_explorers = BP_queens_prefixes((short)size, initialDepth ,&initial_tree_size, root_prefixes_h);
 
     //calling the gpu-based search
@@ -262,6 +266,7 @@ double call_queens(int size, int initialDepth, int block_size){
 
 int main(int argc, char *argv[]){
 
+    cudaFree(0);
     int block_size;
     int initialDepth;
     int size;
