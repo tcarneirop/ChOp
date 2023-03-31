@@ -225,7 +225,7 @@ void GPU_call_cuda_queens(int size, int initial_depth, int block_size,unsigned i
 }
 
 
-double call_queens(int size, int initialDepth, int block_size){
+void call_queens(int size, int initialDepth, int block_size){
 
 
     unsigned long long initial_tree_size = 0ULL;
@@ -259,7 +259,6 @@ double call_queens(int size, int initialDepth, int block_size){
     printf("\nGPU Tree size: %llu\nTotal tree size: %llu\nNumber of solutions found: %llu.\n", gpu_tree_size,(initial_tree_size+gpu_tree_size),qtd_sols_global );
     printf("\nElapsed total: %.3f\n", (final_time-initial_time));
 
-    return (final_time-initial_time);
 }
 
 
