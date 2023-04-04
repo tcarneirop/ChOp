@@ -4,9 +4,7 @@ module queens_GPU_call_device_search{
         use queens_node_module;
         use GPU_mlocale_utils;
         use CTypes;
-        //use GPU_aux;
         use Math;
-        //use CPtr;
         use Time;
         use GpuDiagnostics;
 
@@ -17,40 +15,43 @@ module queens_GPU_call_device_search{
 
                 startVerboseGpu();
 
-                var vector_of_tree_size_h: [0..#initial_num_prefixes] c_ulonglong;
-                var sols_h: [0..#initial_num_prefixes] c_ulonglong;
-
+            	
                 //calculating the CPU load in terms of nodes
                 var new_num_prefixes: uint(64) = initial_num_prefixes;
                 var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));//
+                
+                var reduce_tree_size: [0..#num_gpus] c_ulonglong = 0;
+                var reduce_num_sols: [0..#num_gpus] c_ulonglong = 0;
 
-                //@question: should we use forall or coforall?
+                forall gpu_id in 0..#num_gpus:c_int do {
 
-                for gpu_id in 0..#num_gpus:c_int do {
+                		
                         var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
 
                         var starting_position = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
                                         gpu_id:c_uint, num_gpus:c_uint, 0:c_uint);
 
-                        var sol_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;
-                        var tree_ptr : c_ptr(c_ulonglong) = c_ptrTo(vector_of_tree_size_h) + starting_position;
-                        var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
+                	var vector_of_tree_size_h: [0..#gpu_load] c_ulonglong;
+               		var sols_h: [0..#gpu_load] c_ulonglong;
 
-                        if(CPUGPUVerbose) then
-                                writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
-
+            
+                        writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
+                        
+          
                         param _EMPTY_ = -1;
 
                         on here.gpus[gpu_id] {
 
-                                var root_prefixes = local_active_set;
+                        	var root_prefixes = local_active_set;//
                                 var sols: [sols_h.domain] sols_h.eltType;
                                 var vector_of_tree_size: [vector_of_tree_size_h.domain] vector_of_tree_size_h.eltType;
 
                                 //writeln("starting loop");
                                 foreach idx in 0..#gpu_load {
+
+
                                         var flag = 0: uint(32);
-                                        // alignment doesn't seem to help
+                
                                         var board: c_array(int(8), 64);
 
                                         var depth: int(32);
@@ -63,10 +64,10 @@ module queens_GPU_call_device_search{
                                         for i in 0..<N_l do  // what happens if I use promotion here?
                                                 board[i] = _EMPTY_;
 
-                                        flag = root_prefixes[idx].control;
+                                        flag = root_prefixes[idx+starting_position].control;
 
                                         for i in 0..<depthGlobal do
-                                                board[i] = root_prefixes[idx].board[i];
+                                                board[i] = root_prefixes[idx+starting_position].board[i];
 
                                         depth=depthGlobal;
 
@@ -100,16 +101,19 @@ module queens_GPU_call_device_search{
                                         sols[idx] = qtd_solucoes_thread;
                                         vector_of_tree_size[idx] = tree_size;
                                 }
-
                                 sols_h = sols;
                                 vector_of_tree_size_h = vector_of_tree_size;
+                        		
                         }
+
+                        reduce_tree_size[gpu_id] =  +reduce vector_of_tree_size_h;
+                		reduce_num_sols[gpu_id]  =  +reduce sols_h;
                 }//end of gpu search
 
                 stopVerboseGpu();
 
-                var redTree = (+ reduce vector_of_tree_size_h):uint(64);
-                var redSol  = (+ reduce sols_h):uint(64);
+                var redTree = (+ reduce reduce_tree_size):uint(64);
+                var redSol  = (+ reduce reduce_num_sols):uint(64);
 
                 return ((redSol,redTree)+metrics);
         }
