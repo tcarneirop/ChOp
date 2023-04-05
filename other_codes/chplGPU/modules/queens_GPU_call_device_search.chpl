@@ -4,9 +4,7 @@ module queens_GPU_call_device_search{
         use queens_node_module;
         use GPU_mlocale_utils;
         use CTypes;
-        //use GPU_aux;
         use Math;
-        //use CPtr;
         use Time;
         use GpuDiagnostics;
 
@@ -23,8 +21,6 @@ module queens_GPU_call_device_search{
                 //calculating the CPU load in terms of nodes
                 var new_num_prefixes: uint(64) = initial_num_prefixes;
                 var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));//
-
-                //@question: should we use forall or coforall?
 
                 for gpu_id in 0..#num_gpus:c_int do {
                         var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
