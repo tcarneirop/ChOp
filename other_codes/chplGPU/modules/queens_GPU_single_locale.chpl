@@ -48,9 +48,12 @@ module queens_GPU_single_locale{
 
 		writeln("\nSize: ", size, " Survivors: ", initial_num_prefixes);
 
-		var num_gpus = GPU_device_count();
-		//var num_gpus = 1:c_int;
+		var num_gpus = here.gpus.size:c_int;
 		writeln("Number of GPUs to use: ", num_gpus);
+		if num_gpus == 0 then {
+			writeln("#### No GPUs Found ####");
+			halt();
+		}
 
 
 		final.start();

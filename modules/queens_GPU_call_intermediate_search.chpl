@@ -5,6 +5,7 @@ module queens_GPU_call_intermediate_search{
 	use queens_aux;
 	use queens_tree_exploration;
 	use queens_GPU_call_device_search;
+	USE queens_CHPL_call_device_search;
 
 	use queens_aux;
 	use DynamicIters;
@@ -25,13 +26,21 @@ module queens_GPU_call_intermediate_search{
 		var initial_num_prefixes : uint(64) = 0;//
 		var initial_tree_size : uint(64) = 0;//
 
+
 		metrics += queens_improved_prefix_gen(size, initial_depth, second_depth, node, set_of_nodes);//
 
 		initial_num_prefixes = metrics[0];//
 		metrics[0] = 0; //restarting for the parallel search_type//
 
-		metrics+= queens_GPU_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
-		 initial_num_prefixes, CPUP, chunk);
+		if(mode == "mlgpu")
+			metrics+= queens_GPU_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
+				initial_num_prefixes, CPUP, chunk);
+		else{
+			if(mode == "chplgpu")
+				metrics+= queens_CHPL_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
+					initial_num_prefixes);
+		}
+
 
 		tree_each_locale[here.id] += metrics[1]; //for load statistics
 

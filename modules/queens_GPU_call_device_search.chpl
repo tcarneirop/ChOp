@@ -20,6 +20,9 @@ module queens_GPU_call_device_search{
 		sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
 
 
+
+
+
 	proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depth: c_int,
 		ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64),
 		const CPUP: real, const chunk: int ): (uint(64), uint(64)){
@@ -82,6 +85,7 @@ module queens_GPU_call_device_search{
 
 				{
 				//two blocks, two tasks
+				//Other task for the GPUs
 
 					if(CPUGPUVerbose){
 
@@ -107,6 +111,8 @@ module queens_GPU_call_device_search{
 							nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
 
 					}//end of gpu search
+
+
 					if(CPUGPUVerbose){
 						writeln("end of the GPU search");
 					}
@@ -129,4 +135,8 @@ module queens_GPU_call_device_search{
 		return ((redSol,redTree)+metrics);
 
 	}///
+
+
+
+
 }

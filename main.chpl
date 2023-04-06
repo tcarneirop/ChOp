@@ -46,9 +46,10 @@ config const pgas: bool = false; //pgas-based active set?
 
 config const num_threads: int = here.maxTaskPar; //number of threads.
 config const profiler: bool = false; //to gather profiler metrics and execution graphics.
-config const number_exec: int = 1;   //going to be removed soon.
+
+
 config const upper_bound: c_int = 0; //value for the initial upper bound. If it is zero, the optimal solution is going to be used.
-config const lower_bound: string = "johnson"; //type of lowerbound. Johnson and simple.
+config const lower_bound: string = "simple"; //type of lowerbound. Johnson and simple.
 config const atype: string = "none"; //atomic type. 'none' when initializing using the optimal -- use like that.
 config const instance: int(8) = 13; //fsp instance
 
@@ -60,12 +61,13 @@ config const computers: int = 1;
 
 config const mode: string = "improved";
 config const mlsearch: string = "mlocale";
-config const num_gpus: c_int = 0; //if it is not zero, get the number of devices of the system
+config const num_gpus: c_int = here.gpus.size;
+
+
 config param build_gpu_code: bool = true;
 config param build_mlocale_code: bool = true;
 
 config const CPUP: real = 0.0; //CPU percent
-
 
 
 proc main(){
@@ -145,10 +147,10 @@ proc main(){
 
 		 		}//improved
 
-		 			when "mgpu"{
-		 				writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
-		 				GPU_queens_call_search(size,initial_depth,CPUP,lchunk);
-		 			}
+		 		when "mgpu"{
+		 			writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
+		 			GPU_queens_call_search(size,initial_depth,CPUP,lchunk);
+		 		}
 
 		 		otherwise{
 		 			halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
