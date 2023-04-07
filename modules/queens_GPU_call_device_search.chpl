@@ -7,7 +7,6 @@ module queens_GPU_call_device_search{
 	use GPU_aux;
 	use DynamicIters;
 	use Math;
-	//use CPtr;
 	use DateTime;
 
 	config param CPUGPUVerbose: bool = false;
@@ -18,8 +17,6 @@ module queens_GPU_call_device_search{
 	extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
 		root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong),
 		sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
-
-
 
 
 

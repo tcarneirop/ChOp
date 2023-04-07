@@ -35,7 +35,7 @@ module queens_GPU_call_device_search{
                		var sols_h: [0..#gpu_load] c_ulonglong;
 
             
-                        writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
+                       // writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
                         
           
                         param _EMPTY_ = -1;
