@@ -25,7 +25,6 @@ export PATH="$PATH":"$CHPL_HOME/bin/$CHPL_BIN_SUBDIR"
 echo $LD_LIBRARY_PATH
 
 
-
 export MANPATH="$MANPATH":"$CHPL_HOME"/man
 
 NUM_T_LOCALE=$(cat /proc/cpuinfo | grep processor | wc -l)
