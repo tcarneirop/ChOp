@@ -12,7 +12,7 @@ module fsp_simple_serial{
 
 	proc fsp_simple_call_serial(upper_bound: c_int = _FSP_INF_, const instance_num: c_short){
 
-		var timer: Timer;
+		var timer: stopwatch;
 		var jobs: c_int;
     	var machines: c_int;
     	var final_tree_size: uint(64) = 0;
@@ -26,7 +26,7 @@ module fsp_simple_serial{
     	print_instance(machines,jobs,times);
 
 
-  		timer.start();
+  	timer.start();
     	metrics = fsp_simple_serial(machines,jobs,upper_bound,times);
     	timer.stop();
 

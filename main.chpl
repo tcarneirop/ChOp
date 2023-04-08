@@ -61,7 +61,7 @@ config const computers: int = 1;
 
 config const mode: string = "improved";
 config const mlsearch: string = "mlocale";
-config const num_gpus: c_int = here.gpus.size;
+config const num_gpus: c_int = here.gpus.size:c_int;
 
 
 config param build_gpu_code: bool = true;

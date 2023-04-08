@@ -58,7 +58,7 @@ module fsp_aux{
     }
 
 
-    proc fsp_print_serial_report(timer: Timer, machines: c_int, jobs: c_int,
+    proc fsp_print_serial_report(timer: stopwatch, machines: c_int, jobs: c_int,
         metrics: (uint(64),uint(64),c_int), upper_bound: c_int){
 
         var final_tree_size: uint(64) = 0;
@@ -128,7 +128,7 @@ module fsp_aux{
 
 
 	proc fsp_print_metrics( machines: c_int, jobs: c_int, ref metrics: (uint(64),uint(64)),
-        ref initial: Timer, ref final: Timer, initial_tree_size: uint(64), maximum_num_prefixes: uint(64),initial_num_prefixes: uint(64),
+        ref initial: stopwatch, ref final: stopwatch, initial_tree_size: uint(64), maximum_num_prefixes: uint(64),initial_num_prefixes: uint(64),
         initial_ub:c_int, ref final_ub: atomic c_int ){
 
         var performance_metrics: real = 0.0;

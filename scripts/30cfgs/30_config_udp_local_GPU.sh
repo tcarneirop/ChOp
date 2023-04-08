@@ -5,6 +5,8 @@ echo " ### exporting...  ### "
 
 export CHPL_HOME=~/chapel-1.30.0
 export CHPL_COMM=gasnet
+export CHPL_TARGET_ARCH=native
+export CHPL_TARGET_CPU=native 
 export CHPL_COMM_SUBSTRATE=udp
 export GASNET_SPAWNFN=L
 #export CHPL_LLVM=system

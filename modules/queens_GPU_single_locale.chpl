@@ -21,7 +21,7 @@ module queens_GPU_single_locale{
 		var initial_num_prefixes : uint(64);
 		var initial_tree_size : uint(64) = 0;
 
-		var initial, final: Timer;
+		var initial, final: stopwatch;
 
 		//search metrics
 		var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));

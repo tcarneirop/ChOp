@@ -29,7 +29,7 @@ module fsp_simple_call_multilocale_search{
 
 		print_locales_information();
 
-		var initial,final, initialization,distribution: Timer;
+		var initial,final, initialization,distribution: stopwatch;
         var return_initial: real;
         var return_final: real;
         var return_total: real;

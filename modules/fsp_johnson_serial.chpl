@@ -11,7 +11,7 @@ module fsp_johnson_serial{
 
 	proc fsp_johnson_call_serial(upper_bound: c_int = _FSP_INF_,const instance: c_short){
 
-		var timer: Timer;
+		var timer: stopwatch;
 		var jobs: c_int;
     	var machines: c_int;
     	var metrics: (uint(64),uint(64),c_int);

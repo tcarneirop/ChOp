@@ -17,8 +17,8 @@ module queens_aux{
 
 	proc queens_serial_caller(const size: uint(16), const mode: string = "serial", const prepro: bool = false){
 
-		use Time; // Import the Time module to use Timer objects
-		var timer: Timer;
+		use Time; 
+		var timer: stopwatch;
 		var metrics: (uint(64),uint(64));
 		timer.start(); // Start timer
 
@@ -36,7 +36,7 @@ module queens_aux{
 
 	}
 
-	proc queens_print_serial_report(timer: Timer, size: uint(16), metrics: (uint(64),uint(64)),
+	proc queens_print_serial_report(timer: stopwatch, size: uint(16), metrics: (uint(64),uint(64)),
 		initial_num_prefixes : uint(64), initial_tree_size: uint(64), parallel_tree_size: uint(64),
 		const initial_depth: int(32),
         const scheduler: string){
@@ -97,7 +97,7 @@ module queens_aux{
 
 
 	proc queens_mlocale_print_metrics(size: uint(16), ref metrics: (uint(64),uint(64)),
-        ref initial: Timer, ref distribution: Timer, ref final: Timer, initial_tree_size: uint(64),
+        ref initial: stopwatch, ref distribution: stopwatch, ref final: stopwatch, initial_tree_size: uint(64),
         maximum_num_prefixes: uint(64),initial_num_prefixes: uint(64), initial_depth: c_int,
         second_depth: c_int,  ref tree_each_locale: [] uint(64)){
 

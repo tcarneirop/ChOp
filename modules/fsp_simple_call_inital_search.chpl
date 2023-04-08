@@ -25,7 +25,7 @@ module fsp_simple_call_inital_search{
 
 		print_locales_information();
 
-		var initial,final, initialization,distribution: Timer;
+		var initial,final, initialization,distribution: stopwatch;
 		//FSP Variables
 		var jobs: c_int;
     	var machines: c_int;

@@ -5,7 +5,7 @@ module queens_GPU_call_intermediate_search{
 	use queens_aux;
 	use queens_tree_exploration;
 	use queens_GPU_call_device_search;
-	USE queens_CHPL_call_device_search;
+	//use queens_CHPL_call_device_search;
 
 	use queens_aux;
 	use DynamicIters;
@@ -14,7 +14,7 @@ module queens_GPU_call_intermediate_search{
 
 	proc queens_GPU_call_intermediate_search(const size: uint(16), const initial_depth: c_int,
 		const second_depth: c_int, const chunk: int, ref node: queens_node,
-		ref tree_each_locale: [] uint(64), const GPU: int, const CPUP: real, const string: mlsearch):(uint(64),uint(64)){
+		ref tree_each_locale: [] uint(64), const GPU: int, const CPUP: real, const mlsearch:string):(uint(64),uint(64)){
 
 		var maximum_number_prefixes: uint(64) = queens_get_number_prefixes(size,initial_depth);//
 		var maximum_number_prefixes_scnd_depth: uint(64) = queens_get_number_prefixes(size,second_depth);//
@@ -32,13 +32,15 @@ module queens_GPU_call_intermediate_search{
 		initial_num_prefixes = metrics[0];//
 		metrics[0] = 0; //restarting for the parallel search_type//
 
-		if(mode == "mlgpu")
+		if(mlsearch == "mlgpu") then {
 			metrics+= queens_GPU_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
 				initial_num_prefixes, CPUP, chunk);
+		}
 		else{
-			if(mode == "chplgpu")
-				metrics+= queens_CHPL_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
-					initial_num_prefixes);
+			if(mlsearch == "chplgpu") then {
+				//metrics+= queens_CHPL_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
+				//	initial_num_prefixes);
+			}
 		}
 
 

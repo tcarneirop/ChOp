@@ -39,7 +39,7 @@ module queens_call_multilocale_search{
         var final_tree_size: uint(64) = 0;
         var parallel_tree_size: uint(64) = 0;
 
-        var initial, final, distribution: Timer;
+        var initial, final, distribution: stopwatch;
         var return_initial: real;
         var return_final: real;
         var return_total: real;

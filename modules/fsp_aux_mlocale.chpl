@@ -54,7 +54,7 @@ module fsp_aux_mlocale{
 
 
     proc fsp_mlocale_print_metrics(instance: c_short, machines: c_int, jobs: c_int, ref metrics: (uint(64),uint(64)),
-        ref initial: Timer, ref inialization: Timer, ref distribution: Timer, ref final: Timer, initial_tree_size: uint(64),
+        ref initial: stopwatch, ref inialization: stopwatch, ref distribution: stopwatch, ref final: stopwatch, initial_tree_size: uint(64),
         maximum_num_prefixes: uint(64),initial_num_prefixes: uint(64),
         initial_ub:c_int, final_ub: c_int, initial_depth: c_int, second_depth: c_int,
         ref tree_each_locale: [] uint(64), ml_chunk: int){
@@ -111,7 +111,7 @@ module fsp_aux_mlocale{
 
 
     proc fsp_call_initial_print_metrics( instance: c_short, machines: c_int, jobs: c_int,
-        ref initial: Timer, ref inialization: Timer, ref distribution: Timer, initial_tree_size: uint(64),
+        ref initial: stopwatch, ref inialization: stopwatch, ref distribution: stopwatch, initial_tree_size: uint(64),
         maximum_num_prefixes: uint(64),initial_num_prefixes: uint(64), initial_ub:c_int){
 
         var performance_metrics: real = 0.0;

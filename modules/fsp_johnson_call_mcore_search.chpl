@@ -16,7 +16,7 @@ module fsp_johnson_call_mcore_search{
 	proc fsp_johnson_call_multicore_search(initial_depth: c_int, upper: c_int = 0,
         const scheduler: string, const chunk: int, const num_threads, const instance: c_short, verbose: bool = true): (real,real,real){
 
-		var initial,final: Timer;
+		var initial,final: stopwatch;
         var return_initial: real;
         var return_final: real;
         var return_total: real;
