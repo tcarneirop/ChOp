@@ -38,7 +38,7 @@ config const slchunk: int = 1; //chunk for the second level of parallelism.
 config const coordinated: bool = true;  //centralized node?
 //available modes:
 /// mlocale:
-/// improved:
+/// nested:
 ///	sgpu: single-gpu execution
 /// cpu-gpu: uses all CPUs and GPUs of the locale at once.
 
@@ -59,13 +59,9 @@ config const heuristic: string = "none";
 config const problem: string = "simple"; //fsp - johnson, fsp - simple, queens, minla
 config const computers: int = 1;
 
-config const mode: string = "improved";
+config const mode: string = "nested";
 config const mlsearch: string = "mlocale";
 config const num_gpus: c_int = here.gpus.size:c_int;
-
-
-config param build_gpu_code: bool = true;
-config param build_mlocale_code: bool = true;
 
 config const CPUP: real = 0.0; //CPU percent
 
@@ -88,8 +84,8 @@ proc main(){
 					fsp_simple_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance);
 				}
 
-				when "improved"{
-				 		writeln("--- CHPL-SIMPLE IMPROVED multi-locale search --- \n");
+				when "nested"{
+				 		writeln("--- CHPL-SIMPLE nested multi-locale search --- \n");
 				 		fsp_simple_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
 				 			lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
 				}
@@ -111,11 +107,11 @@ proc main(){
 					fsp_johnson_call_multicore_search(initial_depth,upper_bound,scheduler,lchunk,num_threads,instance,true);
 				}//mcode
 
-				when "improved"{
-				 	writeln("--- CHPL-Johnson IMPROVED multi-locale search --- \n");
+				when "nested"{
+				 	writeln("--- CHPL-Johnson nested multi-locale search --- \n");
 				 	fsp_johnson_call_multilocale_search(initial_depth,second_depth,upper_bound,scheduler,
 				 		lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,atype,instance,mode,verbose);
-				 }//johnson improved
+				 }//johnson nested
 
 				otherwise{
 					halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
@@ -139,13 +135,13 @@ proc main(){
 
 		 			queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
 		 		}
-		 		when "improved"{
+		 		when "nested"{
 		 			writeln("--- N-Queens  --- ", mlsearch ,"\n\n");
 		 				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 		 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
 		 					CPUP, num_gpus);
 
-		 		}//improved
+		 		}//nested
 
 		 		when "mgpu"{
 		 			writeln("--- N-Queens multi-GPU search - single locale --- \n\n");

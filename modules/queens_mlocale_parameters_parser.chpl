@@ -22,7 +22,7 @@ module queens_mlocale_parameters_parser{
 		const role_CPU: int = 1;
 		const role_GPU: int = 0;
 
-		writeln("###### QUEENS IMPROVED MLOCALE ######");
+		writeln("###### QUEENS nested MLOCALE ######");
 
 
 		if(queens_checkPointer){
