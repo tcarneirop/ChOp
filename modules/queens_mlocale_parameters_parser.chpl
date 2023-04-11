@@ -66,6 +66,19 @@ module queens_mlocale_parameters_parser{
 	                		}//checkpointer
 						}//for
 					}//mlmgpu
+					when "chplgpu"{
+						//@todo -- IT IS GOING TO CHANGE
+						forall n in distributed_active_set with (+ reduce metrics) do  {
+							var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
+								second_depth,slchunk,n,tree_each_locale, GPU_id[here.id],CPUP, mlsearch);
+							metrics+=m1;
+							if(queens_checkPointer){
+								checkpt.partial_tree.add(m1[1]);
+								checkpt.partial_num_sol.add(m1[0]);
+	                			checkpt.progress.add(1);
+	                		}//checkpointer
+						}//for
+					}//mlmgpu
 					otherwise{
 						 halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 					}//
@@ -93,7 +106,7 @@ module queens_mlocale_parameters_parser{
 
 							var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
 								second_depth,slchunk,distributed_active_set[idx],tree_each_locale,
-								GPU_id[here.id], CPUP,mlsearch);
+								GPU_id[here.id], CPUP, mlsearch);
 							metrics+=m1;
 							if(checkpointer){
 								checkpt.partial_tree.add(m1[1]);
@@ -102,6 +115,22 @@ module queens_mlocale_parameters_parser{
 	                		}//checkpointer
 						}//for
 					}//mlmgpu
+
+					when "chplgpu"{
+						forall idx in distributedDynamic(c=Space,chunkSize=lchunk,localeChunkSize=mlchunk,coordinated = flag_coordinated) with (+ reduce metrics) do {
+
+							var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
+								second_depth,slchunk,distributed_active_set[idx],tree_each_locale,
+								GPU_id[here.id], CPUP,mlsearch);
+							metrics+=m1;
+							if(checkpointer){
+								checkpt.partial_tree.add(m1[1]);
+								checkpt.partial_num_sol.add(m1[0]);
+	                			checkpt.progress.add(1);
+	                		}//checkpointer
+						}//for
+					}//chplgpu
+
 
 					when "dcpugpu"{
 						forall idx in distributedDynamic(c=Space,chunkSize=lchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
@@ -185,6 +214,21 @@ module queens_mlocale_parameters_parser{
 						}//
 
 					}//mlmgpu
+					when "chplgpu"{
+						forall idx in distributedGuided(c=Space,minChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
+							var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
+								second_depth,slchunk,distributed_active_set[idx],tree_each_locale,
+								GPU_id[here.id],CPUP,mlsearch);
+							metrics+=m1;
+							if(queens_checkPointer){
+								checkpt.partial_tree.add(m1[1]);
+								checkpt.partial_num_sol.add(m1[0]);
+	                			checkpt.progress.add(1);
+	                		}//checkpointer
+						}//
+
+					}//mlmgpu
+
 
 					otherwise{
 						halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");

@@ -5,7 +5,7 @@ module queens_GPU_call_intermediate_search{
 	use queens_aux;
 	use queens_tree_exploration;
 	use queens_GPU_call_device_search;
-	//use queens_CHPL_call_device_search;
+	use queens_CHPL_call_device_search;
 
 	use queens_aux;
 	use DynamicIters;
@@ -38,10 +38,10 @@ module queens_GPU_call_intermediate_search{
 		}
 		else{
 			if(mlsearch == "chplgpu") then {
-				//metrics+= queens_CHPL_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
-				//	initial_num_prefixes);
+				metrics+= queens_CHPL_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
+					initial_num_prefixes);
 			}
-		}
+		}//else
 
 
 		tree_each_locale[here.id] += metrics[1]; //for load statistics

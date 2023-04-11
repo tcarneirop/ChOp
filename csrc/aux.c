@@ -110,8 +110,6 @@ int max(int a, int b){
 //the time matrix
 int* get_instance(int *machines, int *jobs, short inst_num){
 
-    int m,j,i;
-
     //scanf("%d", &upper_bound);
     int *instance = (int*)(malloc(sizeof(int)*5000));
     generate_flow_shop(inst_num, instance,machines,jobs);

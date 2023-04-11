@@ -6,6 +6,7 @@ module queens_GPU_single_locale{
 	use queens_node_module;
 	use queens_aux;
 	use Time;
+	use queens_CHPL_call_device_search;
 
 	use BlockDist;
 	use VisualDebug;
@@ -15,7 +16,8 @@ module queens_GPU_single_locale{
 
 	use CTypes;
 
-	proc GPU_queens_call_search(const size: uint(16), const initial_depth: c_int, const CPUP: real,const lchunk:int){
+	proc GPU_queens_call_search(const num_gpus: c_int, const size: uint(16), const initial_depth: c_int, 
+		const CPUP: real,const lchunk:int, const language: string){
 
 
 		var initial_num_prefixes : uint(64);
@@ -52,12 +54,25 @@ module queens_GPU_single_locale{
 		var num_gpus = GPU_device_count();
 
 		writeln("Number of GPUs to use: ", num_gpus);
+		writeln("Implementation: ", language);
 
 
 		final.start();
 
-		metrics+=queens_GPU_call_device_search(num_gpus, size,
-			initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
+		select language{
+	 		when "cuda"{
+	 			//@TODO -- this one has the cpu percent for cpu-gpu execution
+				metrics+=queens_GPU_call_device_search(num_gpus, size,
+					initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
+			}
+			when "chpl"{
+				metrics+= queens_CHPL_call_device_search(num_gpus, size, initial_depth, local_active_set,
+					initial_num_prefixes);
+			}
+			otherwise{
+ 				halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG LANGUAGE - SINGLE GPU Implementation ######");
+			} 
+		}
 
 		final.stop();
 
