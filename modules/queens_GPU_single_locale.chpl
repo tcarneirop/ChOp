@@ -15,7 +15,7 @@ module queens_GPU_single_locale{
 
 	use CTypes;
 
-	proc GPU_queens_call_search(const size: uint(16), const initial_depth: c_int, const CPUP: real,const lchunk:int){
+	proc GPU_queens_call_search(const size: uint(16), const initial_depth: c_int, const CPUP: real,const lchunk:int, const num_gpus: c_int){
 
 
 		var initial_num_prefixes : uint(64);
@@ -49,7 +49,6 @@ module queens_GPU_single_locale{
 
 		writeln("\nSize: ", size, " Survivors: ", initial_num_prefixes);
 
-		var num_gpus = GPU_device_count();
 
 		writeln("Number of GPUs to use: ", num_gpus);
 		writeln("Percentage of the active set on the CPU: ", CPUP*100.0);
