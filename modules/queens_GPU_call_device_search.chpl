@@ -8,7 +8,7 @@ module queens_GPU_call_device_search{
 	use DynamicIters;
 	use Math;
 	//use CPtr;
-	use DateTime;
+	//use DateTime;
 
 	config param CPUGPUVerbose: bool = false;
 
