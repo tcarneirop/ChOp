@@ -60,7 +60,7 @@ config const computers: int = 1;
 
 config const mode: string = "improved";
 config const mlsearch: string = "mlocale";
-config const num_gpus: c_int = GPU_device_count();; //if it is not zero, get the number of devices of the system
+config const num_gpus: c_int = 0; //if it is not zero, get the number of devices of the system
 config param build_gpu_code: bool = true;
 config param build_mlocale_code: bool = true;
 
@@ -147,7 +147,7 @@ proc main(){
 
 		 			when "mgpu"{
 		 				writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
-		 				GPU_queens_call_search(size,initial_depth,CPUP,lchunk,num_gpus);
+		 				GPU_queens_call_search(size,initial_depth,CPUP,lchunk);
 		 			}
 
 		 		otherwise{
