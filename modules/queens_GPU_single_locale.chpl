@@ -52,7 +52,7 @@ module queens_GPU_single_locale{
 		var num_gpus = GPU_device_count();
 
 		writeln("Number of GPUs to use: ", num_gpus);
-
+		writeln("Percentage of the active set on the CPU: ", CPUP*100.0);
 
 		final.start();
 

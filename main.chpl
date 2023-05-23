@@ -35,7 +35,7 @@ config const mlchunk: int = 0; //inter-node chunk.
 config const lchunk: int = 1; //task chunk the inter-node scheduler gives.
 config const slchunk: int = 1; //chunk for the second level of parallelism.
 
-config const coordinated: bool = true;  //centralized node?
+config const coordinated: bool = false;  //centralized node?
 //available modes:
 /// mlocale:
 /// improved:
@@ -46,7 +46,6 @@ config const pgas: bool = false; //pgas-based active set?
 
 config const num_threads: int = here.maxTaskPar; //number of threads.
 config const profiler: bool = false; //to gather profiler metrics and execution graphics.
-config const number_exec: int = 1;   //going to be removed soon.
 config const upper_bound: c_int = 0; //value for the initial upper bound. If it is zero, the optimal solution is going to be used.
 config const lower_bound: string = "johnson"; //type of lowerbound. Johnson and simple.
 config const atype: string = "none"; //atomic type. 'none' when initializing using the optimal -- use like that.
