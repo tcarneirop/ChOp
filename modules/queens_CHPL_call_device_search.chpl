@@ -22,7 +22,7 @@ module queens_CHPL_call_device_search{
 		var reduce_tree_size: [0..#num_gpus] c_ulonglong = 0;
 		var reduce_num_sols: [0..#num_gpus] c_ulonglong = 0;
 
-		forall gpu_id in 0..#num_gpus:c_int do {
+		coforall gpu_id in 0..#num_gpus:c_int do {
 
 				
 			var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
@@ -106,7 +106,7 @@ module queens_CHPL_call_device_search{
 			}
 
 			reduce_tree_size[gpu_id] =  +reduce vector_of_tree_size_h;
-				reduce_num_sols[gpu_id]  =  +reduce sols_h;
+			reduce_num_sols[gpu_id]  =  +reduce sols_h;
 		}//end of gpu search
 
 		stopVerboseGpu();

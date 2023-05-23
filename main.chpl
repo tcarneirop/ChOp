@@ -13,6 +13,7 @@ use CTypes;
 
 
 //use parametrization_local_search;
+use GPU_aux;
 use queens_aux;
 use queens_call_mcore_search;
 use queens_call_multilocale_search;
@@ -61,7 +62,7 @@ config const computers: int = 1;
 
 config const mode: string = "nested";
 config const mlsearch: string = "mlocale";
-config const num_gpus: c_int = here.gpus.size:c_int;
+config const num_gpus: c_int = GPU_device_count();
 
 config const CPUP: real = 0.0; //CPU percent
 config const language: string = "cuda"; //implementation of the GPU queens search

@@ -51,7 +51,7 @@ module queens_GPU_single_locale{
 
 		writeln("\nSize: ", size, " Survivors: ", initial_num_prefixes);
 
-		var num_gpus = GPU_device_count();
+		//var num_gpus = GPU_device_count();
 
 		writeln("Number of GPUs to use: ", num_gpus);
 		writeln("Implementation: ", language);
