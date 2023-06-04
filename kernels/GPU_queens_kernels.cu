@@ -15,7 +15,7 @@ inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=t
    }
 }
 
-__device__  bool GPU_queens_stillLegal(const char *board, const int r){
+__device__  inline bool GPU_queens_stillLegal(const char *board, const int r){
 
   bool safe = true;
   int i, rev_i, offset;
