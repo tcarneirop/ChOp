@@ -4,7 +4,7 @@
 echo " ### exporting...  ### "
 
 
-export CHPL_HOME=/home/carneiro/newchpl/chapel
+export CHPL_HOME=/home/carneiro/chapel-1.31.0
 #export CHPL_LLVM=system
 export CHPL_LLVM=none
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$CHOP_HOME"/libs

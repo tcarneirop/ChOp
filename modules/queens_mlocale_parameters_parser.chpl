@@ -85,7 +85,7 @@ module queens_mlocale_parameters_parser{
 				}//mode
 			}//end of STATIC
 			when "dynamic" {
-
+			
 				select mlsearch{//what's the kind of multilocale search?
 					when "mlocale"{
 						forall idx in distributedDynamic(c=Space,chunkSize=lchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {

@@ -135,8 +135,8 @@ extern "C" void GPU_call_cuda_queens(short size, int initial_depth, unsigned int
 
     
     BP_queens_root_dfs<<< num_blocks,_QUEENS_BLOCK_SIZE_>>> (size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
-    gpuErrchk( cudaPeekAtLastError() );
-    gpuErrchk( cudaDeviceSynchronize() );
+    //gpuErrchk( cudaPeekAtLastError() );
+    //gpuErrchk( cudaDeviceSynchronize() );
 
     cudaMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,n_explorers*sizeof(unsigned long long),cudaMemcpyDeviceToHost);
     cudaMemcpy(sols_h,sols_d,n_explorers*sizeof(unsigned long long),cudaMemcpyDeviceToHost);

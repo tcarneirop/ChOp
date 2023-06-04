@@ -7,24 +7,29 @@ module queens_CHPL_call_device_search{
 	use Math;
 	use Time;
 	use GpuDiagnostics;
-
+	use GPU;
+	//setBlockSize(32)
 
 	proc queens_CHPL_call_device_search(const num_gpus: c_int, const size: uint(16), const depthPreFixos: c_int,
 			ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64)): (uint(64), uint(64)) {
 
-		startVerboseGpu();
+		//startVerboseGpu();
 
 		
 		//calculating the CPU load in terms of nodes
 		var new_num_prefixes: uint(64) = initial_num_prefixes;
 		var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));
 		
+
+		//@@I create two ulonglong here to reduce the values on GPU. 
+		///// Can I reduce directly instead of doing something like this?
+
 		var reduce_tree_size: [0..#num_gpus] c_ulonglong = 0;
 		var reduce_num_sols: [0..#num_gpus] c_ulonglong = 0;
 
-		forall gpu_id in 0..#num_gpus:c_int do {
+		coforall gpu_id in 0..#num_gpus:c_int do {
 
-				
+			
 			var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
 
 			var starting_position = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
@@ -34,20 +39,27 @@ module queens_CHPL_call_device_search{
 			var sols_h: [0..#gpu_load] c_ulonglong;
 
 	    
-			writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
+			//writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
 			
 	  
 			param _EMPTY_ = -1;
 
 			on here.gpus[gpu_id] {
-
+				
 				var root_prefixes = local_active_set;//
 				var sols: [sols_h.domain] sols_h.eltType;
 				var vector_of_tree_size: [vector_of_tree_size_h.domain] vector_of_tree_size_h.eltType;
 
+				///@@@@@@ QUESTION
+				/// Can we call a function here?
+				///// inside here.gpus[gpu_id]?
+
+
 				//writeln("starting loop");
 				foreach idx in 0..#gpu_load {
-
+					setBlockSize(32);
+				
+					assertOnGpu();
 
 					var flag = 0: uint(32);
 		
@@ -106,10 +118,10 @@ module queens_CHPL_call_device_search{
 			}
 
 			reduce_tree_size[gpu_id] =  +reduce vector_of_tree_size_h;
-				reduce_num_sols[gpu_id]  =  +reduce sols_h;
+			reduce_num_sols[gpu_id]  =  +reduce sols_h;
 		}//end of gpu search
 
-		stopVerboseGpu();
+		//stopVerboseGpu();
 
 		var redTree = (+ reduce reduce_tree_size):uint(64);
 		var redSol  = (+ reduce reduce_num_sols):uint(64);
@@ -117,7 +129,7 @@ module queens_CHPL_call_device_search{
 		return ((redSol,redTree)+metrics);
 	}
 
-	proc  CHPL_queens_stillLegal(board, r) {
+	inline proc CHPL_queens_stillLegal(board, r) {
 		var safe = true;
 		const base = board[r];
 		for (i, rev_i, offset) in zip(0..<r, 0..<r by -1, 1..r) {
