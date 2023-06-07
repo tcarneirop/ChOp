@@ -11,7 +11,8 @@ export  GASNET_PHYSMEM_MAX='10 GB'
 # Setup Chapel Home
 export CHPL_VERSION="1.31.0"
 # Put and compile chapel next to the launcher
-export CHPL_HOME="~/chapel-${CHPL_VERSION}"
+export CHPL_HOME="/home/it4i-tcarn/chapel-1.31.0/"
+export CHPL_LOCALE_MODEL=gpu
 export CHPL_LAUNCHER="gasnetrun_ibv"
 # Classical linux64 platform
 export CHPL_HOST_PLATFORM="linux64"
@@ -35,9 +36,9 @@ export GASNET_IBV_SPAWNER='ssh'
 
 #if [ ! -d "$CHPL_HOME" ]; then
     #wget -c https://github.com/chapel-lang/chapel/releases/download/1.25.0/chapel-${CHPL_VERSION}.tar.gz -O - | tar xz
-    cd chapel-${CHPL_VERSION}
-    make -j ${CHPL_RT_NUM_THREADS_PER_LOCALE}
-    cd ..
+cd  ${CHPL_HOME}
+make -j ${CHPL_RT_NUM_THREADS_PER_LOCALE}
+cd ..
 #fi
 
 CHPL_BIN_SUBDIR=`"$CHPL_HOME"/util/chplenv/chpl_bin_subdir.py`
@@ -58,15 +59,3 @@ export GASNET_SSH_SERVERS=$(cat $PBS_NODEFILE | xargs echo)
 chpl -o hello $CHPL_HOME/examples/hello6-taskpar-dist.chpl
 
 ./hello -nl 2 > hello2
-
-cd $CHOP_HOME
-
-make
-./bin/chop.out --size=20 --lower_bound="queens" --scheduler="dynamic" --mlsearch="mlgpu" --coordinated=false --pgas=false --initial_depth=2 --second_depth=4 --mlchunk=1 --lchunk=1 -nl 2 > mlmgpu2024
-./bin/chop.out --size=20 --lower_bound="queens" --scheduler="dynamic" --mlsearch="mlgpu" --coordinated=false --pgas=false --initial_depth=2 --second_depth=5 --mlchunk=1 --lchunk=1 -nl 2 > mlmgpu2025
-./bin/chop.out --size=20 --lower_bound="queens" --scheduler="dynamic" --mlsearch="mlgpu" --coordinated=false --pgas=false --initial_depth=2 --second_depth=6 --mlchunk=1 --lchunk=1 -nl 2 > mlmgpu2026
-./bin/chop.out --size=21 --lower_bound="queens" --scheduler="dynamic" --mlsearch="mlgpu" --coordinated=false --pgas=false --initial_depth=2 --second_depth=4 --mlchunk=1 --lchunk=1 -nl 2 > mlmgpu2124
-./bin/chop.out --size=21 --lower_bound="queens" --scheduler="dynamic" --mlsearch="mlgpu" --coordinated=false --pgas=false --initial_depth=2 --second_depth=5 --mlchunk=1 --lchunk=1 -nl 2 > mlmgpu2125
-./bin/chop.out --size=21 --lower_bound="queens" --scheduler="dynamic" --mlsearch="mlgpu" --coordinated=false --pgas=false --initial_depth=2 --second_depth=6 --mlchunk=1 --lchunk=1 -nl 2 > mlmgpu2126
-
-

@@ -138,7 +138,7 @@ proc main(){
 
 		 			queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
 		 		}
-		 		when "nested"{
+		 		when "nestedml"{
 		 			writeln("--- N-Queens  --- ", mode ," -- ", mlsearch,"\n\n");
 		 				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 		 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,

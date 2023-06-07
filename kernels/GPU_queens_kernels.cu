@@ -28,6 +28,7 @@ __device__  inline bool GPU_queens_stillLegal(const char *board, const int r){
 }
 
 
+
 __global__ void BP_queens_root_dfs( const int N, const unsigned int nPrefixes, 
     const int initial_depth,
     QueenRoot *root_prefixes,
@@ -88,11 +89,12 @@ __global__ void BP_queens_root_dfs( const int N, const unsigned int nPrefixes,
 ////////
 
 
+
 extern "C" void GPU_call_cuda_queens(short size, int initial_depth, unsigned int n_explorers, QueenRoot *root_prefixes_h ,
 	unsigned long long *vector_of_tree_size_h, unsigned long long *sols_h, int gpu_id){
     
     cudaSetDevice(gpu_id);
-    cudaFree(0);
+    //cudaFree(0);
    // cudaFuncSetCacheConfig(BP_queens_root_dfs,cudaFuncCachePreferL1);
 
     unsigned long long *vector_of_tree_size_d;

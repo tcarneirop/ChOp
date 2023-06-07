@@ -64,10 +64,10 @@ module queens_GPU_call_device_search{
 		 	cobegin with (ref metrics){
 
 		 		{/////
-		 			if(CPUGPUVerbose){//use this variable to see the debug messages
+		 			//if(CPUGPUVerbose){//use this variable to see the debug messages
 		 				writeln("CPUP: ", CPUP);
 		 				writeln("Going on CPU");
-		 			}
+		 			//}
 
 		 			forall idx in dynamic(0..(cpu_load:int), chunk) with (+ reduce metrics ) do {
 		 				metrics +=  queens_subtree_explorer(size,depth,local_active_set[idx:uint]);

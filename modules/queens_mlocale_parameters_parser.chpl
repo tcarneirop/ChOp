@@ -88,7 +88,7 @@ module queens_mlocale_parameters_parser{
 			
 				select mlsearch{//what's the kind of multilocale search?
 					when "mlocale"{
-						forall idx in distributedDynamic(c=Space,chunkSize=lchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
+						forall idx in distributedDynamic(c=Space, chunkSize=lchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
 							var m1 = queens_call_intermediate_search(size,initial_depth,
 								second_depth,slchunk,distributed_active_set[idx],tree_each_locale);
 							metrics+=m1;
@@ -102,12 +102,16 @@ module queens_mlocale_parameters_parser{
 					}//mlocale
 
 					when "mlgpu"{
-						forall idx in distributedDynamic(c=Space,chunkSize=lchunk,localeChunkSize=mlchunk,coordinated = flag_coordinated) with (+ reduce metrics) do {
+						forall idx in distributedDynamic(c=Space, chunkSize=lchunk,localeChunkSize=mlchunk,coordinated = flag_coordinated) with (+ reduce metrics) do {
 
 							var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
 								second_depth,slchunk,distributed_active_set[idx],tree_each_locale,
 								GPU_id[here.id], CPUP, mlsearch);
+							
+							
 							metrics+=m1;
+
+
 							if(checkpointer){
 								checkpt.partial_tree.add(m1[1]);
 								checkpt.partial_num_sol.add(m1[0]);
