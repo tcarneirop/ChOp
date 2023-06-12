@@ -5,6 +5,7 @@ module queens_aux{
     use statistics;
     use CTypes;
 	use ChplConfig;
+    use GPU;
 
 	proc queens_print_locales_information(){
         writeln("\nNumber of locales: ",numLocales,".");
@@ -117,7 +118,7 @@ module queens_aux{
         writef("\n\tPercentage of the maximum number: %.3dr\n",
             (initial_num_prefixes:real/maximum_num_prefixes:real)*100);
 
-        writef("\n\tNumber of solutions found: %u", metrics[0]);
+        writef("\n\tNumber of solutions found: %u", metrics[0]*2);
         writef("\n\tElapsed Initial Search: %.3dr", initial.elapsed());
         writef("\n\tElapsed PGAS Data Distribution: %.3dr", distribution.elapsed());
         writef("\n\tElapsed Final Search: %.3dr",     final.elapsed());

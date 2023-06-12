@@ -32,9 +32,9 @@ config const prepro: bool = false; //queens first solution
 //the default coordinated is TRUE
 config const scheduler: string = "dynamic";
 
-config const mlchunk: int = 0; //inter-node chunk.
-config const lchunk: int = 1; //task chunk the inter-node scheduler gives.
-config const slchunk: int = 1; //chunk for the second level of parallelism.
+config const mlchunk: int = 0; //Size of the chunk given to each locale. 0 -- uses a heuristic
+config const lchunk: int = 1; //– The chunk size to yield to each task -- when the iterator uses also the second level of parallelism.
+config const slchunk: int = 1; //chunk used by the final search called by the intermediate search -- for the second level of parallelism.
 
 config const coordinated: bool = false;  //centralized node?
 //available modes:
@@ -60,7 +60,7 @@ config const heuristic: string = "none";
 config const problem: string = "simple"; //fsp - johnson, fsp - simple, queens, minla
 config const computers: int = 1;
 
-config const mode: string = "nested";
+config const mode: string = "nestedml";
 config const mlsearch: string = "mlocale";
 config const num_gpus: c_int = GPU_device_count();
 

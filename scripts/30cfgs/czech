@@ -46,7 +46,7 @@ export PATH="$PATH":"$CHPL_HOME/bin/$CHPL_BIN_SUBDIR:$CHPL_HOME/util"
 
 echo " ### exporting...  ### "
 
-export CHOP_HOME="/home/it4i-tcarn/ChOp-chpl"
+export CHOP_HOME="/home/it4i-tcarn/ChOp-chgpu/"
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"$CHOP_HOME/libs"
 
 echo $LD_LIBRARY_PATH
@@ -54,8 +54,14 @@ echo $LD_LIBRARY_PATH
 
 
 # Start computation
-export GASNET_SSH_SERVERS=$(cat $PBS_NODEFILE | xargs echo)
+export GASNET_SSH_SERVERS=$(uniq $PBS_NODEFILE | tr '\n' ' ')
 
 chpl -o hello $CHPL_HOME/examples/hello6-taskpar-dist.chpl
 
-./hello -nl 2 > hello2
+./hello -nl 1 > hello2
+
+
+cd ${CHOP_HOME}
+source export.sh
+make
+./bin/chop.out --size=18 --lower_bound=queens --mode=nestedml --mlsearch=chplgpu --CPUP=0.0 --initial_depth=2 --second_depth=8  -nl1

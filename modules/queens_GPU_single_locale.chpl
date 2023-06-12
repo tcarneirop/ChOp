@@ -82,7 +82,7 @@ module queens_GPU_single_locale{
 		writeln("Final tree size: ", final_tree_size);
 		writeln("\tCPU tree size: ", initial_tree_size);
 		writeln("\tGPU tree size: ", metrics[1]);
-		writeln("Number of solutions: ", metrics[0]);
+		writeln("Number of solutions: ", metrics[0]*2);
 		writeln("Elapsed time: ", final.elapsed()+initial.elapsed(),"\n\n");
 
 	}//single-locale-single-GPU search
