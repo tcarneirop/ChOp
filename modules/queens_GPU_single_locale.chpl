@@ -6,6 +6,7 @@ module queens_GPU_single_locale{
 	use queens_node_module;
 	use queens_aux;
 	use Time;
+	use queens_CHPL_call_device_search;
 
 	use BlockDist;
 	use VisualDebug;
@@ -15,13 +16,14 @@ module queens_GPU_single_locale{
 
 	use CTypes;
 
-	proc GPU_queens_call_search(const size: uint(16), const initial_depth: c_int, const CPUP: real,const lchunk:int){
+	proc GPU_queens_call_search(const num_gpus: c_int, const size: uint(16), const initial_depth: c_int, 
+		const CPUP: real,const lchunk:int, const language: string){
 
 
 		var initial_num_prefixes : uint(64);
 		var initial_tree_size : uint(64) = 0;
 
-		var initial, final: Timer;
+		var initial, final: stopwatch;
 
 		//search metrics
 		var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));
@@ -49,15 +51,29 @@ module queens_GPU_single_locale{
 
 		writeln("\nSize: ", size, " Survivors: ", initial_num_prefixes);
 
-		var num_gpus = GPU_device_count();
+		//var num_gpus = GPU_device_count();
 
 		writeln("Number of GPUs to use: ", num_gpus);
+		writeln("Implementation: ", language);
+
 		writeln("Percentage of the active set on the CPU: ", CPUP*100.0);
 
 		final.start();
 
-		metrics+=queens_GPU_call_device_search(num_gpus, size,
-			initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
+		select language{
+	 		when "cuda"{
+	 			//@TODO -- this one has the cpu percent for cpu-gpu execution
+				metrics+=queens_GPU_call_device_search(num_gpus, size,
+					initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
+			}
+			when "chpl"{
+				metrics+= queens_CHPL_call_device_search(num_gpus, size, initial_depth, local_active_set,
+					initial_num_prefixes);
+			}
+			otherwise{
+ 				halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG LANGUAGE - SINGLE GPU Implementation ######");
+			} 
+		}
 
 		final.stop();
 
@@ -67,8 +83,9 @@ module queens_GPU_single_locale{
 		writeln("Final tree size: ", final_tree_size);
 		writeln("\tCPU tree size: ", initial_tree_size);
 		writeln("\tGPU tree size: ", metrics[1]);
-		writeln("\nNumber of solutions: ", metrics[0]);
-		writeln("\nElapsed time: ", final.elapsed()+initial.elapsed());
+
+    writeln("Number of solutions: ", metrics[0]*2);
+		writeln("Elapsed time: ", final.elapsed()+initial.elapsed(),"\n\n");
 		writeln("\tInitial search el. time: ", initial.elapsed());
 		writeln("\tFinal search el. time: ",  final.elapsed());
 

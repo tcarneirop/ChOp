@@ -3,14 +3,15 @@
 module load CMake/3.18.4-GCCcore-10.2.0
 module load make/4.2.1-GCCcore-10.2.0
 module load GCC/10.2.0
-module load MPICH
+module load CUDA/11.3.1
+#module load MPICH
 
 export  GASNET_PHYSMEM_MAX='10 GB'
 
 # Setup Chapel Home
-export CHPL_VERSION="1.27.0"
+export CHPL_VERSION="1.31.0"
 # Put and compile chapel next to the launcher
-export CHPL_HOME="${PWD}/chapel-${CHPL_VERSION}"
+export CHPL_HOME="~/chapel-${CHPL_VERSION}"
 export CHPL_LAUNCHER="gasnetrun_ibv"
 # Classical linux64 platform
 export CHPL_HOST_PLATFORM="linux64"
@@ -44,7 +45,7 @@ export PATH="$PATH":"$CHPL_HOME/bin/$CHPL_BIN_SUBDIR:$CHPL_HOME/util"
 
 echo " ### exporting...  ### "
 
-export CHOP_HOME="/home/it4i-tcarn/ChOp"
+export CHOP_HOME="/home/it4i-tcarn/ChOp-chpl"
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"$CHOP_HOME/libs"
 
 echo $LD_LIBRARY_PATH

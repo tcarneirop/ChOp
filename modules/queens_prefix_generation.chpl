@@ -25,7 +25,7 @@ module queens_prefix_generation{
 
 		for i in 0..initial_depth-1 do
 			board[i] = node.board[i];
-
+		
 		while(true){
 
 			board[depth] = board[depth]+1;
@@ -104,6 +104,8 @@ module queens_prefix_generation{
 
 		depth = 0;
 
+		var break_cond: uint(64) =  (size/2):uint(64) + (size:uint(64) & 1:uint(64));
+
 		while(true){
 
 			board[depth] = board[depth]+1;
@@ -114,6 +116,18 @@ module queens_prefix_generation{
 				board[depth] = __EMPTY__;
 			else{
 					if (stillLegal(board, depth) && !(control &  bit_test )) {
+						
+						//this is enough to avoid reflections
+						if(depth == 1){
+
+							if(size:uint(64) & 1:uint(64)){
+								if board[0] == break_cond-1 && board[1] > board[0] then break;
+							}
+							else{
+								if board[0] == break_cond then break;
+							}
+						}
+
 
 						control |= (_ONE_<<board[depth]);
 						depth +=1;

@@ -1,10 +1,6 @@
-
-
-
 module queens_node_evaluation{
 
-
-	proc stillLegal(board: [] int(8), const r: int  ): bool{
+	inline proc stillLegal(board: [] int(8), const r: int  ): bool{
 
 		var ld:  int(8);
 		var rd:  int(8);
@@ -31,3 +27,4 @@ module queens_node_evaluation{
 	}
 
 }
+

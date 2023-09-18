@@ -1,0 +1,16 @@
+ ### starting CUDA compilation ### 
+
+/usr/local/cuda/bin/nvcc --shared -o ./libs/libqueens.so ./kernels/GPU_queens_kernels.cu  --compiler-options '-fPIC -O3' -I/usr/local/cuda/include -L/usr/local/cuda/lib -lcudart
+/usr/local/cuda/bin/nvcc --shared -o ./libs/libutil.so ./kernels/GPU_aux.cu  --compiler-options '-fPIC -O3' -I/usr/local/cuda/include -L/usr/local/cuda/lib -lcudart
+
+ ### Building the Chapel code... ### 
+
+chpl -L./libs -lqueens -lutil -M ./modules --fast -s queens_checkPointer=true -s timeDistributedIters=true -s infoDistributedIters=true -s CPUGPUVerbose=false ./csrc/johnson_bound.c ./csrc/fsp_gen.c ./csrc/simple_bound.c ./csrc/aux.c main.chpl -o  ./bin/chop.out
+internal error: UTI-MIS-1040 chpl version 1.30.0
+
+Internal errors indicate a bug in the Chapel compiler,
+and we're sorry for the hassle.  We would appreciate your reporting this bug --
+please see https://chapel-lang.org/bugs.html for instructions.
+
+make: *** [Makefile:20: chapel] Error 1
+

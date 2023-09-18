@@ -18,7 +18,7 @@ chapel: cuda dir
 	@echo " ### Building the Chapel code... ### "
 	@echo 
 
-	chpl -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) $(C_SOURCES) main.chpl -o  $(BUILD_DIR)/chop.out
+	chpl -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
 	
 	@echo 
 	@echo " ### Compilation done ### "
@@ -38,16 +38,6 @@ dir:
 	@echo 
 	mkdir -p $(LIBRARY_DIR)
 	mkdir -p $(BUILD_DIR)
-
-heuristic: dir
-	@echo 
-	@echo " ### Building the Heuristic code... ### "
-	@echo 
-
-	chpl -M $(CHPL_MODULES_DIR) --fast $(CHPL_BUILD_HEURISTIC_TRUE) $(C_SOURCES) main.chpl -o  $(BUILD_DIR)/heuristic.out
-	
-	@echo 
-	@echo " ### Compilation done ### "
 
 .PHONY: clean
 clean:

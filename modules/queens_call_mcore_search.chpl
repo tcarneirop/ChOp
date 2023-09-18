@@ -25,7 +25,7 @@ module queens_call_mcore_search{
         var final_tree_size: uint(64) = 0;
         var parallel_tree_size: uint(64) = 0;
         var performance_metrics: real = 0.0;
-        var timer: Timer;
+        var timer: stopwatch;
 
         queens_print_initial_info(size, scheduler,chunk,num_threads);
     

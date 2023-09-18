@@ -19,7 +19,7 @@ module checkpointing{
 	  	partial_tree.write(0:uint(64));
 		partial_num_sol.write(0:uint(64));
 	  	synch_with_checkpointer.write(false);
-	  	start_chkpt = getCurrentTime();
+	  	start_chkpt = timeSinceEpoch().totalSeconds();
 	}
 
 	proc show_status(max_val:int, current:int, partial_tree: uint(64)){
@@ -35,7 +35,7 @@ module checkpointing{
 
 		write("] ");
 
-		const elapsed = getCurrentTime() - start_chkpt;
+		const elapsed = timeSinceEpoch().totalSeconds() - start_chkpt;
 
 		const current_performance = partial_tree/elapsed;
 

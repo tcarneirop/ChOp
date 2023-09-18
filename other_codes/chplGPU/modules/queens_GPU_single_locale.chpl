@@ -13,7 +13,7 @@ module queens_GPU_single_locale{
 
 	use CTypes;
 
-	proc GPU_queens_call_search(const size: uint(16), const initial_depth: c_int){
+	proc GPU_queens_call_search(const size: uint(16), const num_gpus: c_int, const initial_depth: c_int){
 
 
 		var initial_num_prefixes : uint(64);
@@ -47,9 +47,11 @@ module queens_GPU_single_locale{
 
 		writeln("\nSize: ", size, " Survivors: ", initial_num_prefixes);
 
-		//var num_gpus = GPU_device_count();
-		var num_gpus = 1:c_int;
 		writeln("Number of GPUs to use: ", num_gpus);
+		if num_gpus == 0 then {
+			writeln("#### No GPUs Found ####");
+			halt();
+		}
 
 
 		final.start();

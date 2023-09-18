@@ -17,7 +17,7 @@ module fsp_johnson_improved_parameters_parser{
     	ref global_ub: atomic c_int, const Space: domain, ref metrics: (uint(64),uint(64)),
     	ref tree_each_locale: [] uint(64), const pgas: bool ){
 
-    	writeln("###### JOHNSON IMPROVED MLOCALE ######");
+    	writeln("###### JOHNSON nested MLOCALE ######");
 
 	    var ub: c_int = global_ub.read();
 

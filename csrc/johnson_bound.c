@@ -213,7 +213,7 @@ int johnson_borneInfMakespan(const int machines, const int jobs, int *job, int *
     int ma[2]; /*Contient les rang des deux machines considere.*/
     int tmp[2]; /*Contient les temps sur les machines considere*/
 
-    int i,j,l;
+    int i,l;
     int bestind=0;
 
     //NEW FOR MCORE

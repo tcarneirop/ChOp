@@ -25,11 +25,11 @@ module fsp_simple_call_multilocale_search{
         const scheduler: string, const lchunk, const mlchunk, const slchunk,
         const coordinated: bool = false, const pgas: bool = false,
         const num_threads: int, const profiler: bool = false, const atype: string = "none", const instance: c_short,
-        const mode: string = "improved", const verbose: bool = false, const diagnostics: bool = false): (real,real,real){
+        const mode: string = "nested", const verbose: bool = false, const diagnostics: bool = false): (real,real,real){
 
 		print_locales_information();
 
-		var initial,final, initialization,distribution: Timer;
+		var initial,final, initialization,distribution: stopwatch;
         var return_initial: real;
         var return_final: real;
         var return_total: real;
@@ -161,7 +161,7 @@ module fsp_simple_call_multilocale_search{
                             centralized_active_set, set_of_atomics, global_ub, Space, metrics);
 
                 }
-                when "improved"{
+                when "nested"{
                     if pgas then
                         fsp_simple_improved_mlocale_parameters_parser(atype, scheduler, machines,jobs, initial_depth,
                             second_depth,lchunk, mlchunk, slchunk, coordinated,pgas_active_set, set_of_atomics,
