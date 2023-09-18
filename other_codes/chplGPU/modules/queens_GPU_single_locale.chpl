@@ -1,6 +1,5 @@
 module queens_GPU_single_locale{
 
-	//use GPU_aux;
 	use queens_GPU_call_device_search;
 	use queens_prefix_generation;
 	use queens_node_module;
@@ -39,7 +38,7 @@ module queens_GPU_single_locale{
 		initial_num_prefixes = metrics[0];
 		initial_tree_size = metrics[1];
 
-		metrics[0] = 0; //restarting for the parallel search_type
+		metrics[0] = 0; //restarting for the parallel search
 		metrics[1] = 0;
 
 		////////////////////////////////////////////////////////////////////////////////////////////

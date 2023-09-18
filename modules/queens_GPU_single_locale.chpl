@@ -56,6 +56,7 @@ module queens_GPU_single_locale{
 		writeln("Number of GPUs to use: ", num_gpus);
 		writeln("Implementation: ", language);
 
+		writeln("Percentage of the active set on the CPU: ", CPUP*100.0);
 
 		final.start();
 
@@ -82,8 +83,11 @@ module queens_GPU_single_locale{
 		writeln("Final tree size: ", final_tree_size);
 		writeln("\tCPU tree size: ", initial_tree_size);
 		writeln("\tGPU tree size: ", metrics[1]);
-		writeln("Number of solutions: ", metrics[0]*2);
+
+    writeln("Number of solutions: ", metrics[0]*2);
 		writeln("Elapsed time: ", final.elapsed()+initial.elapsed(),"\n\n");
+		writeln("\tInitial search el. time: ", initial.elapsed());
+		writeln("\tFinal search el. time: ",  final.elapsed());
 
 	}//single-locale-single-GPU search
 

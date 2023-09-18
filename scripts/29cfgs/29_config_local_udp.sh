@@ -39,7 +39,7 @@ echo $here
 
 
 cd $CHPL_HOME
-make
+make -j 8
 
 echo -e \#\#\# Building runtime 1.29  QTHREADS, UDP, and Local spawn.  \#\#\#
 

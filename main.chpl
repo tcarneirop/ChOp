@@ -20,6 +20,7 @@ use queens_call_multilocale_search;
 
 use queens_GPU_single_locale;
 use GPU_mlocale_utils;
+use GPU_aux;
 
 
 use parameters_record;
@@ -47,7 +48,6 @@ config const pgas: bool = false; //pgas-based active set?
 
 config const num_threads: int = here.maxTaskPar; //number of threads.
 config const profiler: bool = false; //to gather profiler metrics and execution graphics.
-
 
 config const upper_bound: c_int = 0; //value for the initial upper bound. If it is zero, the optimal solution is going to be used.
 config const lower_bound: string = "queens"; //type of lowerbound. Johnson and simple.
