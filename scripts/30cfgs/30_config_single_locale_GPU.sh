@@ -3,15 +3,16 @@
 
 echo " ### exporting...  ### "
 
-export CHPL_HOME=~/chapel-1.31.0
+export CHPL_HOME=~/chapel-1.32.0
 export CHPL_COMM=none
 #export CHPL_LLVM=system
 export CHPL_LLVM=bundled
 export CHPL_LOCALE_MODEL=gpu
 export CHPL_HOST_PLATFORM=`$CHPL_HOME/util/chplenv/chpl_platform.py`
-
+export CHPL_GPU=amd
 export CHOP_HOME=~/ChOp
-
+export CHPL_ROCM_PATH=/opt/rocm-4.5.0
+export CHPL_GPU_ARCH=gfx906
 
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$CHOP_HOME"/libs
 
