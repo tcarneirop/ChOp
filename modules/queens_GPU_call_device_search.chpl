@@ -11,7 +11,9 @@ module queens_GPU_call_device_search{
 
 	config param CPUGPUVerbose: bool = false;
 
-	require "headers/GPU_queens.h";
+	if(GPUCUDA) then require "headers/GPU_queens.h";
+	if(GPUAMD)  then require "headers/AMD_queens.h";
+
 
 
 	extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
@@ -52,8 +54,11 @@ module queens_GPU_call_device_search{
 
 					if(CPUGPUVerbose) then
 						writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
-
-					GPU_call_cuda_queens(size, depth, gpu_load:c_uint,
+					
+					if(GPUCUDA) then GPU_call_cuda_queens(size, depth, gpu_load:c_uint,
+						nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
+					
+					if(GPUAMD) then AMD_call_cuda_queens(size, depth, gpu_load:c_uint,
 						nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
 
 				}//end of gpu search
@@ -104,8 +109,12 @@ module queens_GPU_call_device_search{
 		 				var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
 
 		 				if(CPUGPUVerbose) then writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
-		 				GPU_call_cuda_queens(size, depth, gpu_load:c_uint,
-		 					nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
+		 				
+		 				if(GPUCUDA) then GPU_call_cuda_queens(size, depth, gpu_load:c_uint,
+							nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
+					
+						if(GPUAMD) then AMD_call_cuda_queens(size, depth, gpu_load:c_uint,
+							nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
 
 		 			}//end of gpu search
 
