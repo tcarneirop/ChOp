@@ -61,17 +61,14 @@ module queens_GPU_single_locale{
 		final.start();
 
 		select language{
-	 		when "cuda"{
-	 			//@TODO -- this one has the cpu percent for cpu-gpu execution
-				metrics+=queens_GPU_call_device_search(num_gpus, size,
-					initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
-			}
 			when "chpl"{
 				metrics+= queens_CHPL_call_device_search(num_gpus, size, initial_depth, local_active_set,
 					initial_num_prefixes);
 			}
+			//for both amd and CUDA
 			otherwise{
- 				halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG LANGUAGE - SINGLE GPU Implementation ######");
+				metrics+=queens_GPU_call_device_search(num_gpus, size,
+					initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
 			} 
 		}
 

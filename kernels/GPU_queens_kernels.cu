@@ -15,7 +15,7 @@ inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=t
    }
 }
 
-__device__  inline bool GPU_queens_stillLegal(const char *board, const int r){
+__device__  inline bool GPU_queens_stillLegal(const char *__restrict__ board, const int r){
 
   bool safe = true;
   int i, rev_i, offset;
@@ -31,9 +31,9 @@ __device__  inline bool GPU_queens_stillLegal(const char *board, const int r){
 
 __global__ void BP_queens_root_dfs( const int N, const unsigned int nPrefixes, 
     const int initial_depth,
-    QueenRoot *root_prefixes,
-    unsigned long long int * vector_of_tree_size, 
-    unsigned long long int *sols){
+    QueenRoot *__restrict__ root_prefixes,
+    unsigned long long int *__restrict__ vector_of_tree_size, 
+    unsigned long long int *__restrict__ sols){
 
        int idx = blockIdx.x * blockDim.x + threadIdx.x;
        
