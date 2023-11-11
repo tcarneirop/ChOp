@@ -2,15 +2,14 @@
 #define AMD_QUEENS_H
 
 
-//#include "queens_node.h"
+#include "queens_node.h"
 
 #define AMD_QUEENS_BLOCK_SIZE 512
-#define _EMPTY_ -1
 
-typedef struct queen_root{
-	unsigned int control;
-	int8_t board[12];
-} QueenRoot;
+//typedef struct queen_root{
+//	unsigned int control;
+//	int8_t board[12];
+//} QueenRoot;
 
 
 #ifdef __cplusplus

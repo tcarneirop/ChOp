@@ -14,15 +14,15 @@ module queens_GPU_call_device_search{
 	config param GPUCUDA: bool = false;
 
 
+	//@todo: improve the CPU-GPU part, it is terrible...
+	//--- I think this needs to be the most external function, so I can also add the chpl to the CPU-GPU part
 
-	/// Im not happy whith this file... I'll improve it.
+	require "headers/CUDA_queens.h";
 
+	extern proc  CUDA_call_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
+			root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong),
+			sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
 	
-	//require "headers/CUDA_queens.h";
-
-	//extern proc  CUDA_call_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
-	//		root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong),
-	//		sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
 
 	require "headers/AMD_queens.h";
 
@@ -30,6 +30,7 @@ module queens_GPU_call_device_search{
 			root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong),
 			sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
 	
+
 
 	proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depth: c_int,
 		ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64),
@@ -45,7 +46,6 @@ module queens_GPU_call_device_search{
 		var new_num_prefixes: uint(64) = initial_num_prefixes - cpu_load:uint(64);
 		var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));//
 
-		//@question: should we use forall or coforall?
 
 		if(cpu_load == 0){
 
@@ -54,7 +54,7 @@ module queens_GPU_call_device_search{
 
 					var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
 
-					var starting_position = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
+					var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
 						gpu_id:c_uint, num_gpus:c_uint, cpu_load:c_uint);
 
 					var sol_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;
@@ -110,7 +110,7 @@ module queens_GPU_call_device_search{
 
 		 				var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
 
-		 				var starting_position = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
+		 				var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
 		 					gpu_id:c_uint, num_gpus:c_uint, cpu_load:c_uint);
 
 		 				var sol_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;

@@ -2,7 +2,7 @@
 #!/bin/bash
 
 echo " ### exporting...  ### "
-
+export CHPL_GPU_MEM_STRATEGY=array_on_device
 export CHPL_HOME=~/chapel-1.32.0
 export CHPL_COMM=gasnet
 export CHPL_COMM_SUBSTRATE=udp

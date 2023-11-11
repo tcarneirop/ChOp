@@ -14,7 +14,7 @@ module queens_CHPL_call_device_search{
 
 		//startVerboseGpu();
 
-		writeln("initial_num_prefixes:", initial_num_prefixes);
+		//writeln("initial_num_prefixes:", initial_num_prefixes);
 		
 		//calculating the CPU load in terms of nodes
 		var new_num_prefixes: uint(64) = initial_num_prefixes;
@@ -31,14 +31,13 @@ module queens_CHPL_call_device_search{
 			
 			var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
 
-			var starting_position = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
+			var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
 					gpu_id:c_uint, num_gpus:c_uint, 0:c_uint);
 
 			var vector_of_tree_size_h: [0..#gpu_load] c_ulonglong;
 			var sols_h: [0..#gpu_load] c_ulonglong;
 
-	    
-			writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
+			//writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
 			
 	  
 			param _EMPTY_ = -1;

@@ -33,18 +33,14 @@ module queens_GPU_call_intermediate_search{
 
 		select language{
 			when "chpl"{
-				writeln("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
-				writeln("initial_num_prefixes: ", initial_num_prefixes);
-				writeln(set_of_nodes);
-
+				//writeln("initial_num_prefixes: ", initial_num_prefixes);
 				if(initial_num_prefixes>0) then metrics+= queens_CHPL_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
 					initial_num_prefixes);
 		
 			}
 			//for both amd and CUDA
 			otherwise{
-				writeln("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-				writeln("initial_num_prefixes: ", initial_num_prefixes);
+				
 				if(initial_num_prefixes>0) then metrics+= queens_GPU_call_device_search(GPU:c_int, size, second_depth, 
 					set_of_nodes,initial_num_prefixes, CPUP, chunk);
 		
