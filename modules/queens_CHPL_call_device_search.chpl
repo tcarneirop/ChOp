@@ -8,13 +8,13 @@ module queens_CHPL_call_device_search{
 	use Time;
 	use GpuDiagnostics;
 	use GPU;
-	//setBlockSize(32)
 
 	proc queens_CHPL_call_device_search(const num_gpus: c_int, const size: uint(16), const depthPreFixos: c_int,
 			ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64)): (uint(64), uint(64)) {
 
 		//startVerboseGpu();
 
+		writeln("initial_num_prefixes:", initial_num_prefixes);
 		
 		//calculating the CPU load in terms of nodes
 		var new_num_prefixes: uint(64) = initial_num_prefixes;
@@ -28,7 +28,6 @@ module queens_CHPL_call_device_search{
 		var reduce_num_sols: [0..#num_gpus] c_ulonglong = 0;
 
 		coforall gpu_id in 0..#num_gpus:c_int do {
-
 			
 			var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
 
@@ -39,7 +38,7 @@ module queens_CHPL_call_device_search{
 			var sols_h: [0..#gpu_load] c_ulonglong;
 
 	    
-			//writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
+			writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
 			
 	  
 			param _EMPTY_ = -1;
@@ -50,16 +49,11 @@ module queens_CHPL_call_device_search{
 				var sols: [sols_h.domain] sols_h.eltType;
 				var vector_of_tree_size: [vector_of_tree_size_h.domain] vector_of_tree_size_h.eltType;
 
-				///@@@@@@ QUESTION
-				/// Can we call a function here?
-				///// inside here.gpus[gpu_id]?
-
-
 				//writeln("starting loop");
 				foreach idx in 0..#gpu_load {
-					setBlockSize(32);
+					//setBlockSize(32);
 				
-					assertOnGpu();
+					//assertOnGpu();
 
 					var flag = 0: uint(32);
 		

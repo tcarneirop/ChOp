@@ -26,7 +26,8 @@ module queens_call_multilocale_search{
         const coordinated: bool = false, const pgas: bool = false,
         const num_threads: int, const profiler: bool = false,
         const verbose: bool = false,
-        const CPUP: real, const num_gpus: c_int):(real,real,real){
+        const CPUP: real, const num_gpus: c_int,
+	const language: string):(real,real,real){
 
 
         if verbose then queens_print_locales_information();
@@ -157,11 +158,11 @@ module queens_call_multilocale_search{
         if pgas then
             queens_mlocale_parameters_parser(size, scheduler, mode, mlsearch,initial_depth,
                 second_depth,lchunk, mlchunk, slchunk,coordinated,pgas_active_set,
-                Space, metrics,tree_each_locale,pgas,GPU_id, CPUP);
+                Space, metrics,tree_each_locale,pgas,GPU_id, CPUP,language);
         else
             queens_mlocale_parameters_parser(size, scheduler, mode, mlsearch, initial_depth,
                 second_depth, lchunk, mlchunk, slchunk, coordinated, centralized_active_set,
-                Space, metrics,tree_each_locale,pgas,GPU_id,CPUP);
+                Space, metrics,tree_each_locale,pgas,GPU_id,CPUP,language);
 
         final.stop();
 

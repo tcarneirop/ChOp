@@ -20,7 +20,7 @@ use queens_call_multilocale_search;
 
 use queens_GPU_single_locale;
 use GPU_mlocale_utils;
-use GPU_aux;
+//use GPU_aux;
 
 
 use parameters_record;
@@ -37,7 +37,7 @@ config const mlchunk: int = 0; //Size of the chunk given to each locale. 0 -- us
 config const lchunk: int = 1; //– The chunk size to yield to each task -- when the iterator uses also the second level of parallelism.
 config const slchunk: int = 1; //chunk used by the final search called by the intermediate search -- for the second level of parallelism.
 
-config const coordinated: bool = false;  //centralized node?
+config const coordinated: bool = false;  //master?
 //available modes:
 /// mlocale:
 /// nested:
@@ -62,10 +62,10 @@ config const computers: int = 1;
 
 config const mode: string = "nestedml";
 config const mlsearch: string = "mlocale";
-config const num_gpus: c_int = GPU_device_count();
+config const num_gpus: c_int = 1;
 
 config const CPUP: real = 0.0; //CPU percent
-config const language: string = "cuda"; //implementation of the GPU queens search
+config const language: string = "chpl"; //implementation of the GPU queens search
 
 
 proc main(){
@@ -142,7 +142,7 @@ proc main(){
 		 			writeln("--- N-Queens  --- ", mode ," -- ", mlsearch,"\n\n");
 		 				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 		 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
-		 					CPUP, num_gpus);
+		 					CPUP, num_gpus,language);
 		 		}//nested
 
 		 		when "mgpu"{

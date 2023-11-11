@@ -1,9 +1,7 @@
 #include <hip/hip_runtime.h>
 #include <stdio.h>
 #include "../headers/AMD_queens.h"
-
-#define _AMD_QUEENS_BLOCK_SIZE_ 512
-#define _EMPTY_ -1
+//#include "../headers/queens_node.h"
 
 
 __device__  inline bool AMD_queens_stillLegal(const char *__restrict__ board, const int r){
@@ -81,7 +79,7 @@ __global__ void AMD_queens_root_dfs( const int N, const unsigned int nPrefixes,
 
 
 
-extern "C" void AMD_call_cuda_queens(short size, int initial_depth, unsigned int n_explorers, QueenRoot *root_prefixes_h ,
+extern "C" void AMD_call_queens(short size, int initial_depth, unsigned int n_explorers, QueenRoot *root_prefixes_h ,
 	unsigned long long *vector_of_tree_size_h, unsigned long long *sols_h, int gpu_id){
     
     hipSetDevice(gpu_id);
@@ -91,7 +89,7 @@ extern "C" void AMD_call_cuda_queens(short size, int initial_depth, unsigned int
     unsigned long long *sols_d;
     QueenRoot *root_prefixes_d;
 
-    int num_blocks = ceil((double)n_explorers/_QUEENS_BLOCK_SIZE_);
+    int num_blocks = ceil((double)n_explorers/AMD_QUEENS_BLOCK_SIZE);
 
     hipMalloc((void**) &vector_of_tree_size_d,n_explorers*sizeof(unsigned long long));
     hipMalloc((void**) &sols_d,n_explorers*sizeof(unsigned long long));
@@ -100,7 +98,7 @@ extern "C" void AMD_call_cuda_queens(short size, int initial_depth, unsigned int
     hipMemcpy(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot),  hipMemcpyHostToDevice);
     
 
-    hipLaunchKernelGGL(AMD_queens_root_dfs, num_blocks, _QUEENS_BLOCK_SIZE_, 0, 0, 
+    hipLaunchKernelGGL(AMD_queens_root_dfs, num_blocks, AMD_QUEENS_BLOCK_SIZE, 0, 0, 
         size,
         n_explorers,
         initial_depth,

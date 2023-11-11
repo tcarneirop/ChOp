@@ -10,17 +10,26 @@ module queens_GPU_call_device_search{
 	use Time;
 
 	config param CPUGPUVerbose: bool = false;
-
-	if(GPUCUDA) then require "headers/GPU_queens.h";
-	if(GPUAMD)  then require "headers/AMD_queens.h";
-
+	config param GPUAMD: bool = false;
+	config param GPUCUDA: bool = false;
 
 
-	extern proc GPU_call_cuda_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
-		root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong),
-		sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
 
+	/// Im not happy whith this file... I'll improve it.
 
+	
+	//require "headers/CUDA_queens.h";
+
+	//extern proc  CUDA_call_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
+	//		root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong),
+	//		sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
+
+	require "headers/AMD_queens.h";
+
+	extern proc AMD_call_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
+			root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong),
+			sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
+	
 
 	proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depth: c_int,
 		ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64),
@@ -55,10 +64,10 @@ module queens_GPU_call_device_search{
 					if(CPUGPUVerbose) then
 						writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
 					
-					if(GPUCUDA) then GPU_call_cuda_queens(size, depth, gpu_load:c_uint,
+					if(GPUCUDA) then CUDA_call_queens(size, depth, gpu_load:c_uint,
 						nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
 					
-					if(GPUAMD) then AMD_call_cuda_queens(size, depth, gpu_load:c_uint,
+					if(GPUAMD) then AMD_call_queens(size, depth, gpu_load:c_uint,
 						nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
 
 				}//end of gpu search
@@ -110,10 +119,10 @@ module queens_GPU_call_device_search{
 
 		 				if(CPUGPUVerbose) then writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
 		 				
-		 				if(GPUCUDA) then GPU_call_cuda_queens(size, depth, gpu_load:c_uint,
+		 				if(GPUCUDA) then CUDA_call_queens(size, depth, gpu_load:c_uint,
 							nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
 					
-						if(GPUAMD) then AMD_call_cuda_queens(size, depth, gpu_load:c_uint,
+						if(GPUAMD) then AMD_call_queens(size, depth, gpu_load:c_uint,
 							nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
 
 		 			}//end of gpu search

@@ -62,11 +62,13 @@ module queens_GPU_single_locale{
 
 		select language{
 			when "chpl"{
+				
 				metrics+= queens_CHPL_call_device_search(num_gpus, size, initial_depth, local_active_set,
 					initial_num_prefixes);
 			}
 			//for both amd and CUDA
 			otherwise{
+				
 				metrics+=queens_GPU_call_device_search(num_gpus, size,
 					initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
 			} 
@@ -81,7 +83,7 @@ module queens_GPU_single_locale{
 		writeln("\tCPU tree size: ", initial_tree_size);
 		writeln("\tGPU tree size: ", metrics[1]);
 
-    writeln("Number of solutions: ", metrics[0]*2);
+    	writeln("Number of solutions: ", metrics[0]*2);
 		writeln("Elapsed time: ", final.elapsed()+initial.elapsed(),"\n\n");
 		writeln("\tInitial search el. time: ", initial.elapsed());
 		writeln("\tFinal search el. time: ",  final.elapsed());

@@ -1,9 +1,9 @@
 #include <cuda.h>
 #include <stdio.h>
 
-#include "../headers/GPU_queens.h"
-#define _QUEENS_BLOCK_SIZE_ 	128
-#define _EMPTY_ -1
+#include "../headers/CUDA_queens.h"
+#include "../headers/queens_node.h"
+
 
 #define gpuErrchk(ans) { gpuAssert((ans), __FILE__, __LINE__); }
 inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=true)
@@ -90,7 +90,7 @@ __global__ void BP_queens_root_dfs( const int N, const unsigned int nPrefixes,
 
 
 
-extern "C" void GPU_call_cuda_queens(short size, int initial_depth, unsigned int n_explorers, QueenRoot *root_prefixes_h ,
+extern "C" void CUDA_call_queens(short size, int initial_depth, unsigned int n_explorers, QueenRoot *root_prefixes_h ,
 	unsigned long long *vector_of_tree_size_h, unsigned long long *sols_h, int gpu_id){
     
     cudaSetDevice(gpu_id);
@@ -101,7 +101,7 @@ extern "C" void GPU_call_cuda_queens(short size, int initial_depth, unsigned int
     unsigned long long *sols_d;
     QueenRoot *root_prefixes_d;
 
-    int num_blocks = ceil((double)n_explorers/_QUEENS_BLOCK_SIZE_);
+    int num_blocks = ceil((double)n_explorers/CUDA_QUEENS_BLOCK_SIZE_);
 
     cudaMalloc((void**) &vector_of_tree_size_d,n_explorers*sizeof(unsigned long long));
     cudaMalloc((void**) &sols_d,n_explorers*sizeof(unsigned long long));
@@ -109,7 +109,7 @@ extern "C" void GPU_call_cuda_queens(short size, int initial_depth, unsigned int
 
     cudaMemcpy(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot), cudaMemcpyHostToDevice);
     
-    BP_queens_root_dfs<<< num_blocks,_QUEENS_BLOCK_SIZE_>>> (size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
+    BP_queens_root_dfs<<< num_blocks,CUDA_QUEENS_BLOCK_SIZE_>>> (size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
     //gpuErrchk( cudaPeekAtLastError() );
     //gpuErrchk( cudaDeviceSynchronize() );
 

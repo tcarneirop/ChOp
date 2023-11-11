@@ -6,7 +6,7 @@ module queens_node_module{
 	use CTypes;
 	//use CPtr;
 
-  require "headers/GPU_queens.h";
+  require "headers/AMD_queens.h";
 
 
    extern "QueenRoot" record queens_node{
