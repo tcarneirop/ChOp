@@ -30,7 +30,7 @@ module queens_call_multilocale_search{
 	const language: string):(real,real,real){
 
 
-        if verbose then queens_print_locales_information();
+        queens_print_locales_information();
         queens_print_mlocale_initial_info(size, initial_depth, second_depth, scheduler,lchunk, mlchunk, slchunk,
             coordinated,num_threads, mode,pgas);
 

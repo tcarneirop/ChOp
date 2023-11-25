@@ -50,7 +50,8 @@ module queens_CHPL_call_device_search{
 
 				//writeln("starting loop");
 				foreach idx in 0..#gpu_load {
-					//setBlockSize(32);
+					
+					//setBlockSize(512);
 				
 					//assertOnGpu();
 
