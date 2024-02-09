@@ -33,6 +33,9 @@ module queens_CHPL_call_device_search{
 
 			var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
 					gpu_id:c_uint, num_gpus:c_uint, 0:c_uint);
+			
+			var my_load = starting_position..#gpu_load; ///@!@!@!@
+			
 
 			var vector_of_tree_size_h: [0..#gpu_load] c_ulonglong;
 			var sols_h: [0..#gpu_load] c_ulonglong;
@@ -44,12 +47,12 @@ module queens_CHPL_call_device_search{
 
 			on here.gpus[gpu_id] {
 				
-				var root_prefixes = local_active_set;//
+				var root_prefixes = local_active_set[my_load]; //@@@@!!!! [my_load] to the other ones
 				var sols: [sols_h.domain] sols_h.eltType;
 				var vector_of_tree_size: [vector_of_tree_size_h.domain] vector_of_tree_size_h.eltType;
 
 				//writeln("starting loop");
-				foreach idx in 0..#gpu_load {
+				foreach idx in my_load {
 					
 					//setBlockSize(512);
 				
@@ -69,10 +72,10 @@ module queens_CHPL_call_device_search{
 					for i in 0..<N_l do  // what happens if I use promotion here?
 						board[i] = _EMPTY_;
 
-					flag = root_prefixes[idx+starting_position].control;
+					flag = root_prefixes[idx].control;
 
 					for i in 0..<depthGlobal do
-						board[i] = root_prefixes[idx+starting_position].board[i];
+						board[i] = root_prefixes[idx].board[i];
 
 					depth=depthGlobal;
 
@@ -105,12 +108,15 @@ module queens_CHPL_call_device_search{
 					/*writeln("Sols: ", qtd_solucoes_thread);*/
 					sols[idx] = qtd_solucoes_thread;
 					vector_of_tree_size[idx] = tree_size;
+				
 				}
-				sols_h = sols;
-				vector_of_tree_size_h = vector_of_tree_size;
-					
+				
+				reduce_tree_size[gpu_id] = gpuSumReduce(sols);
+				reduce_num_sols[gpu_id] = gpuSumReduce(vector_of_tree_size);	
+				//sols_h = sols;
+				//vector_of_tree_size_h = vector_of_tree_size;	
 			}
-
+			
 			reduce_tree_size[gpu_id] =  +reduce vector_of_tree_size_h;
 			reduce_num_sols[gpu_id]  =  +reduce sols_h;
 		}//end of gpu search
