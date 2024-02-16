@@ -20,12 +20,11 @@ module queens_CHPL_call_device_search{
 		var new_num_prefixes: uint(64) = initial_num_prefixes;
 		var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));
 		
-
-		//@@I create two ulonglong here to reduce the values on GPU. 
-		///// Can I reduce directly instead of doing something like this?
-
 		var reduce_tree_size: [0..#num_gpus] c_ulonglong = 0;
 		var reduce_num_sols: [0..#num_gpus] c_ulonglong = 0;
+
+		var  tree_size_h: [0..#num_gpus] c_ulonglong = 0;
+		var  num_sols_h: [0..#num_gpus] c_ulonglong = 0;
 
 		coforall gpu_id in 0..#num_gpus:c_int do {
 			
@@ -34,26 +33,24 @@ module queens_CHPL_call_device_search{
 			var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
 					gpu_id:c_uint, num_gpus:c_uint, 0:c_uint);
 			
-			var my_load = starting_position..#gpu_load; ///@!@!@!@
+			var my_load = starting_position..#(gpu_load); /// !!! HERE !!! -- I dont know if this range is correct... but it is working... 
 			
 
-			var vector_of_tree_size_h: [0..#gpu_load] c_ulonglong;
-			var sols_h: [0..#gpu_load] c_ulonglong;
-
-			//writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
-			
+			writeln("Total num prefixes: ",new_num_prefixes," GPU id: ", gpu_id,"starting_position: ", starting_position, " My load:   ", my_load , " GPU load: ", gpu_load,  "   " ,gpu_id..#gpu_id);
 	  
 			param _EMPTY_ = -1;
 
 			on here.gpus[gpu_id] {
 				
-				var root_prefixes = local_active_set[my_load]; //@@@@!!!! [my_load] to the other ones
-				var sols: [sols_h.domain] sols_h.eltType;
-				var vector_of_tree_size: [vector_of_tree_size_h.domain] vector_of_tree_size_h.eltType;
+				var root_prefixes = local_active_set[my_load]; //!!!! HERE !!!!! [my_load] to the other ones
+				
+				var sols: [my_load] c_ulong; //!!!! HERE !!!!!
+				var vector_of_tree_size: [my_load] c_ulong; //!!!! HERE !!!!!
+
 
 				//writeln("starting loop");
-				foreach idx in my_load {
-					
+				foreach idx in my_load{ 
+
 					//setBlockSize(512);
 				
 					//assertOnGpu();
@@ -108,23 +105,20 @@ module queens_CHPL_call_device_search{
 					/*writeln("Sols: ", qtd_solucoes_thread);*/
 					sols[idx] = qtd_solucoes_thread;
 					vector_of_tree_size[idx] = tree_size;
-				
+					
 				}
+
+				reduce_tree_size[gpu_id] = gpuSumReduce(vector_of_tree_size); //!!!! HERE !!!!!
+				reduce_num_sols[gpu_id] =  gpuSumReduce(sols);	//!!!! HERE !!!!!
 				
-				reduce_tree_size[gpu_id] = gpuSumReduce(sols);
-				reduce_num_sols[gpu_id] = gpuSumReduce(vector_of_tree_size);	
-				//sols_h = sols;
-				//vector_of_tree_size_h = vector_of_tree_size;	
-			}
+			}//for idx in myload
 			
-			reduce_tree_size[gpu_id] =  +reduce vector_of_tree_size_h;
-			reduce_num_sols[gpu_id]  =  +reduce sols_h;
 		}//end of gpu search
 
 		//stopVerboseGpu();
 
-		var redTree = (+ reduce reduce_tree_size):uint(64);
-		var redSol  = (+ reduce reduce_num_sols):uint(64);
+		var redTree = (+ reduce reduce_tree_size):uint(64); //!!!! HERE !!!!!
+		var redSol  = (+ reduce reduce_num_sols):uint(64); //!!!! HERE !!!!!
 
 		return ((redSol,redTree)+metrics);
 	}

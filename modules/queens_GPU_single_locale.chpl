@@ -49,7 +49,7 @@ module queens_GPU_single_locale{
 		////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////////////
 
-		writeln("\nSize: ", size, " Survivors: ", initial_num_prefixes);
+		writeln("\nSize: ", size, " Initial Pool Size at depth ", initial_depth," : ",initial_num_prefixes);
 
 		//var num_gpus = GPU_device_count();
 
@@ -68,7 +68,7 @@ module queens_GPU_single_locale{
 			}
 			//for both amd and CUDA
 			otherwise{
-				
+				writeln(language);
 				metrics+=queens_GPU_call_device_search(num_gpus, size,
 					initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
 			} 

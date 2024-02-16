@@ -3,7 +3,7 @@
 
 echo " ### exporting...  ### "
 
-export CHPL_HOME=~/chapel-1.32.0
+export CHPL_HOME=~/chapel-1.33.0
 export CHPL_COMM=none
 #export CHPL_LLVM=system
 export CHPL_LLVM=bundled
@@ -43,6 +43,6 @@ echo $here
 cd $CHPL_HOME
 make -j 32
 
-echo -e \#\#\# Building runtime 1.31  GPU.  \#\#\#
+echo -e \#\#\# Building runtime 1.33  GPU.  \#\#\#
 
 cd $here
