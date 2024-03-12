@@ -1,1 +1,14 @@
-nvcc -O3 singleGPUQueens.cu 
+To compile de multi-GPU code:
+
+nvcc -Xcompiler -fopenmp -O3 -DIMPROVED multiGPUQueens.cu 
+
+Where the -DIMPROVED is to avoid mirrored solutions, i.e., makes the search almost 2x faster.
+
+To execute: ./a.out size cutoff_depth block_size
+
+To Execute the single GPU version:
+
+CUDA_VISIBLE_DEVICES=0 ./a.out size cutoff_depth block_size
+
+There is no visible overhead when the multi-GPU version is used with a single GPU.
+
