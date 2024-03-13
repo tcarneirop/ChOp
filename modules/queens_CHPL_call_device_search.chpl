@@ -57,7 +57,7 @@ module queens_CHPL_call_device_search{
 
 					var flag = 0: uint(32);
 		
-					var board: c_array(int(8), 64);
+					var board: c_array(int(8), 32);
 
 					var depth: int(32);
 

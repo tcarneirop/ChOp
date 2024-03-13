@@ -1,0 +1,15 @@
+To compile de multi-GPU code:
+
+
+DEVICE_LIB_PATH=/opt/rocm-4.5.0/amdgcn/bitcode/ hipcc -DIMPROVED -offload-arch=gfx906 -O3 -fopenmp -std=c++14  multiGPUQueens.hip -o mgpu.exe 
+
+Where the -DIMPROVED is to avoid mirrored solutions, i.e., makes the search almost 2x faster.
+
+To execute: ./mgpu.out size cutoff_depth block_size
+
+To Execute the single GPU version:
+
+HIP_VISIBLE_DEVICES=0 ./a.out size cutoff_depth block_size
+
+There is no visible overhead when the multi-GPU version is used with a single GPU.
+
