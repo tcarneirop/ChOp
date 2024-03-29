@@ -13,6 +13,8 @@ module queens_GPU_single_locale{
 
 	use CTypes;
 
+  config const printElapsedTime = true;
+
 	proc GPU_queens_call_search(const size: uint(16), const num_gpus: c_int, const initial_depth: c_int){
 
 
@@ -68,7 +70,8 @@ module queens_GPU_single_locale{
 		writeln("\tCPU tree size: ", initial_tree_size);
 		writeln("\tGPU tree size: ", metrics[1]);
 		writeln("Number of solutions: ", metrics[0]);
-		writeln("Elapsed time: ", final.elapsed()+initial.elapsed(),"\n\n");
+		if printElapsedTime then
+			writeln("Elapsed time: ", final.elapsed()+initial.elapsed(),"\n\n");
 
 	}//single-locale-single-GPU search
 

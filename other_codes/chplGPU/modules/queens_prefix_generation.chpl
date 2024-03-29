@@ -24,7 +24,7 @@ module queens_prefix_generation{
 
 
 	proc queens_node_generate_initial_prefixes(const size: uint(16), const initial_depth: int(32),
-		set_of_nodes: [] queens_node): (uint(64),uint(64)){
+		ref set_of_nodes: [] queens_node): (uint(64),uint(64)){
 
 
 		var bit_test : uint(32) = 0;
