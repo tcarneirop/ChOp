@@ -9,11 +9,12 @@ module queens_GPU_call_device_search{
         use GpuDiagnostics;
 
         config const CPUGPUVerbose: bool = false;
+        config const verboseGpu = false;
 
         proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depthPreFixos: c_int,
                         ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64)): (uint(64), uint(64)) {
 
-                startVerboseGpu();
+                if verboseGpu then startVerboseGpu();
 
             	
                 //calculating the CPU load in terms of nodes
@@ -110,7 +111,7 @@ module queens_GPU_call_device_search{
                 		reduce_num_sols[gpu_id]  =  +reduce sols_h;
                 }//end of gpu search
 
-                stopVerboseGpu();
+                if verboseGpu then stopVerboseGpu();
 
                 var redTree = (+ reduce reduce_tree_size):uint(64);
                 var redSol  = (+ reduce reduce_num_sols):uint(64);
