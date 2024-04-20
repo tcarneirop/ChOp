@@ -1,6 +1,6 @@
 module queens_GPU_single_locale{
 
-	use queens_GPU_call_device_search;
+	use queens_CHPL_call_device_search;
 	use queens_prefix_generation;
 	use queens_node_module;
 	use Time;
@@ -56,7 +56,7 @@ module queens_GPU_single_locale{
 
 		final.start();
 
-		metrics+=queens_GPU_call_device_search(num_gpus, size,
+		metrics+=queens_CHPL_call_device_search(num_gpus, size,
 			initial_depth, local_active_set, initial_num_prefixes);
 
 		final.stop();
@@ -67,8 +67,11 @@ module queens_GPU_single_locale{
 		writeln("Final tree size: ", final_tree_size);
 		writeln("\tCPU tree size: ", initial_tree_size);
 		writeln("\tGPU tree size: ", metrics[1]);
-		writeln("Number of solutions: ", metrics[0]);
+
+    	writeln("Number of solutions: ", metrics[0]*2);
 		writeln("Elapsed time: ", final.elapsed()+initial.elapsed(),"\n\n");
+		writeln("\tInitial search el. time: ", initial.elapsed());
+		writeln("\tFinal search el. time: ",  final.elapsed());
 
 	}//single-locale-single-GPU search
 

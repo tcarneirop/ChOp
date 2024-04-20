@@ -17,13 +17,13 @@ AMD_DIR := /opt/rocm-4.5.0/
 CHPL_DEBUG_FLAGS = -s queens_checkPointer=true -s timeDistributedIters=true -s infoDistributedIters=true -s CPUGPUVerbose=false
 
 chapelcuda: cuda dir
-	@echo 
+	@echo
 	@echo " ### Building the Chapel-CUDA code... ### "
-	@echo 
+	@echo
 
 	chpl -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
 	
-	@echo 
+	@echo
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)
 	

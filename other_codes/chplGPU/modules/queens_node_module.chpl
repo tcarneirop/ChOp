@@ -1,10 +1,11 @@
 
 
+
 module queens_node_module{
 
-	use queens_constants;
-	use CTypes;
-	//use CPtr;
+    use queens_constants;
+    use CTypes;
+    //use CPtr;
 
   require "headers/GPU_queens.h";
 
@@ -16,3 +17,4 @@ module queens_node_module{
 
 
 }//end of module
+

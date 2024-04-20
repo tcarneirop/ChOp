@@ -68,7 +68,7 @@ module queens_GPU_single_locale{
 			}
 			//for both amd and CUDA
 			otherwise{
-				writeln(language);
+				//writeln(language);
 				metrics+=queens_GPU_call_device_search(num_gpus, size,
 					initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
 			} 
