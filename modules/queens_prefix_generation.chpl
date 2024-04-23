@@ -104,6 +104,12 @@ module queens_prefix_generation{
 		depth = 0;
 
 		var break_cond: uint(64) =  (size/2):uint(64) + (size:uint(64) & 1:uint(64));
+		
+
+		//condition to avoid mirrored sols
+		if(avoidMirrored) then writeln("##### Avoiding Mirrored Solutions ##### ");
+			
+		
 
 		while(true){
 
@@ -116,17 +122,18 @@ module queens_prefix_generation{
 			else{
 					if (stillLegal(board, depth) && !(control &  bit_test )) {
 						
-						//this is enough to avoid reflections
-						if(depth == 1){
+						if(avoidMirrored) then{
+							//this is enough to avoid reflections
+							if(depth == 1){
 
-							if(size:uint(64) & 1:uint(64)){
-								if board[0] == break_cond-1 && board[1] > board[0] then break;
+								if(size:uint(64) & 1:uint(64)){
+									if board[0] == break_cond-1 && board[1] > board[0] then break;
+								}
+								else{
+									if board[0] == break_cond then break;
+								}
 							}
-							else{
-								if board[0] == break_cond then break;
-							}
-						}
-
+						}//mirrored 
 
 						control |= (_ONE_<<board[depth]);
 						depth +=1;

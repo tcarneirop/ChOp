@@ -7,11 +7,7 @@ module queens_GPU_single_locale{
 	use queens_aux;
 	use Time;
 	use queens_CHPL_call_device_search;
-
-	use BlockDist;
-	use VisualDebug;
-	use CommDiagnostics;
-	use DistributedIters;
+	use queens_constants;
 
 
 	use CTypes;
@@ -82,8 +78,12 @@ module queens_GPU_single_locale{
 		writeln("Final tree size: ", final_tree_size);
 		writeln("\tCPU tree size: ", initial_tree_size);
 		writeln("\tGPU tree size: ", metrics[1]);
-
-    	writeln("Number of solutions: ", metrics[0]*2);
+		if(avoidMirrored) then{
+    		writeln("Number of solutions: ", metrics[0]*2);
+    	}
+    	else{
+    		writeln("Number of solutions: ", metrics[0]);
+    	}
 		writeln("Elapsed time: ", final.elapsed()+initial.elapsed(),"\n\n");
 		writeln("\tInitial search el. time: ", initial.elapsed());
 		writeln("\tFinal search el. time: ",  final.elapsed());

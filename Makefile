@@ -14,7 +14,7 @@ C_SOURCES := $(shell find $(C_SRC_DIR) -name '*.c')
 
 AMD_DIR := /opt/rocm-4.5.0/
 
-CHPL_DEBUG_FLAGS = -s queens_checkPointer=true -s timeDistributedIters=true -s infoDistributedIters=true -s CPUGPUVerbose=false
+CHPL_DEBUG_FLAGS = -s queens_checkPointer=true -s avoidMirrored=false -s timeDistributedIters=true -s infoDistributedIters=true -s CPUGPUVerbose=false
 
 chapelcuda: cuda dir
 	@echo

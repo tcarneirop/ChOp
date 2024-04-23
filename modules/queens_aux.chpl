@@ -6,6 +6,7 @@ module queens_aux{
     use CTypes;
 	use ChplConfig;
     use GPU;
+    use queens_constants;
 
 	proc queens_print_locales_information(){
         writeln("\nNumber of locales: ",numLocales,".");
@@ -41,8 +42,17 @@ module queens_aux{
 		initial_num_prefixes : uint(64), initial_tree_size: uint(64), parallel_tree_size: uint(64),
 		const initial_depth: int(32),
         const scheduler: string){
+    
+        var number_of_solutions;
 
-        var number_of_solutions = metrics[0];
+        if(avoidMirrored) then{
+            number_of_solutions = metrics[0]*2;
+        }else{
+            number_of_solutions = metrics[0];
+        }
+
+
+      
         var parallel_tree_size =  metrics[1];
         var final_tree_size = initial_tree_size + parallel_tree_size;
         var performance_metrics = (final_tree_size:real)/timer.elapsed();
@@ -118,7 +128,13 @@ module queens_aux{
         writef("\n\tPercentage of the maximum number: %.3dr\n",
             (initial_num_prefixes:real/maximum_num_prefixes:real)*100);
 
-        writef("\n\tNumber of solutions found: %u", metrics[0]*2);
+        if(avoidMirrored) then{
+            writeln("##### Avoiding Mirrored Solutions ##### ");
+            writef("\n\tNumber of solutions found: %u", metrics[0]*2);
+        }else{
+            writef("\n\tNumber of solutions found: %u", metrics[0]);
+        }
+
         writef("\n\tElapsed Initial Search: %.3dr", initial.elapsed());
         writef("\n\tElapsed PGAS Data Distribution: %.3dr", distribution.elapsed());
         writef("\n\tElapsed Final Search: %.3dr",     final.elapsed());
