@@ -14,5 +14,10 @@ module queens_node_module{
         var board: c_array(c_char, 12);
     };
 
+     extern "FirstQueenRoot" record first_queens_node{
+       var control: c_uint;
+        var board: c_array(c_uchar, 128);
+    };
+
 
 }//end of module
