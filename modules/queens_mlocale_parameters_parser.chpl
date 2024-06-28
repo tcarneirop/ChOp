@@ -89,12 +89,12 @@ module queens_mlocale_parameters_parser{
 					}//mlocale
 
 					when "mlgpu"{
-						forall idx in distributedDynamic(c=Space, chunkSize=lchunk,localeChunkSize=mlchunk,coordinated = flag_coordinated) with (+ reduce metrics) do {
+						forall idx in distributedDynamic(c=Space, numTasks=1, chunkSize=lchunk,localeChunkSize=mlchunk,coordinated = flag_coordinated) with (+ reduce metrics) do {
 
 							var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
 								second_depth,slchunk,distributed_active_set[idx],tree_each_locale,
 								GPU_id[here.id], CPUP, mlsearch, language);	
-							
+								
 							metrics+=m1;
 							if(checkpointer){
 								checkpt.partial_tree.add(m1[1]);

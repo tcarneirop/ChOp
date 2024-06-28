@@ -6,12 +6,12 @@
 # setup env for Chapel 1.24 using ofi
 setupChplenv() {
 
- module use /grid5000/spack/share/spack/modules/linux-debian9-x86_64/
+ #module use /grid5000/spack/share/spack/modules/linux-debian9-x86_64/
   #module load gcc/6.4.0_gcc-6.4.0
-  module load cmake
-  module load libfabric
-#ml llvm-amdgpu
-
+  #module load cmake
+  #module load libfabric
+  #ml llvm-amdgpu
+  module load llvm-amdgpu/5.2.0_gcc-10.4.0 
   # Ignore our errors about ofi/psm not being supported
   #export CHPL_GASNET_ALLOW_BAD_SUBSTRATE=true
 

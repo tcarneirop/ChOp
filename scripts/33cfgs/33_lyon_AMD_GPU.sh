@@ -6,7 +6,7 @@
 # setup env for Chapel 1.24 using ofi
 setupChplenv() {
 
- module use /grid5000/spack/share/spack/modules/linux-debian9-x86_64/
+  module use /grid5000/spack/share/spack/modules/linux-debian9-x86_64/
   #module load gcc/6.4.0_gcc-6.4.0
   module load cmake
   module load libfabric
@@ -29,11 +29,13 @@ setupChplenv() {
   export CHPL_COMM='gasnet'
   export CHPL_COMM_SUBSTRATE='ibv'
   export CHPL_TARGET_CPU='native'
+  export CHPL_LAUNCHER='gasnetrun_ibv'
   export GASNET_QUIET=1
 
   export GASNET_IBV_SPAWNER=ssh
-  export GASNET_PHYSMEM_MAX='0.667'
+  export GASNET_PHYSMEM_MAX='0.88'
 
+  #export CHPL_RT_LOCALES_PER_NODE=8
   export CHPL_GPU_MEM_STRATEGY=array_on_device
   export CHPL_LOCALE_MODEL=gpu
   export CHPL_GPU=amd
@@ -47,7 +49,7 @@ setupChplenv() {
   export HFI_NO_CPUAFFINITY=1
 
   # Use ssh spawning (and avoid mpi) -- I couldn't get mpi spawner working
-  #export CHPL_GASNET_MORE_CFG_OPTIONS="--with-ofi-spawner=ssh --disable-mpi-compat"
+  export CHPL_GASNET_MORE_CFG_OPTIONS="--enable-pshm"
   # TODO force psm provider
   #export GASNET_OFI_SPAWNER='ssh'
 

@@ -107,7 +107,7 @@ module queens_prefix_generation{
 		
 
 		//condition to avoid mirrored sols
-		if(avoidMirrored) then writeln("##### Avoiding Mirrored Solutions ##### ");
+		if(avoidMirrored) then writeln("\n\t##### Avoiding Mirrored Solutions #####\n");
 			
 		
 

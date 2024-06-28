@@ -48,10 +48,11 @@ module queens_GPU_call_device_search{
 
 
 		if(cpu_load == 0){
-
+			
 
 			coforall gpu_id in 0..#num_gpus:c_int do{
 
+					///Maybe we need to modify it
 					var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
 
 					var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
@@ -60,15 +61,15 @@ module queens_GPU_call_device_search{
 					var sol_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;
 					var tree_ptr : c_ptr(c_ulonglong) = c_ptrTo(vector_of_tree_size_h) + starting_position;
 					var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
-
-					if(CPUGPUVerbose) then
-						writeln("GPU id: ", gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
+					var new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+					//if(CPUGPUVerbose) then
+					//writeln("GPU id: ", new_gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
 					
 					if(GPUCUDA) then CUDA_call_queens(size, depth, gpu_load:c_uint,
-						nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
+						nodes_ptr, tree_ptr, sol_ptr, new_gpu_id);
 					
 					if(GPUAMD) then AMD_call_queens(size, depth, gpu_load:c_uint,
-						nodes_ptr, tree_ptr, sol_ptr, gpu_id:c_int);
+						nodes_ptr, tree_ptr, sol_ptr, new_gpu_id);
 
 				}//end of gpu search
 
