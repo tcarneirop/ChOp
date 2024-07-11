@@ -1,0 +1,11 @@
+g++ -DIMPROVED -DREPORT -O3  -fopenmp openmpQueens.cpp -o ompq.out
+
+use:
+
+OMP_SCHEDULE="dynamic,128" ./ompq.out 18 7 128
+
+OMP_SCHEDULE="dynamic,128"  ./ompq.out <size> <initial depth> <chunk>
+
+for dynamic scheduler with chunck size of 128
+
+Important: the <chunk> parameter is not used. However, for some reason, when I remove I get an execution time around 15% slower. 
