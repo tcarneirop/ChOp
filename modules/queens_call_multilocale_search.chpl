@@ -114,35 +114,13 @@ module queens_call_multilocale_search{
         distribution.stop();
 
 
-        //for mlmgpu and gpucpu
-        //When one wants to use less GPUs than the available number
-        //if(num_gpus == 0) then{
-          //  if verbose then writeln("\n # The total number of GPU is going to be used (DEFAULT): ", GPU_device_count() ,". #");
-            //for loc in Locales do{
-              //  on loc do{
-              //      GPU_id[here.id] = GPU_device_count():int;
-            //    }//on loc
-          //  }///fors
-        //}
-        //else{
-           // if( GPU_device_count()< num_gpus) then
-            //    halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### NUMBER OF AVAILABLE DEVICES < NUM_GPUS ######");
-            //says that each locale must use x gpus
-            writeln("\n # Number of GPUs : ", num_gpus ," #");
-            for loc in Locales do{
-                on loc do{
-                    GPU_id[here.id] = num_gpus;
-                }//on loc
-            }///for
-       // }
-
-
-
-        //@todo @todo
-        //@todo: going to perform the check here.
-        //GPU_mlocale_number_locales_check(mlsearch, coordinated:int);
-
-
+        writeln("\n # Number of GPUs : ", num_gpus ," #");
+        for loc in Locales do{
+            on loc do{
+                GPU_id[here.id] = num_gpus;
+            }//on loc
+        }///for
+   
 
         //PROFILER
         if(profiler){

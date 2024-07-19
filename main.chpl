@@ -20,7 +20,6 @@ use queens_call_multilocale_search;
 
 use queens_GPU_single_locale;
 use GPU_mlocale_utils;
-//use GPU_aux;
 
 
 use parameters_record;
