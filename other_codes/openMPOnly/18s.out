@@ -1,0 +1,17 @@
+### IMPROVED SEARCH - Avoiding mirrored solutions
+
+### Queens size: 18, Initial depth: 7 - Num_explorers: 7409150 - num_threads: 1
+Thread load report: 
+	 Thread Id: 0 - Load: 2511701850 - Percent: 8.46
+
+
+Initial tree size: 8789134
+Parallel Tree size: 29674133112
+Total tree size: 29682922246
+Number of solutions found: 666090624.
+
+Elapsed total: 4058.480
+
+	Biggest thread load: 2511701850
+	Smallest thread load: 2511701850
+	Biggest/smallest: 1.000x
