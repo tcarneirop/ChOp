@@ -20,7 +20,7 @@ singlelocalecpu: dir
 	@echo
 	@echo " ### Building Chapel single-locale GPU... ### "
 	@echo
-	chpl -s queens_mlocale_parameters_parser.GPU=false -s queens_call_multilocale_search.GPU=false  -s GPUMAIN=false -s MULTILOCALE=false -s GPUCUDA=false -s GPUAMD=false -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
+	chpl -s queens_mlocale_parameters_parser.GPU=false -s queens_call_multilocale_search.GPU=false  -s GPUMAIN=false -s MULTILOCALE=false -s GPUCUDA=false -s GPUAMD=false -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) --no-bounds-checks --target-cpu native main.chpl -o  $(BUILD_DIR)/chop.out
 
 	@echo
 	@echo " ### Compilation done ### "

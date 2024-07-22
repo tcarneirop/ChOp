@@ -31,9 +31,6 @@ if(GPUMAIN){
 	use queens_GPU_single_locale;
 }
 
-if(MULTILOCALE && GPUMAIN) then{
-	use GPU_mlocale_utils;
-}
 
 
 use parameters_record;

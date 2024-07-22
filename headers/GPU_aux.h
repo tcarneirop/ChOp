@@ -6,8 +6,8 @@
 extern "C" {
 #endif
 
-int GPU_device_count();
-int GPU_set_device(int device);
+//int GPU_device_count();
+//int GPU_set_device(int device);
 
 #ifdef __cplusplus
 }
