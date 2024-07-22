@@ -1,13 +1,18 @@
 module queens_call_multilocale_search{
 
+    config param GPU: bool = false;
 
     //use queens_constants;
     use queens_node_module;
     use queens_prefix_generation;
     use queens_mlocale_parameters_parser;
     use queens_aux;
-    use GPU_mlocale_utils;
-    use GPU_aux;
+
+    if(GPU) then {
+        use GPU_mlocale_utils;
+        use GPU_aux;
+    }
+    
     use Time;
     use statistics;
 

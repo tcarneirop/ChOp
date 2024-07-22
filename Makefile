@@ -16,6 +16,17 @@ AMD_DIR := /opt/rocm/
 
 CHPL_DEBUG_FLAGS = -s queens_checkPointer=false -s avoidMirrored=true -s timeDistributedIters=true -s infoDistributedIters=true -s CPUGPUVerbose=false
 
+singlelocalecpu: dir
+	@echo
+	@echo " ### Building Chapel single-locale GPU... ### "
+	@echo
+	chpl -s queens_mlocale_parameters_parser.GPU=false -s queens_call_multilocale_search.GPU=false  -s GPUMAIN=false -s MULTILOCALE=false -s GPUCUDA=false -s GPUAMD=false -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
+
+	@echo
+	@echo " ### Compilation done ### "
+	$(shell sh ./ncomp.sh)
+	
+
 chapelcuda: cuda dir
 	@echo
 	@echo " ### Building the Chapel-CUDA code... ### "
@@ -51,7 +62,6 @@ amd: dir
 	@echo " ### starting AMD compilation ### "
 	@echo 
 	hipcc -O3 -DHIP_FAST_MATH -D__HIP_PLATFORM_AMD__  $(CUDA_SRC_DIR)/AMD_queens_kernels.hip --emit-static-lib -fPIC -o $(LIBRARY_DIR)/libamdqueens.a
-
 
 dir:
 	@echo 

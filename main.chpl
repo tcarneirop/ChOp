@@ -12,21 +12,35 @@ use CTypes;
 // use fsp_johnson_call_multilocale_search;
 
 
-//use parametrization_local_search;
-use GPU_aux;
-use queens_aux;
-use queens_call_mcore_search;
-use queens_call_multilocale_search;
 
-use queens_GPU_single_locale;
-use GPU_mlocale_utils;
+config param GPUMAIN: bool = false;
+config param MULTILOCALE: bool = false;
+
+
+//use parametrization_local_search;
+use queens_aux;
+
+use queens_call_mcore_search;
+
+
+if(MULTILOCALE) then{
+	use queens_call_multilocale_search;
+}
+
+if(GPUMAIN){
+	use queens_GPU_single_locale;
+}
+
+if(MULTILOCALE && GPUMAIN) then{
+	use GPU_mlocale_utils;
+}
 
 
 use parameters_record;
 
 //Variables from the command line
-config const initial_depth: c_int = 2;
-config const second_depth:  c_int = 7;
+config const initial_depth: c_int = 5;
+config const second_depth:  c_int = 8;
 config const size: uint(16) = 15; //queens
 config const prepro: bool = false; //queens first solution
 //the default coordinated is TRUE
@@ -46,7 +60,7 @@ config const coordinated: bool = false;  //master?
 config const pgas: bool = false; //pgas-based active set?
 
 config const num_threads: int = here.maxTaskPar; //number of threads.
-config const profiler: bool = false; //to gather profiler metrics and execution graphics.
+
 
 config const upper_bound: c_int = 0; //value for the initial upper bound. If it is zero, the optimal solution is going to be used.
 config const lower_bound: string = "queens"; //type of lowerbound. Johnson and simple.
@@ -54,6 +68,7 @@ config const atype: string = "none"; //atomic type. 'none' when initializing usi
 config const instance: int(8) = 13; //fsp instance
 
 config const verbose: bool = false; //verbose network communication
+config const profiler: bool = false; //to gather profiler metrics and execution graphics.
 
 config const heuristic: string = "none";
 config const problem: string = "simple"; //fsp - johnson, fsp - simple, queens, minla
@@ -61,11 +76,11 @@ config const computers: int = 1;
 
 config const mode: string = "nestedml";
 config const mlsearch: string = "mlocale";
-config const num_gpus: c_int = 1;
 
 config const CPUP: real = 0.0; //CPU percent
 config const language: string = "chpl"; //implementation of the GPU queens search
 
+config const num_gpus: c_int = 1;
 
 proc main(){
 
@@ -124,30 +139,37 @@ proc main(){
 
 		 	writeln("\n--- N-QUEENS --- ");
 		 	select mode{
-		 		when "serial"{
-		 			writeln("--- N-Queens serial search --- \n\n");
-		 			queens_serial_caller(size, mode, prepro);
-		 		}
+		 	
+	 			when "serial"{
+	 				
+ 					writeln("--- N-Queens serial search --- \n\n");
+ 					queens_serial_caller(size, mode, prepro);
+	 				
+	 			}
 				when "first"{
-		 			writeln("--- N-Queens serial -- First Solution --- \n\n");
-		 			queens_serial_caller(size, mode, prepro);
-		 		}
-		 		when "mcore"{
-		 			writeln("--- N-Queens mcore search --- \n\n");
+	 				writeln("--- N-Queens serial -- First Solution --- \n\n");
+	 				queens_serial_caller(size, mode, prepro);
+	 			}
+	 			when "mcore"{
+	 				writeln("--- N-Queens mcore search --- \n\n");
+					queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
+	 			}
+		 			
+	 			when "mgpu"{
 
-		 			queens_node_call_search(size, initial_depth,scheduler,slchunk,num_threads);
-		 		}
+	 				writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
+	 				if(GPUMAIN) then GPU_queens_call_search(num_gpus, size,initial_depth,CPUP,lchunk, language);
+	 			}
+	 		
+		 		
 		 		when "nestedml"{
 		 			writeln("--- N-Queens  --- ", mode ," -- ", mlsearch,"\n\n");
-		 				queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
+		 			if(MULTILOCALE) then queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 		 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
 		 					CPUP, num_gpus,language);
 		 		}//nested
+	 		
 
-		 		when "mgpu"{
-		 			writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
-		 			GPU_queens_call_search(num_gpus, size,initial_depth,CPUP,lchunk, language);
-		 		}
 
 		 		otherwise{
 		 			halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
