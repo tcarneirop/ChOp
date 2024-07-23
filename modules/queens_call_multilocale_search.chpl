@@ -51,7 +51,7 @@ module queens_call_multilocale_search{
         var return_total: real;
 
 
-        const PrivateSpace: domain(1) dmapped Private();
+        const PrivateSpace: domain(1) dmapped new privateDist();
         var tree_each_locale: [PrivateSpace] uint(64);
         var GPU_id: [PrivateSpace] int;
         var Locale_role: [PrivateSpace] int;
@@ -98,7 +98,7 @@ module queens_call_multilocale_search{
 
         //Distributer or centralized active set?
         const Space = {0..(initial_num_prefixes-1):int}; //for distributing
-        const D: domain(1) dmapped Block(boundingBox=Space) = Space; //1d block DISTRIBUTED
+        const D: domain(1) dmapped new blockDist(boundingBox=Space) = Space; //1d block DISTRIBUTED
         var pgas_active_set: [D] queens_node; //1d block DISTRIBUTED
         var centralized_active_set: [Space] queens_node; //on node 0
 
@@ -118,14 +118,6 @@ module queens_call_multilocale_search{
         }
         distribution.stop();
 
-
-        writeln("\n # Number of GPUs : ", num_gpus ," #");
-        for loc in Locales do{
-            on loc do{
-                GPU_id[here.id] = num_gpus;
-            }//on loc
-        }///for
-   
 
         //PROFILER
         if(profiler){

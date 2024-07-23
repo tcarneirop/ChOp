@@ -14,7 +14,7 @@ module queens_mlocale_parameters_parser{
 
 	use queens_node_module;
 	use queens_call_intermediate_search;
-
+	use queens_tree_exploration;
 	
 
 	config param queens_checkPointer: bool = false;
@@ -31,7 +31,7 @@ module queens_mlocale_parameters_parser{
 		const role_CPU: int = 1;
 		const role_GPU: int = 0;
 
-		writeln("###### QUEENS nested MLOCALE ######");
+
 
 
 		if(queens_checkPointer){
@@ -49,6 +49,28 @@ module queens_mlocale_parameters_parser{
 
 				select mlsearch{//what kind of multilocale search?
 
+					when "naive"{
+						
+						writeln("################### Queens - distributed - naive - STATIC ###################");
+						
+						forall idx in distributed_active_set with (+ reduce metrics) do {
+							
+							var m1 = queens_subtree_explorer(size,initial_depth:int(32), idx);
+		
+							metrics+=m1;
+
+							if(queens_checkPointer){
+								checkpt.partial_tree.add(m1[1]);
+								checkpt.partial_num_sol.add(m1[0]);
+								checkpt.progress.add(1); //for each ite
+							}//checkpointer
+					
+						}//for
+
+
+					}//mlocale-naive
+
+					
 					when "mlocale"{
 
 						forall n in distributed_active_set with (+ reduce metrics) do {
@@ -66,27 +88,54 @@ module queens_mlocale_parameters_parser{
 
 					}//mlocale
 
-						when "mlgpu"{
-							if(GPU) then forall n in distributed_active_set with (+ reduce metrics) do  {
-								var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
-									second_depth,slchunk,n,tree_each_locale, GPU_id[here.id],CPUP, mlsearch, language);
-								metrics+=m1;
-								if(queens_checkPointer){
-									checkpt.partial_tree.add(m1[1]);
-									checkpt.partial_num_sol.add(m1[0]);
-									checkpt.progress.add(1);
-								}//checkpointer
-							}//for
-						}//mlmgpu
-					
+					when "mlgpu"{
+						if(GPU) then forall n in distributed_active_set with (+ reduce metrics) do  {
+							var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
+								second_depth,slchunk,n,tree_each_locale, GPU_id[here.id],CPUP, mlsearch, language);
+							metrics+=m1;
+							if(queens_checkPointer){
+								checkpt.partial_tree.add(m1[1]);
+								checkpt.partial_num_sol.add(m1[0]);
+								checkpt.progress.add(1);
+							}//checkpointer
+						}//for
+					}//mlmgpu
+				
 					otherwise{
 						 halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 					}//
 				}//mode
 			}//end of STATIC
+
+
+
+
+
+
+
 			when "dynamic" {
 			
 				select mlsearch{//what's the kind of multilocale search?
+
+
+					when "naive"{ 
+						writeln("################### Queens- distributed - naive - dynamic ###################");
+						forall idx in distributedDynamic(c=Space, chunkSize=lchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
+							
+							var m1 = queens_subtree_explorer(size,initial_depth:int(32), distributed_active_set[idx]);
+							
+							metrics+=m1;
+
+							if(queens_checkPointer){
+								checkpt.partial_tree.add(m1[1]);
+								checkpt.partial_num_sol.add(m1[0]);
+								checkpt.progress.add(1);
+							}//checkpointer
+
+						}//for
+					}//mlocale
+
+
 					when "mlocale"{
 						forall idx in distributedDynamic(c=Space, chunkSize=lchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
 							var m1 = queens_call_intermediate_search(size,initial_depth,

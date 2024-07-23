@@ -7,7 +7,7 @@ module queens_call_mcore_search{
     use DynamicIters;
     use Time; // Import the Time module to use Timer objects
     //config param methodStealing = Method.Whole; 
-     config param methodStealing = Method.RoundRobin; */
+     config param methodStealing = Method.RoundRobin; 
     //config param methodStealing = Method.WholeTail;
 
 

@@ -13,25 +13,18 @@ use CTypes;
 
 
 
+
 config param GPUMAIN: bool = false;
 config param MULTILOCALE: bool = false;
+
+use queens_call_multilocale_search;
+
+if(GPUMAIN) then use queens_GPU_single_locale;
 
 
 //use parametrization_local_search;
 use queens_aux;
-
 use queens_call_mcore_search;
-
-
-if(MULTILOCALE) then{
-	use queens_call_multilocale_search;
-}
-
-if(GPUMAIN){
-	use queens_GPU_single_locale;
-}
-
-
 
 use parameters_record;
 
@@ -54,7 +47,7 @@ config const coordinated: bool = false;  //master?
 ///	sgpu: single-gpu execution
 /// cpu-gpu: uses all CPUs and GPUs of the locale at once.
 
-config const pgas: bool = false; //pgas-based active set?
+config const pgas: bool = false; //pgas-based active set
 
 config const num_threads: int = here.maxTaskPar; //number of threads.
 
@@ -81,10 +74,7 @@ config const num_gpus: c_int = 1;
 
 proc main(){
 
-	//@todo -- these chunks are confusing..
-	//if(heuristic!="none") then initialization(heuristic,lower_bound, instance, mode);
-	if(false)then{}
-	else{
+
 
 	select lower_bound {
 		// when "simple"{//using simple bound
@@ -131,8 +121,10 @@ proc main(){
 		// 			halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 		// 		}
 		// 	}//mode
-		// }//johnson bound
-		when "queens"{
+		// }//johnson bound	
+
+
+		when "queens" {
 
 		 	writeln("\n--- N-QUEENS --- ");
 		 	select mode{
@@ -159,8 +151,9 @@ proc main(){
 	 			}
 	 		
 		 		
-		 		when "nestedml"{
-		 			writeln("--- N-Queens  --- ", mode ," -- ", mlsearch,"\n\n");
+		 		when "multilocale"{
+		 			
+					writeln("--- N-Queens  --- ", mode ," -- ", mlsearch,"\n\n");
 		 			if(MULTILOCALE) then queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
 		 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
 		 					CPUP, num_gpus,language);
@@ -177,5 +170,5 @@ proc main(){
 
 	}//lower bound
 
-}
+
 }
