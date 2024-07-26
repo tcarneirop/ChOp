@@ -2,3 +2,4 @@ mpic++ -O3 -fopenmp -DIMPROVED -DRANKLOADS -DCHECKSOL  MPIQueens.cpp
 
 mpirun -np 4 --hostfile $PBS_NODEFILE  --bind-to none -npernode 1 -x OMP_NUM_THREADS=72 -x OMP_SCHEDULE="dynamic,128" ./a.out 17 7 128 
 
+$OAR_NODEFILE

@@ -41,7 +41,7 @@ module queens_call_mcore_search{
         select scheduler{
 
             when "static" {
-                forall idx in 0..initial_num_prefixes-1 with (+ reduce metrics) do {
+                forall idx in 0..#initial_num_prefixes with (+ reduce metrics) do {
                     metrics+=queens_subtree_explorer(size,initial_depth:int(32), set_of_nodes[idx:uint]);
                 }
             }

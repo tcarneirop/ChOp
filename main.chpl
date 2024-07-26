@@ -30,7 +30,7 @@ use parameters_record;
 
 //Variables from the command line
 config const initial_depth: c_int = 5;
-config const second_depth:  c_int = 8;
+config const second_depth:  c_int = 0;
 config const size: uint(16) = 15; //queens
 config const prepro: bool = false; //queens first solution
 //the default coordinated is TRUE
@@ -70,7 +70,7 @@ config const mlsearch: string = "mlocale";
 config const CPUP: real = 0.0; //CPU percent
 config const language: string = "chpl"; //implementation of the GPU queens search
 
-config const num_gpus: c_int = 1;
+config const num_gpus: c_int = 0;
 
 proc main(){
 

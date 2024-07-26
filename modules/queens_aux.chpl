@@ -121,32 +121,34 @@ module queens_aux{
         performance_metrics = ((metrics[1]+initial_tree_size):real)/total_time;
         solutions_per_second = metrics[0]/total_time;
 
-        writef("\n\tInitial depth: %u", initial_depth);
-        writef("\n\tSecond depth: %u", second_depth);
+        writef("\n\tInitial depth: %u", initial_depth); 
+
+        if second_depth>0 then writef("\n\tSecond depth: %u", second_depth);
         writef("\n\tMaximum possible prefixes: %u", maximum_num_prefixes);
         writef("\n\tInitial number of prefixes: %u", initial_num_prefixes);
-        writef("\n\tPercentage of the maximum number: %.3dr\n",
+        writef("\n\tPercentage of the maximum number: %.3dr (%%)\n",
             (initial_num_prefixes:real/maximum_num_prefixes:real)*100);
 
-        if(avoidMirrored) then{
-            writeln("##### Avoiding Mirrored Solutions ##### ");
-            writef("\n\tNumber of solutions found: %u", metrics[0]*2);
-        }else{
-            writef("\n\tNumber of solutions found: %u", metrics[0]);
-        }
 
-        writef("\n\tElapsed Initial Search: %.3dr", initial.elapsed());
-        writef("\n\tElapsed PGAS Data Distribution: %.3dr", distribution.elapsed());
-        writef("\n\tElapsed Final Search: %.3dr",     final.elapsed());
-        writef("\n\tElapsed TOTAL: %.3dr\n",  final.elapsed()+initial.elapsed()+distribution.elapsed());
-        writef("\n\tPGAS proportion: %.3dr\n", (distribution.elapsed())/(total_time)*100);
+        writef("\n\tElapsed (s) Initial Search: %.3dr", initial.elapsed());
+        writef("\n\tElapsed (s) PGAS Data Distribution: %.3dr", distribution.elapsed());
+        writef("\n\tElapsed (s) Final Search: %.3dr",     final.elapsed());
+        writef("\n\tElapsed (s) TOTAL: %.3dr\n",  final.elapsed()+initial.elapsed()+distribution.elapsed());
+        writef("\n\tPGAS proportion: %.3dr (%%)\n", (distribution.elapsed())/(total_time)*100);
 
 
         writef("\n\tInitial Tree size: %u",initial_tree_size);
         writef("\n\tFinal Tree size: %u",  metrics[1]);
         writef("\n\tTOTAL Tree size: %u",  metrics[1]+initial_tree_size);
-        writef("\n\n\tPerformance (nodes/s): %.3dr \n",  performance_metrics);
-        writef("\n\n\tPerformance (solutions/s): %.3dr \n\n",  solutions_per_second);
+        if(avoidMirrored) then{
+            //writeln("##### Avoiding Mirrored Solutions ##### ");
+            writef("\n\tNumber of solutions found: %u", metrics[0]*2);
+        }else{
+            writef("\n\tNumber of solutions found: %u", metrics[0]);
+        }
+
+        writef("\n\n\tPerformance (nodes/s): %.3dr ",  performance_metrics);
+        writef("\n\tPerformance (solutions/s): %.3dr \n\n",  solutions_per_second);
 
         statistics_tree_statistics(tree_each_locale, total_tree);
 

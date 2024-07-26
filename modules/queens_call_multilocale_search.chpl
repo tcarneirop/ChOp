@@ -32,7 +32,7 @@ module queens_call_multilocale_search{
         const num_threads: int, const profiler: bool = false,
         const verbose: bool = false,
         const CPUP: real, const num_gpus: c_int,
-	const language: string):(real,real,real){
+	    const language: string):(real,real,real){
 
 
         queens_print_locales_information();

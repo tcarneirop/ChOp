@@ -14,7 +14,8 @@ module queens_GPU_call_intermediate_search{
 
 	proc queens_GPU_call_intermediate_search(const size: uint(16), const initial_depth: c_int,
 		const second_depth: c_int, const chunk: int, ref node: queens_node,
-		ref tree_each_locale: [] uint(64), const GPU: int, const CPUP: real, const mlsearch:string, const language: string):(uint(64),uint(64)){
+		ref tree_each_locale: [] uint(64), const GPU: int, const CPUP: real, 
+		const mlsearch:string, const language: string):(uint(64),uint(64)){
 
 		var maximum_number_prefixes: uint(64) = queens_get_number_prefixes(size,initial_depth);//
 		var maximum_number_prefixes_scnd_depth: uint(64) = queens_get_number_prefixes(size,second_depth);//
@@ -32,8 +33,8 @@ module queens_GPU_call_intermediate_search{
 		metrics[0] = 0; //restarting for the parallel search//
 
 		select language{
-			when "chpl"{
-				//writeln("initial_num_prefixes: ", initial_num_prefixes);
+			when "chpl"{ //chapel-based GPU code
+				
 				if(initial_num_prefixes>0) then metrics+= queens_CHPL_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
 					initial_num_prefixes);
 		
@@ -46,9 +47,7 @@ module queens_GPU_call_intermediate_search{
 		
 			} 
 		}
-
-
-
+		
 		tree_each_locale[here.id] += metrics[1]; //for load statistics
 
 		return metrics;

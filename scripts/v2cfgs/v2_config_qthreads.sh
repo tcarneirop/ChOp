@@ -3,7 +3,8 @@
 
 echo " ### exporting...  ### "
 
-export CHPL_HOME=/scratch/carnei26/chapel-2.1.0
+#export CHPL_HOME=/scratch/carnei26/chapel-2.1.0
+export CHPL_HOME="/lustre/projects/csa/dvm/dvm_runs/carnei26/chapel-2.1.0"
 
 export CHPL_LLVM=system
 #export CHPL_LLVM=none

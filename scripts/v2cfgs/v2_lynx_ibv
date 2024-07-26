@@ -34,7 +34,7 @@ setupChplenv() {
   export GASNET_QUIET=1
 
   export GASNET_IBV_SPAWNER=ssh
-  export GASNET_PHYSMEM_MAX='0.25'
+  export GASNET_PHYSMEM_MAX='0.18'
 
   export CHOP_HOME=~/ChOp
   export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$CHOP_HOME"/libs

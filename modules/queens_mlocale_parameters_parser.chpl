@@ -56,26 +56,19 @@ module queens_mlocale_parameters_parser{
 						forall idx in distributed_active_set with (+ reduce metrics) do {
 							
 							var m1 = queens_subtree_explorer(size,initial_depth:int(32), idx);
-		
 							metrics+=m1;
 
-							if(queens_checkPointer){
-								checkpt.partial_tree.add(m1[1]);
-								checkpt.partial_num_sol.add(m1[0]);
-								checkpt.progress.add(1); //for each ite
-							}//checkpointer
-					
+							on idx do tree_each_locale[here.id] += m1[1];
+							
 						}//for
 
 
 					}//mlocale-naive
-
 					
-					when "mlocale"{
+					when "nested"{
 
 						forall n in distributed_active_set with (+ reduce metrics) do {
-							var m1 = queens_call_intermediate_search(size,initial_depth,
-								second_depth,slchunk,n,tree_each_locale);
+							var m1 = queens_call_intermediate_search(size,initial_depth,second_depth,slchunk,n,tree_each_locale);
 							metrics+=m1;
 							if(queens_checkPointer){
 								checkpt.partial_tree.add(m1[1]);
@@ -109,10 +102,6 @@ module queens_mlocale_parameters_parser{
 
 
 
-
-
-
-
 			when "dynamic" {
 			
 				select mlsearch{//what's the kind of multilocale search?
@@ -125,19 +114,17 @@ module queens_mlocale_parameters_parser{
 							var m1 = queens_subtree_explorer(size,initial_depth:int(32), distributed_active_set[idx]);
 							
 							metrics+=m1;
-
-							if(queens_checkPointer){
-								checkpt.partial_tree.add(m1[1]);
-								checkpt.partial_num_sol.add(m1[0]);
-								checkpt.progress.add(1);
-							}//checkpointer
+							on idx do tree_each_locale[here.id] += m1[1];
 
 						}//for
 					}//mlocale
 
 
-					when "mlocale"{
-						forall idx in distributedDynamic(c=Space, chunkSize=lchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
+					when "nested"{
+						writeln("################### Queens - distributed - nested - dynamic ###################");
+						
+						forall idx in distributedDynamic(numTasks=5, c=Space, chunkSize=lchunk,localeChunkSize=mlchunk,
+							coordinated=flag_coordinated) with (+ reduce metrics) do {
 							var m1 = queens_call_intermediate_search(size,initial_depth,
 								second_depth,slchunk,distributed_active_set[idx],tree_each_locale);
 							metrics+=m1;
@@ -202,7 +189,20 @@ module queens_mlocale_parameters_parser{
 
 				select mlsearch{
 
-					when "mlocale"{
+						when "naive"{ 
+							writeln("################### Queens- distributed - naive - guided ###################");
+							forall idx in distributedGuided(c=Space,minChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
+							
+								var m1 = queens_subtree_explorer(size,initial_depth:int(32), distributed_active_set[idx]);
+							
+								metrics+=m1;
+								on idx do tree_each_locale[here.id] += m1[1];
+
+						}//for
+					}//mlocale
+
+
+					when "nested"{
 						forall idx in distributedGuided(c=Space,minChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
 							var m1 = queens_call_intermediate_search(size,initial_depth,
 								second_depth,slchunk,distributed_active_set[idx],tree_each_locale);
