@@ -55,7 +55,7 @@ inline void queens_keep_subproblem(QueenRoot *__restrict__ root_prefixes,unsigne
 }
 
 
-unsigned long long int queens_subtree_enumeration(int size, int initialDepth,
+unsigned long long queens_subtree_enumeration(int size, int initialDepth,
     unsigned long long *__restrict__ tree_size, QueenRoot *__restrict__ root_prefixes){
 
     unsigned int flag = 0;
