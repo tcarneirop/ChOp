@@ -9,3 +9,7 @@ OMP_SCHEDULE="dynamic,128"  ./ompq.out <size> <initial depth> <chunk>
 for dynamic scheduler with chunck size of 128
 
 Important: the <chunk> parameter is not used. However, for some reason, when I remove I get an execution time around 15% slower. 
+
+
+ml CMake
+/lustre/projects/csa/dvm/dvm_runs/carnei26/llvm-project/build/bin/clang -I/usr/lib/gcc/x86_64-linux-gnu/9/include/  -DIMPROVED -DREPORT -O3 -Werror -Wno-error=register   -fopenmp bitset.cpp -o bitset.out

@@ -46,7 +46,29 @@ inline bool queens_is_legal_placement(const char *__restrict__ board, const int 
 }
 
 
-inline void queens_keep_subproblem(QueenRoot *__restrict__ root_prefixes,unsigned int flag,char *__restrict__  board,int initialDepth,int num_sol){
+
+inline bool queens_is_legal_placement_depth(const char *__restrict__ board, const int r, const int initial_depth)
+{
+
+    int i;
+    int ld;
+    int rd;
+    // Check vertical
+    for ( i = initial_depth-1; i < r; ++i)
+        if (board[i] == board[r]) return false;
+    // Check diagonals
+    ld = board[r];  //left diagonal columns
+    rd = board[r];  // right diagonal columns
+    for ( i = r-1; i >= 0; --i) {
+      --ld; ++rd;
+      if (board[i] == ld || board[i] == rd) return false;
+    }
+
+    return true;
+}
+
+inline void queens_keep_subproblem(QueenRoot *__restrict__ root_prefixes,unsigned int flag,
+    char *__restrict__  board,int initialDepth,int num_sol){
 
     root_prefixes[num_sol].control = flag;
 
@@ -55,7 +77,7 @@ inline void queens_keep_subproblem(QueenRoot *__restrict__ root_prefixes,unsigne
 }
 
 
-unsigned long long queens_subtree_enumeration(int size, int initialDepth,
+unsigned long long queens_subproblem_generation(int size, int initialDepth,
     unsigned long long *__restrict__ tree_size, QueenRoot *__restrict__ root_prefixes){
 
     unsigned int flag = 0;
@@ -85,8 +107,7 @@ unsigned long long queens_subtree_enumeration(int size, int initialDepth,
 
         if(board[depth] == size){
             board[depth] = _EMPTY_;
-                //if(block_ub > upper)   block_ub = upper;
-        }else if ( queens_is_legal_placement(board, depth) && !(flag &  bit_test ) ){ //it is a valid subsol 
+        }else if ( !(flag &  bit_test ) && queens_is_legal_placement(board, depth) ){ //it is a valid subsol 
    
            #ifdef IMPROVED
             if(depth == 1){
@@ -121,7 +142,7 @@ unsigned long long queens_subtree_enumeration(int size, int initialDepth,
     return num_sol;
 }
 
-void queens_subproblem_generation(const unsigned idx, const int N, const unsigned nPrefixes, 
+void queens_subtree_enumeration(const unsigned idx, const int N, const unsigned nPrefixes, 
     const int initial_depth, QueenRoot *__restrict__ root_prefixes,
     unsigned long long int *__restrict__ vector_of_tree_size, 
     unsigned long long int *__restrict__ sols){
@@ -155,7 +176,7 @@ void queens_subproblem_generation(const unsigned idx, const int N, const unsigne
             board[depth] = _EMPTY_;
             depth--;
             flag &= ~(1<<board[depth]);
-        }else if (!(flag &  mask ) && queens_is_legal_placement(board, depth)){
+        }else if (!(flag &  mask ) && queens_is_legal_placement_depth(board, depth,depthGlobal)){
 
                 ++tree_size;
                 flag |= mask;
@@ -169,7 +190,7 @@ void queens_subproblem_generation(const unsigned idx, const int N, const unsigne
                     flag &= ~mask;
                 }
             }
-        }while(depth >= depthGlobal); //FIM DO DFS_BNB
+        }while(depth >= depthGlobal); 
 
     sols[idx] = qtd_sols_thread ;
     vector_of_tree_size[idx] = tree_size;
@@ -185,7 +206,7 @@ void call_queens(int size, int initialDepth, int chunk){
     unsigned long long qtd_sols_global = 0ULL;
     unsigned long long total_tree_size = 0ULL;
 
-    unsigned int nMaxPrefixes = 95580635;
+    unsigned nMaxPrefixes = 95580635;
     int num_gpus = 0;
 
 
@@ -200,7 +221,8 @@ void call_queens(int size, int initialDepth, int chunk){
     double initial_time = rtclock();
 
     //initial search, getting Feasible, Valid and Incomplete solutions -- subproblems;
-    unsigned long long n_subproblems = queens_subproblem_generation((short)size, initialDepth ,&initial_tree_size, subproblems_pool);
+    unsigned long long n_subproblems = queens_subproblem_generation((short)size, initialDepth, &initial_tree_size, subproblems_pool);
+
 
     printf("\n### Queens size: %d, Initial depth: %d - Num_explorers: %llu - num_threads: %d", size, initialDepth,n_subproblems, omp_get_max_threads());
 
@@ -209,7 +231,7 @@ void call_queens(int size, int initialDepth, int chunk){
         int id = omp_get_thread_num();
         queens_subtree_enumeration(subproblem, size, n_subproblems, initialDepth, subproblems_pool,vector_of_tree_size_h, solutions_h);
         #ifdef REPORT
-        thread_load[id] += vector_of_tree_size_h[id];
+        thread_load[id] += vector_of_tree_size_h[subproblem];
         #endif
     } 
  

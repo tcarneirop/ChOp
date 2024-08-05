@@ -12,7 +12,7 @@
 
 /// this is used to check if the solution produced is correct
 unsigned long long check_sols_number[] = {0,	0,	0,	2,	10,	4,	40,	92,	352,	724,	2680,	14200,	73712,	
-365596,	2279184,	14772512,	95815104,	666090624,	4968057848,	39029188884,	314666222712,2691008701644,24233937684440,227514171973736 };
+365596,	2279184,	14772512,	95815104,	666090624,	4968057848,	39029188884,314666222712,2691008701644,24233937684440,227514171973736 };
 
 double rtclock()
 {
@@ -91,7 +91,7 @@ unsigned long long int queens_subproblem_generation(const int size, const int in
         if(board[depth] == size){
             board[depth] = _EMPTY_;
                 //if(block_ub > upper)   block_ub = upper;
-        }else if ( queens_is_legal_placement(board, depth) && !(flag &  bit_test ) ){ //it is a valid subsol 
+        }else if (  !(flag &  bit_test ) && queens_is_legal_placement(board, depth)  ){ //it is a valid subsol 
    
            #ifdef IMPROVED
             if(depth == 1){
@@ -283,7 +283,7 @@ void queens_call_mpi_queens(int size, int initialDepth, int mpi_rank, int num_ra
         unsigned long long smallest = ULLONG_MAX;
       
         
-        printf("\n\n########## Per-rank Load Report: \n");
+        printf("\n\n########## Per-rank Load Report: <rank> <tree_size> <exec_time> \n");
         for(int rank = 0; rank<num_ranks;++rank){
             
             if (rank_loads[rank] < smallest) {smallest = rank_loads[rank]; smallest_load = rank;}
@@ -294,8 +294,8 @@ void queens_call_mpi_queens(int size, int initialDepth, int mpi_rank, int num_ra
 
         }
 
-        printf("\n\tBiggest load: %llu -  %.3f sec. ", rank_loads[biggest_load], rank_exec_times[biggest_load] );
-        printf("\n\tSmallest load: %llu - %.3f sec. ", rank_loads[smallest_load], rank_exec_times[smallest_load] );
+        printf("\n\tBiggest load: %llu -  %.3f ", rank_loads[biggest_load], rank_exec_times[biggest_load] );
+        printf("\n\tSmallest load: %llu - %.3f ", rank_loads[smallest_load], rank_exec_times[smallest_load] );
         printf("\n\tBiggest/Smallest: %.3f\n", (double)rank_loads[biggest_load]/(double)rank_loads[smallest_load]);
 
     }
