@@ -277,7 +277,7 @@ void call_MPI_mcore_search(long long board_size, long long cutoff_depth, int mpi
     double rank_initial_time = rtclock();
 
 
-    Subproblem *subproblem_pool = (Subproblem*)(malloc(sizeof(Subproblem)*(unsigned)10000000));
+    Subproblem *subproblem_pool = (Subproblem*)(malloc(sizeof(Subproblem)*(unsigned)1000000));
     
     g_numsolutions = 0ULL;
     
@@ -286,30 +286,30 @@ void call_MPI_mcore_search(long long board_size, long long cutoff_depth, int mpi
     unsigned long long num_subproblems = g_numsolutions;
 
     unsigned long long num_sols_search = 0ULL;
-    unsigned long long mcore_tree_size[num_subproblems];
-    unsigned long long mcore_num_sols[num_subproblems];
 
-    for(unsigned long long i = 0; i<num_subproblems;++i){
-        mcore_num_sols[i] = 0ULL;
-        mcore_tree_size[i] = 0ULL;
-    }
 
     unsigned long long rank_load = queens_get_rank_load(mpi_rank,num_ranks, num_subproblems);
     subproblem_pool = subproblem_pool + num_subproblems/num_ranks*mpi_rank;
 
+    unsigned long long mcore_tree_size[rank_load];
+    unsigned long long mcore_num_sols[rank_load];
 
+    for(unsigned long long i = 0; i<rank_load;++i){
+        mcore_num_sols[i] = 0ULL;
+        mcore_tree_size[i] = 0ULL;
+    }
 
     if(mpi_rank == 0){
         printf("\n### Queens size: %lld, Num subproblems: %llu, Initial depth: %lld - rank_load: %llu - num_threads: %d", board_size, num_subproblems,cutoff_depth,rank_load, omp_get_max_threads());
     }
 
 
-    #pragma omp parallel for schedule(runtime) default(none) shared(num_subproblems,board_size,mcore_tree_size,mcore_num_sols, cutoff_depth, subproblem_pool)
-    for(int s = 0; s<num_subproblems; ++s){
+    #pragma omp parallel for schedule(runtime) default(none) shared(rank_load,board_size,mcore_tree_size,mcore_num_sols, cutoff_depth, subproblem_pool)
+    for(int s = 0; s<rank_load; ++s){
         mcore_final_search(board_size, cutoff_depth, subproblem_pool+s, s,mcore_tree_size,mcore_num_sols);
     }
 
-    for(int s = 0; s<num_subproblems;++s){
+    for(int s = 0; s<rank_load;++s){
         rank_tree_size+=mcore_tree_size[s];
         rank_num_sols+=mcore_num_sols[s];
     }
@@ -368,12 +368,12 @@ void call_MPI_mcore_search(long long board_size, long long cutoff_depth, int mpi
             if (rank_loads[rank] > biggest)  {biggest = rank_loads[rank]; biggest_load = rank;} 
 
 
-            printf("\tRank %d - load: %llu - %.3f\n", rank, rank_loads[rank], rank_exec_times[rank] );
+            printf("\tRank %d - Local tree: %llu - %.3f\n", rank, rank_loads[rank], rank_exec_times[rank] );
 
         }
 
-        printf("\n\tBiggest load: %llu -  %.3f ", rank_loads[biggest_load], rank_exec_times[biggest_load] );
-        printf("\n\tSmallest load: %llu - %.3f ", rank_loads[smallest_load], rank_exec_times[smallest_load] );
+        printf("\n\tBiggest local tree: %llu -  %.3f ", rank_loads[biggest_load], rank_exec_times[biggest_load] );
+        printf("\n\tSmallest local tree: %llu - %.3f ", rank_loads[smallest_load], rank_exec_times[smallest_load] );
         printf("\n\tBiggest/Smallest: %.3f\n", (double)rank_loads[biggest_load]/(double)rank_loads[smallest_load]);
 
     }
