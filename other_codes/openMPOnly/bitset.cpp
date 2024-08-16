@@ -30,14 +30,12 @@ double rtclock()
 
 typedef struct subproblem{
     
-    long long  aQueenBitRes[MAX_BOARDSIZE]; /* results */
-    long long  aQueenBitCol[MAX_BOARDSIZE]; /* marks colummns which already have queens */
-    long long  aQueenBitPosDiag[MAX_BOARDSIZE]; /* marks "positive diagonals" which already have queens */
-    long long  aQueenBitNegDiag[MAX_BOARDSIZE]; /* marks "negative diagonals" which already have queens */
-    long long  subproblem_stack[MAX_BOARDSIZE+2]; /* we use a stack instead of recursion */
-    long long   pnStackPos;
-    unsigned long long num_sols_sub;
+    long long  aQueenBitRes; /* results */
+    long long  aQueenBitCol; /* marks colummns which already have queens */
+    long long  aQueenBitPosDiag; /* marks "positive diagonals" which already have queens */
+    long long  aQueenBitNegDiag; /* marks "negative diagonals" which already have queens */
 } Subproblem;
+
 
 
 unsigned long long partial_search_64(long long board_size, long long cutoff_depth, Subproblem *__restrict__ subproblem_pool)
@@ -47,7 +45,7 @@ unsigned long long partial_search_64(long long board_size, long long cutoff_dept
     long long aQueenBitCol[MAX_BOARDSIZE]; /* marks colummns which already have queens */
     long long aQueenBitPosDiag[MAX_BOARDSIZE]; /* marks "positive diagonals" which already have queens */
     long long aQueenBitNegDiag[MAX_BOARDSIZE]; /* marks "negative diagonals" which already have queens */
-    long long aStack[MAX_BOARDSIZE + 2]; /* we use a stack instead of recursion */
+    long long aStack[MAX_BOARDSIZE]; /* we use a stack instead of recursion */
      
     register long long int *pnStack;
 
@@ -163,12 +161,11 @@ unsigned long long partial_search_64(long long board_size, long long cutoff_dept
 
                 if(numrows == cutoff_depth){
                  
-                    memcpy(subproblem_pool[g_numsolutions].aQueenBitRes, aQueenBitRes, sizeof(long long)*MAX_BOARDSIZE);
-                    memcpy(subproblem_pool[g_numsolutions].aQueenBitCol, aQueenBitCol, sizeof(long long)*MAX_BOARDSIZE);
-                    memcpy(subproblem_pool[g_numsolutions].aQueenBitPosDiag, aQueenBitPosDiag, sizeof(long long)*MAX_BOARDSIZE);
-                    memcpy(subproblem_pool[g_numsolutions].aQueenBitNegDiag, aQueenBitNegDiag, sizeof(long long)*MAX_BOARDSIZE);
-                    memcpy(subproblem_pool[g_numsolutions].subproblem_stack, aStack, sizeof(long long)*(MAX_BOARDSIZE+2));
-                   
+                    subproblem_pool[g_numsolutions].aQueenBitRes =  aQueenBitRes[numrows];
+                    subproblem_pool[g_numsolutions].aQueenBitCol = aQueenBitCol[numrows];
+                    subproblem_pool[g_numsolutions].aQueenBitPosDiag = aQueenBitPosDiag[numrows];
+                    subproblem_pool[g_numsolutions].aQueenBitNegDiag = aQueenBitNegDiag[numrows];
+                    
                     ++g_numsolutions;
 
                 } //if partial solution
@@ -192,17 +189,19 @@ unsigned long long partial_search_64(long long board_size, long long cutoff_dept
 
 
 
-void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem * subproblem, int index,
+void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem *__restrict__ subproblem, int index,
     unsigned long long *__restrict__ vec_tree_size, unsigned long long *__restrict__ vec_num_sols)
 {
 
-    long long* aQueenBitRes = subproblem->aQueenBitRes; 
-    long long* aQueenBitCol = subproblem->aQueenBitCol; 
-    long long* aQueenBitPosDiag = subproblem->aQueenBitPosDiag; 
-    long long* aQueenBitNegDiag = subproblem->aQueenBitNegDiag ; 
-    long long* aStack = subproblem->subproblem_stack ; 
-
-    register long long *pnStack;
+    
+    long long aQueenBitRes[MAX_BOARDSIZE]; /* results */
+    long long aQueenBitCol[MAX_BOARDSIZE]; /* marks colummns which already have queens */
+    long long aQueenBitPosDiag[MAX_BOARDSIZE]; /* marks "positive diagonals" which already have queens */
+    long long aQueenBitNegDiag[MAX_BOARDSIZE]; /* marks "negative diagonals" which already have queens */
+    long long aStack[MAX_BOARDSIZE]; /* we use a stack instead of recursion */
+     
+    register long long int *pnStack;
+    register long long int pnStackPos = 0LLU;
     
     //long long int pnStackPos = subproblem->pnStackPos;
 
@@ -217,12 +216,20 @@ void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem
 
     
     register long long numrows = cutoff_depth;
+    
+    aStack[0] = -1LL; /* set sentinel -- signifies end of stack */
 
-    //pnStack = aStack + pnStackPos; /* stack pointer */
     pnStack = aStack; /* stack pointer */
     
+    aQueenBitRes[numrows] = subproblem->aQueenBitRes; 
+    aQueenBitCol[numrows] = subproblem->aQueenBitCol; 
+    aQueenBitPosDiag[numrows] = subproblem->aQueenBitPosDiag; 
+    aQueenBitNegDiag[numrows] = subproblem->aQueenBitNegDiag; 
+    
+
     bitfield = mask & ~(aQueenBitCol[numrows] | aQueenBitNegDiag[numrows] | aQueenBitPosDiag[numrows]);
     
+
     /* this is the critical loop */
     for (;;)
     {
@@ -317,7 +324,7 @@ void call_mcore_search(long long board_size, long long cutoff_depth){
     }
 
 
-    printf("\nPARALLEL SEARCH: size %lld, Tree: %llu,  solutions: %llu\n", board_size,total_mcore_tree_size+initial_tree_size, total_mcore_num_sols*2);
+    printf("\nRESULTS: size %lld, Tree: %llu,  solutions: %llu\n", board_size,total_mcore_tree_size+initial_tree_size, total_mcore_num_sols*2);
     
     printf("\n#######################################\n");
 
