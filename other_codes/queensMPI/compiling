@@ -18,3 +18,4 @@ CC=OMPI_CC=clang mpic++ -O3 -I/usr/lib/gcc/x86_64-linux-gnu/9/include/ -Werror -
 
 CC=OMPI_CC='/lustre/projects/csa/dvm/dvm_runs/carnei26/llvm-project/build/bin/clang' mpic++ -O3 -I/usr/lib/gcc/x86_64-linux-gnu/9/include/ -Werror -Wno-error=register -fopenmp  -DCHECKSOL -DRANKLOADS MPIbitset.cpp -o MPIbitset.out
 mpirun -np 2 --hostfile $PBS_NODEFILE  --bind-to none -npernode 1 -x LD_LIBRARY_PATH -x OMP_NUM_THREADS=72 -x OMP_SCHEDULE="dynamic,4" ./MPIbitset.out 19 4
+export PMIX_MCA_gds=hash

@@ -30,10 +30,10 @@ double rtclock()
 
 typedef struct subproblem{
     
-    long long  aQueenBitRes; /* results */
-    long long  aQueenBitCol; /* marks colummns which already have queens */
-    long long  aQueenBitPosDiag; /* marks "positive diagonals" which already have queens */
-    long long  aQueenBitNegDiag; /* marks "negative diagonals" which already have queens */
+    long long  aQueenBitRes; 
+    long long  aQueenBitCol;
+    long long  aQueenBitPosDiag;
+    long long  aQueenBitNegDiag; 
 } Subproblem;
 
 
@@ -41,26 +41,24 @@ typedef struct subproblem{
 unsigned long long partial_search_64(long long board_size, long long cutoff_depth, Subproblem *__restrict__ subproblem_pool)
 {
 
-    long long aQueenBitRes[MAX_BOARDSIZE]; /* results */
-    long long aQueenBitCol[MAX_BOARDSIZE]; /* marks colummns which already have queens */
-    long long aQueenBitPosDiag[MAX_BOARDSIZE]; /* marks "positive diagonals" which already have queens */
-    long long aQueenBitNegDiag[MAX_BOARDSIZE]; /* marks "negative diagonals" which already have queens */
-    long long aStack[MAX_BOARDSIZE]; /* we use a stack instead of recursion */
+    long long aQueenBitRes[MAX_BOARDSIZE];
+    long long aQueenBitCol[MAX_BOARDSIZE]; 
+    long long aQueenBitPosDiag[MAX_BOARDSIZE]; 
+    long long aQueenBitNegDiag[MAX_BOARDSIZE]; 
+    long long aStack[MAX_BOARDSIZE]; 
      
     register long long int *pnStack;
 
     register long long int pnStackPos = 0LLU;
 
-    register long long numrows = 0LL; /* numrows redundant - could use stack */
-    register unsigned long long lsb; /* least significant bit */
-    register unsigned long long bitfield; /* bits which are set mark possible positions for a queen */
+    register long long numrows = 0LL; 
+    register unsigned long long lsb; 
+    register unsigned long long bitfield; 
     long long i;
-    long long odd = board_size & 1LL; /* 0 if board_size even, 1 if odd */
+    long long odd = board_size & 1LL; 
     
-    //Change here for the pool
-    //long long int board_minus = 45LL; /* board size - 1 */
-    long long mask = (1LL << board_size) - 1LL; /* if board size is N, mask consists of N 1's */
-
+    long long mask = (1LL << board_size) - 1LL; 
+    
     unsigned long long tree_size = 0ULL;
     /* Initialize stack */
     aStack[0] = -1LL; /* set sentinel -- signifies end of stack */
@@ -69,22 +67,13 @@ unsigned long long partial_search_64(long long board_size, long long cutoff_dept
     /* We need to loop through 2x if board_size is odd */
     for (i = 0; i < (1 + odd); ++i)
     {
-        /* We don't have to optimize this part; it ain't the
-           critical loop */
         bitfield = 0ULL;
         if (0LL == i)
         {
-            /* Handle half of the board, except the middle
-               column. So if the board is 5 x 5, the first
-               row will be: 00011, since we're not worrying
-               about placing a queen in the center column (yet).
-            */
-            long long int half = board_size>>1LL; /* divide by two */
-            /* fill in rightmost 1's in bitfield for half of board_size
-               If board_size is 7, half of that is 3 (we're discarding the remainder)
-               and bitfield will be set to 111 in binary. */
+           
+            long long int half = board_size>>1LL; 
             bitfield = (1LL << half) - 1LL;
-            pnStack = aStack + 1LL; /* stack pointer */
+            pnStack = aStack + 1LL; 
             
             pnStackPos++;
 
@@ -94,46 +83,34 @@ unsigned long long partial_search_64(long long board_size, long long cutoff_dept
         }
         else
         {
-            /* Handle the middle column (of a odd-sized board).
-               Set middle column bit to 1, then set
-               half of next row.
-               So we're processing first row (one element) & half of next.
-               So if the board is 5 x 5, the first row will be: 00100, and
-               the next row will be 00011.
-            */
             bitfield = 1 << (board_size >> 1);
             numrows = 1; /* prob. already 0 */
 
-            /* The first row just has one queen (in the middle column).*/
             aQueenBitRes[0] = bitfield;
             aQueenBitCol[0] = aQueenBitPosDiag[0] = aQueenBitNegDiag[0] = 0LL;
             aQueenBitCol[1] = bitfield;
 
-            /* Now do the next row.  Only set bits in half of it, because we'll
-               flip the results over the "Y-axis".  */
             aQueenBitNegDiag[1] = (bitfield >> 1ULL);
             aQueenBitPosDiag[1] = (bitfield << 1ULL);
-            pnStack = aStack + 1LL; /* stack pointer */
+            pnStack = aStack + 1LL;
             
             pnStackPos++;
 
-            *pnStack++ = 0LL; /* we're done w/ this row -- only 1 element & we've done it */
-            bitfield = (bitfield - 1ULL) >> 1ULL; /* bitfield -1 is all 1's to the left of the single 1 */
+            *pnStack++ = 0LL;
+            bitfield = (bitfield - 1ULL) >> 1ULL; 
         }
 
-        /* this is the critical loop */
         for (;;)
         {
          
-            lsb = -((signed long long)bitfield) & bitfield; /* this assumes a 2's complement architecture */
-            
+            lsb = -((signed long long)bitfield) & bitfield; 
             if (0ULL == bitfield)
             {
                 
-                bitfield = *--pnStack; /* get prev. bitfield from stack */
+                bitfield = *--pnStack; 
                 pnStackPos--;
 
-                if (pnStack == aStack) { /* if sentinel hit.... */
+                if (pnStack == aStack) { 
                     break ;
                 }
                 
@@ -141,11 +118,10 @@ unsigned long long partial_search_64(long long board_size, long long cutoff_dept
                 continue;
             }
             
-            bitfield &= ~lsb; /* toggle off this bit so we don't try it again */
-            aQueenBitRes[numrows] = lsb; /* save the result */
-
-            if (numrows < cutoff_depth) /* we still have more rows to process? */
-            {
+            bitfield &= ~lsb; 
+            aQueenBitRes[numrows] = lsb; 
+            
+            if (numrows < cutoff_depth) {
                 long long n = numrows++;
                 aQueenBitCol[numrows] = aQueenBitCol[n] | lsb;
                 aQueenBitNegDiag[numrows] = (aQueenBitNegDiag[n] | lsb) >> 1LL;
@@ -168,8 +144,7 @@ unsigned long long partial_search_64(long long board_size, long long cutoff_dept
                     
                     ++g_numsolutions;
 
-                } //if partial solution
-
+                } 
                 continue;
             }
             else
@@ -194,20 +169,19 @@ void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem
 {
 
     
-    long long aQueenBitRes[MAX_BOARDSIZE]; /* results */
-    long long aQueenBitCol[MAX_BOARDSIZE]; /* marks colummns which already have queens */
-    long long aQueenBitPosDiag[MAX_BOARDSIZE]; /* marks "positive diagonals" which already have queens */
-    long long aQueenBitNegDiag[MAX_BOARDSIZE]; /* marks "negative diagonals" which already have queens */
-    long long aStack[MAX_BOARDSIZE]; /* we use a stack instead of recursion */
+    long long aQueenBitRes[MAX_BOARDSIZE]; 
+    long long aQueenBitCol[MAX_BOARDSIZE]; 
+    long long aQueenBitPosDiag[MAX_BOARDSIZE]; 
+    long long aQueenBitNegDiag[MAX_BOARDSIZE]; 
+    long long aStack[MAX_BOARDSIZE]; 
      
     register long long int *pnStack;
     register long long int pnStackPos = 0LLU;
     
-    //long long int pnStackPos = subproblem->pnStackPos;
-
-    long long int board_minus = board_size - 1LL; /* board size - 1 */
-    long long int mask = (1LL << board_size) - 1LL; /* if board size is N, mask consists of N 1's */
-
+    
+    long long int board_minus = board_size - 1LL; 
+    long long int mask = (1LL << board_size) - 1LL; 
+    
     unsigned long long local_num_sols = 0ULL;
     unsigned long long tree_size = 0ULL;
     
@@ -217,9 +191,9 @@ void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem
     
     register long long numrows = cutoff_depth;
     
-    aStack[0] = -1LL; /* set sentinel -- signifies end of stack */
-
-    pnStack = aStack; /* stack pointer */
+    aStack[0] = -1LL; 
+    
+    pnStack = aStack; 
     
     aQueenBitRes[numrows] = subproblem->aQueenBitRes; 
     aQueenBitCol[numrows] = subproblem->aQueenBitCol; 
@@ -230,11 +204,10 @@ void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem
     bitfield = mask & ~(aQueenBitCol[numrows] | aQueenBitNegDiag[numrows] | aQueenBitPosDiag[numrows]);
     
 
-    /* this is the critical loop */
     for (;;)
     {
     
-        lsb = -((signed long long)bitfield) & bitfield; /* this assumes a 2's complement architecture */
+        lsb = -((signed long long)bitfield) & bitfield; 
         
         if (0ULL == bitfield)
         {
@@ -246,16 +219,15 @@ void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem
 
             bitfield = *--pnStack; /* get prev. bitfield from stack */
             
-            //printf("Backtracking!");
             --numrows;
             continue;
         }
 
-        bitfield &= ~lsb; /* toggle off this bit so we don't try it again */
-
-        aQueenBitRes[numrows] = lsb; /* save the result */
+        bitfield &= ~lsb; 
         
-        if (numrows < board_minus) /* we still have more rows to process? */
+        aQueenBitRes[numrows] = lsb;
+        
+        if (numrows < board_minus) 
         {
         
             long long n = numrows++;

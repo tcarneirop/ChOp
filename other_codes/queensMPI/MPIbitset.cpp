@@ -52,8 +52,8 @@ unsigned long long partial_search_64(long long board_size, long long cutoff_dept
     long long aQueenBitCol[MAX_BOARDSIZE]; /* marks colummns which already have queens */
     long long aQueenBitPosDiag[MAX_BOARDSIZE]; /* marks "positive diagonals" which already have queens */
     long long aQueenBitNegDiag[MAX_BOARDSIZE]; /* marks "negative diagonals" which already have queens */
-    long long aStack[MAX_BOARDSIZE]; /* we use a stack instead of recursion */
-     
+    long long aStack[MAX_BOARDSIZE]; 
+
     register long long int *pnStack;
 
     register long long int pnStackPos = 0LLU;
@@ -65,7 +65,6 @@ unsigned long long partial_search_64(long long board_size, long long cutoff_dept
     long long odd = board_size & 1LL; /* 0 if board_size even, 1 if odd */
     
     //Change here for the pool
-    //long long int board_minus = 45LL; /* board size - 1 */
     long long mask = (1LL << board_size) - 1LL; /* if board size is N, mask consists of N 1's */
 
     unsigned long long tree_size = 0ULL;
@@ -189,20 +188,19 @@ void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem
 {
 
     
-    long long aQueenBitRes[MAX_BOARDSIZE]; /* results */
-    long long aQueenBitCol[MAX_BOARDSIZE]; /* marks colummns which already have queens */
-    long long aQueenBitPosDiag[MAX_BOARDSIZE]; /* marks "positive diagonals" which already have queens */
-    long long aQueenBitNegDiag[MAX_BOARDSIZE]; /* marks "negative diagonals" which already have queens */
-    long long aStack[MAX_BOARDSIZE]; /* we use a stack instead of recursion */
-     
+    long long aQueenBitRes[MAX_BOARDSIZE];
+    long long aQueenBitCol[MAX_BOARDSIZE];
+    long long aQueenBitPosDiag[MAX_BOARDSIZE]; 
+    long long aQueenBitNegDiag[MAX_BOARDSIZE]; 
+    long long aStack[MAX_BOARDSIZE]; 
+
     register long long int *pnStack;
     register long long int pnStackPos = 0LLU;
     
-    //long long int pnStackPos = subproblem->pnStackPos;
-
-    long long int board_minus = board_size - 1LL; /* board size - 1 */
-    long long int mask = (1LL << board_size) - 1LL; /* if board size is N, mask consists of N 1's */
-
+    
+    long long int board_minus = board_size - 1LL;
+    long long int mask = (1LL << board_size) - 1LL; 
+    
     unsigned long long local_num_sols = 0ULL;
     unsigned long long tree_size = 0ULL;
     
@@ -212,9 +210,9 @@ void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem
     
     register long long numrows = cutoff_depth;
     
-    aStack[0] = -1LL; /* set sentinel -- signifies end of stack */
-
-    pnStack = aStack; /* stack pointer */
+    aStack[0] = -1LL; 
+    
+    pnStack = aStack;
     
     aQueenBitRes[numrows] = subproblem->aQueenBitRes; 
     aQueenBitCol[numrows] = subproblem->aQueenBitCol; 
@@ -225,11 +223,10 @@ void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem
     bitfield = mask & ~(aQueenBitCol[numrows] | aQueenBitNegDiag[numrows] | aQueenBitPosDiag[numrows]);
     
 
-    /* this is the critical loop */
     for (;;)
     {
     
-        lsb = -((signed long long)bitfield) & bitfield; /* this assumes a 2's complement architecture */
+        lsb = -((signed long long)bitfield) & bitfield; 
         
         if (0ULL == bitfield)
         {
@@ -239,19 +236,17 @@ void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem
                 break ;
             }
 
-            bitfield = *--pnStack; /* get prev. bitfield from stack */
+            bitfield = *--pnStack;
             
-            //printf("Backtracking!");
             --numrows;
             continue;
         }
 
-        bitfield &= ~lsb; /* toggle off this bit so we don't try it again */
-
-        aQueenBitRes[numrows] = lsb; /* save the result */
+        bitfield &= ~lsb; 
         
-        if (numrows < board_minus) /* we still have more rows to process? */
-        {
+        aQueenBitRes[numrows] = lsb; 
+        
+        if (numrows < board_minus) {
         
             long long n = numrows++;
             aQueenBitCol[numrows] = aQueenBitCol[n] | lsb;
@@ -397,9 +392,6 @@ void call_MPI_mcore_search(long long board_size, long long cutoff_depth, int mpi
 
 }////////////////////////////////////////////////
 
-
-
-/* main routine for N Queens program.*/
 int main(int argc, char** argv)
 {
 
