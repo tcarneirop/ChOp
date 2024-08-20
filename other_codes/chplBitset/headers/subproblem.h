@@ -9,7 +9,7 @@ typedef struct bitset_subproblem{
     long long  aQueenBitPosDiag; /* marks "positive diagonals" which already have queens */
     long long  aQueenBitNegDiag; /* marks "negative diagonals" which already have queens */
 
-} bitset_subproblem;
+} Bitset_subproblem;
 
 
 
