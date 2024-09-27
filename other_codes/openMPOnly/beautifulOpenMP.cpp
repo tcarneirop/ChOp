@@ -4,11 +4,18 @@
 #include <sys/time.h>
 #include <omp.h>
 #include <climits>
+#include <math.h>
 
 #define _EMPTY_      -1
+#include <algorithm>
 
-unsigned long long check_sols_number[] = {0,	0,	0,	2,	10,	4,	40,	92,	352,	724,	2680,	14200,	73712,	
-365596,	2279184,	14772512,	95815104,	666090624,	4968057848,	39029188884,314666222712,2691008701644,24233937684440,227514171973736 };
+#define MAX_BOARD 256
+
+#define beauty(i,j) beauty[(i)*(size)+(j)]
+
+int beauty[MAX_BOARD*MAX_BOARD];
+
+
 
 
 double rtclock()
@@ -28,6 +35,87 @@ typedef struct queen_root{
 
 
 
+inline void queens_return_beauty_from_sol(char *__restrict__ board, unsigned * beauty_vector, const int size){
+    
+    for(int i = 0; i<size;++i){
+        beauty_vector[i] = beauty(i,board[i]);
+        printf("%u - ", beauty_vector[i]);
+    }
+
+    std::sort(beauty_vector, beauty_vector+size,std::greater<>());
+
+    
+    //for(int i = 0; i<size;++i){
+    //    printf("beauty_vector[%d] - %u - \n", i,beauty_vector[i]);
+    //}
+
+}   
+
+
+
+bool queens_is_more_beautiful(unsigned *__restrict__ current_beauty_vector, unsigned *__restrict__ best_beauty_vector, const int size ){
+    
+    for(int i = size-1; i>=0;--i){
+        if(current_beauty_vector[i] >= best_beauty_vector[i]) 
+            return false;
+    
+    }
+
+    return true;
+}   
+
+
+bool queens_partial_is_more_beautiful(unsigned *__restrict__ current_beauty_vector, 
+    unsigned *__restrict__ best_beauty_vector){
+    
+        
+    return !(current_beauty_vector[0] >= best_beauty_vector[0]); 
+    
+}   
+
+void queens_start_board_beauty(const int size){
+
+    for(int i = 0; i<size;++i){
+        for(int j = 0; j<size;++j){
+            beauty(i,j) = (pow((2*(i+1)-size-1),2) + pow((2*(j+1)-size-1),2));
+        }
+    }
+
+    for(int i = 0; i<size;++i){
+        for(int j = 0; j<size;++j){
+            printf(" %d - ",beauty(i,j));
+        }
+        printf("\n");
+    }
+    
+}
+
+inline void queens_how_beautiful(char *__restrict__ board, unsigned int *abc, const int size){
+
+    int beauty[size*size];
+    int sol_beauty[size];
+    //std::sort(beauty, beauty+size);
+
+    printf("\n");
+
+    for(int i = 0; i<size;++i){
+        sol_beauty[i] = beauty(i,board[i]);
+    }
+
+    std::sort(sol_beauty, sol_beauty+size,std::greater<>());
+
+   // for(int i = 0; i<size;++i){
+   //     printf(" %d - ",sol_beauty[i]);
+   // }
+
+    printf("\n");
+    for(int i = 0; i<size;++i){
+        printf(" %d - ",board[i]+1);
+    }
+    //exit(1);
+    
+}
+
 inline bool queens_is_legal_placement(const char *__restrict__ board, const int r)
 {
 
@@ -35,8 +123,8 @@ inline bool queens_is_legal_placement(const char *__restrict__ board, const int 
     int ld;
     int rd;
     // Check vertical
-    //for ( i = 0; i < r; ++i)
-    //    if (board[i] == board[r]) return false;
+    for ( i = 0; i < r; ++i)
+        if (board[i] == board[r]) return false;
     // Check diagonals
     ld = board[r];  //left diagonal columns
     rd = board[r];  // right diagonal columns
@@ -75,8 +163,7 @@ inline void queens_keep_subproblem(QueenRoot *__restrict__ root_prefixes,unsigne
 
     root_prefixes[num_sol].control = flag;
 
-    for(int i = 0; i<initialDepth;++i)
-      root_prefixes[num_sol].board[i] = (char)board[i];
+    for(int i = 0; i<initialDepth;++i) root_prefixes[num_sol].board[i] = (char)board[i];
 }
 
 
@@ -93,6 +180,8 @@ unsigned long long queens_subproblem_generation(int size, int initialDepth,
     #ifdef IMPROVED
     uint break_cond =  (size/2) + (size & 1);
     #endif 
+    
+    unsigned beauty_vector[size];
 
     /*initialization*/
     for (i = 0; i < size; ++i) { //
@@ -115,7 +204,7 @@ unsigned long long queens_subproblem_generation(int size, int initialDepth,
            #ifdef IMPROVED
             if(depth == 1){
 
-                if(size& 1){
+                if(size & 1){
                     if (board[0] == break_cond-1 && board[1] > board[0]) 
                         break;
                 }
@@ -131,6 +220,20 @@ unsigned long long queens_subproblem_generation(int size, int initialDepth,
                 ++local_tree;
                 if (depth == initialDepth){ //handle solution
                    queens_keep_subproblem(root_prefixes,flag,board,initialDepth,num_sol);
+                   queens_return_beauty_from_sol(board, beauty_vector, depth);
+                   
+                   if(beauty_vector[0] == 226){
+
+
+                   for(int i = 0; i<size;++i){
+                        printf(" %d - ", beauty_vector[i]);
+                   }
+                   printf("\n");
+                    for(int i = 0; i<size;++i){
+                        printf(" %d - ", board[i]);
+                    }
+                }
+                   
                    num_sol++;
             }else continue;
         }else continue;
@@ -188,13 +291,7 @@ void queens_subtree_enumeration(const unsigned idx, const int N, const unsigned 
 
                 if (depth == N_l) { //sol
                     ++qtd_sols_thread ;
-                    #ifdef PRINTSOL
-                    printf("\n");
-                    for(int i = 0; i<N_l;++i){
-                        printf(" %d - ", board[i]);
-                    }
-                    printf("\n");
-                    #endif
+
                     depth--;
                     flag &= ~mask;
                 }
@@ -272,16 +369,6 @@ void call_queens(int size, int initialDepth, int chunk){
     printf("\n\nInitial tree size: %llu", initial_tree_size );
     printf("\nParallel Tree size: %llu\nTotal tree size: %llu\nNumber of solutions found: %llu.\n", total_tree_size,(initial_tree_size+total_tree_size),qtd_sols_global );
     printf("\nElapsed total: %.3f\n", (final_time-initial_time));
-    
-    #ifdef CHECKSOL
-       
-        if(qtd_sols_global  == check_sols_number[size-1])
-            printf("\n####### SUCCESS - CORRECT NUMBER OF SOLS. FOR SIZE %d\n", size);
-        else
-            printf("########## ERROR -- INCORRECT NUMBER FOS SOLS. FOR SIZE %d\n", size);
-    
-    #endif
-
     #ifdef REPORT
     printf("\n\tBiggest thread load: %llu", biggest);
     printf("\n\tSmallest thread load: %llu", smallest);
@@ -298,12 +385,17 @@ int main(int argc, char *argv[]){
     int chunk;
     int initialDepth;
 
+    char test_vec[]={8,10 , 3, 13 , 9 , 1 , 4 , 0, 15, 11, 14, 6, 2, 12, 5, 7};
+    char test_vec2[]={5, 10, 15, 3 , 0 , 9 , 12 , 2 , 7 , 11 , 13 , 1 , 4 , 14, 8, 6 };
+    
+    //char test_vec6[]={1,3,5,0,2,4};
+
     #ifdef IMPROVED
         printf("### IMPROVED SEARCH - Avoiding mirrored solutions\n");
     #endif
 
     if (argc != 4) {
-        printf("Usage: %s <size> <initial depth> <omp_chunk>\n", argv[0]);
+        printf("Usage: %s <size> <initial depth>\n", argv[0]);
         return 1;
     }
 
@@ -311,7 +403,41 @@ int main(int argc, char *argv[]){
     initialDepth = atoi(argv[2]);
     chunk = atoi(argv[3]);
 
-    call_queens(size, initialDepth,chunk);
+    printf("Size: %d \n\n", size);
+
+
+    unsigned beauty_vector[size];
+    unsigned beauty_vector2[size];
+
+    queens_start_board_beauty(size);
+    
+    printf("\nVector 1: ");
+    for(int i = 0; i<size;++i){
+        printf(" %d - ", test_vec[i]);
+    }
+    printf("\n");
+    queens_return_beauty_from_sol(test_vec, beauty_vector, size);
+    printf("\n");
+    for(int i = 0; i<size;++i){
+        printf("beauty_vector1[%d] - %u - \n", i,beauty_vector[i]);
+    }
+
+
+    printf("\nVector 2: ");
+    for(int i = 0; i<size;++i){
+        printf(" %d - ", test_vec2[i]);
+    }
+    printf("\n");
+    queens_return_beauty_from_sol(test_vec2, beauty_vector2, size);
+    printf("\n");
+    for(int i = 0; i<size;++i){
+        printf("beauty_vector2[%d] - %u - \n", i,beauty_vector2[i]);
+    }
+
+    printf("Is Vec2 more beautiful than vec1?: ");
+    printf("%d", queens_is_more_beautiful(beauty_vector2,beauty_vector, size ));
+   // exit(1);
+   // call_queens(size, initialDepth,chunk);
 
     return 0;
 }

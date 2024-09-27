@@ -37,8 +37,8 @@ inline bool queens_is_legal_placement(const char *__restrict__ board, const int 
     int ld;
     int rd;
     // Check vertical
-    for ( i = 0; i < r; ++i)
-        if (board[i] == board[r]) return false;
+    //for ( i = 0; i < r; ++i)
+    //    if (board[i] == board[r]) return false;
     // Check diagonals
     ld = board[r];  //left diagonal columns
     rd = board[r];  // right diagonal columns
