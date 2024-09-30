@@ -43,12 +43,14 @@ inline void queens_return_beauty_from_sol(int *__restrict__ board, unsigned * be
 
 }   
 
-inline void queens_beauty_partial_sol(int *__restrict__ board, unsigned * beauty_vector, const int position, bool sort){
+inline void queens_beauty_partial_sol(int *__restrict__ board, unsigned * beauty_vector, const int size, const int position, bool sort_sol){
     
-    beauty_vector[i] = beauty(i,board[i]);
+    beauty_vector[position] = beauty(position,board[position]);
     //printf("%u - ", beauty_vector[i]);
     
-    if sort(std::sort(beauty_vector, beauty_vector+size,std::greater<>()));
+    if(sort_sol){
+        std::sort(beauty_vector, beauty_vector+(position+1),std::greater<>());
+    }
 
 }   
 
@@ -110,7 +112,8 @@ inline void shuffle(int *__restrict__ array, int n) {
 }
 
 // Function to construct a valid N-Queens solution with random row selection
-int construct_random_solution(int *__restrict__ board, int *__restrict__ best, int n) {
+int construct_random_solution(int *__restrict__ board, unsigned *__restrict__ current_beauty,
+    unsigned *__restrict__ best_beauty , int n) {
    
     for (int col = 0; col < n; col++) {
         
@@ -132,8 +135,19 @@ int construct_random_solution(int *__restrict__ board, int *__restrict__ best, i
         // Shuffle the list of valid rows and choose a random one
         shuffle(rows, row_count);
         board[col] = rows[0];  // Place the queen in a random safe row
-
-       // queens_beauty_partial_sol(board, beauty_vector, col, false);
+/* 
+        if((col%5)==0){
+            queens_beauty_partial_sol(board, current_beauty,n,col, true);
+            if(!queens_partial_is_more_beautiful(current_beauty, best_beauty, col+1)){
+                return 0;
+            }
+        }
+        else{
+            queens_beauty_partial_sol(board, current_beauty,n,col, false);
+        }
+            
+ */
+    
        
     }
 
@@ -149,7 +163,7 @@ bool solve_n_queens(int *best, unsigned * best_beauty, int *current, unsigned * 
     
     // Keep trying until a valid solution is found
     while (!success) {
-        success = construct_random_solution(current, best, n);
+        success = construct_random_solution(current, current_beauty,best_beauty, n);
     }
    
    
