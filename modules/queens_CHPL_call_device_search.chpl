@@ -1,3 +1,4 @@
+
 module queens_CHPL_call_device_search{
 
 	use queens_tree_exploration;
@@ -26,27 +27,28 @@ module queens_CHPL_call_device_search{
 		var  tree_size_h: [0..#num_gpus] c_ulonglong = 0;
 		var  num_sols_h: [0..#num_gpus] c_ulonglong = 0;
 
+
 		coforall gpu_id in 0..#num_gpus:c_int do {
 			
+
 			var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
 
-			var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
-					gpu_id:c_uint, num_gpus:c_uint, 0:c_uint);
+			var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint, gpu_id:c_uint, num_gpus:c_uint, 0:c_uint);
 			
-			var my_load = starting_position..#(gpu_load); /// !!! HERE !!! -- I dont know if this range is correct... but it is working... 
+			var my_load = starting_position..#(gpu_load); 
 			
-
+			var new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+			
 			//writeln("Total num prefixes: ",new_num_prefixes," GPU id: ", gpu_id,"starting_position: ", starting_position, " My load:   ", my_load , " GPU load: ", gpu_load,  "   " ,gpu_id..#gpu_id);
 	  
 			param _EMPTY_ = -1;
 
-			on here.gpus[gpu_id] {
+			on here.gpus[new_gpu_id] {
 				
-				var root_prefixes = local_active_set[my_load]; //!!!! HERE !!!!! [my_load] to the other ones
+				var root_prefixes = local_active_set[my_load]; 
 				
-				var sols: [my_load] c_ulong; //!!!! HERE !!!!!
-				var vector_of_tree_size: [my_load] c_ulong; //!!!! HERE !!!!!
-
+				var sols: [my_load] c_ulong; 
+				var vector_of_tree_size: [my_load] c_ulong; 
 
 				//writeln("starting loop");
 				foreach idx in my_load{ 
@@ -108,8 +110,8 @@ module queens_CHPL_call_device_search{
 					
 				}
 
-				reduce_tree_size[gpu_id] = gpuSumReduce(vector_of_tree_size); //!!!! HERE !!!!!
-				reduce_num_sols[gpu_id] =  gpuSumReduce(sols);	//!!!! HERE !!!!!
+				reduce_tree_size[gpu_id] = gpuSumReduce(vector_of_tree_size); 
+				reduce_num_sols[gpu_id] =  gpuSumReduce(sols);
 				
 			}//for idx in myload
 			
@@ -117,8 +119,8 @@ module queens_CHPL_call_device_search{
 
 		//stopVerboseGpu();
 
-		var redTree = (+ reduce reduce_tree_size):uint(64); //!!!! HERE !!!!!
-		var redSol  = (+ reduce reduce_num_sols):uint(64); //!!!! HERE !!!!!
+		var redTree = (+ reduce reduce_tree_size):uint(64); 
+		var redSol  = (+ reduce reduce_num_sols):uint(64); 
 
 		return ((redSol,redTree)+metrics);
 	}
