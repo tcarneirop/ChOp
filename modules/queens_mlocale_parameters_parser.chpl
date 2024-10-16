@@ -7,10 +7,9 @@ module queens_mlocale_parameters_parser{
 	
 	config param GPU: bool = true;
 
-	if(GPU) then {
-		use GPU_mlocale_utils;
-		use queens_GPU_call_intermediate_search;
-	}
+	use GPU_mlocale_utils;
+	use queens_GPU_call_intermediate_search;
+	
 
 	use queens_node_module;
 	use queens_call_intermediate_search;
