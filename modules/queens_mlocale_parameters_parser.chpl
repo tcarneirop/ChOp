@@ -5,7 +5,7 @@ module queens_mlocale_parameters_parser{
 	use checkpointing as checkpt;
 	use DynamicIters;
 	
-	config param GPU: bool = false;
+	config param GPU: bool = true;
 
 	if(GPU) then {
 		use GPU_mlocale_utils;

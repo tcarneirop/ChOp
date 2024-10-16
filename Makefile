@@ -17,8 +17,10 @@ AMD_DIR := /opt/rocm/
 CHPL_GPU_DEBUB_FLAGS = -s CPUGPUVerbose=false
 CHPL_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true
 
-CHPL_SINGLE_LOC_CPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=false -s MULTILOCALE=false 
+CHPL_SINGLE_LOC_CPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=false -s MULTILOCALE=false
 CHPL_MLOCALE_CPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=false -s MULTILOCALE=true -s queens_mlocale_parameters_parser.GPU=false
+CHPL_MLOCALE_GPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=true -s MULTILOCALE=true -s queens_mlocale_parameters_parser.GPU=true
+
 CHPL_PERF_FLAGS = --fast --no-bounds-checks --target-cpu native
 
 singlelocalecpu: dir
@@ -47,24 +49,20 @@ chapelcuda: cuda dir
 	@echo " ### Building the Chapel-CUDA code... ### "
 	@echo
 
-	chpl -s avoidMirrored=true -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
-	
+	chpl $(CHPL_MLOCALE_GPU_FLAGS) -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
 	@echo
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)
-	
 
 chapelamd: amd dir
-	@echo 
+	@echo
 	@echo " ### Building the Chapel-AMD code... ### "
-	@echo 
+	@echo
 
-	chpl -s avoidMirrored=true -s GPUAMD=true -s GPUCUDA=false -I$(AMD_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(AMD_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
-	
-	@echo 
+	chpl $(CHPL_MLOCALE_GPU_FLAGS) -s GPUAMD=true -s GPUCUDA=false -I$(AMD_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(AMD_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
+	@echo
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)
-	
 cuda: dir
 	@echo 
 	@echo " ### starting CUDA compilation ### "
