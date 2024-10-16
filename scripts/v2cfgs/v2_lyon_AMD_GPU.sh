@@ -11,11 +11,12 @@ setupChplenv() {
   #module load cmake
   #module load libfabric
   #ml llvm-amdgpu
-  module load llvm-amdgpu/5.2.0_gcc-10.4.0 
+  #module load llvm-amdgpu/5.2.0_gcc-10.4.0
   # Ignore our errors about ofi/psm not being supported
-  #export CHPL_GASNET_ALLOW_BAD_SUBSTRATE=true
 
-  export CHPL_HOME=~/chapel-2.0.0
+module load hip/5.2.0_gcc-10.4.0
+
+  export CHPL_HOME=~/chapel-2.1.0
  # if [ -d "$CHPL_HOME" ]; then
     CHPL_BIN_SUBDIR=`"$CHPL_HOME"/util/chplenv/chpl_bin_subdir.py`
     export PATH="$PATH":"$CHPL_HOME/bin/$CHPL_BIN_SUBDIR:$CHPL_HOME/util"
@@ -38,7 +39,7 @@ setupChplenv() {
   export CHPL_GPU_MEM_STRATEGY=array_on_device
   export CHPL_LOCALE_MODEL=gpu
   export CHPL_GPU=amd
-  export CHPL_ROCM_PATH=/opt/rocm-4.5.0
+  export CHPL_ROCM_PATH=/opt/rocm
   export CHPL_GPU_ARCH=gfx906
 
   export CHOP_HOME=~/ChOp
@@ -61,19 +62,9 @@ setupChplenv() {
 
 }
 
-downloadChpl() {
-  setupChplenv
-  if [ ! -d "$CHPL_HOME" ]; then
-    cd ~/
-    # Download Chapel 1.27
-    wget -c https://github.com/chapel-lang/chapel/releases/download/1.33.0/chapel-1.32.0.tar.gz -O - | tar xz
-    setupChplenv
-  fi
-}
 
 buildChpl() {
   setupChplenv
-  downloadChpl
   pushd $CHPL_HOME
   nice make -j `nproc`
   make test-venv

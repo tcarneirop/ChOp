@@ -19,7 +19,7 @@ config param MULTILOCALE: bool = false;
 
 use queens_call_multilocale_search;
 
-if(GPUMAIN) then use queens_GPU_single_locale;
+use queens_GPU_single_locale;
 
 
 //use parametrization_local_search;

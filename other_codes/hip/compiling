@@ -1,7 +1,9 @@
 To compile de multi-GPU code:
 
 
-DEVICE_LIB_PATH=/opt/rocm-4.5.0/amdgcn/bitcode/ hipcc -DIMPROVED -offload-arch=gfx906 -O3 -fopenmp -std=c++14  multiGPUQueens.hip -o mgpu.exe 
+ml rocm-openmp-extras/5.2.0_gcc-10.4.0 
+
+DEVICE_LIB_PATH=/opt/rocm/amdgcn/bitcode/ hipcc -DIMPROVED -offload-arch=gfx906 -O3 -fopenmp -std=c++14  multiGPUQueens.hip -o mgpu.exe 
 
 Where the -DIMPROVED is to avoid mirrored solutions, i.e., makes the search almost 2x faster.
 
