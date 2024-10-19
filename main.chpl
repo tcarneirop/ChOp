@@ -70,12 +70,14 @@ config const mlsearch: string = "mlocale";
 config const CPUP: real = 0.0; //CPU percent
 config const language: string = "chpl"; //implementation of the GPU queens search
 
-config const num_gpus: c_int = 0;
+config const num_gpus: c_int = 1;
+
 
 proc main(){
 
 
-
+	writeln("################################\n\nNUM GPUS!!!!!!! ", num_gpus);
+	
 	select lower_bound {
 		// when "simple"{//using simple bound
 		// 	select mode{

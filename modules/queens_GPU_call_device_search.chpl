@@ -47,7 +47,9 @@ module queens_GPU_call_device_search{
 		var new_num_prefixes: uint(64) = initial_num_prefixes - cpu_load:uint(64);
 		var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));//
 
-
+		
+		//writeln("Locales: ",  Locales.size, " here.id: ",here.id, " here.gpus.size: ", here.gpus.size," Num gpus: ", num_gpus );
+		
 
 		coforall gpu_id in 0..#num_gpus:c_int do{
 
@@ -60,9 +62,11 @@ module queens_GPU_call_device_search{
 			var sol_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;
 			var tree_ptr : c_ptr(c_ulonglong) = c_ptrTo(vector_of_tree_size_h) + starting_position;
 			var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
-			var new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
-			//if(CPUGPUVerbose) then
-			//writeln("GPU id: ", new_gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
+			var new_gpu_id: c_int;
+			
+			if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+		
+			//writeln("Locales: ",  Locales.size, " here.id: ",here.id, " here.gpus.size: ", here.gpus.size," GPU id: ", new_gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
 			
 			if(GPUCUDA) then CUDA_call_queens(size, depth, gpu_load:c_uint,
 				nodes_ptr, tree_ptr, sol_ptr, new_gpu_id);

@@ -14,7 +14,7 @@ module queens_GPU_call_intermediate_search{
 
 	proc queens_GPU_call_intermediate_search(const size: uint(16), const initial_depth: c_int,
 		const second_depth: c_int, const chunk: int, ref node: queens_node,
-		ref tree_each_locale: [] uint(64), const GPU: int, const CPUP: real, 
+		ref tree_each_locale: [] uint(64), const num_gpus: c_int, const CPUP: real, 
 		const mlsearch:string, const language: string):(uint(64),uint(64)){
 
 		var maximum_number_prefixes: uint(64) = queens_get_number_prefixes(size,initial_depth);//
@@ -34,15 +34,16 @@ module queens_GPU_call_intermediate_search{
 
 		select language{
 			when "chpl"{ //chapel-based GPU code
-				
-				if(initial_num_prefixes>0) then metrics+= queens_CHPL_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
+		
+
+				if(initial_num_prefixes>0) then metrics+= queens_CHPL_call_device_search(num_gpus, size, second_depth, set_of_nodes,
 					initial_num_prefixes);
 		
 			}
 			//for both amd and CUDA
 			otherwise{
 				
-				if(initial_num_prefixes>0) then metrics+= queens_GPU_call_device_search(GPU:c_int, size, second_depth, 
+				if(initial_num_prefixes>0) then metrics+= queens_GPU_call_device_search(num_gpus, size, second_depth, 
 					set_of_nodes,initial_num_prefixes, CPUP, chunk);
 		
 			} 

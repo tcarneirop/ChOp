@@ -1,17 +1,15 @@
 module queens_call_multilocale_search{
 
-    config param GPU: bool = false;
-
     //use queens_constants;
     use queens_node_module;
     use queens_prefix_generation;
     use queens_mlocale_parameters_parser;
     use queens_aux;
 
-    if(GPU) then {
-        use GPU_mlocale_utils;
-        use GPU_aux;
-    }
+    
+    use GPU_mlocale_utils;
+    use GPU_aux;
+
     
     use Time;
     use statistics;
@@ -53,7 +51,6 @@ module queens_call_multilocale_search{
 
         const PrivateSpace: domain(1) dmapped new privateDist();
         var tree_each_locale: [PrivateSpace] uint(64);
-        var GPU_id: [PrivateSpace] int;
         var Locale_role: [PrivateSpace] int;
 
 
@@ -133,11 +130,11 @@ module queens_call_multilocale_search{
         if pgas then
             queens_mlocale_parameters_parser(size, scheduler, mode, mlsearch,initial_depth,
                 second_depth,lchunk, mlchunk, slchunk,coordinated,pgas_active_set,
-                Space, metrics,tree_each_locale,pgas,GPU_id, CPUP,language);
+                Space, metrics,tree_each_locale,pgas,num_gpus, CPUP,language);
         else
             queens_mlocale_parameters_parser(size, scheduler, mode, mlsearch, initial_depth,
                 second_depth, lchunk, mlchunk, slchunk, coordinated, centralized_active_set,
-                Space, metrics,tree_each_locale,pgas,GPU_id,CPUP,language);
+                Space, metrics,tree_each_locale,pgas,num_gpus,CPUP,language);
 
         final.stop();
 

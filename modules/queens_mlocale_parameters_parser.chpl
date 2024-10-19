@@ -24,7 +24,7 @@ module queens_mlocale_parameters_parser{
 		const initial_depth: c_int, const second_depth: c_int,
 		const lchunk: int, const mlchunk: int, const slchunk: int, const flag_coordinated: bool = false,
 		ref distributed_active_set: [] queens_node, const Space: domain, ref metrics,
-		ref tree_each_locale: [] uint(64),const pgas: bool, ref GPU_id: [] int, const CPUP: real,
+		ref tree_each_locale: [] uint(64),const pgas: bool, const num_gpus: c_int, const CPUP: real,
 		const language:string){
 
 		const role_CPU: int = 1;
@@ -81,9 +81,11 @@ module queens_mlocale_parameters_parser{
 					}//mlocale
 
 					when "mlgpu"{
+			
 						if(GPU) then forall n in distributed_active_set with (+ reduce metrics) do  {
+
 							var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
-								second_depth,slchunk,n,tree_each_locale, GPU_id[here.id],CPUP, mlsearch, language);
+								second_depth,slchunk,n,tree_each_locale, num_gpus,CPUP, mlsearch, language);
 							metrics+=m1;
 							if(queens_checkPointer){
 								checkpt.partial_tree.add(m1[1]);
@@ -121,7 +123,7 @@ module queens_mlocale_parameters_parser{
 
 					when "nested"{
 						writeln("################### Queens - distributed - nested - dynamic ###################");
-						
+
 						forall idx in distributedDynamic(numTasks=5, c=Space, chunkSize=lchunk,localeChunkSize=mlchunk,
 							coordinated=flag_coordinated) with (+ reduce metrics) do {
 							var m1 = queens_call_intermediate_search(size,initial_depth,
@@ -137,11 +139,15 @@ module queens_mlocale_parameters_parser{
 					}//mlocale
 					
 					when "mlgpu"{
-						if(GPU) then forall idx in distributedDynamic(c=Space, numTasks=1, chunkSize=lchunk,localeChunkSize=mlchunk,coordinated = flag_coordinated) with (+ reduce metrics) do {
+						
+						//if(num_gpus:int * Locales.size != here.gpus.size) then halt("###### ERROR ###### WRONG GPU/LOC PARAMETERS ######");
+						
+						writeln("\n ##### Implementation: ", language, " \n");
 
+						if(GPU) then forall idx in distributedDynamic(c=Space, numTasks=1, chunkSize=lchunk,localeChunkSize=mlchunk,coordinated = flag_coordinated) with (+ reduce metrics) do {
 							var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
 								second_depth,slchunk,distributed_active_set[idx],tree_each_locale,
-								GPU_id[here.id], CPUP, mlsearch, language);	
+								num_gpus, CPUP, mlsearch, language);	
 								
 							metrics+=m1;
 							if(checkpointer){
@@ -153,7 +159,8 @@ module queens_mlocale_parameters_parser{
 					}//mlgpu
 						
 					when "dcpugpu"{
-						if(GPU) then forall idx in distributedDynamic(c=Space,chunkSize=lchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
+
+						if(GPU) then forall idx in distributedDynamic(c=Space,numTasks=1,chunkSize=lchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
 
 							var role: int = (here.id-flag_coordinated:int)%2;
 							var m1: (uint(64),uint(64));
@@ -161,7 +168,7 @@ module queens_mlocale_parameters_parser{
 								//writeln("Going on GPU:");
 								m1 = queens_GPU_call_intermediate_search(size,initial_depth,
 									second_depth, slchunk, distributed_active_set[idx], tree_each_locale,
-									GPU_id[here.id], 0,mlsearch,language);
+									num_gpus, 0,mlsearch,language);
 							}
 							else{
 								//writeln("Going on CPU:");
@@ -216,10 +223,10 @@ module queens_mlocale_parameters_parser{
 				
 					
 						when "mlgpu"{
-							if(GPU) then forall idx in distributedGuided(c=Space,minChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
+							if(GPU) then forall idx in distributedGuided(c=Space,minChunkSize=mlchunk,numTasks=1,coordinated=flag_coordinated) with (+ reduce metrics) do {
 								var m1 = queens_GPU_call_intermediate_search(size,initial_depth,
 									second_depth,slchunk,distributed_active_set[idx],tree_each_locale,
-									GPU_id[here.id],CPUP,mlsearch,language);
+									num_gpus,CPUP,mlsearch,language);
 								metrics+=m1;
 								if(queens_checkPointer){
 									checkpt.partial_tree.add(m1[1]);

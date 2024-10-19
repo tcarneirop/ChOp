@@ -37,8 +37,10 @@ module queens_CHPL_call_device_search{
 			
 			var my_load = starting_position..#(gpu_load); 
 			
-			var new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
-			
+			var new_gpu_id: c_uint;
+
+			if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+	
 			//writeln("Total num prefixes: ",new_num_prefixes," GPU id: ", gpu_id,"starting_position: ", starting_position, " My load:   ", my_load , " GPU load: ", gpu_load,  "   " ,gpu_id..#gpu_id);
 	  
 			param _EMPTY_ = -1;
@@ -53,7 +55,7 @@ module queens_CHPL_call_device_search{
 				//writeln("starting loop");
 				foreach idx in my_load{ 
 
-					//setBlockSize(512);
+					//setBlockSize(256);
 				
 					//assertOnGpu();
 
