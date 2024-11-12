@@ -10,11 +10,12 @@ setupChplenv() {
   #module load gcc/6.4.0_gcc-6.4.0
   module load hal-deps
   module load libfabric
+ ml Doxygen/1.9.4-GCCcore-11.3.0 
 
   # Ignore our errors about ofi/psm not being supported
   #export CHPL_GASNET_ALLOW_BAD_SUBSTRATE=true
 
-  export CHPL_HOME="/lustre/projects/csa/dvm/dvm_runs/carnei26/chapel-2.1.0"
+  export CHPL_HOME="/lustre/projects/csa/dvm/dvm_runs/carnei26/chapel-2.2.0"
 
  # if [ -d "$CHPL_HOME" ]; then
     CHPL_BIN_SUBDIR=`"$CHPL_HOME"/util/chplenv/chpl_bin_subdir.py`
@@ -22,7 +23,7 @@ setupChplenv() {
  #fi
 
   export MANPATH="$MANPATH":"$CHPL_HOME"/man
-  export CHPL_LLVM=system
+  export CHPL_LLVM=bundled
   #export FI_PROVIDER=psm2
 
   # use gasnet-ofi -- from the psm docs "Users of Intel(R) Omni-Path Fabric are
@@ -34,7 +35,7 @@ setupChplenv() {
   export GASNET_QUIET=1
 
   export GASNET_IBV_SPAWNER=ssh
-  export GASNET_PHYSMEM_MAX='0.18'
+  export GASNET_PHYSMEM_MAX='0.33'
 
   export CHOP_HOME=~/ChOp
   export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$CHOP_HOME"/libs
