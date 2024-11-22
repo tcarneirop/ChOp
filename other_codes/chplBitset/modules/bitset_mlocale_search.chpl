@@ -12,8 +12,31 @@ module bitset_mlocale_search{
     use CyclicDist;
     use DistributedIters;	
 
+
+    proc bitset_call_final_search(const board_size:int, const initial_depth:int, const slchunk:int, const mlchunk:int, 
+        const flag_coordinated: bool, const num_threads: int, 
+        ref distributed_active_set: [] Bitqueens_subproblem, 
+        const Space: domain(?), ref metrics: (uint(64),uint(64))){
+
+
+        forall idx in distributedDynamic(c=Space, chunkSize=slchunk,
+            localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
+            
+            var m1 = queens_bitset_final_search(board_size, initial_depth, distributed_active_set[idx]);
+            metrics+=m1;				//on idx do tree_each_locale[here.id] += m1[1];
+        }//for
+
+
+    }
+
+
     proc bitset_call_mlocale_search(const board_size:int, const initial_depth:int, const slchunk:int, const mlchunk:int, 
         const flag_coordinated: bool, const num_threads: int, const pgas:bool = true){
+
+        writeln("################### Queens - distributed - naive - dynamic ###################");
+        writeln("################### Size: ", board_size," Initial depth: ", initial_depth," Second Level chunk: ", 
+            slchunk," ML chunk:", mlchunk," Num Threads: ", num_threads," Coordinated? ", flag_coordinated, " ###################");
+       
 
         var num_sols_search: uint(64) = 0;
 
@@ -48,24 +71,28 @@ module bitset_mlocale_search{
 
         if(pgas) then {
             writeln("#####  PGAS-based active set #####");
-            pgas_active_set =  subproblem_pool;
+            pgas_active_set =  subproblem_pool[Space];
+            bitset_call_final_search( board_size, initial_depth, slchunk,mlchunk, 
+                flag_coordinated,  num_threads, pgas_active_set, 
+                Space,metrics);
+
         }
-        else writeln("#####  Centralized active set #####");
+        else{
+            bitset_call_final_search( board_size, initial_depth, slchunk,mlchunk, 
+                flag_coordinated, num_threads, subproblem_pool, 
+                Space,metrics);
+            writeln("#####  Centralized active set #####");
+        }
 
         
-        writeln("################### Queens- distributed - naive - dynamic ###################");
-        forall idx in distributedDynamic(c=Space, chunkSize=slchunk,localeChunkSize=mlchunk,coordinated=flag_coordinated) with (+ reduce metrics) do {
-							
-            var m1 = queens_bitset_final_search(board_size, initial_depth, subproblem_pool[idx]);
-        
-            metrics+=m1;
-							//on idx do tree_each_locale[here.id] += m1[1];
+      
 
-        }//for
         total.stop();
-        metrics*=2;
-        writeln(metrics);
-        writeln(total.elapsed());
+        metrics[1]*=2;
+        writeln("\n\n###################################");
+        writeln("Tree size: ",metrics[0]);
+        writeln("Number of solutions found: ", metrics[1]);
+        writeln("Execution time: ",total.elapsed(),"\n");
         
     }
 
