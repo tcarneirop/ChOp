@@ -1,6 +1,6 @@
 
 module bitset_serial{
-
+    use Time; 
     proc bitset_call_searial_search(const board_size:int){
 
     	const MAX_BOARDSIZE: int = 64;
@@ -26,8 +26,8 @@ module bitset_serial{
 
         var mask = (1 << board_size) - 1;
 
-        //var elapsed: Timer;
-        //elapsed.start();
+        var elapsed: stopwatch;
+        elapsed.start();
 
         // Initialize stack */
         aStack[0] = -1; // set sentinel -- signifies end of stack */
@@ -136,13 +136,13 @@ module bitset_serial{
         }
 
 
-        //elapsed.stop();
+        elapsed.stop();
       
         writeln("\n### Tree: ", tree_size," Num sols: ", numsolutions*2, " (", numsolutions,") \n");
 
-        //writeln("### Elapsed time: ", elapsed.elapsed());
-        //elapsed.clear();
-        // multiply solutions by two, to count mirror images */
+        writeln("### Elapsed time (s): ", elapsed.elapsed());
+        elapsed.clear();
+
         
     }
 

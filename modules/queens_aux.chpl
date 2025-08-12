@@ -65,8 +65,8 @@ module queens_aux{
          "\n\n\tNumber of solutions found: ", number_of_solutions
          );
 
-        writef("\n\nElapsed time: %.3dr", timer.elapsed());
-        writef("\n\tPerformance: %.3dr (n/s)",  performance_metrics);
+        writef("\n\nElapsed time (s): %.3dr", timer.elapsed());
+        writef("\n\tPerformance: %.3dr (nodes/s)",  performance_metrics);
         writef("\n\tPerformance: %.3dr (solutions/s)\n\n",  (metrics[0]:real)/timer.elapsed());
 
 	}//print serial report

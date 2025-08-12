@@ -132,9 +132,7 @@ module bitset_partial_search{
 
             }//while
         }
-        
-        writeln("\nNumber of Subproblems found: ", numsolutions,".\n");
-        //for i in 0..#numsolutions do writeln(subproblems_pool[i]);
+       
         return (tree_size,numsolutions);
 
     }//partial search

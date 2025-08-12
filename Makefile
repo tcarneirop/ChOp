@@ -17,20 +17,21 @@ AMD_DIR := /opt/rocm/
 CHPL_GPU_DEBUB_FLAGS = -s CPUGPUVerbose=false
 CHPL_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true
 
-CHPL_SINGLE_LOC_CPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=false -s MULTILOCALE=false
+CHPL_SINGLE_LOC_CPU_FLAGS = -s avoidMirrored=true
 CHPL_MLOCALE_CPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=false -s MULTILOCALE=true -s queens_mlocale_parameters_parser.GPU=false
 CHPL_MLOCALE_GPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=true -s MULTILOCALE=true -s queens_mlocale_parameters_parser.GPU=true
 
 CHPL_PERF_FLAGS = --fast --no-bounds-checks --target-cpu native
 
-singlelocalecpu: dir
+queens_singlelocale_cpu: dir
 	@echo
 	@echo " ### Building Chapel single-locale GPU... ### "
 	@echo
-	chpl  $(CHPL_SINGLE_LOC_CPU_FLAGS) -M $(CHPL_MODULES_DIR) $(CHPL_PERF_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
+	chpl  $(CHPL_SINGLE_LOC_CPU_FLAGS) -M $(CHPL_MODULES_DIR) $(CHPL_PERF_FLAGS) queens_CPU_single_node.chpl -o  $(BUILD_DIR)/queens_mcore.out
+
 
 	@echo
-	@echo " ### Compilation done ### "
+	@echo " ### Queens-Single Locale -- Compilation done ### "
 	$(shell sh ./ncomp.sh)
 
 multilocalecpu: dir

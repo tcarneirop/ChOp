@@ -1,7 +1,7 @@
 module queens_call_serial_search{
 
 	use queens_serial;
-	use Time; // Import the Time module to use Timer objects
+	use Time; 
     use statistics;
     use CTypes;
     use queens_constants;
@@ -10,7 +10,7 @@ module queens_call_serial_search{
 
 	proc queens_call_serial_search(const size: uint(16), const mode: string = "serial", const prepro: bool = false){
 
-		use Time; 
+		
 		var timer: stopwatch;
 		var metrics: (uint(64),uint(64));
 		timer.start(); // Start timer
