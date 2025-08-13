@@ -35,7 +35,7 @@ module fsp_simple_call_inital_search{
 
         var global_ub: atomic c_int;
 
-        const PrivateSpace: domain(1) dmapped Private();
+        const PrivateSpace: domain(1) dmapped new privateDist();
         var set_of_atomics: [PrivateSpace] atomic c_int;
 
         var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));
@@ -84,7 +84,7 @@ module fsp_simple_call_inital_search{
         distribution.start();
         //Distributed range
     	const Space = {0..(initial_num_prefixes-1):int}; //otherwise
-		const D: domain(1) dmapped Block(boundingBox=Space) = Space; //1d block
+		const D: domain(1) dmapped new blockDist(boundingBox=Space) = Space; //1d block
         var distributed_active_set: [D] fsp_node;
         //let's distribute the active set
         forall i in Space do

@@ -28,7 +28,7 @@ module fsp_johnson_call_mcore_search{
 
     	initial.start();
         var maximum_number_prefixes: uint(64) = fsp_get_number_prefixes(jobs,initial_depth);
-    	var set_of_nodes: [0..maximum_number_prefixes-1] fsp_node;
+    	var set_of_nodes: [0..99999:uint(64)] fsp_node;
 
     	//metrics
     	var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));

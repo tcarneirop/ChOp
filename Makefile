@@ -7,6 +7,7 @@ CHPL_MODULES_DIR := ./modules
 CUDA_PATH := $(CUDA_HOME)
 
 
+
 CUDA_INCLUDE_DIR := $(CUDA_PATH)/include
 CUDA_LIB_DIR := $(CUDA_PATH)/lib
 LIBRARY_DIR := ./libs
@@ -17,21 +18,35 @@ AMD_DIR := /opt/rocm/
 CHPL_GPU_DEBUB_FLAGS = -s CPUGPUVerbose=false
 CHPL_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true
 
-CHPL_SINGLE_LOC_CPU_FLAGS = -s avoidMirrored=true
+QUEENS_SINGLE_LOC_CPU_FLAGS = -s avoidMirrored=true
 CHPL_MLOCALE_CPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=false -s MULTILOCALE=true -s queens_mlocale_parameters_parser.GPU=false
 CHPL_MLOCALE_GPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=true -s MULTILOCALE=true -s queens_mlocale_parameters_parser.GPU=true
 
 CHPL_PERF_FLAGS = --fast --no-bounds-checks --target-cpu native
 
+FSP_COMP_FLAGS = -Llibs csrc/fsp_gen.c csrc/simple_bound.c csrc/johnson_bound.c csrc/aux.c
+
+
 queens_singlelocale_cpu: dir
 	@echo
-	@echo " ### Building Chapel single-locale GPU... ### "
+	@echo " ### Building Chapel Queens single-locale CPU... ### "
 	@echo
-	chpl  $(CHPL_SINGLE_LOC_CPU_FLAGS) -M $(CHPL_MODULES_DIR) $(CHPL_PERF_FLAGS) queens_CPU_single_node.chpl -o  $(BUILD_DIR)/queens_mcore.out
+	chpl  $(QUEENS_SINGLE_LOC_CPU_FLAGS) -M $(CHPL_MODULES_DIR) $(CHPL_PERF_FLAGS) queens_CPU_single_node.chpl -o  $(BUILD_DIR)/queens_mcore.out
 
 
 	@echo
 	@echo " ### Queens-Single Locale -- Compilation done ### "
+	$(shell sh ./ncomp.sh)
+
+
+fsp_singlelocale_cpu: dir
+	@echo
+	@echo " ### Building Chapel FSP single-locale CPU... ### "
+	@echo
+	chpl  $(FSP_COMP_FLAGS) -M $(CHPL_MODULES_DIR) $(CHPL_PERF_FLAGS) FSP_CPU_single_node.chpl -o  $(BUILD_DIR)/fsp_mcore.out
+
+	@echo
+	@echo " ### FSP-Single Locale -- Compilation done ### "
 	$(shell sh ./ncomp.sh)
 
 multilocalecpu: dir
