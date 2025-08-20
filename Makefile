@@ -16,16 +16,17 @@ C_SOURCES := $(shell find $(C_SRC_DIR) -name '*.c')
 AMD_DIR := /opt/rocm/
 
 CHPL_GPU_DEBUB_FLAGS = -s CPUGPUVerbose=false
-CHPL_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true
 
+QUEENS_DEBUG_FLAGS = -s queens_checkPointer=true -s timeDistributedIters=true -s infoDistributedIters=true
 QUEENS_SINGLE_LOC_CPU_FLAGS = -s avoidMirrored=true
-CHPL_MLOCALE_CPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=false -s MULTILOCALE=true -s queens_mlocale_parameters_parser.GPU=false
+QUEENS_MLOCALE_CPU_FLAGS = -s avoidMirrored=true 
+
 CHPL_MLOCALE_GPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=true -s MULTILOCALE=true -s queens_mlocale_parameters_parser.GPU=true
 
-CHPL_PERF_FLAGS = --fast --no-bounds-checks --target-cpu native
+CHPL_PERF_FLAGS = --fast --no-bounds-checks
 
 FSP_COMP_FLAGS = -Llibs csrc/fsp_gen.c csrc/simple_bound.c csrc/johnson_bound.c csrc/aux.c
-
+FSP_DIST_FLAGS = -s timeDistributedIters=true -s infoDistributedIters=true
 
 queens_singlelocale_cpu: dir
 	@echo
@@ -49,11 +50,21 @@ fsp_singlelocale_cpu: dir
 	@echo " ### FSP-Single Locale -- Compilation done ### "
 	$(shell sh ./ncomp.sh)
 
-multilocalecpu: dir
+fsp_multilocale_cpu: dir
 	@echo
-	@echo " ### Building Chapel single-locale GPU... ### "
+	@echo " ### Building Chapel FSP multilocale-locale CPU... ### "
 	@echo
-	chpl $(CHPL_MLOCALE_CPU_FLAGS) $(CHPL_DEBUG_FLAGS) -M $(CHPL_MODULES_DIR) $(CHPL_PERF_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
+	chpl  $(FSP_COMP_FLAGS) $(FSP_DIST_FLAGS) -M $(CHPL_MODULES_DIR) $(CHPL_PERF_FLAGS) FSP_CPU_distributed.chpl -o  $(BUILD_DIR)/fsp_mcore.out
+
+	@echo
+	@echo " ### FSP-Single Locale -- Compilation done ### "
+	$(shell sh ./ncomp.sh)
+
+queens_multilocale_cpu: dir
+	@echo
+	@echo " ### Building Chapel Queens multi-locale CPU... ### "
+	@echo
+	chpl $(QUEENS_MLOCALE_CPU_FLAGS) $(QUEENS_DEBUG_FLAGS) -M $(CHPL_MODULES_DIR) $(CHPL_PERF_FLAGS) queens_CPU_distributed.chpl -o  $(BUILD_DIR)/queens_distributed.out
 
 	@echo
 	@echo " ### Compilation done ### "
@@ -65,7 +76,7 @@ chapelcuda: cuda dir
 	@echo " ### Building the Chapel-CUDA code... ### "
 	@echo
 
-	chpl $(CHPL_MLOCALE_GPU_FLAGS) -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
+	chpl $(CHPL_MLOCALE_GPU_FLAGS) -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
 	@echo
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)
@@ -75,7 +86,7 @@ chapelamd: amd dir
 	@echo " ### Building the Chapel-AMD code... ### "
 	@echo
 
-	chpl $(CHPL_MLOCALE_GPU_FLAGS) -s GPUAMD=true -s GPUCUDA=false -I$(AMD_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(AMD_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast $(CHPL_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
+	chpl $(CHPL_MLOCALE_GPU_FLAGS) -s GPUAMD=true -s GPUCUDA=false -I$(AMD_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(AMD_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
 	@echo
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)

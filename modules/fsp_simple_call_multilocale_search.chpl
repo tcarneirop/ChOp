@@ -45,7 +45,7 @@ module fsp_simple_call_multilocale_search{
         var upper_bound: c_int = fsp_get_upper_bound(upper,instance);
 
         //one atomic for each node
-        const PrivateSpace: domain(1) dmapped Private();
+        const PrivateSpace: domain(1) dmapped new privateDist();
         var set_of_atomics: [PrivateSpace] atomic c_int;
         var tree_each_locale: [PrivateSpace] uint(64);
 
@@ -117,7 +117,7 @@ module fsp_simple_call_multilocale_search{
         //Distributer or centralized active set?
 
         const Space = {0..(initial_num_prefixes-1):int}; //for distributing
-        const D: domain(1) dmapped Block(boundingBox=Space) = Space; //1d block DISTRIBUTED
+        const D: domain(1) dmapped new blockDist(boundingBox=Space) = Space; //1d block DISTRIBUTED
         var pgas_active_set: [D] fsp_node; //1d block DISTRIBUTED
         var centralized_active_set: [Space] fsp_node; //on node 0
 
@@ -149,10 +149,10 @@ module fsp_simple_call_multilocale_search{
         final.start();
         writeln("#### Nodes to explore: ", initial_num_prefixes);
 
-
             select mode {
 
-                when "mlocale"{
+                when "single"{
+                    writeln("#### Single cutoff depth- aka simple search, only a distributed pool. ### ");
                     if pgas then
                         fsp_simple_mlocale_parameters_parser(atype, scheduler, machines,jobs, initial_depth,lchunk,
                             pgas_active_set, set_of_atomics, global_ub, Space, metrics);
@@ -162,6 +162,7 @@ module fsp_simple_call_multilocale_search{
 
                 }
                 when "nested"{
+                    writeln("#### First and second cutoff depths - aka nested search, distributed pool + local pool per subproblem. ### ");
                     if pgas then
                         fsp_simple_improved_mlocale_parameters_parser(atype, scheduler, machines,jobs, initial_depth,
                             second_depth,lchunk, mlchunk, slchunk, coordinated,pgas_active_set, set_of_atomics,

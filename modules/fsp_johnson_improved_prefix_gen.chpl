@@ -6,7 +6,7 @@ module fsp_johnson_improved_prefix_gen{
     use CTypes;
 
 	proc fsp_johnson_improved_prefix_gen(const machines: c_int, const jobs: c_int,
-		const initial_depth: c_int, const second_depth: c_int, ref node: fsp_node, set_of_nodes: [] fsp_node,
+		const initial_depth: c_int, const second_depth: c_int, ref node: fsp_node, ref set_of_nodes: [] fsp_node,
 		global_upper_bound:c_int ): (uint(64),uint(64)){
 
       	var depth: c_int; //needs to be int because -1 is the break condition

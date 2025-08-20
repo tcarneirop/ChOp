@@ -20,7 +20,7 @@ module fsp_johnson_call_multilocale_search{
     use fsp_johnson_aux_mlocale;
     use fsp_johnson_chpl_c_headers;
     use fsp_johnson_prefix_generation;
-   // use fsp_johnson_mlocale_parameters_parser;
+    use fsp_johnson_mlocale_parameters_parser;
     use fsp_johnson_improved_parameters_parser;
 
     //pro fsp_johsin(ref struct)
@@ -52,7 +52,7 @@ module fsp_johnson_call_multilocale_search{
 
 
         //one atomic for each node
-        const PrivateSpace: domain(1) dmapped Private();
+        const PrivateSpace: domain(1) dmapped new privateDist();
         var set_of_atomics: [PrivateSpace] atomic c_int;
         var tree_each_locale: [PrivateSpace] uint(64);
 
@@ -124,7 +124,7 @@ module fsp_johnson_call_multilocale_search{
         }
 
     	const Space = {0..(initial_num_prefixes-1):int}; //for distributing
-        const D: domain(1) dmapped Block(boundingBox=Space) = Space; //1d block DISTRIBUTED
+        const D: domain(1) dmapped new blockDist(boundingBox=Space) = Space; //1d block DISTRIBUTED
         var pgas_active_set: [D] fsp_node; //1d block DISTRIBUTED
         var centralized_active_set: [Space] fsp_node; //on node 0
 
@@ -160,16 +160,17 @@ module fsp_johnson_call_multilocale_search{
         writeln("#### Nodes to explore: ", initial_num_prefixes);
 
         select mode {
-
-            when "mlocale"{
-                 //if pgas then
-                   // fsp_johnson_mlocale_parameters_parser(atype, scheduler, machines,jobs, initial_depth,lchunk,
-                   //      pgas_active_set, set_of_atomics, global_ub, Space, metrics, local_timer);
-                 //else
-                    // fsp_johnson_mlocale_parameters_parser(atype, scheduler, machines,jobs, initial_depth,lchunk,
-                    //     centralized_active_set, set_of_atomics, global_ub, Space, metrics,local_timer);
+            when "single"{
+                 writeln("#### Single cutoff depth- aka simple search, only a distributed pool. ### ");
+                 if pgas then
+                    fsp_johnson_mlocale_parameters_parser(atype, scheduler, machines,jobs, initial_depth,lchunk,
+                         pgas_active_set, set_of_atomics, global_ub, Space, metrics);
+                 else
+                     fsp_johnson_mlocale_parameters_parser(atype, scheduler, machines,jobs, initial_depth,lchunk,
+                         centralized_active_set, set_of_atomics, global_ub, Space, metrics);
             }//end of selection
             when "nested"{
+                writeln("#### First and second cutoff depths - aka nested search, distributed pool + local pool per subproblem. ### ");
                 if pgas then
                     fsp_johnson_improved_parameters_parser(atype, scheduler, machines,jobs, initial_depth,
                         second_depth,lchunk, mlchunk, slchunk,coordinated,pgas_active_set, set_of_atomics,
