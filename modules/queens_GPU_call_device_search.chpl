@@ -14,10 +14,6 @@ module queens_GPU_call_device_search{
 	config param GPUAMD: bool = false;
 	config param GPUCUDA: bool = false;
 
-
-	//@todo: improve the CPU-GPU part, it is terrible...
-	//--- I think this needs to be the most external function, so I can also add the chpl to the CPU-GPU part
-
 	require "headers/CUDA_queens.h";
 
 	extern proc  CUDA_call_queens(size: uint(16), initial_depth:c_int, n_explorers:c_uint,
@@ -31,8 +27,6 @@ module queens_GPU_call_device_search{
 			root_prefixes_h: c_ptr(queens_node),vector_of_tree_size_h: c_ptr(c_ulonglong),
 			sols_h: c_ptr(c_ulonglong),gpu_id:c_int): void;
 	
-
-
 	proc queens_GPU_call_device_search(const num_gpus: c_int, const size: uint(16), const depth: c_int,
 		ref local_active_set: [] queens_node, const initial_num_prefixes: uint(64),
 		const CPUP: real, const chunk: int ): (uint(64), uint(64)){
@@ -42,7 +36,7 @@ module queens_GPU_call_device_search{
 		var sols_h: [0..#initial_num_prefixes] c_ulonglong;
 
 
-		//calculating the CPU load in terms of nodes
+		//calculating the CPU load in terms of subproblems
 		var cpu_load: c_uint = (CPUP * initial_num_prefixes):c_uint;
 		var new_num_prefixes: uint(64) = initial_num_prefixes - cpu_load:uint(64);
 		var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));//
@@ -75,8 +69,6 @@ module queens_GPU_call_device_search{
 				nodes_ptr, tree_ptr, sol_ptr, new_gpu_id);
 
 		}//end of gpu search
-
-
 
 		if(CPUGPUVerbose){
 			writeln("END OF THE SEARCH!");

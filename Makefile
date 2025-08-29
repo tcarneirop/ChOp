@@ -6,8 +6,6 @@ C_SRC_DIR := ./csrc
 CHPL_MODULES_DIR := ./modules
 CUDA_PATH := $(CUDA_HOME)
 
-
-
 CUDA_INCLUDE_DIR := $(CUDA_PATH)/include
 CUDA_LIB_DIR := $(CUDA_PATH)/lib
 LIBRARY_DIR := ./libs
@@ -21,7 +19,7 @@ QUEENS_DEBUG_FLAGS = -s queens_checkPointer=true -s timeDistributedIters=true -s
 QUEENS_SINGLE_LOC_CPU_FLAGS = -s avoidMirrored=true
 QUEENS_MLOCALE_CPU_FLAGS = -s avoidMirrored=true 
 
-CHPL_MLOCALE_GPU_FLAGS = -s avoidMirrored=true -s GPUMAIN=true -s MULTILOCALE=true -s queens_mlocale_parameters_parser.GPU=true
+QUEENS_MLOCALE_GPU_FLAGS = -s avoidMirrored=true -s queens_mlocale_parameters_parser.GPU=true
 
 CHPL_PERF_FLAGS = --fast --no-bounds-checks
 
@@ -33,7 +31,6 @@ queens_singlelocale_cpu: dir
 	@echo " ### Building Chapel Queens single-locale CPU... ### "
 	@echo
 	chpl  $(QUEENS_SINGLE_LOC_CPU_FLAGS) -M $(CHPL_MODULES_DIR) $(CHPL_PERF_FLAGS) queens_CPU_single_node.chpl -o  $(BUILD_DIR)/queens_mcore.out
-
 
 	@echo
 	@echo " ### Queens-Single Locale -- Compilation done ### "
@@ -71,25 +68,36 @@ queens_multilocale_cpu: dir
 	$(shell sh ./ncomp.sh)
 
 
-chapelcuda: cuda dir
+queens_singlelocale_cuda: cuda dir
 	@echo
-	@echo " ### Building the Chapel-CUDA code... ### "
+	@echo " ### Building Chapel Queens single-locale GPU (CUDA-based) ... ### "
 	@echo
 
-	chpl $(CHPL_MLOCALE_GPU_FLAGS) -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
+	chpl $(QUEENS_SINGLE_LOC_CPU_FLAGS) -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS) queens_GPU_CPU_single_node.chpl -o  $(BUILD_DIR)/queens_GPU_CPU_single_node.out
 	@echo
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)
 
-chapelamd: amd dir
+queens_multilocale_cuda: cuda dir
+	@echo
+	@echo " ### Building Chapel Queens multi-locale GPU (CUDA-based) ... ### "
+	@echo
+
+	chpl $(QUEENS_MLOCALE_GPU_FLAGS) -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS) queens_CPU_GPU_distributed.chpl -o  $(BUILD_DIR)/queens_CPU_GPU_distributed.out
+	@echo
+	@echo " ### Compilation done ### "
+	$(shell sh ./ncomp.sh)
+
+queens_multilocale_amd: amd dir
 	@echo
 	@echo " ### Building the Chapel-AMD code... ### "
 	@echo
 
-	chpl $(CHPL_MLOCALE_GPU_FLAGS) -s GPUAMD=true -s GPUCUDA=false -I$(AMD_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(AMD_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
+	chpl $(QUEENS_MLOCALE_GPU_FLAGS) -s GPUAMD=true -s GPUCUDA=false -I$(AMD_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(AMD_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS) main.chpl -o  $(BUILD_DIR)/chop.out
 	@echo
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)
+
 cuda: dir
 	@echo 
 	@echo " ### starting CUDA compilation ### "

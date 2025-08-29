@@ -30,7 +30,6 @@ module queens_CHPL_call_device_search{
 
 		coforall gpu_id in 0..#num_gpus:c_int do {
 			
-
 			var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
 
 			var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint, gpu_id:c_uint, num_gpus:c_uint, 0:c_uint);

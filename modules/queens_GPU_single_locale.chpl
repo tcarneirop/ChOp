@@ -47,8 +47,6 @@ module queens_GPU_single_locale{
 
 		writeln("\nSize: ", size, " Initial Pool Size at depth ", initial_depth," : ",initial_num_prefixes);
 
-		//var num_gpus = GPU_device_count();
-
 		writeln("\n Number of GPUs to use: ", num_gpus);
 		writeln("Implementation: ", language,"\n\n");
 
