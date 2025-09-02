@@ -1,7 +1,7 @@
 #include <hip/hip_runtime.h>
 #include <stdio.h>
 #include "../headers/AMD_queens.h"
-//#include "../headers/queens_node.h"
+
 
 
 __device__  inline bool AMD_queens_stillLegal(const char *__restrict__ board, const int r){
@@ -17,8 +17,8 @@ __device__  inline bool AMD_queens_stillLegal(const char *__restrict__ board, co
 }
 
 
-
-__global__ void AMD_queens_root_dfs( const int N, const unsigned int nPrefixes, 
+__global__ void AMD_queens_root_dfs( const int N, 
+    const unsigned int nPrefixes, 
     const int initial_depth,
     QueenRoot *__restrict__ root_prefixes,
     unsigned long long int *__restrict__ vector_of_tree_size, 
@@ -79,12 +79,16 @@ __global__ void AMD_queens_root_dfs( const int N, const unsigned int nPrefixes,
 
 
 
-extern "C" void AMD_call_queens(short size, int initial_depth, unsigned int n_explorers, QueenRoot *root_prefixes_h ,
-	unsigned long long *vector_of_tree_size_h, unsigned long long *sols_h, int gpu_id){
+extern "C" void AMD_call_queens(short size, int initial_depth, 
+    unsigned int n_explorers, 
+    QueenRoot *__restrict__ root_prefixes_h ,
+	unsigned long long *__restrict__ vector_of_tree_size_h, 
+    unsigned long long *__restrict__ sols_h, int gpu_id){
     
     hipSetDevice(gpu_id);
     hipFree(0);
-   
+    
+
     unsigned long long *vector_of_tree_size_d;
     unsigned long long *sols_d;
     QueenRoot *root_prefixes_d;
@@ -106,9 +110,6 @@ extern "C" void AMD_call_queens(short size, int initial_depth, unsigned int n_ex
         vector_of_tree_size_d,
         sols_d
         );
-
-    //gpuErrchk( cudaPeekAtLastError() );
-    //gpuErrchk( cudaDeviceSynchronize() );
 
     hipMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,n_explorers*sizeof(unsigned long long), hipMemcpyDeviceToHost);
     hipMemcpy(sols_h,sols_d,n_explorers*sizeof(unsigned long long), hipMemcpyDeviceToHost);

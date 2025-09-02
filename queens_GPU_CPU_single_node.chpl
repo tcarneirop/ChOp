@@ -14,7 +14,6 @@ config const prepro: bool = false; //queens first solution
 
 config const scheduler: string = "dynamic";
 config const slchunk: int = 1; //chunk used by the final search called by the intermediate search -- for the second level of parallelism.
-
 config const num_threads: int = here.maxTaskPar; //number of threads.
 config const mode: string = "serial";
 config const data_structure: string = "vector";
@@ -74,7 +73,7 @@ proc main(){
                 when "mgpu"{
 
 	 				writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
-	 				GPU_queens_call_search(num_gpus, size,initial_depth,CPUP,lchunk,language);
+	 				GPU_queens_call_search(num_gpus, size,initial_depth,CPUP,slchunk,language);
 	 			}
 	
 		 		otherwise{

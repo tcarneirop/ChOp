@@ -56,9 +56,11 @@ module queens_GPU_call_device_search{
 			var sol_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;
 			var tree_ptr : c_ptr(c_ulonglong) = c_ptrTo(vector_of_tree_size_h) + starting_position;
 			var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
-			var new_gpu_id: c_int;
+			var new_gpu_id: c_int = gpu_id:c_int;
 			
-			if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+			if(CPUGPUVerbose) then {
+				if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+			}
 		
 			//writeln("Locales: ",  Locales.size, " here.id: ",here.id, " here.gpus.size: ", here.gpus.size," GPU id: ", new_gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
 			
@@ -70,10 +72,9 @@ module queens_GPU_call_device_search{
 
 		}//end of gpu search
 
-		if(CPUGPUVerbose){
-			writeln("END OF THE SEARCH!");
+		if(CPUGPUVerbose) then writeln("END OF THE SEARCH!");
 
-		}
+		
 
 		var redTree = (+ reduce vector_of_tree_size_h):uint(64);
 		var redSol  = (+ reduce sols_h):uint(64);

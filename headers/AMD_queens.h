@@ -4,12 +4,7 @@
 
 #include "queens_node.h"
 
-#define AMD_QUEENS_BLOCK_SIZE 512
-
-//typedef struct queen_root{
-//	unsigned int control;
-//	int8_t board[12];
-//} QueenRoot;
+#define AMD_QUEENS_BLOCK_SIZE 128
 
 
 #ifdef __cplusplus

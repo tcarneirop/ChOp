@@ -56,13 +56,13 @@ module queens_GPU_single_locale{
 
 		select language{
 			when "chpl"{
-				writeln("Chapel-GPU");
+				writeln("Kernel implementation: ", language);
 				metrics+= queens_CHPL_call_device_search(num_gpus, size, initial_depth, local_active_set,
 					initial_num_prefixes);
 			}
 			//for both amd and CUDA
 			otherwise{
-				//writeln(language);
+				writeln("Kernel implementation: ", language);
 				metrics+=queens_GPU_call_device_search(num_gpus, size,
 					initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
 			} 
