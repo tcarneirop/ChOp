@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+U_DEBUSHELL := /bin/bash
 
 BUILD_DIR := ./bin
 CUDA_SRC_DIR := ./kernels
@@ -19,7 +19,6 @@ C_SOURCES := $(shell find $(C_SRC_DIR) -name '*.c')
 ROCM_DIR := $(CHPL_ROCM_PATH)
 
 
-CHPL_GPU_DEBUB_FLAGS = -s CPUGPUVerbose=false
 CHPL_PERF_FLAGS = --fast --no-bounds-checks
 
 
@@ -28,6 +27,7 @@ QUEENS_DEBUG_FLAGS = -s queens_checkPointer=true -s timeDistributedIters=true -s
 QUEENS_SINGLE_LOC_CPU_FLAGS = -s avoidMirrored=true
 QUEENS_MLOCALE_CPU_FLAGS = -s avoidMirrored=true 
 QUEENS_MLOCALE_GPU_FLAGS = -s avoidMirrored=true -s queens_mlocale_parameters_parser.GPU=true
+QUEENS_GPU_DEBUB_FLAGS = -s CPUGPUVerbose=false -s CHPL_CPUGPUVerbose=false
 
 
 
@@ -81,7 +81,7 @@ queens_singlelocale_cuda: cuda dir
 	@echo " ### Building Chapel Queens single-locale GPU (CUDA-based) ... ### "
 	@echo
 
-	chpl $(QUEENS_SINGLE_LOC_CPU_FLAGS) -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast  queens_GPU_CPU_single_node.chpl -o  $(BUILD_DIR)/queens_CUDA_GPU_CPU_single_node.out
+	chpl $(QUEENS_SINGLE_LOC_CPU_FLAGS) $(QUEENS_GPU_DEBUB_FLAGS) -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast  queens_GPU_CPU_single_node.chpl -o  $(BUILD_DIR)/queens_CUDA_GPU_CPU_single_node.out
 	@echo
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)
@@ -92,7 +92,7 @@ queens_singlelocale_amd: amd dir
 	@echo "### Building Chapel Queens single-locale GPU (AMD-based) ... ###  "
 	@echo
 
-	chpl $(QUEENS_SINGLE_LOC_CPU_FLAGS) -s GPUAMD=true -s GPUCUDA=false -I$(ROCM_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(ROCM_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast queens_GPU_CPU_single_node.chpl  -o  $(BUILD_DIR)/queens_AMD_GPU_CPU_single_node.out
+	chpl $(QUEENS_SINGLE_LOC_CPU_FLAGS) $(QUEENS_GPU_DEBUB_FLAGS) -s GPUAMD=true -s GPUCUDA=false -I$(ROCM_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(ROCM_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast queens_GPU_CPU_single_node.chpl  -o  $(BUILD_DIR)/queens_AMD_GPU_CPU_single_node.out
 	@echo
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)

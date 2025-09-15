@@ -22,6 +22,9 @@ config const CPUP: real = 0.0; //CPU percent
 config const num_gpus: c_int = 1;
 config const language: string = "chpl"; //implementation of the GPU queens search
 
+config const verbose: bool = false; //verbose network communication
+config const profiler: bool = false; //to gather profiler metrics and execution graphics.
+
 proc main(){
 
 	select data_structure {
@@ -75,6 +78,15 @@ proc main(){
 	 				writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
 	 				GPU_queens_call_search(num_gpus, size,initial_depth,CPUP,slchunk,language);
 	 			}
+				
+				when "multilocale"{
+
+					writeln("--- N-Queens multi-GPU search - multi locale --- ", mode ," -- ", mlsearch,"\n\n");
+		 			queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,
+		 					lchunk,mlchunk,slchunk,coordinated,pgas,num_threads,profiler,verbose,
+		 					CPUP, num_gpus,language);
+		 		}//nested
+	 		
 	
 		 		otherwise{
 		 			halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");

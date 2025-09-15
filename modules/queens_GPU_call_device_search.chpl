@@ -41,40 +41,56 @@ module queens_GPU_call_device_search{
 		var new_num_prefixes: uint(64) = initial_num_prefixes - cpu_load:uint(64);
 		var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));//
 
-		
-		//writeln("Locales: ",  Locales.size, " here.id: ",here.id, " here.gpus.size: ", here.gpus.size," Num gpus: ", num_gpus );
-		
+		cobegin with (ref metrics){
 
-		coforall gpu_id in 0..#num_gpus:c_int do{
+			{/////
+				if(CPUGPUVerbose){//use this variable to see the debug messages
+					writeln("CPUP: ", CPUP);
+					writeln("Going on CPU");
+				}
 
-			///Maybe we need to modify it
-			var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
+				forall idx in dynamic(0..(cpu_load:int), chunk,here.maxTaskPar) with (+ reduce metrics ) do {
+					metrics +=  queens_subtree_explorer(size,depth,local_active_set[idx:uint]);
+				}
 
-			var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
-				gpu_id:c_uint, num_gpus:c_uint, cpu_load:c_uint);
+				if(CPUGPUVerbose){
+					writeln("End of the CPU search.");
+				}
 
-			var sol_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;
-			var tree_ptr : c_ptr(c_ulonglong) = c_ptrTo(vector_of_tree_size_h) + starting_position;
-			var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
-			var new_gpu_id: c_int = gpu_id:c_int;
+			}////
+
+	
+			coforall gpu_id in 0..#num_gpus:c_int do{
+
+				///Maybe we need to modify it
+				var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
+
+				var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
+					gpu_id:c_uint, num_gpus:c_uint, cpu_load:c_uint);
+
+				var sol_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;
+				var tree_ptr : c_ptr(c_ulonglong) = c_ptrTo(vector_of_tree_size_h) + starting_position;
+				var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
+				var new_gpu_id: c_int = gpu_id:c_int;
+				
+				if(CPUGPUVerbose) then {
+					if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+				}
 			
-			if(CPUGPUVerbose) then {
-				if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
-			}
-		
-			//writeln("Locales: ",  Locales.size, " here.id: ",here.id, " here.gpus.size: ", here.gpus.size," GPU id: ", new_gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
-			
-			if(GPUCUDA) then CUDA_call_queens(size, depth, gpu_load:c_uint,
-				nodes_ptr, tree_ptr, sol_ptr, new_gpu_id);
-			
-			if(GPUAMD) then AMD_call_queens(size, depth, gpu_load:c_uint,
-				nodes_ptr, tree_ptr, sol_ptr, new_gpu_id);
+				if(CPUGPUVerbose) then writeln("Locales: ",  Locales.size, " here.id: ",here.id, " here.gpus.size: ", here.gpus.size," GPU id: ", new_gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
+				
+				if(GPUCUDA) then CUDA_call_queens(size, depth, gpu_load:c_uint,
+					nodes_ptr, tree_ptr, sol_ptr, new_gpu_id);
+				
+				if(GPUAMD) then AMD_call_queens(size, depth, gpu_load:c_uint,
+					nodes_ptr, tree_ptr, sol_ptr, new_gpu_id);
 
-		}//end of gpu search
+			}//end of gpu search
+		
+		}//cobegin
+
 
 		if(CPUGPUVerbose) then writeln("END OF THE SEARCH!");
-
-		
 
 		var redTree = (+ reduce vector_of_tree_size_h):uint(64);
 		var redSol  = (+ reduce sols_h):uint(64);
