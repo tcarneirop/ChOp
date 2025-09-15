@@ -103,7 +103,7 @@ queens_multilocale_cuda: cuda dir
 	@echo "### Building Chapel Queens multi-locale GPU (CUDA-based) ... ### "
 	@echo
 
-	chpl $(QUEENS_MLOCALE_GPU_FLAGS) -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS) queens_CPU_GPU_distributed.chpl -o  $(BUILD_DIR)/queens_CPU_GPU_distributed.out
+	chpl $(QUEENS_MLOCALE_GPU_FLAGS) $(QUEENS_GPU_DEBUB_FLAGS) -s GPUCUDA=true -s GPUAMD=false -L$(LIBRARY_DIR) -lqueens -lutil -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS) queens_CPU_GPU_distributed.chpl -o  $(BUILD_DIR)/queens_CUDA_CPU_GPU_distributed.out
 	@echo
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)
@@ -114,7 +114,7 @@ queens_multilocale_amd: amd dir
 	@echo "### Building Chapel Queens multi-locale GPU (AMD-based) ... ###"
 	@echo
 
-	chpl $(QUEENS_MLOCALE_GPU_FLAGS) -s GPUAMD=true -s GPUCUDA=false -I$(ROCM_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(ROCM_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS)  queens_CPU_GPU_distributed.chpl -o  $(BUILD_DIR)/queens_CPU_GPU_distributed.out
+	chpl $(QUEENS_MLOCALE_GPU_FLAGS) $(QUEENS_GPU_DEBUB_FLAGS) -s GPUAMD=true -s GPUCUDA=false -I$(ROCM_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(ROCM_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS)  queens_CPU_GPU_distributed.chpl -o  $(BUILD_DIR)/queens_AMD_CPU_GPU_distributed.out
 	@echo
 	@echo " ### Compilation done ### "
 	$(shell sh ./ncomp.sh)
