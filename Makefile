@@ -23,7 +23,7 @@ CHPL_PERF_FLAGS = --fast --no-bounds-checks
 
 
 
-QUEENS_DEBUG_FLAGS = -s queens_checkPointer=true -s timeDistributedIters=true -s infoDistributedIters=true
+QUEENS_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true
 QUEENS_SINGLE_LOC_CPU_FLAGS = -s avoidMirrored=true
 QUEENS_MLOCALE_CPU_FLAGS = -s avoidMirrored=true 
 QUEENS_MLOCALE_GPU_FLAGS = -s avoidMirrored=true -s queens_mlocale_parameters_parser.GPU=true

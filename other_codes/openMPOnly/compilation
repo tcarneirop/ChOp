@@ -13,3 +13,10 @@ Important: the <chunk> parameter is not used. However, for some reason, when I r
 
 ml CMake
 /lustre/projects/csa/dvm/dvm_runs/carnei26/llvm-project/build/bin/clang -I/usr/lib/gcc/x86_64-linux-gnu/9/include/  -DIMPROVED -DREPORT -O3 -Werror -Wno-error=register   -fopenmp bitset.cpp -o bitset.out
+
+
+
+
+g++ -fprofile-generate -DIMPROVED -DREPORT -Ofast -Werror -Wno-error=register -march=native  -fopenmp openmpQueens.cpp -o vector.out
+./vector.out 15 5 128
+g++ -fprofile-use -DIMPROVED -DREPORT -Ofast -Werror -Wno-error=register -march=native  -fopenmp openmpQueens.cpp -o vector.out

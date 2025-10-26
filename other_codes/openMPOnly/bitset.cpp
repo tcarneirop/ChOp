@@ -8,7 +8,7 @@
 #include <sys/time.h>
 
 #ifndef MAX_BOARDSIZE
-    #define  MAX_BOARDSIZE 24
+    #define  MAX_BOARDSIZE 32
 #endif 
 
 typedef unsigned long long SOLUTIONTYPE;
@@ -29,7 +29,6 @@ double rtclock()
 }
 
 typedef struct subproblem{
-    
     long long  aQueenBitRes; 
     long long  aQueenBitCol;
     long long  aQueenBitPosDiag;
@@ -38,7 +37,7 @@ typedef struct subproblem{
 
 
 
-unsigned long long partial_search_64(long long board_size, long long cutoff_depth, Subproblem *__restrict__ subproblem_pool)
+unsigned long long partial_search_64(const long long board_size, const long long cutoff_depth, Subproblem *__restrict__ subproblem_pool)
 {
 
     long long aQueenBitRes[MAX_BOARDSIZE];
@@ -164,8 +163,8 @@ unsigned long long partial_search_64(long long board_size, long long cutoff_dept
 
 
 
-void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem *__restrict__ subproblem, int index,
-    unsigned long long *__restrict__ vec_tree_size, unsigned long long *__restrict__ vec_num_sols)
+void mcore_final_search(const long long board_size, const long long cutoff_depth, Subproblem *__restrict__ subproblem, 
+    const int index, unsigned long long *__restrict__ vec_tree_size, unsigned long long *__restrict__ vec_num_sols)
 {
 
     
@@ -258,7 +257,7 @@ void mcore_final_search(long long board_size, long long cutoff_depth, Subproblem
 
 
 
-void call_mcore_search(long long board_size, long long cutoff_depth){
+void call_mcore_search(const long long board_size, const long long cutoff_depth){
     
     
     double initial_time = rtclock();
@@ -283,7 +282,7 @@ void call_mcore_search(long long board_size, long long cutoff_depth){
     }
 
     printf("\nPartial tree: %llu -- Number of subproblems: %llu \n", initial_tree_size, num_subproblems);
-    printf("\n### MCORE Search ###\n\tNumber of subproblems: %lld - Size: %lld, Initial depth: %lld,  Num threads: %d\n", num_subproblems, board_size, cutoff_depth, omp_get_num_procs());
+    printf("\n### MCORE Search ###\n\tNumber of subproblems: %lld - Size: %lld, Initial depth: %lld,  Max threads: %d\n", num_subproblems, board_size, cutoff_depth, omp_get_max_threads());
     
     #pragma omp parallel for schedule(runtime) default(none) shared(num_subproblems,board_size,mcore_tree_size,mcore_num_sols, cutoff_depth, subproblem_pool)
     for(int s = 0; s<num_subproblems; ++s){

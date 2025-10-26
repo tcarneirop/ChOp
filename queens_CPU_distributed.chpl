@@ -59,7 +59,7 @@ proc main(){
                 
                 when "mlocale"{
                     writeln(" ########## MLOCALE ############");
-                        bitset_call_mlocale_search(size, initial_depth, slchunk, mlchunk, coordinated, num_threads, pgas);
+                    bitset_call_mlocale_search(size, initial_depth, slchunk, mlchunk, coordinated, num_threads, pgas);
                 }
 	 		
 		 		otherwise{

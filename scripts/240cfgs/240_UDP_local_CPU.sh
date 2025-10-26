@@ -28,9 +28,8 @@ export CHPL_COMM=gasnet
 export CHPL_COMM_SUBSTRATE=udp
 export CHPL_RT_NUM_THREADS_PER_LOCALE=$NUM_T_LOCALE
 export CHPL_TASKS=qthreads
-export CHPL_LLVM=none
+export CHPL_LLVM=bundled
 export GASNET_SPAWNFN=L
-export CHPL_TARGET_CPU=native
 
 echo -e \#\#\#QThreads set for $NUM_T_LOCALE threads\#\#\#.
 

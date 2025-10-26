@@ -36,7 +36,7 @@ module queens_GPU_call_intermediate_search{
 			when "chpl"{ //chapel-based GPU code
 				writeln("Kernel implementation: ", language);
 				if(initial_num_prefixes>0) then metrics+= queens_CHPL_call_device_search(num_gpus, size, second_depth, set_of_nodes,
-					initial_num_prefixes,CPUP,lchunk);
+					initial_num_prefixes,CPUP,chunk);
 		
 			}
 			//for both amd and CUDA
