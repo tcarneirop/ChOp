@@ -25,7 +25,7 @@ CHPL_PERF_FLAGS = --fast --no-bounds-checks
 
 QUEENS_DEBUG_FLAGS = -s queens_checkPointer=false -s timeDistributedIters=true -s infoDistributedIters=true
 QUEENS_SINGLE_LOC_CPU_FLAGS = -s avoidMirrored=true
-QUEENS_MLOCALE_CPU_FLAGS = -s avoidMirrored=true 
+QUEENS_MLOCALE_CPU_FLAGS = -s avoidMirrored=true
 QUEENS_MLOCALE_GPU_FLAGS = -s avoidMirrored=true -s queens_mlocale_parameters_parser.GPU=true
 QUEENS_GPU_DEBUB_FLAGS = -s CPUGPUVerbose=false -s CHPL_CPUGPUVerbose=false
 
@@ -120,16 +120,16 @@ queens_multilocale_amd: amd dir
 	$(shell sh ./ncomp.sh)
 
 cuda: dir
-	@echo 
+	@echo
 	@echo " ### starting CUDA compilation ### "
-	@echo 
+	@echo
 	$(CUDA_PATH)/bin/nvcc --shared -o $(LIBRARY_DIR)/libqueens.so $(CUDA_SRC_DIR)/CUDA_queens_kernels.cu  --compiler-options '-fPIC -O3' -I$(CUDA_INCLUDE_DIR) -L$(CUDA_LIB_DIR) -lcudart
 	$(CUDA_PATH)/bin/nvcc --shared -o $(LIBRARY_DIR)/libutil.so $(CUDA_SRC_DIR)/GPU_aux.cu  --compiler-options '-fPIC -O3' -I$(CUDA_INCLUDE_DIR) -L$(CUDA_LIB_DIR) -lcudart
 
 amd: dir
-	@echo 
+	@echo
 	@echo " ### starting AMD compilation ### "
-	@echo 
+	@echo
 	$(ROCM_DIR)/bin/hipcc --offload-arch=gfx1032 -O3 $(AMD_SRC_DIR)/AMD_queens_kernels.hip --emit-static-lib -fPIC -o $(LIBRARY_DIR)/libamdqueens.a
 
 dir:
