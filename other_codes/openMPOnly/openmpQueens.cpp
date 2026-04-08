@@ -20,12 +20,12 @@ double rtclock()
 
 typedef struct queen_root{
     unsigned int control;
-    char board[12]; //maximum depth of the solution space.
+    int8_t board[12]; //maximum depth of the solution space.
 } QueenRoot;
 
 
 
-inline bool queens_is_legal_placement(const char *__restrict__ board, const int r)
+inline bool queens_is_legal_placement(const int8_t *__restrict__ board, const int r)
 {
 
     int i;
@@ -49,7 +49,7 @@ inline bool queens_is_legal_placement(const char *__restrict__ board, const int 
 
 
 
-inline bool queens_is_legal_placement_depth(const char *__restrict__ board, const int r, const int initial_depth)
+inline bool queens_is_legal_placement_depth(const int8_t *__restrict__ board, const int r, const int initial_depth)
 {
     int i;
     int ld;
@@ -70,7 +70,7 @@ inline bool queens_is_legal_placement_depth(const char *__restrict__ board, cons
 }
 
 inline void queens_keep_subproblem(QueenRoot *__restrict__ root_prefixes, const unsigned int flag,
-    char *__restrict__  board, const int initialDepth, const int num_sol){
+    int8_t *__restrict__  board, const int initialDepth, const int num_sol){
 
     root_prefixes[num_sol].control = flag;
 
@@ -84,7 +84,7 @@ unsigned long long queens_subproblem_generation(const int size, const int initia
 
     unsigned int flag = 0;
     int bit_test = 0;
-    char board[MAX_SIZE]; 
+    int8_t board[MAX_SIZE]; 
     int i, depth; 
     unsigned long long int local_tree = 0ULL;
     unsigned long long int num_sol = 0;
@@ -153,7 +153,7 @@ void queens_subtree_enumeration(const unsigned idx, const int N, const unsigned 
 
 
     unsigned int flag = 0;
-    char board[MAX_SIZE];
+    int8_t board[MAX_SIZE];
     int N_l = N;
     int i, depth;
     unsigned long long  qtd_sols_thread = 0ULL;

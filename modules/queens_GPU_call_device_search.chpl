@@ -43,7 +43,8 @@ module queens_GPU_call_device_search{
 
 		cobegin with (ref metrics){
 
-			{/////
+			if(cpu_load>0){/////
+				
 				if(CPUGPUVerbose){//use this variable to see the debug messages
 					writeln("CPUP: ", CPUP);
 					writeln("Going on CPU");
@@ -73,10 +74,11 @@ module queens_GPU_call_device_search{
 				var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
 				var new_gpu_id: c_int = gpu_id:c_int;
 				
-				if(CPUGPUVerbose) then {
-					if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
-				}
+				
+				//if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+				new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
 			
+
 				if(CPUGPUVerbose) then writeln("Locales: ",  Locales.size, " here.id: ",here.id, " here.gpus.size: ", here.gpus.size," GPU id: ", new_gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);
 				
 				if(GPUCUDA) then CUDA_call_queens(size, depth, gpu_load:c_uint,
