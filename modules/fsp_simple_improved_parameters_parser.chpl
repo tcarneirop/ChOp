@@ -16,7 +16,7 @@ module fsp_simple_improved_parameters_parser{
     	const initial_depth: c_int, const second_depth: c_int,
     	const lchunk: int, const mlchunk: int, const slchunk: int, const flag_coordinated: bool = false,
     	ref distributed_active_set: [] fsp_node, ref set_of_atomics: [] atomic c_int,
-    	ref global_ub: atomic c_int, const Space: domain, ref metrics: (uint(64),uint(64)),
+    	ref global_ub: atomic c_int, const Space: domain(?), ref metrics: (uint(64),uint(64)),
     	ref tree_each_locale: [] uint(64),const pgas: bool){
 
 		writeln("###### SIMPLE IMPROVED MLOCALE ######");

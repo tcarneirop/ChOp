@@ -1,13 +1,16 @@
 module queens_call_multilocale_search{
 
-
     //use queens_constants;
     use queens_node_module;
     use queens_prefix_generation;
     use queens_mlocale_parameters_parser;
     use queens_aux;
+
+    
     use GPU_mlocale_utils;
     use GPU_aux;
+
+    
     use Time;
     use statistics;
 
@@ -27,7 +30,7 @@ module queens_call_multilocale_search{
         const num_threads: int, const profiler: bool = false,
         const verbose: bool = false,
         const CPUP: real, const num_gpus: c_int,
-	const language: string):(real,real,real){
+	    const language: string):(real,real,real){
 
 
         queens_print_locales_information();
@@ -46,9 +49,8 @@ module queens_call_multilocale_search{
         var return_total: real;
 
 
-        const PrivateSpace: domain(1) dmapped Private();
+        const PrivateSpace: domain(1) dmapped new privateDist();
         var tree_each_locale: [PrivateSpace] uint(64);
-        var GPU_id: [PrivateSpace] int;
         var Locale_role: [PrivateSpace] int;
 
 
@@ -93,7 +95,7 @@ module queens_call_multilocale_search{
 
         //Distributer or centralized active set?
         const Space = {0..(initial_num_prefixes-1):int}; //for distributing
-        const D: domain(1) dmapped Block(boundingBox=Space) = Space; //1d block DISTRIBUTED
+        const D: domain(1) dmapped new blockDist(boundingBox=Space) = Space; //1d block DISTRIBUTED
         var pgas_active_set: [D] queens_node; //1d block DISTRIBUTED
         var centralized_active_set: [Space] queens_node; //on node 0
 
@@ -114,14 +116,6 @@ module queens_call_multilocale_search{
         distribution.stop();
 
 
-        writeln("\n # Number of GPUs : ", num_gpus ," #");
-        for loc in Locales do{
-            on loc do{
-                GPU_id[here.id] = num_gpus;
-            }//on loc
-        }///for
-   
-
         //PROFILER
         if(profiler){
             tagVdebug(scheduler);//profiler
@@ -136,11 +130,11 @@ module queens_call_multilocale_search{
         if pgas then
             queens_mlocale_parameters_parser(size, scheduler, mode, mlsearch,initial_depth,
                 second_depth,lchunk, mlchunk, slchunk,coordinated,pgas_active_set,
-                Space, metrics,tree_each_locale,pgas,GPU_id, CPUP,language);
+                Space, metrics,tree_each_locale,pgas,num_gpus, CPUP,language);
         else
             queens_mlocale_parameters_parser(size, scheduler, mode, mlsearch, initial_depth,
                 second_depth, lchunk, mlchunk, slchunk, coordinated, centralized_active_set,
-                Space, metrics,tree_each_locale,pgas,GPU_id,CPUP,language);
+                Space, metrics,tree_each_locale,pgas,num_gpus,CPUP,language);
 
         final.stop();
 

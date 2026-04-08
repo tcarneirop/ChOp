@@ -1,18 +1,19 @@
 module queens_call_mcore_search{
 
     use queens_tree_exploration;
+    use queens_aux;
     use queens_constants;
     use queens_node_module;
     use queens_prefix_generation;
     use DynamicIters;
     use Time; // Import the Time module to use Timer objects
-    /* config param methodStealing = Method.Whole; */
-    /* config param methodStealing = Method.RoundRobin; */
-    config param methodStealing = Method.WholeTail;
+    //config param methodStealing = Method.Whole; 
+    config param methodStealing = Method.RoundRobin; 
+    //config param methodStealing = Method.WholeTail;
 
 
 
-    proc queens_node_call_search(size: uint(16), const initial_depth: int(32), 
+    proc queens_call_mcore_search(size: uint(16), const initial_depth: int(32), 
         const scheduler: string, const chunk: int, const num_threads){
 
         var maximum_number_prefixes: uint(64) = queens_get_number_prefixes(size,initial_depth);
@@ -38,31 +39,26 @@ module queens_call_mcore_search{
         metrics[0] = 0; //restarting for the parallel search_type
         metrics[1] = 0;
         
-        var aux: int = initial_num_prefixes: int;
-        var rangeDynamic: range = 0..aux-1;
-
-        //writeln(set_of_nodes);
-        
         select scheduler{
 
             when "static" {
-                forall idx in 0..initial_num_prefixes-1 with (+ reduce metrics) do {
-                     metrics+=queens_node_subtree_exporer(size,initial_depth,set_of_nodes[idx].board,set_of_nodes[idx].control);    
+                forall idx in 0..#initial_num_prefixes with (+ reduce metrics) do {
+                    metrics+=queens_subtree_explorer(size,initial_depth:int(32), set_of_nodes[idx:uint]);
                 }
             }
             when "dynamic" {
-                forall idx in dynamic(rangeDynamic, chunk, num_threads) with (+ reduce metrics) do {
-                    metrics+=queens_node_subtree_exporer(size,initial_depth,set_of_nodes[idx:uint(64)].board,set_of_nodes[idx:uint(64)].control);
+                forall idx in dynamic(0..#initial_num_prefixes, chunk, num_threads) with (+ reduce metrics) do {
+                    metrics+=queens_subtree_explorer(size,initial_depth:int(32), set_of_nodes[idx:uint]);
                 }
             }
             when "guided" {
-                forall idx in guided(rangeDynamic,num_threads) with (+ reduce metrics) do {
-                    metrics+=queens_node_subtree_exporer(size,initial_depth,set_of_nodes[idx:uint(64)].board, set_of_nodes[idx:uint(64)].control);
+                forall idx in guided(0..#initial_num_prefixes,num_threads) with (+ reduce metrics) do {
+                    metrics+=queens_subtree_explorer(size,initial_depth:int(32), set_of_nodes[idx:uint]);
                 }
             }
             when "stealing" {
-                forall idx in adaptive(rangeDynamic,num_threads) with (+ reduce metrics) do {
-                    metrics+=queens_node_subtree_exporer(size,initial_depth,set_of_nodes[idx:uint(64)].board, set_of_nodes[idx:uint(64)].control);
+                forall idx in adaptive(0..#initial_num_prefixes,num_threads) with (+ reduce metrics) do {
+                    metrics+=queens_subtree_explorer(size,initial_depth:int(32), set_of_nodes[idx:uint]);   
                 }
             }
             otherwise{

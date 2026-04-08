@@ -14,41 +14,40 @@ module queens_GPU_call_intermediate_search{
 
 	proc queens_GPU_call_intermediate_search(const size: uint(16), const initial_depth: c_int,
 		const second_depth: c_int, const chunk: int, ref node: queens_node,
-		ref tree_each_locale: [] uint(64), const GPU: int, const CPUP: real, const mlsearch:string, const language: string):(uint(64),uint(64)){
+		ref tree_each_locale: [] uint(64), const num_gpus: c_int, const CPUP: real, 
+		const mlsearch:string, const language: string):(uint(64),uint(64)){
 
 		var maximum_number_prefixes: uint(64) = queens_get_number_prefixes(size,initial_depth);//
 		var maximum_number_prefixes_scnd_depth: uint(64) = queens_get_number_prefixes(size,second_depth);//
 		var set_size: uint(64) = maximum_number_prefixes_scnd_depth/maximum_number_prefixes;//
 
-		var set_of_nodes: [0..set_size-1] queens_node; //
+		var set_of_nodes: [0..set_size-1] queens_node; 
 		//metrics
-		var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));//
-		var initial_num_prefixes : uint(64) = 0;//
-		var initial_tree_size : uint(64) = 0;//
+		var metrics: (uint(64),uint(64)) = (0:uint(64),0:uint(64));
+		var initial_num_prefixes : uint(64) = 0;
+		var initial_tree_size : uint(64) = 0;
 
 		metrics += queens_improved_prefix_gen(size, initial_depth, second_depth, node, set_of_nodes);//
 
-		initial_num_prefixes = metrics[0];//
-		metrics[0] = 0; //restarting for the parallel search//
+		initial_num_prefixes = metrics[0];
+		metrics[0] = 0; //restarting for the parallel search
 
 		select language{
-			when "chpl"{
-				//writeln("initial_num_prefixes: ", initial_num_prefixes);
-				if(initial_num_prefixes>0) then metrics+= queens_CHPL_call_device_search(GPU:c_int, size, second_depth, set_of_nodes,
-					initial_num_prefixes);
+			when "chpl"{ //chapel-based GPU code
+				writeln("Kernel implementation: ", language);
+				if(initial_num_prefixes>0) then metrics+= queens_CHPL_call_device_search(num_gpus, size, second_depth, set_of_nodes,
+					initial_num_prefixes,CPUP,chunk);
 		
 			}
 			//for both amd and CUDA
 			otherwise{
-				
-				if(initial_num_prefixes>0) then metrics+= queens_GPU_call_device_search(GPU:c_int, size, second_depth, 
+				writeln("Kernel implementation: ", language);
+				if(initial_num_prefixes>0) then metrics+= queens_GPU_call_device_search(num_gpus, size, second_depth, 
 					set_of_nodes,initial_num_prefixes, CPUP, chunk);
 		
 			} 
 		}
-
-
-
+		
 		tree_each_locale[here.id] += metrics[1]; //for load statistics
 
 		return metrics;

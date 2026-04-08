@@ -10,7 +10,7 @@ module fsp_simple_mlocale_parameters_parser{
 
     proc fsp_simple_mlocale_parameters_parser(const atmc_type: string, const scheduler: string, const machines: c_int,const jobs: c_int ,const initial_depth: c_int ,
     	const chunk: int, ref distributed_active_set: [] fsp_node, ref set_of_atomics: [] atomic c_int, ref global_ub: atomic c_int,
-    	const Space: domain, ref metrics: (uint(64),uint(64))){
+    	const Space: domain(?), ref metrics: (uint(64),uint(64))){
 
 	    select atmc_type{
 

@@ -9,7 +9,7 @@ module fsp_johnson_prefix_generation{
 
 
     proc fsp_johnson_prefix_generation(const machines: c_int, const jobs: c_int, upper_bound: c_int ,
-      const times:c_ptr(c_int), const initial_depth: c_int,  set_of_nodes: [] fsp_node):  (uint(64),uint(64)){
+      const times:c_ptr(c_int), const initial_depth: c_int, ref set_of_nodes: [] fsp_node):  (uint(64),uint(64)){
 
       var depth: c_int = 0; //needs to be int because -1 is the break condition
 

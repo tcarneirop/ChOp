@@ -92,7 +92,7 @@ module queens_serial{
 		return metrics;
 	}
 
-	proc queens_serial_bitset(const size: uint(16)): (uint(64),uint(64)){
+	proc queens_serial_search(const size: uint(16)): (uint(64),uint(64)){
 
     	var bit_test : uint(32) = 0;
     	var control: uint(32) = 0;
@@ -104,6 +104,13 @@ module queens_serial{
 		var metrics: (uint(64),uint(64));
 		var _ONE_: uint(32) =  1;
 		depth = 0;
+
+		var break_cond: uint(64) =  (size/2):uint(64) + (size:uint(64) & 1:uint(64));
+		
+
+		//condition to avoid mirrored sols
+		if(avoidMirrored) then writeln("\n\t##### Avoiding Mirrored Solutions #####\n");
+			
 
 		while(true){
 
@@ -117,6 +124,21 @@ module queens_serial{
 				board[depth] = __EMPTY__;
 			else{
 				if (stillLegal(board, depth) && !(control &  bit_test )) {
+
+
+					if(avoidMirrored) then{
+						//this is enough to avoid reflections
+						if(depth == 1){
+
+							if(size:uint(64) & 1:uint(64)){
+								if board[0] == break_cond-1 && board[1] > board[0] then break;
+							}
+							else{
+								if board[0] == break_cond then break;
+							}
+						}
+					}//mirrored 
+						
 
 					control |= (_ONE_<<board[depth]);
 					depth +=1;

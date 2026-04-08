@@ -59,7 +59,7 @@ __device__  inline bool GPU_queens_stillLegal(const char *__restrict__ board, co
   return safe;
 }
 
-inline bool MCstillLegal(const char *board, const int r)
+inline bool MCstillLegal(const char *__restrict__ board, const int r)
 {
 
     int i;
@@ -80,7 +80,7 @@ inline bool MCstillLegal(const char *board, const int r)
 }
 
 
-inline void prefixesHandleSol(QueenRoot *root_prefixes,unsigned int flag,char *board,int initialDepth,int num_sol){
+inline void prefixesHandleSol(QueenRoot *__restrict__ root_prefixes,unsigned int flag,char *__restrict__ board,int initialDepth,int num_sol){
 
     root_prefixes[num_sol].control = flag;
 
@@ -90,7 +90,7 @@ inline void prefixesHandleSol(QueenRoot *root_prefixes,unsigned int flag,char *b
 
 
 unsigned long long int BP_queens_prefixes(int size, int initialDepth,
-    unsigned long long *tree_size, QueenRoot *root_prefixes){
+    unsigned long long *__restrict__ tree_size, QueenRoot *__restrict__ root_prefixes){
 
     unsigned int flag = 0;
     int bit_test = 0;
@@ -155,7 +155,8 @@ unsigned long long int BP_queens_prefixes(int size, int initialDepth,
     return num_sol;
 }
 
-__global__ void BP_queens_root_dfs( const int N, const unsigned int nPrefixes, 
+__global__ void BP_queens_root_dfs( const int N, 
+    const unsigned int nPrefixes, 
     const int initial_depth,
     QueenRoot *__restrict__ root_prefixes,
     unsigned long long int *__restrict__ vector_of_tree_size, 
@@ -216,10 +217,13 @@ __global__ void BP_queens_root_dfs( const int N, const unsigned int nPrefixes,
 
 
 
-void HIP_call_queens(int size, int initial_depth, unsigned int n_explorers, QueenRoot *root_prefixes_h ,
-	unsigned long long *vector_of_tree_size_h, unsigned long long *sols_h, int gpu_id, int block_size){
+void HIP_call_queens(int size, int initial_depth, unsigned int n_explorers, 
+    QueenRoot *__restrict__ root_prefixes_h ,
+	unsigned long long *__restrict__ vector_of_tree_size_h, 
+    unsigned long long *__restrict__ sols_h, int gpu_id, int block_size){
      
-   hipSetDevice(gpu_id);
+    hipSetDevice(gpu_id);
+    hipFree(0);
 
     unsigned long long *vector_of_tree_size_d;
     unsigned long long *sols_d;
@@ -232,12 +236,10 @@ void HIP_call_queens(int size, int initial_depth, unsigned int n_explorers, Quee
     hipMalloc((void**) &root_prefixes_d,n_explorers*sizeof(QueenRoot));
 
     hipMemcpy(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot), hipMemcpyHostToDevice);
+    
     hipLaunchKernelGGL(BP_queens_root_dfs, num_blocks, block_size, 0, 0, 
         size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
-    //BP_queens_root_dfs<<< num_blocks,block_size>>>(size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
-   
-    //gpuErrchk( cudaPeekAtLastError() );
-    //hipDeviceSynchronize() ;
+
 
     hipMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,n_explorers*sizeof(unsigned long long),hipMemcpyDeviceToHost);
     hipMemcpy(sols_h,sols_d,n_explorers*sizeof(unsigned long long),hipMemcpyDeviceToHost);
@@ -254,19 +256,21 @@ void call_queens(int size, int initialDepth, int block_size){
     unsigned int nMaxPrefixes = 75580635;
     int num_gpus = 0;
 
+   
     hipGetDeviceCount( &num_gpus );
     printf("\nNumber of GPUS: %d\n", num_gpus );
 
-    for(uint device = 0; device<num_gpus; ++device){
-        hipSetDevice(device);
-        hipFree(0);
-    }
+    double initial_time = rtclock();
+   
+    //for(uint device = 0; device<num_gpus; ++device){
+    //    hipSetDevice(device);
+    //    hipFree(0);
+   // }
   
 
 
     unsigned long long device_load[num_gpus];
   
-   
     QueenRoot* root_prefixes_h = (QueenRoot*)malloc(sizeof(QueenRoot)*nMaxPrefixes);
     unsigned long long int *vector_of_tree_size_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*nMaxPrefixes);
     unsigned long long int *solutions_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*nMaxPrefixes);
@@ -274,7 +278,7 @@ void call_queens(int size, int initialDepth, int block_size){
     //calling the gpu-based search
     omp_set_num_threads(num_gpus);
 
-    double initial_time = rtclock();
+    
 
     //initial search, getting Feasible, Valid and Incomplete solutions -- subproblems;
     unsigned long long n_explorers = BP_queens_prefixes((short)size, initialDepth ,&initial_tree_size, root_prefixes_h);
@@ -282,6 +286,7 @@ void call_queens(int size, int initialDepth, int block_size){
     printf("\n### Queens size: %d, Initial depth: %d, Block size: %d - Num_explorers: %llu", size, initialDepth, block_size,n_explorers);
 
     get_load_each_gpu(n_explorers, num_gpus, device_load);
+
     printf("\nLoad of each GPU:");
     for(int device = 0; device<num_gpus;++device){
         printf("\n\tDevice: %d - load : %llu ", device, device_load[device]);
@@ -298,13 +303,14 @@ void call_queens(int size, int initialDepth, int block_size){
     
     } 
  
-    double final_time = rtclock();
 
     //Reducing the metrics
     for(int i = 0; i<n_explorers;++i){
         qtd_sols_global += solutions_h[i];
         gpu_tree_size +=vector_of_tree_size_h[i];
     }
+    
+    double final_time = rtclock();
 
     #ifdef IMPROVED
        qtd_sols_global*=2;

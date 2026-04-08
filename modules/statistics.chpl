@@ -22,7 +22,7 @@ module statistics{
         forall (a,b) in zip(local_tree_each_locale, tree_each_locale) do
             a = b;
 
-        writeln("\n### Locales statistics: ###\n");
+        writeln("\n### Locales statistics (in % of the total tree size): ###\n");
 
         for i in 0..numLocales-1 do{
             value = local_tree_each_locale[i];

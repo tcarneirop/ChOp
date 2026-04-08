@@ -47,10 +47,8 @@ module queens_GPU_single_locale{
 
 		writeln("\nSize: ", size, " Initial Pool Size at depth ", initial_depth," : ",initial_num_prefixes);
 
-		//var num_gpus = GPU_device_count();
-
-		writeln("Number of GPUs to use: ", num_gpus);
-		writeln("Implementation: ", language);
+		writeln("\n Number of GPUs to use: ", num_gpus);
+		writeln("Implementation: ", language,"\n\n");
 
 		writeln("Percentage of the active set on the CPU: ", CPUP*100.0);
 
@@ -58,13 +56,13 @@ module queens_GPU_single_locale{
 
 		select language{
 			when "chpl"{
-				writeln("Chapel-GPU");
+				writeln("Kernel implementation: ", language);
 				metrics+= queens_CHPL_call_device_search(num_gpus, size, initial_depth, local_active_set,
-					initial_num_prefixes);
+					initial_num_prefixes,CPUP,lchunk);
 			}
 			//for both amd and CUDA
 			otherwise{
-				//writeln(language);
+				writeln("Kernel implementation: ", language);
 				metrics+=queens_GPU_call_device_search(num_gpus, size,
 					initial_depth, local_active_set, initial_num_prefixes, CPUP,lchunk);
 			} 

@@ -7,7 +7,7 @@ module queens_prefix_generation{
 	use CTypes;
 
 	proc queens_improved_prefix_gen(const size: uint(16),
-		const initial_depth: c_int, const second_depth: c_int, ref node: queens_node, set_of_nodes: [] queens_node): (uint(64),uint(64)){
+		const initial_depth: c_int, const second_depth: c_int, ref node: queens_node, ref set_of_nodes: [] queens_node): (uint(64),uint(64)){
 
 		var bit_test : uint(32) = 0;
 		var board: [0..MAX] int(8) = __EMPTY__;
@@ -87,7 +87,7 @@ module queens_prefix_generation{
 
 
 	proc queens_node_generate_initial_prefixes(const size: uint(16), const initial_depth: int(32),
-		set_of_nodes: [] queens_node): (uint(64),uint(64)){
+		ref set_of_nodes: [] queens_node): (uint(64),uint(64)){
 
 
 		var bit_test : uint(32) = 0;
