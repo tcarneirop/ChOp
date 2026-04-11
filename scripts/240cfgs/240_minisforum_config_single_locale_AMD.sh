@@ -3,6 +3,9 @@
 
 echo " ### exporting...  ### "
 
+export  HIP_PATH=/opt/rocm-6.2.4/
+export ROCM_PATH=/opt/rocm-6.2.4/
+export  DEVICE_LIB_PATH=/opt/rocm-6.2.4/amdgcn/bitcode/
 export CHPL_HOME=~/chapel-2.5.0
 export CHPL_COMM=none
 #export CHPL_LLVM=system
@@ -42,7 +45,7 @@ echo $here
 
 
 cd $CHPL_HOME
-make -j 32
+make -j 16
 
 echo -e \#\#\# Building runtime 2.50 AMD GPU - Single Locale  \#\#\#
 
