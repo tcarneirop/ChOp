@@ -101,7 +101,7 @@ unsigned long long partial_search_64(const long long m, const long long d)
             }
             
             bitfield &= ~lsb; 
-            aQueenBitRes[numrows] = lsb; 
+            aQueenBitRes[numrows] = 63 - __builtin_clzll(lsb); 
             
             if (numrows < d) {
                 long long n = numrows++;
@@ -124,7 +124,7 @@ unsigned long long partial_search_64(const long long m, const long long d)
                         
                         printf("[ ");
                         for(long long s = 0; s<d;++s){
-                            printf("%d ", 63 - __builtin_clzll(aQueenBitRes[s]));
+                            printf("%llu ", aQueenBitRes[s]);
                             if(s<d-1)
                                 printf(" - ");
                         }
@@ -162,6 +162,10 @@ int main(int argc, char** argv)
 
     int m = atoi(argv[1]);
     int d = atoi(argv[2]);
+    if(d>m){
+        printf("############## ERROR: m needs to be >= d ###############");
+        exit(1);
+    }
         //exec, size, search, depth, chunk; 
         partial_search_64((unsigned long long)m,(unsigned long long)d);
     return 0;
