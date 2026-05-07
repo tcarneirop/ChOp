@@ -10,7 +10,6 @@ use bitset_mcore_search;
 config const initial_depth: c_int = 5;
 config const second_depth:  c_int = 0;
 config const size: uint(16) = 15; //queens
-config const prepro: bool = false; //queens first solution
 
 config const scheduler: string = "dynamic";
 config const slchunk: int = 1; //chunk used by the final search called by the intermediate search -- for the second level of parallelism.
@@ -42,7 +41,7 @@ proc main(){
     			}
 
 		 		otherwise{
-		 			halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
+		 			halt("###### ERROR - WRONG MODE ######\n###### ERROR - WRONG MODE ######\n###### ERROR - WRONG MODE ######\n###### WRONG PARAMETERS ######");
 		 		}
 
 		 	}//mode
@@ -59,7 +58,7 @@ proc main(){
 	 			when "serial"{
 	 				
  					writeln("--- N-Queens serial search --- \n\n");
- 					queens_call_serial_search(size, mode, prepro);
+ 					queens_call_serial_search(size, mode);
 	 			}
 			
 	 			when "mcore"{
@@ -68,8 +67,8 @@ proc main(){
 	 			}
 
 		 		otherwise{
-		 			halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
-		 		}
+		 			halt("###### ERROR - WRONG MODE ######\n###### ERROR - WRONG MODE ######\n###### ERROR - WRONG MODE ######\n###### WRONG PARAMETERS ######");
+	 		}
 
 		 	}//mode
 		}//queens vector

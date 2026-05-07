@@ -41,9 +41,6 @@ module bitset_mcore_search{
         metrics[0] <=> metrics[1];
         queens_print_serial_report(timer, board_size:uint(16), metrics,pool_size, initial_tree_size,metrics[0],initial_depth:int(32),"dynamic");
 
-        writeln(metrics);
-        writeln(timer.elapsed());
-        
     }
 
 

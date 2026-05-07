@@ -8,7 +8,7 @@ module queens_call_serial_search{
     use queens_aux;
 
 
-	proc queens_call_serial_search(const size: uint(16), const mode: string = "serial", const prepro: bool = false){
+	proc queens_call_serial_search(const size: uint(16), const mode: string = "serial"){
 
 		
 		var timer: stopwatch;

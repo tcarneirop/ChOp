@@ -62,7 +62,7 @@ module queens_call_mcore_search{
                 }
             }
             otherwise{
-                writeln("\n\n ###### error ######\n\n ###### error ######\n\n ###### error ###### ");
+                writeln("\n\n ###### ERROR: Wrong scheduler ######\n\n ###### ERROR: Wrong scheduler ######\n\n ###### ERROR: Wrong scheduler ###### ");
             }
         }//select
 
