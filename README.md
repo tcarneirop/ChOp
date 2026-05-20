@@ -1,42 +1,78 @@
 # ChOp - Chapel-based Optimization
 
-The objective of the ChOp project is to design and implement large-scale exact distributed optimization algorithms taking into account CPU-GPU heterogeneity, but also achieving high productivity and parallel efficiency. The prototypes are programmed to enumerate all feasible and complete configurations of the N-Queens. The final versions of the distributed algorithms solve to the optimality  instances of combinatorial optimization problems, such as the flow-shop scheduling and the ATSP. This study is pioneering within the context of parallel exact optimization.
+Project focused on the design and implementation of large-scale distributed exact optimization algorithms in Chapel for CPU-GPU heterogeneous systems, balancing productivity, scalability, and parallel efficiency. The project investigates performance-portable approaches for multicore, multi-GPU, and distributed branch-and-bound applications, including comparisons against OpenMP, MPI, CUDA, HIP, and SYCL implementations.
 
+## Overview
 
-## Overview of the algorithm:
-The locale 0 (master) is responsible for generating the distribute pool Pd and controlling the search. Each worker locale receives nodes from the master and generates a local pool that is partitioned into CPU and GPU portions. L locales are launched on L-1 computer nodes.
+___
 
+## ## Implementations
 
-<img src="https://tcarneirop.github.io/pictures/overview.png" width="50%" class="center">
+In ChOP, there are diverse implementations for solving two permutation-based combinatorial problems: the Flow Shop Scheduling Problem and the classic N-Queens problem. More specifically, the following implementations are available:
 
+### ### The N-Queens problem:
 
-## Recent results, GPU-based prototype in Chapel + CUDA, solving the N-Queens:
+There are two backtracking versions for solving the N-Queens problem: 
 
-### 288 NVIDIA V100, 48 computer nodes.
+1. **Vector**, backtracking implemented using a vector-based data structure, slower, but it is a branch-and-bound skeleton for other problems. There are 4 implementations using the vector-based data-structure:
+   
+   1. Serial
+   
+   2. Multicore - single-node (single-locale in Chapel)
+   
+   3. Multi-GPU - single-node 
+      
+      1. **Important:** the GPU-based versions brings two versions of the kernels: Chapel-based and CUDA/HIP-based kernels, depending on the system. CUDA-based kernels for NVIDIA systems and HIP-based kernels for AMD 
+   
+   4. Distributed-CPU (multi-locale)
+   
+   5. Distributed-GPU (multi-locale)
+      
+      1. **Important:** the same goes for the distributed version of the code - two versions of the kernels. 
 
-84% of the linear speedup vs. the same application on one computer node. 74% of the linear speedup vs. the optimized baseline in CUDA on one computer node.  [See Carneiro et al. (2021)](https://hal.archives-ouvertes.fr/hal-03149394/document).
+2. **Bitset**, backtracking implemented using a bitset-based data structure. There are 3 implementations using the vector-based data-structure:
+   
+   1. Serial
+   
+   2. Multicore - single-node (single-locale in Chapel)
+   
+   3. Distributed-CPU (multi-locale)
 
-<img src="https://tcarneirop.github.io/pictures/new.png" width="50%" class="center">
+### The Flow-shop Scheduling Problem (FSP)
 
-## Some productivity/performance results of using Chapel for distributed exact optimization vs MPI+Cpp, flow-shop scheduling problem:
+There are two branch-and-bound versions for solving the FSP:
 
-Execution times of Chapel-BB solving to the optimality Taillard instances ta21-30. The execution time is given relative to the MPI-PBB baseline. Next, normalized the productivity achieved by Chapel compared to its counterpart written in MPI+Cpp. Experiments executed on 1 (32 cores) to 32 nodes (1024 cores). For more details, see [Carneiro et al. (2020)](https://www.sciencedirect.com/science/article/pii/S0167739X1930946X).
+1. 
 
-<img src="https://tcarneirop.github.io/pictures/performance.png" width="50%" class="center">
+## Building and Running ChOP
 
-<img src="https://tcarneirop.github.io/pictures/prod.png" width="50%" class="center">
+### The N-Queens Problem:
 
-## Productivity results of using Chapel for heuristic optimization:
+First, to run the benchmarks,  need to:
 
-Illustration of the trade-off between relative cost and relative performance of three languages compared to the reference one. In the graph, the arrows point to the desired productivity region (DPR). The trade-off between relative cost and relative performance of Chapel, Julia, and Python compared to the reference implementation. In the graph, the desired productivity region (DPR) is on point 1.2.33. For more details, see [Gmys et al. (2020)](https://doi.org/10.1016/j.swevo.2020.100720).
+1) build the runtime for single-locale
+2) clone the main branch 
+3) Compile the single-locale version of the code:
+4) ```shell
+   make queens_singlelocale_cpu
+   ```
+5) If it compiles, you get two versions of the code:
+6) N-Queens with vector data structure (much slower, but it is a skeleton to other problems)
+7) N-Queens bitsets, which I believe is more interesting for you, 
+   as the steps of the search can be expressed as bitwise operations.
+   When the execution finishes you get a small report on these operations. 
+   I call it ''tree size'', as it is a combinatorial search.
+8) 
 
-<img src="https://tcarneirop.github.io/pictures/desired.png" width="50%" class="center">
+## 
 
-
+## Solving Other Probles With ChOP
 
 ## Publications:
-- Carneiro, T; Koutsantonis, L.; Melab, N.; Kieffer, E.; Bouvry, P. [A Local Search for Automatic Parameterization of Distributed Tree Search Algorithms](https://hal.archives-ouvertes.fr/hal-03619760). [PDCO 2022](https://pdco2022.sciencesconf.org/) - 12th
-IEEE Workshop Parallel / Distributed Combinatorics and Optimization, May 2022, Lyon, France.
+
+- Carneiro, T.; Kayraklioglu, E.; Helbecque, G.; Melab, N.  [Investigating Portability in Chapel for Tree-based Optimization on GPU-powered Clusters.](https://link.springer.com/chapter/10.1007/978-3-031-69583-4_27) ([Slides](https://chapel-lang.org/papers/Europar2024.pdf)) Euro-PAR 2024, August 28, 2024.
+
+- Carneiro, T; Koutsantonis, L.; Melab, N.; Kieffer, E.; Bouvry, P. [A Local Search for Automatic Parameterization of Distributed Tree Search Algorithms](https://hal.archives-ouvertes.fr/hal-03619760). [PDCO 2022](https://pdco2022.sciencesconf.org/) - 12th IEEE Workshop Parallel / Distributed Combinatorics and Optimization, May 2022, Lyon, France.
 
 - Carneiro, T.; Melab, N.; Hayashi, A.; Sarkar, V. [Towards Chapel-based Exascale Tree Search Algorithms: dealing withmultiple GPU accelerators](https://hal.archives-ouvertes.fr/hal-03149394/document). In: The International Conference on High Performance Computing & Simulation - HPCS2020 (2021). [HPCS 2020 Outstanding Paper Award winner](http://hpcs2020.cisedu.info/2-conference/outstanding-paper-poster-awards).
 
