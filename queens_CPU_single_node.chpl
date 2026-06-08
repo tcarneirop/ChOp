@@ -24,7 +24,8 @@ proc main(){
 
 		when "bitset" {
 
-		 	writeln("\n--- N-QUEENS - Bitset-based data structure --- ");
+		 	writeln("\n--- N-QUEENS - Bitset-based data structure --- \n\t Size: ", size);
+
 
 		 	select mode{
 
@@ -51,7 +52,7 @@ proc main(){
 
 		when "vector" {
 
-		 	writeln("\n--- N-QUEENS - Vector-based data structure --- ");
+		 	writeln("\n--- N-QUEENS - Vector-based data structure --- \n\t Size: ", size);
 
 		 	select mode{
 
