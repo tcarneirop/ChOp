@@ -72,7 +72,7 @@ proc main(){
 	 				writeln("--- N-Queens mcore search --- \n\n");
 					queens_call_mcore_search(size, initial_depth,scheduler,slchunk,num_threads);
 	 			}
-                //@todo: the CPU+GPU is not available in this version. 
+                //@todo: the CPU+GPU is not available in this version, it goes to mlocale -- each gpu is a rank and the cpu itself gets a rank
                 when "mgpu"{
 
 	 				writeln("--- N-Queens multi-GPU search - single locale --- \n\n");
