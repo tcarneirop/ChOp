@@ -62,7 +62,7 @@ proc main(){
 	 			when "serial"{
 	 				
  					writeln("--- N-Queens serial search --- \n\n");
- 					queens_call_serial_search(size, mode, prepro);
+ 					queens_call_serial_search(size, mode);
 	 			}
 			
 	 			when "mcore"{

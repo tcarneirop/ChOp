@@ -17,7 +17,7 @@ C_SOURCES := $(shell find $(C_SRC_DIR) -name '*.c')
 
 
 ROCM_DIR := $(CHPL_ROCM_PATH)
-
+ROCM_GPU_ARCH := $(shell rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1)
 
 CHPL_PERF_FLAGS = --fast --no-bounds-checks
 
@@ -130,7 +130,7 @@ amd: dir
 	@echo
 	@echo " ### starting AMD compilation ### "
 	@echo
-	$(ROCM_DIR)/bin/hipcc --offload-arch=gfx1032 -O3 $(AMD_SRC_DIR)/AMD_queens_kernels.hip --emit-static-lib -fPIC -o $(LIBRARY_DIR)/libamdqueens.a
+	$(ROCM_DIR)/bin/hipcc --offload-arch=$(ROCM_GPU_ARCH) -O3 $(AMD_SRC_DIR)/AMD_queens_kernels.hip --emit-static-lib -fPIC -o $(LIBRARY_DIR)/libamdqueens.a
 
 dir:
 	@echo 
