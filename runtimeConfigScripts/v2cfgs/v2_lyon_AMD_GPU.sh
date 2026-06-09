@@ -1,30 +1,44 @@
 #!/usr/bin/env bash
 
-# command to reserve nodes:
-#   oarsub -q production -p "cluster='grvingt'" -l nodes=32 -t allow_classic_ssh -I
 
-# setup env for Chapel 1.24 using ofi
 setupChplenv() {
 
- #module use /grid5000/spack/share/spack/modules/linux-debian9-x86_64/
-  #module load gcc/6.4.0_gcc-6.4.0
-  #module load cmake
-  #module load libfabric
-  #ml llvm-amdgpu
-  #module load llvm-amdgpu/5.2.0_gcc-10.4.0
-  # Ignore our errors about ofi/psm not being supported
+  echo -e \#\#\# Building Chapel runtime 2.80 AMD GPU - $(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) - MULTI Locale  \#\#\#
+  echo -e " ### loading modules...  ### "
 
-module load hip/5.2.0_gcc-10.4.0
+  ml cmake/3.23.3_gcc-10.4.0
+  ml gcc/13.2.0_gcc-10.4.0
+  ml python/3.10.8_gcc-10.4.0
 
-  export CHPL_HOME=~/chapel-2.1.0
- # if [ -d "$CHPL_HOME" ]; then
-    CHPL_BIN_SUBDIR=`"$CHPL_HOME"/util/chplenv/chpl_bin_subdir.py`
-    export PATH="$PATH":"$CHPL_HOME/bin/$CHPL_BIN_SUBDIR:$CHPL_HOME/util"
- #fi
+  sudo-g5k apt-get update
+  sudo-g5k apt-get install -y hipcc
+  sudo-g5k apt-get install -y rocprim-dev hipcub-dev
 
+  export LD_LIBRARY_PATH=$LLVM_ROOT/lib:/opt/rocm-6.3.3/lib:$LD_LIBRARY_PATH
+  
+  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$CHOP_HOME"/libs
+
+  CHPL_BIN_SUBDIR=`"$CHPL_HOME"/util/chplenv/chpl_bin_subdir.py`
+  export PATH="$PATH":"$CHPL_HOME/bin/$CHPL_BIN_SUBDIR"
+
+  echo $LD_LIBRARY_PATH
+  
   export MANPATH="$MANPATH":"$CHPL_HOME"/man
-  export CHPL_LLVM=system
-  #export FI_PROVIDER=psm2
+
+
+  export HIP_PATH=/opt/rocm-6.3.3/
+  export ROCM_PATH=/opt/rocm-6.3.3/
+  export DEVICE_LIB_PATH=/opt/rocm-6.3.3/amdgcn/bitcode/
+  export CHPL_HOME=~/chapel-2.8.0
+  export CHPL_LLVM=bundled
+  export CHPL_LOCALE_MODEL=gpu
+  export CHPL_HOST_PLATFORM=`$CHPL_HOME/util/chplenv/chpl_platform.py`
+  export CHPL_GPU=amd
+  export CHOP_HOME=~/ChOp
+  export CHPL_ROCM_PATH=/opt/rocm-6.3.3/
+  export CHPL_GPU_ARCH=$(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1)
+  export CHPL_GPU_MEM_STRATEGY=array_on_device
+
 
   # use gasnet-ofi -- from the psm docs "Users of Intel(R) Omni-Path Fabric are
   # recommended to use ofi-conduit"
@@ -36,29 +50,16 @@ module load hip/5.2.0_gcc-10.4.0
   export GASNET_IBV_SPAWNER=ssh
   export GASNET_PHYSMEM_MAX='0.667'
 
-  export CHPL_GPU_MEM_STRATEGY=array_on_device
-  export CHPL_LOCALE_MODEL=gpu
-  export CHPL_GPU=amd
-  export CHPL_ROCM_PATH=/opt/rocm
-  export CHPL_GPU_ARCH=gfx906
-
   export CHOP_HOME=~/ChOp
   export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$CHOP_HOME"/libs
 
   # no idea if this is needed
   export HFI_NO_CPUAFFINITY=1
 
-  # Use ssh spawning (and avoid mpi) -- I couldn't get mpi spawner working
-  #export CHPL_GASNET_MORE_CFG_OPTIONS="--with-ofi-spawner=ssh --disable-mpi-compat"
-  # TODO force psm provider
-  #export GASNET_OFI_SPAWNER='ssh'
 
   NUM_T_LOCALE=$(cat /proc/cpuinfo | grep processor | wc -l)
 
   export CHPL_RT_NUM_THREADS_PER_LOCALE=$NUM_T_LOCALE
-
-
-
 
 }
 
@@ -69,6 +70,9 @@ buildChpl() {
   nice make -j `nproc`
   make test-venv
   popd
+  echo -e \#\#\# DONE \#\#\# 
+  echo -e \#\#\# Chapel runtime 2.80 AMD GPU - $(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) - Single Locale  \#\#\#
+
 }
 
 setSSHServers() {

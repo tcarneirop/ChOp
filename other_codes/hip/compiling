@@ -3,7 +3,7 @@ To compile de multi-GPU code:
 
 ml rocm-openmp-extras/5.2.0_gcc-10.4.0 
 
-DEVICE_LIB_PATH=/opt/rocm/amdgcn/bitcode/ hipcc -DIMPROVED -offload-arch=gfx906 -O3 -fopenmp -std=c++14  multiGPUQueens.hip -o mgpu.exe 
+DEVICE_LIB_PATH=/opt/rocm/amdgcn/bitcode/ hipcc -DIMPROVED -offload-arch=$(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) -O3 -fopenmp -std=c++14  multiGPUQueens.hip -o mgpu.exe 
 
 Where the -DIMPROVED is to avoid mirrored solutions, i.e., makes the search almost 2x faster.
 
@@ -13,5 +13,5 @@ To Execute the single GPU version:
 
 HIP_VISIBLE_DEVICES=0 ./a.out size cutoff_depth block_size
 
-There is no visible overhead when the multi-GPU version is used with a single GPU.
+There is no visible overhead when the multi-GPU version is used with a single GPU.l
 

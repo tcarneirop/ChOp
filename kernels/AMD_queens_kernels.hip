@@ -86,7 +86,7 @@ extern "C" void AMD_call_queens(short size, int initial_depth,
     unsigned long long *__restrict__ sols_h, int gpu_id){
     
     hipSetDevice(gpu_id);
-    hipFree(0);
+    //hipFree(0);
     
 
     unsigned long long *vector_of_tree_size_d;

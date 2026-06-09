@@ -75,8 +75,8 @@ module queens_GPU_call_device_search{
 				var new_gpu_id: c_int = gpu_id:c_int;
 				
 				
-				//if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
-				new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+				if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+				//new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
 			
 
 				if(CPUGPUVerbose) then writeln("Locales: ",  Locales.size, " here.id: ",here.id, " here.gpus.size: ", here.gpus.size," GPU id: ", new_gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);

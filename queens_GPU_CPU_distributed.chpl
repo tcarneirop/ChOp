@@ -2,20 +2,23 @@ use CTypes;
 
 use queens_call_serial_search;
 use queens_call_mcore_search;
+use queens_GPU_single_locale;
+use queens_call_multilocale_search;
+
 use bitset_serial;
 use bitset_mcore_search;
-use queens_GPU_single_locale;
+use bitset_mlocale_search;
+
+
 
 //Variables from the command line
-config const initial_depth: c_int = 5;
-config const second_depth:  c_int = 0;
+config const initial_depth: c_int = 2;
+config const second_depth:  c_int = 5;
 config const size: uint(16) = 15; //queens
-config const prepro: bool = false; //queens first solution
 
 config const scheduler: string = "dynamic";
-config const slchunk: int = 1; //chunk used by the final search called by the intermediate search -- for the second level of parallelism.
 config const num_threads: int = here.maxTaskPar; //number of threads.
-config const mode: string = "serial";
+config const mode: string = "mcore";
 config const data_structure: string = "vector";
 
 config const CPUP: real = 0.0; //CPU percent
@@ -24,6 +27,16 @@ config const language: string = "chpl"; //implementation of the GPU queens searc
 
 config const verbose: bool = false; //verbose network communication
 config const profiler: bool = false; //to gather profiler metrics and execution graphics.
+
+/////distributed
+config const mlchunk:int = 1;
+config const slchunk: int = 1; //chunk used by the final search called by the intermediate search -- for the second level of parallelism.
+config const lchunk: int = 1; //– The chunk size to yield to each task -- when the iterator uses also the second level of parallelism.
+config const coordinated: bool = false; //master process?
+config const mlsearch: string = "naive";
+
+config const pgas: bool = false;
+
 
 proc main(){
 
@@ -47,6 +60,11 @@ proc main(){
         			bitset_call_mcore_search(size,initial_depth,slchunk,num_threads);
     			}
 
+		 		when "mlocale"{
+                    writeln(" ########## MLOCALE ############");
+                    bitset_call_mlocale_search(size, initial_depth, slchunk, mlchunk, coordinated, num_threads, pgas);
+                }
+	 		
 		 		otherwise{
 		 			halt("###### ERROR ######\n###### ERROR ######\n###### ERROR ######\n###### WRONG PARAMETERS ######");
 		 		}
@@ -65,7 +83,7 @@ proc main(){
 	 			when "serial"{
 	 				
  					writeln("--- N-Queens serial search --- \n\n");
- 					queens_call_serial_search(size, mode, prepro);
+ 					queens_call_serial_search(size, mode);
 	 			}
 			
 	 			when "mcore"{
@@ -79,7 +97,7 @@ proc main(){
 	 				GPU_queens_call_search(num_gpus, size,initial_depth,CPUP,slchunk,language);
 	 			}
 				
-				when "multilocale"{
+				when "mlocale"{
 
 					writeln("--- N-Queens multi-GPU search - multi locale --- ", mode ," -- ", mlsearch,"\n\n");
 		 			queens_call_multilocale_search(size,initial_depth,second_depth,scheduler,mode,mlsearch,

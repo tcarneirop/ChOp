@@ -4,39 +4,69 @@
 #include <hip/hip_runtime.h>
 
 #define _EMPTY_      -1
+#include <vector>
 
-void gpu_warmup() {
-    int* d_warmup = nullptr;
-    int h_warmup = 0;
+// A tiny dummy kernel to force physical wave dispatch and queue wake-up
+__global__ void dummy_warmup_kernel(float* data) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx == 0) {
+        data[idx] = data[idx] * 2.0f + 1.0f;
+    }
+}
 
-    hipMalloc(&d_warmup, sizeof(int));
-    hipMemcpy(d_warmup, &h_warmup, sizeof(int), hipMemcpyHostToDevice);
+void gpu_warmup_improved(int device_id) {
+    float* d_warmup = nullptr;
+    size_t allocation_size = 1024 * 1024 * sizeof(float); // 4MB to force actual MMU mapping
+
+    // Force real physical memory allocation
+    if (hipMalloc(&d_warmup, allocation_size) != hipSuccess) return;
+    if (hipMemset(d_warmup, 0, allocation_size) != hipSuccess) return;
+
+    // Wake up execution queues via actual kernel launch
+    hipLaunchKernelGGL(dummy_warmup_kernel, dim3(1), dim3(64), 0, 0, d_warmup);
+    
     hipDeviceSynchronize();
+   
     hipFree(d_warmup);
 }
 
 void warmup_all_gpus(const int repetitions) {
     int num_devices = 0;
-    hipGetDeviceCount(&num_devices);
+    if (hipGetDeviceCount(&num_devices) != hipSuccess || num_devices == 0) {
+        return;
+    }
 
-    printf("\nFound %d HIP device(s)\n", num_devices) ;
+    printf("\nFound %d HIP device(s). Initializing full context and P2P matrix...\n", num_devices);
 
-    for (int dev = 0; dev < num_devices; ++dev) {
-        hipDeviceProp_t props;
-        hipGetDeviceProperties(&props, dev);
-
-        printf("Warming up GPU %d\n", dev);
-
-        hipSetDevice(dev);
-
-        for (int i = 0; i < repetitions; ++i) {
-            gpu_warmup();
+    // Phase 1: Establish P2P connections explicitly to prevent runtime lag during the main execution
+    for (int i = 0; i < num_devices; ++i) {
+        hipSetDevice(i);
+        for (int j = 0; j < num_devices; ++j) {
+            if (i != j) {
+                int can_access = 0;
+                hipDeviceCanAccessPeer(&can_access, i, j);
+                if (can_access) {
+                    // This forces the driver to map memory spaces across Infinity Fabric/PCIe instantly
+                    hipDeviceEnablePeerAccess(j, 0);
+                }
+            }
         }
     }
 
-    // Restore device 0 if desired
-    if (num_devices > 0)
+    // Phase 2: Warm up hardware queues across all devices sequentially
+    for (int dev = 0; dev < num_devices; ++dev) {
+        printf("Warming up GPU %d\n", dev);
+        hipSetDevice(dev);
+
+        for (int i = 0; i < repetitions; ++i) {
+            gpu_warmup_improved(dev);
+        }
+    }
+
+    // Restore primary device context state
+    if (num_devices > 0) {
         hipSetDevice(0);
+    }
 }
 
 double rtclock()
@@ -203,7 +233,7 @@ unsigned long long int BP_queens_prefixes(int size, int initialDepth,
                
         }else if ( MCstillLegal(board, depth) && !(flag &  bit_test ) ){//it is a valid subsol 
 
-        		#ifdef IMPROVED
+        	#ifdef IMPROVED
             if(depth == 1){
 
                 if(size& 1){
@@ -280,7 +310,7 @@ int main(int argc, char *argv[])
 {
 
     printf("\nStarting the warm up procedure\n");
-  warmup_all_gpus(10);
+  warmup_all_gpus(100);
 
   #ifdef IMPROVED
   printf("### IMPROVED SEARCH - Avoiding mirrored solutions\n");

@@ -121,7 +121,7 @@ module queens_mlocale_parameters_parser{
 					when "nested"{
 						writeln("################### Queens - distributed - nested - dynamic ###################");
 
-						forall idx in distributedDynamic(numTasks=5, c=Space, chunkSize=lchunk,localeChunkSize=mlchunk,
+						forall idx in distributedDynamic(c=Space, chunkSize=lchunk,localeChunkSize=mlchunk,
 							coordinated=flag_coordinated) with (+ reduce metrics) do {
 							var m1 = queens_call_intermediate_search(size,initial_depth,
 								second_depth,slchunk,distributed_active_set[idx],tree_each_locale);
@@ -137,7 +137,7 @@ module queens_mlocale_parameters_parser{
 					
 					when "mlgpu"{
 						
-						writeln("\n ##### Implementation: ", language, " \n");
+						writeln("\n ##### MULTIGPU -  Implementaiton: ", language, " \n");
 
 						if(GPU) then forall idx in distributedDynamic(c=Space, numTasks=1, chunkSize=lchunk,localeChunkSize=mlchunk,coordinated = flag_coordinated) with (+ reduce metrics) do {
 							
