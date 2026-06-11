@@ -1,7 +1,7 @@
 
 #!/bin/bash
 
-echo -e \#\#\# Building Chapel runtime 2.80 AMD GPU - $(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) - MULTI Locale - IBV  \#\#\#
+echo -e \#\#\# Building Chapel runtime 2.80 AMD GPU - $(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) - Single Locale   \#\#\#
 echo " ### exporting...  ### "
 
 ml cmake/3.23.3_gcc-10.4.0
@@ -10,8 +10,6 @@ ml gcc/13.2.0_gcc-10.4.0
 sudo-g5k apt-get update
 sudo-g5k apt-get install -y hipcc
 sudo-g5k apt-get install -y rocprim-dev hipcub-dev
-
-export LD_LIBRARY_PATH=$LLVM_ROOT/lib:/opt/rocm-6.3.3/lib:$LD_LIBRARY_PATH
 
 
 export HIP_PATH=/opt/rocm-6.3.3/
@@ -28,16 +26,19 @@ export CHPL_ROCM_PATH=/opt/rocm-6.3.3/
 export CHPL_GPU_ARCH=$(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1)
 export CHPL_GPU_MEM_STRATEGY=array_on_device
 
+
+export LD_LIBRARY_PATH=$LLVM_ROOT/lib:/opt/rocm-6.3.3/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":"$CHOP_HOME"/libs
 
+
 CHPL_BIN_SUBDIR=`"$CHPL_HOME"/util/chplenv/chpl_bin_subdir.py`
-export PATH="$PATH":"$CHPL_HOME/bin/$CHPL_BIN_SUBDIR"
+export PATH="$PATH":"$CHPL_HOME/bin/$CHPL_BIN_SUBDIR:$CHPL_HOME/util"
 
 echo $LD_LIBRARY_PATH
-
-
-
 export MANPATH="$MANPATH":"$CHPL_HOME"/man
+
+
+
 
 NUM_T_LOCALE=$(cat /proc/cpuinfo | grep processor | wc -l)
 
@@ -57,7 +58,7 @@ echo $here
 cd $CHPL_HOME
 make -j $NUM_T_LOCALE
 echo -e \#\#\# DONE \#\#\# 
-echo -e \#\#\# Chapel runtime 2.80 AMD GPU - $(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) - MULTI Locale - IBV  \#\#\#
+echo -e \#\#\# Chapel runtime 2.80 AMD GPU - $(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) - Single Locale  \#\#\#
 
 cd $here
 

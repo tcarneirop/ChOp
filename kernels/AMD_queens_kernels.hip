@@ -81,40 +81,54 @@ __global__ void AMD_queens_root_dfs( const int N,
 
 extern "C" void AMD_call_queens(short size, int initial_depth, 
     unsigned int n_explorers, 
-    QueenRoot *__restrict__ root_prefixes_h ,
-	unsigned long long *__restrict__ vector_of_tree_size_h, 
-    unsigned long long *__restrict__ sols_h, int gpu_id){
+    QueenRoot *__restrict__ root_prefixes_h,
+    unsigned long long *__restrict__ vector_of_tree_size_h, 
+    unsigned long long *__restrict__ sols_h, int gpu_id) {
     
+    // 1. Target the physical device and create a local non-blocking command stream
     hipSetDevice(gpu_id);
-    //hipFree(0);
-    
+    hipStream_t stream;
+    hipStreamCreateWithFlags(&stream, hipStreamNonBlocking);
 
     unsigned long long *vector_of_tree_size_d;
     unsigned long long *sols_d;
     QueenRoot *root_prefixes_d;
 
-    int num_blocks = ceil((double)n_explorers/AMD_QUEENS_BLOCK_SIZE);
+    int num_blocks = ceil((double)n_explorers / AMD_QUEENS_BLOCK_SIZE);
 
-    hipMalloc((void**) &vector_of_tree_size_d,n_explorers*sizeof(unsigned long long));
-    hipMalloc((void**) &sols_d,n_explorers*sizeof(unsigned long long));
-    hipMalloc((void**) &root_prefixes_d,n_explorers*sizeof(QueenRoot));
+    // 2. Use modern, streamlined allocations if supported, or standard allocations
+    hipMalloc((void**) &vector_of_tree_size_d, n_explorers * sizeof(unsigned long long));
+    hipMalloc((void**) &sols_d, n_explorers * sizeof(unsigned long long));
+    hipMalloc((void**) &root_prefixes_d, n_explorers * sizeof(QueenRoot));
 
-    hipMemcpy(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot),  hipMemcpyHostToDevice);
+    // 3. ASYNCHRONOUS HOST TO DEVICE COPY: Non-blocking stream offload
+    hipMemcpyAsync(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot), 
+                   hipMemcpyHostToDevice, stream);
     
 
-    hipLaunchKernelGGL(AMD_queens_root_dfs, num_blocks, AMD_QUEENS_BLOCK_SIZE, 0, 0, 
+    // 4. LAUNCH KERNEL ON THE SPECIFIC ASYNC STREAM
+    hipLaunchKernelGGL(AMD_queens_root_dfs, num_blocks, AMD_QUEENS_BLOCK_SIZE, 0, stream, 
         size,
         n_explorers,
         initial_depth,
         root_prefixes_d,
         vector_of_tree_size_d,
         sols_d
-        );
+    );
 
-    hipMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,n_explorers*sizeof(unsigned long long), hipMemcpyDeviceToHost);
-    hipMemcpy(sols_h,sols_d,n_explorers*sizeof(unsigned long long), hipMemcpyDeviceToHost);
+    // 5. ASYNCHRONOUS DEVICE TO HOST COPIES
+    hipMemcpyAsync(vector_of_tree_size_h, vector_of_tree_size_d, n_explorers * sizeof(unsigned long long), 
+                   hipMemcpyDeviceToHost, stream);
+    hipMemcpyAsync(sols_h, sols_d, n_explorers * sizeof(unsigned long long), 
+                   hipMemcpyDeviceToHost, stream);
     
+    // 6. BLOCK ONLY THIS SPECIFIC CHAPEL TASK UNTIL THIS GPU CONTEXT IS FINISHED
+    // This allows other GPUs in the coforall to run completely independent of this thread
+    hipStreamSynchronize(stream);
+
+    // Clean up local resources
     hipFree(vector_of_tree_size_d);
     hipFree(sols_d);
     hipFree(root_prefixes_d);
+    hipStreamDestroy(stream);
 }

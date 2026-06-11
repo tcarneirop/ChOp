@@ -89,7 +89,7 @@ queens_singlelocale_cuda: cuda dir
 
 queens_singlelocale_amd: amd dir
 	@echo
-	@echo "### Building Chapel Queens single-locale GPU (AMD-based) ... ###  "
+	@echo "### Building Chapel Queens single-locale GPU (AMD-based-$(ROCM_GPU_ARCH)) ... ###  "
 	@echo
 
 	chpl $(QUEENS_SINGLE_LOC_CPU_FLAGS) $(QUEENS_GPU_DEBUB_FLAGS) -s GPUAMD=true -s GPUCUDA=false -I$(ROCM_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(ROCM_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast queens_GPU_CPU_single_node.chpl  -o  $(BUILD_DIR)/queens_AMD_GPU_CPU_single_node.out
@@ -111,7 +111,7 @@ queens_multilocale_cuda: cuda dir
 
 queens_multilocale_amd: amd dir
 	@echo
-	@echo "### Building Chapel Queens multi-locale GPU (AMD-based) ... ###"
+	@echo "### Building Chapel Queens multi-locale GPU (AMD-based - $(ROCM_GPU_ARCH)) ... ###"
 	@echo
 
 	chpl $(QUEENS_MLOCALE_GPU_FLAGS) $(QUEENS_DEBUG_FLAGS) $(QUEENS_GPU_DEBUB_FLAGS) -s GPUAMD=true -s GPUCUDA=false -I$(ROCM_DIR)/include/ -L$(LIBRARY_DIR) -lamdqueens -L$(ROCM_DIR)/lib/ -lamdhip64  -M $(CHPL_MODULES_DIR) --fast $(QUEENS_DEBUG_FLAGS)  queens_GPU_CPU_distributed.chpl -o  $(BUILD_DIR)/queens_AMD_GPU_CPU_distributed.out
@@ -133,15 +133,16 @@ amd: dir
 	$(ROCM_DIR)/bin/hipcc --offload-arch=$(ROCM_GPU_ARCH) -O3 $(AMD_SRC_DIR)/AMD_queens_kernels.hip --emit-static-lib -fPIC -o $(LIBRARY_DIR)/libamdqueens.a
 
 dir:
-	@echo 
+	@echo
 	@echo " ### creating directories ### "
-	@echo 
+	@echo
 	mkdir -p $(LIBRARY_DIR)
 	mkdir -p $(BUILD_DIR)
 
 .PHONY: clean
 clean:
 	$(RM) $(LIBRARY_DIR)/*.so
-	$(RM) $(BUILD_DIR)/chop.out
-	$(RM) $(BUILD_DIR)/chop.out_real
+	$(RM) $(LIBRARY_DIR)/*.a
+	$(RM) $(BUILD_DIR)/*.out
+	$(RM) $(BUILD_DIR)/*.out_real
 
