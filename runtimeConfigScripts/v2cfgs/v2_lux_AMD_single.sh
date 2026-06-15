@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 echo -e \#\#\# Building Chapel runtime 2.80 AMD GPU - $(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) - Single Locale   \#\#\#

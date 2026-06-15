@@ -50,7 +50,7 @@ module queens_GPU_call_device_search{
 					writeln("Going on CPU");
 				}
 
-				forall idx in dynamic(0..(cpu_load:int), chunk,here.maxTaskPar) with (+ reduce metrics ) do {
+				forall idx in dynamic(0..#(cpu_load:int), chunk,here.maxTaskPar) with (+ reduce metrics ) do {
 					metrics +=  queens_subtree_explorer(size,depth,local_active_set[idx:uint]);
 				}
 
@@ -69,14 +69,13 @@ module queens_GPU_call_device_search{
 				var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint,
 					gpu_id:c_uint, num_gpus:c_uint, cpu_load:c_uint);
 
-				var sol_ptr : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;
-				var tree_ptr : c_ptr(c_ulonglong) = c_ptrTo(vector_of_tree_size_h) + starting_position;
+				var sol_ptr   : c_ptr(c_ulonglong) = c_ptrTo(sols_h) + starting_position;
+				var tree_ptr  : c_ptr(c_ulonglong) = c_ptrTo(vector_of_tree_size_h) + starting_position;
 				var nodes_ptr : c_ptr(queens_node) = c_ptrTo(local_active_set) + starting_position;
-				var new_gpu_id: c_int = gpu_id:c_int;
 				
 				
-				if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
-				//new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+				var new_gpu_id:c_int = (here.id:c_int * num_gpus + gpu_id:c_int) % here.gpus.size:c_int;
+
 			
 
 				if(CPUGPUVerbose) then writeln("Locales: ",  Locales.size, " here.id: ",here.id, " here.gpus.size: ", here.gpus.size," GPU id: ", new_gpu_id, " Starting position: ", starting_position, " gpu load: ", gpu_load);

@@ -38,7 +38,7 @@ module queens_CHPL_call_device_search{
 					writeln("Going on CPU");
 				}
 
-				forall idx in dynamic(0..(cpu_load:int), chunk,here.maxTaskPar) with (+ reduce metrics ) do {
+				forall idx in dynamic(0..#cpu_load:int, chunk,here.maxTaskPar) with (+ reduce metrics ) do {
 					metrics +=  queens_subtree_explorer(size,depthPreFixos,local_active_set[idx:uint]);
 				}
 
@@ -53,13 +53,14 @@ module queens_CHPL_call_device_search{
 				
 				var gpu_load: c_uint = GPU_mlocale_get_gpu_load(new_num_prefixes:c_uint, gpu_id:c_int, num_gpus);
 
-				var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint, gpu_id:c_uint, num_gpus:c_uint, 0:c_uint);
+				var starting_position: c_uint = GPU_mlocale_get_starting_point(new_num_prefixes:c_uint, gpu_id:c_uint, num_gpus:c_uint, cpu_load:c_uint);
 				
-				var my_load = starting_position..#(gpu_load); 
+				var my_load = starting_position..#gpu_load; 
 				
-				var new_gpu_id: c_uint;
+	
 
-				if Locales.size == 1 then new_gpu_id = gpu_id:c_int; else new_gpu_id = (here.id:c_int)%(here.gpus.size:c_int);
+				var new_gpu_id = (here.id:c_int * num_gpus + gpu_id:c_int) % here.gpus.size:c_int;
+
 
 				param _EMPTY_ = -1;
 
