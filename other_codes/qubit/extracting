@@ -1,0 +1,4 @@
+python3 untitled1.py -c ising_model_16 16 -b JP
+for file in circuits/*.txt; do circuit_name=$(basename "$file" .txt); python3 untitled1.py -c "$circuit_name" 16 -b JP; done
+
+mkdir -p circuits; for file in Benchmark_Small/*; do circuit_name=$(basename "$file" | cut -f 1 -d '.'); python3 untitled1.py -c "$circuit_name" 16 -b JP; done
