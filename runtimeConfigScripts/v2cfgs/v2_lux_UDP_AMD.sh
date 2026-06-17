@@ -5,6 +5,7 @@ echo " ### exporting...  ### "
 
 ml cmake/3.23.3_gcc-10.4.0
 ml gcc/13.2.0_gcc-10.4.0
+ml python/3.10.8_gcc-10.4.0 
 
 sudo-g5k apt-get update
 sudo-g5k apt-get install -y hipcc
