@@ -4,7 +4,7 @@
 
 
 
-__device__  inline bool AMD_queens_stillLegal(const char *__restrict__ board, const int r){
+__device__  inline bool  AMD_queens_stillLegal(const char *__restrict__ board, const int r){
 
   bool safe = true;
   int i, rev_i, offset;

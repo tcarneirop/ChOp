@@ -40,6 +40,26 @@ config const pgas: bool = false;
 
 proc main(){
 
+	forall loc in Locales {
+	  on loc {
+
+	    const num_gpus = here.gpus.size;
+
+	    coforall gpu_id in 0..<num_gpus {
+	
+	      var new_gpu_id: c_int = (here.id:c_int * num_gpus:c_int + gpu_id:c_int) % num_gpus:c_int;
+	      
+	      on here.gpus[new_gpu_id:int] {
+	        var warmup_array: [1..64] int;
+	        foreach i in 1..64 {
+	          warmup_array[i] = i;
+	        }
+	      }
+	    }
+	  }
+	}
+
+	
 	select data_structure {
 
 		when "bitset" {

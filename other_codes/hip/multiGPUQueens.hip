@@ -223,7 +223,8 @@ void HIP_call_queens(int size, int initial_depth, unsigned int n_explorers,
     unsigned long long *__restrict__ sols_h, int gpu_id, int block_size){
      
     hipSetDevice(gpu_id);
-    hipFree(0);
+
+
 
     unsigned long long *vector_of_tree_size_d;
     unsigned long long *sols_d;
@@ -259,15 +260,12 @@ void call_queens(int size, int initialDepth, int block_size){
    
     hipGetDeviceCount( &num_gpus );
     printf("\nNumber of GPUS: %d\n", num_gpus );
+    if (num_gpus <= 0) {
+        printf("Error: No GPUs detected for execution.\n");
+        return;
+    }
 
     double initial_time = rtclock();
-   
-    //for(uint device = 0; device<num_gpus; ++device){
-    //    hipSetDevice(device);
-    //    hipFree(0);
-   // }
-  
-
 
     unsigned long long device_load[num_gpus];
   
@@ -282,6 +280,11 @@ void call_queens(int size, int initialDepth, int block_size){
 
     //initial search, getting Feasible, Valid and Incomplete solutions -- subproblems;
     unsigned long long n_explorers = BP_queens_prefixes((short)size, initialDepth ,&initial_tree_size, root_prefixes_h);
+    printf("Checking bounds: n_explorers = %llu, nMaxPrefixes = %u\n", n_explorers, nMaxPrefixes);
+    if (n_explorers > nMaxPrefixes) {
+        printf("CRITICAL ERROR: Overflowing host memory allocation limits!\n");
+    }
+
 
     printf("\n### Queens size: %d, Initial depth: %d, Block size: %d - Num_explorers: %llu", size, initialDepth, block_size,n_explorers);
 
@@ -296,9 +299,8 @@ void call_queens(int size, int initialDepth, int block_size){
 
     #pragma omp parallel for default(none) shared(size, num_gpus, n_explorers, block_size, initialDepth, device_load, root_prefixes_h, vector_of_tree_size_h, solutions_h)
     for(uint device = 0; device<num_gpus; ++device){
-  
         unsigned long long local_stride =  device * (n_explorers/num_gpus);
-        //printf("\n\tNum threads: %d, Thread: %d - Device: %d - load : %llu ", omp_get_num_threads(),omp_get_thread_num(),  device, device_load[device]);
+        printf("\n\tNum threads: %d, Thread: %d - Device: %d - load : %llu ", omp_get_num_threads(),omp_get_thread_num(),  device, device_load[device]);
         HIP_call_queens(size, initialDepth,device_load[device], root_prefixes_h+local_stride,vector_of_tree_size_h+local_stride, solutions_h+local_stride, device, block_size);
     
     } 
