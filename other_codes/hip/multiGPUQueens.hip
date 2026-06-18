@@ -6,215 +6,11 @@
 #include <sys/time.h>
 #include <omp.h>
 
-
-#define _EMPTY_      -1
-
-
-double rtclock()
-{
-    struct timezone Tzp;
-    struct timeval Tp;
-    int stat;
-    stat = gettimeofday (&Tp, &Tzp);
-    if (stat != 0) printf("Error return from gettimeofday: %d",stat);
-    return(Tp.tv_sec + Tp.tv_usec*1.0e-6);
-}
-
-typedef struct queen_root{
-    unsigned int control;
-    int8_t board[12]; //maximum depth of the solution space.
-} QueenRoot;
-
-
-#define gpuErrchk(ans) { gpuAssert((ans), __FILE__, __LINE__); }
-inline void gpuAssert(hipError_t code, const char *file, int line, bool abort=true)
-{
-    if (code != hipSuccess) 
-    {
-        fprintf(stderr,"GPUassert: %s %s %d\n", hipGetErrorString(code), file, line);
-        if (abort) exit(code);
-    }
-}
-
-void  get_load_each_gpu(unsigned long long gpu_load, int num_gpus, unsigned long long *device_load){
-
-    for(int device = 0; device<num_gpus;++device){
-        device_load[device] = gpu_load/num_gpus;
-        if(device == (num_gpus-1)){
-            device_load[device]+= gpu_load%num_gpus;
-        }
-    }
-}//////
-
-
-__device__  inline bool GPU_queens_stillLegal(const char *__restrict__ board, const int r){
-
-  bool safe = true;
-  int i, rev_i, offset;
-  const char base = board[r];
-  // Check vertical
-  for ( i = 0, rev_i = r-1, offset=1; i < r; ++i, --rev_i, offset++)
-    safe &= !((board[i] == base) | ( (board[rev_i] == base-offset) |
-                                     (board[rev_i] == base+offset)));
-  return safe;
-}
-
-inline bool MCstillLegal(const char *__restrict__ board, const int r)
-{
-
-    int i;
-    int ld;
-    int rd;
-    // Check vertical
-    for ( i = 0; i < r; ++i)
-        if (board[i] == board[r]) return false;
-    // Check diagonals
-    ld = board[r];  //left diagonal columns
-    rd = board[r];  // right diagonal columns
-    for ( i = r-1; i >= 0; --i) {
-      --ld; ++rd;
-      if (board[i] == ld || board[i] == rd) return false;
-    }
-
-    return true;
-}
-
-
-inline void prefixesHandleSol(QueenRoot *__restrict__ root_prefixes,unsigned int flag,char *__restrict__ board,int initialDepth,int num_sol){
-
-    root_prefixes[num_sol].control = flag;
-
-    for(int i = 0; i<initialDepth;++i)
-      root_prefixes[num_sol].board[i] = (char)board[i];
-}
-
-
-unsigned long long int BP_queens_prefixes(int size, int initialDepth,
-    unsigned long long *__restrict__ tree_size, QueenRoot *__restrict__ root_prefixes){
-
-    unsigned int flag = 0;
-    int bit_test = 0;
-    char board[32]; 
-    int i, depth; 
-    unsigned long long int local_tree = 0ULL;
-    unsigned long long int num_sol = 0;
-
-    #ifdef IMPROVED
-    uint break_cond =  (size/2) + (size & 1);
-    #endif 
-
-    /*initialization*/
-    for (i = 0; i < size; ++i) { //
-        board[i] = -1;
-    }
-
-    depth = 0;
-
-    do{
-
-        board[depth]++;
-        bit_test = 0;
-        bit_test |= (1<<board[depth]);
-
-
-        if(board[depth] == size){
-            board[depth] = _EMPTY_;
-                //if(block_ub > upper)   block_ub = upper;
-        }else if ( MCstillLegal(board, depth) && !(flag &  bit_test ) ){ //it is a valid subsol 
-   
-           #ifdef IMPROVED
-            if(depth == 1){
-
-                if(size& 1){
-                    if (board[0] == break_cond-1 && board[1] > board[0]) 
-                        break;
-                }
-                else{
-                    if (board[0] == break_cond)
-                        break;
-                }
-            }
-            #endif 
-
-                flag |= (1ULL<<board[depth]);
-                depth++;
-                ++local_tree;
-                if (depth == initialDepth){ //handle solution
-                   prefixesHandleSol(root_prefixes,flag,board,initialDepth,num_sol);
-                   num_sol++;
-            }else continue;
-        }else continue;
-
-        depth--;
-        flag &= ~(1ULL<<board[depth]);
-
-    }while(depth >= 0);
-
-    *tree_size = local_tree;
-
-    return num_sol;
-}
-
-__global__ void BP_queens_root_dfs( const int N, 
-    const unsigned int nPrefixes, 
-    const int initial_depth,
-    QueenRoot *__restrict__ root_prefixes,
-    unsigned long long int *__restrict__ vector_of_tree_size, 
-    unsigned long long int *__restrict__ sols){
-
-    int idx = blockIdx.x * blockDim.x + threadIdx.x;
-       
-    if (idx < nPrefixes) {
-        unsigned int flag = 0;
-        char board[24];
-        int N_l = N;
-        int i, depth;
-        unsigned long long  qtd_sols_thread = 0ULL;
-        int depthGlobal = initial_depth;
-        unsigned long long int tree_size = 0ULL;
-
-        for (i = 0; i < N_l; ++i) {
-            board[i] = _EMPTY_;
-        }
-
-        flag = root_prefixes[idx].control;
-
-        for (i = 0; i < depthGlobal; ++i)
-            board[i] = root_prefixes[idx].board[i];
-
-        depth=depthGlobal;
-
-        do{
-
-            board[depth]++;
-            const int mask = 1<<board[depth];
-
-            if(board[depth] == N_l){
-                board[depth] = _EMPTY_;
-                depth--;
-                flag &= ~(1<<board[depth]);
-            }else if (!(flag &  mask ) && GPU_queens_stillLegal(board, depth)){
-
-                    ++tree_size;
-                    flag |= mask;
-
-                    depth++;
-
-                    if (depth == N_l) { //sol
-                        ++qtd_sols_thread ;
-
-                        depth--;
-                        flag &= ~mask;
-                    }
-                }
-            }while(depth >= depthGlobal); //FIM DO DFS_BNB
-
-        sols[idx] = qtd_sols_thread ;
-        vector_of_tree_size[idx] = tree_size;
-    }//if
-}//kernel
-////////
-
+#include "headers/helper.hpp"
+#include "headers/warmup.hpp"
+#include "headers/queens.hpp"
+#include "headers/queens_enumeration.hpp"
+#include "headers/queens_omp_aux.hpp"
 
 
 void HIP_call_queens(int size, int initial_depth, unsigned int n_explorers, 
@@ -261,13 +57,6 @@ void call_queens(int size, int initialDepth, int block_size){
     printf("\nNumber of GPUS: %d\n", num_gpus );
 
     double initial_time = rtclock();
-   
-    //for(uint device = 0; device<num_gpus; ++device){
-    //    hipSetDevice(device);
-    //    hipFree(0);
-   // }
-  
-
 
     unsigned long long device_load[num_gpus];
   
@@ -303,7 +92,6 @@ void call_queens(int size, int initialDepth, int block_size){
     
     } 
  
-
     //Reducing the metrics
     for(int i = 0; i<n_explorers;++i){
         qtd_sols_global += solutions_h[i];
