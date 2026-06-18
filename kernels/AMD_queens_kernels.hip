@@ -28,7 +28,7 @@ __global__ void AMD_queens_root_dfs( const int N,
        
     if (idx < nPrefixes) {
         unsigned int flag = 0;
-        char board[32];
+        char board[24];
         int N_l = N;
         int i, depth;
         unsigned long long  qtd_sols_thread = 0ULL;
