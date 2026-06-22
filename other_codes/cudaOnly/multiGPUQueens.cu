@@ -313,7 +313,7 @@ void call_queens(int size, int initialDepth, int block_size){
 
 int main(int argc, char *argv[]){
 
-    cudaFree(0);
+    
     int block_size;
     int initialDepth;
     int size;
