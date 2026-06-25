@@ -3,6 +3,8 @@
 
 
 
+
+
 __global__ void BP_queens_root_dfs(
 	const int N, const unsigned int nPrefixes, const int initial_depth,
 	QueenRoot *__restrict__ root_prefixes,

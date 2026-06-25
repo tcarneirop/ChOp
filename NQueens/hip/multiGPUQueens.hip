@@ -6,41 +6,16 @@
 #include <sys/time.h>
 #include <omp.h>
 
-#include "headers/helper.hpp"
-#include "headers/warmup.hpp"
-#include "headers/queens.hpp"
-#include "headers/queens_enumeration.hpp"
-#include "headers/queens_omp_aux.hpp"
+#include "../headers/queens.hpp"
+#include "../headers/queens_enumeration.hpp"
 
 
-void HIP_call_queens(int size, int initial_depth, unsigned int n_explorers, 
-    QueenRoot *__restrict__ root_prefixes_h ,
-	unsigned long long *__restrict__ vector_of_tree_size_h, 
-    unsigned long long *__restrict__ sols_h, int gpu_id, int block_size){
-     
-    hipSetDevice(gpu_id);
-    hipFree(0);
-
-    unsigned long long *vector_of_tree_size_d;
-    unsigned long long *sols_d;
-    QueenRoot *root_prefixes_d;
-
-    int num_blocks = ceil((double)n_explorers/block_size);
-
-    hipMalloc((void**) &vector_of_tree_size_d,n_explorers*sizeof(unsigned long long));
-    hipMalloc((void**) &sols_d,n_explorers*sizeof(unsigned long long));
-    hipMalloc((void**) &root_prefixes_d,n_explorers*sizeof(QueenRoot));
-
-    hipMemcpy(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot), hipMemcpyHostToDevice);
-    
-    hipLaunchKernelGGL(BP_queens_root_dfs, num_blocks, block_size, 0, 0, 
-        size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
+#include "../headers/queens_omp_aux.hpp"
+#include "../headers/helper.hpp"
+#include "hip_headers/hip_warmup.hpp"
+#include "hip_headers/hip_funcs.hpp"
 
 
-    hipMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,n_explorers*sizeof(unsigned long long),hipMemcpyDeviceToHost);
-    hipMemcpy(sols_h,sols_d,n_explorers*sizeof(unsigned long long),hipMemcpyDeviceToHost);
-    
-}
 
 void call_queens(int size, int initialDepth, int block_size){
 
@@ -70,7 +45,7 @@ void call_queens(int size, int initialDepth, int block_size){
     
 
     //initial search, getting Feasible, Valid and Incomplete solutions -- subproblems;
-    unsigned long long n_explorers = BP_queens_prefixes((short)size, initialDepth ,&initial_tree_size, root_prefixes_h);
+    unsigned long long n_explorers =  queens_subproblem_generation((char)size, initialDepth ,&initial_tree_size, root_prefixes_h);
 
     printf("\n### Queens size: %d, Initial depth: %d, Block size: %d - Num_explorers: %llu", size, initialDepth, block_size,n_explorers);
 
@@ -101,7 +76,7 @@ void call_queens(int size, int initialDepth, int block_size){
     double final_time = rtclock();
 
     #ifdef IMPROVED
-       qtd_sols_global*=2;
+    qtd_sols_global*=2;
     #endif
 
 
@@ -109,8 +84,16 @@ void call_queens(int size, int initialDepth, int block_size){
     printf("\nGPU Tree size: %llu\nTotal tree size: %llu\nNumber of solutions found: %llu.\n", gpu_tree_size,(initial_tree_size+gpu_tree_size),qtd_sols_global );
     printf("\nElapsed total: %.3f\n", (final_time-initial_time));
 
-}
+    #ifdef CHECKSOL
+    if(qtd_sols_global == check_sols_number[size-1])
+        printf("\n####### SUCCESS - CORRECT NUMBER OF SOLS. FOR SIZE %d\n", size);
+    else
+        printf("########## ERROR -- INCORRECT NUMBER FOS SOLS. FOR SIZE %d: %llu vs. %llu (correct)\n", size, qtd_sols_global,check_sols_number[size-1]);
+    #endif
 
+
+
+}
 
 int main(int argc, char *argv[]){
 

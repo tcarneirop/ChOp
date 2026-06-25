@@ -1,10 +1,5 @@
 #ifndef WARMUP_HPP
-#define WARMP_HPP
-
-
-#define _EMPTY_      -1
-#define MAX_SIZE     24
-
+#define WARMUP_HPP
 
 
 // A tiny dummy kernel to force physical wave dispatch and queue wake-up
@@ -14,6 +9,7 @@ __global__ void dummy_warmup_kernel(float* data) {
         data[idx] = data[idx] * 2.0f + 1.0f;
     }
 }
+
 
 void gpu_warmup_improved(int device_id) {
     float* d_warmup = nullptr;
@@ -68,16 +64,6 @@ void warmup_all_gpus(const int repetitions) {
     if (num_devices > 0) {
         hipSetDevice(0);
     }
-}
-
-double rtclock()
-{
-    struct timezone Tzp;
-    struct timeval Tp;
-    int stat;
-    stat = gettimeofday (&Tp, &Tzp);
-    if (stat != 0) printf("Error return from gettimeofday: %d",stat);
-    return(Tp.tv_sec + Tp.tv_usec*1.0e-6);
 }
 
 

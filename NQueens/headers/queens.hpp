@@ -7,20 +7,23 @@
 #define MAX_SIZE        24
 #define SUBPROBLEM_SIZE 10
 
+/// this is used to check if the solution produced is correct
+unsigned long long check_sols_number[] = {0,	0,	0,	2,	10,	4,	40,	92,	352,	724,	2680,	14200,	73712,	
+365596,	2279184,	14772512,	95815104,	666090624,	4968057848,	39029188884,314666222712,2691008701644,24233937684440,
+227514171973736 };
+
 
 typedef struct queen_root{
 		unsigned int control;
 		int8_t board[SUBPROBLEM_SIZE]; //maximum depth of the solution space.
 } QueenRoot;
 
-inline void prefixesHandleSol(QueenRoot *__restrict__ root_prefixes,unsigned int flag,char *__restrict__ board,int initialDepth,int num_sol){
-
-    root_prefixes[num_sol].control = flag;
-
-    for(int i = 0; i<initialDepth;++i)
-      root_prefixes[num_sol].board[i] = (char)board[i];
+inline void prefixesHandleSol(QueenRoot *root_prefixes, unsigned int flag, const char *board, const int initialDepth, const int num_sol)
+{
+	root_prefixes[num_sol].control = flag;
+	for(int i = 0; i<initialDepth;++i)
+		root_prefixes[num_sol].board[i] = board[i];
 }
-
 
 __device__ __host__ inline bool GPU_queens_stillLegal(const char *__restrict__  board, const int r){
 
@@ -33,7 +36,7 @@ __device__ __host__ inline bool GPU_queens_stillLegal(const char *__restrict__  
 	return safe;
 }
 
-unsigned long long int BP_queens_prefixes(int size, int initialDepth,
+unsigned long long int queens_subproblem_generation(int size, int initialDepth,
     unsigned long long *tree_size, QueenRoot *root_prefixes){
 
     unsigned int flag = 0;
