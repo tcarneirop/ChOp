@@ -57,7 +57,6 @@ void call_queens(int size, int initialDepth, int block_size){
     }
     printf("\n\n");
 
-
     #pragma omp parallel for default(none) shared(size, num_gpus, n_explorers, block_size, initialDepth, device_load, root_prefixes_h, vector_of_tree_size_h, solutions_h)
     for(uint device = 0; device<num_gpus; ++device){
   
@@ -68,7 +67,7 @@ void call_queens(int size, int initialDepth, int block_size){
     } 
  
     //Reducing the metrics
-    for(int i = 0; i<num_devices;++i){
+    for(int i = 0; i<num_gpus; ++i){
         qtd_sols_global += solutions_h[i];
         gpu_tree_size +=vector_of_tree_size_h[i];
     }
