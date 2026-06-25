@@ -24,14 +24,13 @@ void call_queens(int size, int initialDepth, int block_size){
     unsigned long long qtd_sols_global = 0ULL;
     unsigned long long gpu_tree_size = 0ULL;
 
-    unsigned long longnMaxPrefixes = 75580635;
+    unsigned long long nMaxPrefixes = 75580635;
     int num_gpus = 0;
 
    
     hipGetDeviceCount( &num_gpus );
     printf("\nNumber of GPUS: %d\n", num_gpus );
 
-    double initial_time = rtclock();
 
     unsigned long long device_load[num_gpus];
   
@@ -42,6 +41,7 @@ void call_queens(int size, int initialDepth, int block_size){
     //calling the gpu-based search
     omp_set_num_threads(num_gpus);
 
+    double initial_time = rtclock();
     
 
     //initial search, getting Feasible, Valid and Incomplete solutions -- subproblems;
@@ -81,7 +81,7 @@ void call_queens(int size, int initialDepth, int block_size){
 
 
     printf("\nInitial tree size: %llu", initial_tree_size );
-    printf("\nGPU Tree size: %llu\nTotal tree size: %llu\nNumber of solutions found: %llu.\n", gpu_tree_size,(initial_tree_size+gpu_tree_size),qtd_sols_global );
+    printf("\nGPU Tree size: %llu\nTotal tree size: %llu\nNumber of solutions found: %llu\n", gpu_tree_size,(initial_tree_size+gpu_tree_size),qtd_sols_global );
     printf("\nElapsed total: %.3f\n", (final_time-initial_time));
 
     #ifdef CHECKSOL
