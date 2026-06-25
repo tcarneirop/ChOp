@@ -35,8 +35,8 @@ void call_queens(int size, int initialDepth, int block_size){
     unsigned long long device_load[num_gpus];
   
     QueenRoot* root_prefixes_h = (QueenRoot*)malloc(sizeof(QueenRoot)*nMaxPrefixes);
-    unsigned long long int *vector_of_tree_size_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*nMaxPrefixes);
-    unsigned long long int *solutions_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*nMaxPrefixes);
+    unsigned long long int *vector_of_tree_size_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*num_gpus);
+    unsigned long long int *solutions_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*num_gpus);
 
     //calling the gpu-based search
     omp_set_num_threads(num_gpus);
@@ -63,12 +63,12 @@ void call_queens(int size, int initialDepth, int block_size){
   
         unsigned long long local_stride =  device * (n_explorers/num_gpus);
         //printf("\n\tNum threads: %d, Thread: %d - Device: %d - load : %llu ", omp_get_num_threads(),omp_get_thread_num(),  device, device_load[device]);
-        HIP_call_queens(size, initialDepth,device_load[device], root_prefixes_h+local_stride,vector_of_tree_size_h+local_stride, solutions_h+local_stride, device, block_size);
+        HIP_call_queens(size, initialDepth,device_load[device], root_prefixes_h+local_stride,vector_of_tree_size_h+device, solutions_h+device, device, block_size);
     
     } 
  
     //Reducing the metrics
-    for(int i = 0; i<n_explorers;++i){
+    for(int i = 0; i<num_devices;++i){
         qtd_sols_global += solutions_h[i];
         gpu_tree_size +=vector_of_tree_size_h[i];
     }

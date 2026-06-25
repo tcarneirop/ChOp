@@ -2,27 +2,27 @@
 #define QUEENS_ENUMERATION_HPP
 
 
-
+static constexpr unsigned long long FULL_WARP_MASK = 0xFFFFFFFFFFFFFFFFULL;
 
 
 __global__ void BP_queens_root_dfs(
-	const int N, const unsigned int nPrefixes, const int initial_depth,
+	const int N, const unsigned int nPrefixes, const int depthGlobal,
 	QueenRoot *__restrict__ root_prefixes,
-	unsigned long long *__restrict__ vector_of_tree_size,
+	unsigned long long *__restrict__ global_tree_size,
 	unsigned long long *__restrict__ sols)
 {
 	
 	int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    unsigned long long tree_size = 0ULL;
+    unsigned long long  qtd_sols_thread = 0ULL;
 
   if (idx < nPrefixes) {
       unsigned int flag = 0;
       char board[24];
       int N_l = N;
       int i, depth;
-      unsigned long long  qtd_sols_thread = 0ULL;
-      int depthGlobal = initial_depth;
-      unsigned long long int tree_size = 0ULL;
-
+    
+      
       for (i = 0; i < N_l; ++i) {
           board[i] = EMPTY;
       }
@@ -59,9 +59,20 @@ __global__ void BP_queens_root_dfs(
               }
           }while(depth >= depthGlobal); //FIM DO DFS_BNB
 
-      sols[idx] = qtd_sols_thread ;
-      vector_of_tree_size[idx] = tree_size;
     }//if
+
+    // Warp-level reduction
+    for (int offset = 16; offset > 0; offset /= 2) {
+        tree_size += __shfl_down_sync(FULL_WARP_MASK, tree_size, offset);
+        qtd_sols_thread +=  __shfl_down_sync(FULL_WARP_MASK, qtd_sols_thread, offset);
+    }
+
+    // Only one thread per warp adds the warp's result to the global total
+    if (threadIdx.x % 32 == 0) {
+        atomicAdd(global_tree_size, tree_size);
+        atomicAdd(sols, qtd_sols_thread);
+    }
+
 }//kernel
 
 

@@ -26,19 +26,24 @@ void HIP_call_queens(int size, int initial_depth, unsigned long long n_explorers
     hipFree(0);
 
     int num_blocks = ceil((double)n_explorers/block_size);
+    unsigned long long zero = 0;
 
-    
     hipMalloc((void**) &root_prefixes_d,n_explorers*sizeof(QueenRoot));
-    hipMalloc((void**) &vector_of_tree_size_d,n_explorers*sizeof(unsigned long long));    
-    hipMalloc((void**) &sols_d,n_explorers*sizeof(unsigned long long));
+    hipMalloc((void**) &vector_of_tree_size_d,sizeof(unsigned long long)); 
+    
+    hipMemcpy(vector_of_tree_size_d, &zero, sizeof(unsigned long long), hipMemcpyHostToDevice);
+    
+    hipMalloc((void**) &sols_d,sizeof(unsigned long long));
+    hipMemcpy(sols_d,  &zero,  sizeof(unsigned long long), hipMemcpyHostToDevice);
+    
     hipMemcpy(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot), hipMemcpyHostToDevice);
 
     hipLaunchKernelGGL(BP_queens_root_dfs, num_blocks, block_size, 0, 0, 
         size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
 
 
-    hipMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,n_explorers*sizeof(unsigned long long),hipMemcpyDeviceToHost);
-    hipMemcpy(sols_h,sols_d,n_explorers*sizeof(unsigned long long),hipMemcpyDeviceToHost);
+    hipMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,sizeof(unsigned long long),hipMemcpyDeviceToHost);
+    hipMemcpy(sols_h,sols_d                              ,sizeof(unsigned long long),hipMemcpyDeviceToHost);
     
 }
 
