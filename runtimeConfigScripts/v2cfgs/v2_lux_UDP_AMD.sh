@@ -27,8 +27,7 @@ export CHPL_GPU_ARCH=$(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -
 export CHPL_GPU_MEM_STRATEGY=array_on_device
 #export CHPL_RT_NUM_GPUS_PER_LOCALE
 
-# use gasnet-ofi -- from the psm docs "Users of Intel(R) Omni-Path Fabric are
-  # recommended to use ofi-conduit"
+
 export CHPL_COMM='gasnet'
 export CHPL_COMM_SUBSTRATE='udp'
 export CHPL_TARGET_CPU='native'
