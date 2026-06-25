@@ -4,7 +4,6 @@
 #include <time.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include <omp.h>
 
 #include "../headers/queens.hpp"
 #include "../headers/queens_enumeration.hpp"
@@ -24,7 +23,7 @@ void call_queens(int size, int initialDepth, int block_size){
     unsigned long long qtd_sols_global = 0ULL;
     unsigned long long gpu_tree_size = 0ULL;
 
-    unsigned int nMaxPrefixes = 75580635;
+    unsigned long long nMaxPrefixes = 75580635;
   
 
     double initial_time = rtclock();
@@ -39,7 +38,6 @@ void call_queens(int size, int initialDepth, int block_size){
 
     printf("\n### Queens size: %d, Initial depth: %d, Block size: %d - Num_explorers: %llu", size, initialDepth, block_size,n_explorers);
 
-    
 
     HIP_call_queens(size, initialDepth,n_explorers, root_prefixes_h,vector_of_tree_size_h, solutions_h, 0, block_size);
     

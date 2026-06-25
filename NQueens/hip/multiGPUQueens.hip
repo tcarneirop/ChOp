@@ -24,7 +24,7 @@ void call_queens(int size, int initialDepth, int block_size){
     unsigned long long qtd_sols_global = 0ULL;
     unsigned long long gpu_tree_size = 0ULL;
 
-    unsigned int nMaxPrefixes = 75580635;
+    unsigned long longnMaxPrefixes = 75580635;
     int num_gpus = 0;
 
    

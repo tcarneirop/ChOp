@@ -13,7 +13,7 @@ unsigned long long check_sols_number[] = {0,	0,	0,	2,	10,	4,	40,	92,	352,	724,	2
 227514171973736 };
 
 
-typedef struct queen_root{
+typedef __attribute__((aligned(16))) struct queen_root{
 		unsigned int control;
 		int8_t board[SUBPROBLEM_SIZE]; //maximum depth of the solution space.
 } QueenRoot;
@@ -21,6 +21,7 @@ typedef struct queen_root{
 inline void prefixesHandleSol(QueenRoot *root_prefixes, unsigned int flag, const char *board, const int initialDepth, const int num_sol)
 {
 	root_prefixes[num_sol].control = flag;
+   
 	for(int i = 0; i<initialDepth;++i)
 		root_prefixes[num_sol].board[i] = board[i];
 }
@@ -31,6 +32,7 @@ __device__ __host__ inline bool GPU_queens_stillLegal(const char *__restrict__  
 	int i, rev_i, offset;
 	const char base = board[r];
 	// Check vertical
+
 	for ( i = 0, rev_i = r-1, offset=1; i < r; ++i, --rev_i, offset++)
 		safe &= !((board[i] == base) | ( (board[rev_i] == base-offset) |(board[rev_i] == base+offset)));
 	return safe;
