@@ -20,3 +20,11 @@ ml CMake
 g++ -fprofile-generate -DIMPROVED -DREPORT -Ofast -Werror -Wno-error=register -march=native  -fopenmp openmpQueens.cpp -o vector.out
 ./vector.out 15 5 128
 g++ -fprofile-use -DIMPROVED -DREPORT -Ofast -Werror -Wno-error=register -march=native  -fopenmp openmpQueens.cpp -o vector.out
+
+
+
+CLANG
+
+clang-20 -O3 -ffast-math -march=native  -DIMPROVED -fopenmp  openmpQueens.cpp -o CLANGqueens.exe
+ OMP_SCHEDULE="nonmonotonic:dynamic,4" ./CLANGqueens.exe 17 6
+

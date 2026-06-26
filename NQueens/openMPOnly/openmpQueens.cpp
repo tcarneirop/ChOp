@@ -25,49 +25,20 @@ typedef struct queen_root{
 
 
 
+
 inline bool queens_is_legal_placement(const int8_t *__restrict__ board, const int r)
 {
 
-    int i;
-    int ld;
-    int rd;
-    // Check vertical
-    for ( i = 0; i < r; ++i)
-        if (board[i] == board[r]) return false;
-    // Check diagonals
-    rd = ld = board[r];  //left diagonal columns
-    
-    // rd = board[r];  // right diagonal columns
+	bool safe = true;
+	int i, rev_i, offset;
+	const char base = board[r];
+	// Check vertical
 
-    for ( i = r-1; i >= 0; --i) {
-      //--ld; ++rd;
-      if (board[i] == --ld || board[i] == ++rd) return false;
-    }
-
-    return true;
+	for ( i = 0, rev_i = r-1, offset=1; i < r; ++i, --rev_i, offset++)
+		safe &= !((board[i] == base) | ( (board[rev_i] == base-offset) |(board[rev_i] == base+offset)));
+	return safe;
 }
 
-
-
-inline bool queens_is_legal_placement_depth(const int8_t *__restrict__ board, const int r, const int initial_depth)
-{
-    int i;
-    int ld;
-    int rd;
-    // Check vertical
-    for ( i = initial_depth-1; i < r; ++i)
-        if (board[i] == board[r]) return false;
-
-
-    // Check diagonals
-    rd = ld = board[r];  //left diagonal columns
-    //rd = board[r];  // right diagonal columns
-    for ( i = r-1; i >= 0; --i) 
-        if (board[i] == --ld || board[i] == ++rd) return false;
-    
-
-    return true;
-}
 
 inline void queens_keep_subproblem(QueenRoot *__restrict__ root_prefixes, const unsigned int flag,
     int8_t *__restrict__  board, const int initialDepth, const int num_sol){
@@ -184,7 +155,7 @@ void queens_subtree_enumeration(const unsigned idx, const int N, const unsigned 
         }
         else{
 
-            if (!(flag &  mask ) && queens_is_legal_placement_depth(board, depth,depthGlobal)){
+            if (!(flag &  mask ) && queens_is_legal_placement(board, depth)){
 
                 ++tree_size;
                 flag |= mask;
@@ -228,11 +199,19 @@ void call_queens(const int size, const int initialDepth){
     unsigned long long int *vector_of_tree_size_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*nMaxPrefixes);
     unsigned long long int *solutions_h = (unsigned long long int*)malloc(sizeof(unsigned long long int)*nMaxPrefixes);
 
-    double initial_time = rtclock();
-
+    
     //initial search, getting Feasible, Valid and Incomplete solutions -- subproblems;
     unsigned long long n_subproblems = queens_subproblem_generation((short)size, initialDepth, &initial_tree_size, subproblems_pool);
 
+   for(unsigned long long idx = 0; idx < n_subproblems;++idx) {
+        volatile unsigned int t = subproblems_pool[idx].control;
+        solutions_h[idx] = 0;
+        vector_of_tree_size_h[idx] = 0;
+    }
+
+
+
+    double initial_time = rtclock();
 
     printf("\n### Queens size: %d, Initial depth: %d - Num_explorers: %llu - num_threads: %d", size, initialDepth,n_subproblems, omp_get_max_threads());
 
