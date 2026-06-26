@@ -76,7 +76,9 @@ void queens_omp_subtree_enumeration(const unsigned idx, const int N, const unsig
 ////////
 
 
-void call_queens(const int size, const int initialDepth){
+#ifdef PERTHREAD
+
+void REPORTcall_queens(const int size, const int initialDepth){
 
 
     unsigned long long initial_tree_size = 0ULL;
@@ -84,8 +86,6 @@ void call_queens(const int size, const int initialDepth){
     unsigned long long total_tree_size = 0ULL;
 
     unsigned nMaxPrefixes = 95580635;
-    int num_gpus = 0;
-
 
     unsigned long long thread_load[omp_get_max_threads()];
     for(int i = 0; i<omp_get_max_threads();++i)
@@ -146,7 +146,6 @@ void call_queens(const int size, const int initialDepth){
        qtd_sols_global*=2;
     #endif
 
-
     printf("\n\nInitial tree size: %llu", initial_tree_size );
     printf("\nParallel Tree size: %llu\nTotal tree size: %llu\nNumber of solutions found: %llu\n", total_tree_size,(initial_tree_size+total_tree_size),qtd_sols_global );
     printf("\nElapsed total: %.3f\n", (final_time-initial_time));
@@ -166,6 +165,52 @@ void call_queens(const int size, const int initialDepth){
 
 
 }
+#else
+void call_queens(const int size, const int initialDepth){
+
+
+    unsigned long long initial_tree_size = 0ULL;
+    unsigned long long qtd_sols_global = 0ULL;
+    unsigned long long total_tree_size = 0ULL;
+
+    unsigned nMaxPrefixes = 95580635;
+
+    QueenRoot* subproblems_pool = (QueenRoot*)malloc(sizeof(QueenRoot)*nMaxPrefixes);
+  
+    
+    //initial search, getting Feasible, Valid and Incomplete solutions -- subproblems;
+    unsigned long long n_subproblems = queens_subproblem_generation(size, initialDepth, &initial_tree_size, subproblems_pool);
+
+
+    double initial_time = rtclock();
+
+    printf("\n### Queens size: %d, Initial depth: %d - Num_explorers: %llu - num_threads: %d", size, initialDepth,n_subproblems, omp_get_max_threads());
+
+    #pragma omp parallel for schedule(runtime) default(none) shared(size, n_subproblems, initialDepth, subproblems_pool) reduction(+:total_tree_size,qtd_sols_global)
+    for(unsigned long long subproblem = 0; subproblem<n_subproblems; ++subproblem){
+      
+        unsigned long long l_treesize = 0ULL;
+        unsigned long long l_sols =     0ULL;
+        queens_omp_subtree_enumeration(subproblem, size, n_subproblems, initialDepth, subproblems_pool,&l_treesize, &l_sols);
+        total_tree_size+=l_treesize;
+        qtd_sols_global+=l_sols;
+    } 
+ 
+
+    double final_time = rtclock();
+
+    #ifdef IMPROVED
+       qtd_sols_global*=2;
+    #endif
+
+
+    printf("\n\nInitial tree size: %llu", initial_tree_size );
+    printf("\nParallel Tree size: %llu\nTotal tree size: %llu\nNumber of solutions found: %llu\n", total_tree_size,(initial_tree_size+total_tree_size),qtd_sols_global );
+    printf("\nElapsed total: %.3f\n", (final_time-initial_time));
+}
+
+#endif
+
 
 
 int main(int argc, char *argv[]){
@@ -185,8 +230,13 @@ int main(int argc, char *argv[]){
 
     size = atoi(argv[1]);
     initialDepth = atoi(argv[2]);
-
-    call_queens(size, initialDepth);
-
+    #ifdef PERTHREAD
+    printf("\n######## Version that does not use reduction and also provides a Per-thread load report ##########\n ");
+    REPORTcall_queens(size, initialDepth);
+    #else
+    printf("\n######## Version that uses OMP reduction ##########\n ");
+ 
+    call_queens(size,initialDepth);
+    #endif
     return 0;
 }
