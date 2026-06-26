@@ -1,28 +1,8 @@
 
-#ifndef QUEENS_HPP
-#define QUEENS_HPP
+#ifndef QUEENS_SUB_HPP
+#define QUEENS_SUB_HPP
 
 
-#define EMPTY        -1
-#define MAX_SIZE        24
-#define SUBPROBLEM_SIZE 10
-
-#if defined(__CUDACC__) || defined(__HIPCC__)
-    #define CHOP_HD __host__ __device__
-#else
-    #define CHOP_HD
-#endif
-
-/// this is used to check if the solution produced is correct
-unsigned long long check_sols_number[] = {0,	0,	0,	2,	10,	4,	40,	92,	352,	724,	2680,	14200,	73712,	
-365596,	2279184,	14772512,	95815104,	666090624,	4968057848,	39029188884,314666222712,2691008701644,24233937684440,
-227514171973736 };
-
-
-typedef __attribute__((aligned(16))) struct queen_root{
-		unsigned int control;
-		int8_t board[SUBPROBLEM_SIZE]; //maximum depth of the solution space.
-} QueenRoot;
 
 inline void prefixesHandleSol(QueenRoot *root_prefixes, unsigned int flag, const char *board, const int initialDepth, const int num_sol)
 {
@@ -30,18 +10,6 @@ inline void prefixesHandleSol(QueenRoot *root_prefixes, unsigned int flag, const
    
 	for(int i = 0; i<initialDepth;++i)
 		root_prefixes[num_sol].board[i] = board[i];
-}
-
-CHOP_HD inline bool queens_is_legal_placement(const int8_t *__restrict__  board, const int r){
-
-	bool safe = true;
-	int i, rev_i, offset;
-	const char base = board[r];
-	// Check vertical
-
-	for ( i = 0, rev_i = r-1, offset=1; i < r; ++i, --rev_i, offset++)
-		safe &= !((board[i] == base) | ( (board[rev_i] == base-offset) |(board[rev_i] == base+offset)));
-	return safe;
 }
 
 unsigned long long int queens_subproblem_generation(int size, int initialDepth,
@@ -110,7 +78,6 @@ unsigned long long int queens_subproblem_generation(int size, int initialDepth,
 
     return num_sol;
 }
-
 
 
 #endif

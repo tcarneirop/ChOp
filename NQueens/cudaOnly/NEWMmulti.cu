@@ -1,5 +1,4 @@
-
-#include <hip/hip_runtime.h>
+#include <cuda_runtime.h>
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -13,8 +12,10 @@
 #include "../headers/queens_CPU_GPU_subproblem_eval.hpp"
 #include "../headers/queens_GPU_enumeration.hpp"
 #include "../headers/queens_sub_gen.hpp"
-#include "hip_headers/hip_funcs.hpp"
+#include "cuda_headers/cuda_funcs.hpp"
 #include "../headers/queens_MGPU_call_queens.hpp"
+
+
 
 int main(int argc, char *argv[]){
 
@@ -36,7 +37,7 @@ int main(int argc, char *argv[]){
     initialDepth = atoi(argv[2]);
     block_size   =   atoi(argv[3]);
 
-    MGPUcall_queens(size, initialDepth, block_size);
+   MGPUcall_queens(size, initialDepth, block_size);
 
     return 0;
 }
