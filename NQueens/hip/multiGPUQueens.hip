@@ -7,7 +7,7 @@
 #include <omp.h>
 
 #include "../headers/queens.hpp"
-#include "../headers/queens_enumeration.hpp"
+#include "../headers/queens_GPU_enumeration.hpp"
 
 
 #include "../headers/queens_omp_aux.hpp"

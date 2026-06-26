@@ -7,6 +7,12 @@
 #define MAX_SIZE        24
 #define SUBPROBLEM_SIZE 10
 
+#if defined(__CUDACC__) || defined(__HIPCC__)
+    #define CHOP_HD __host__ __device__
+#else
+    #define CHOP_HD
+#endif
+
 /// this is used to check if the solution produced is correct
 unsigned long long check_sols_number[] = {0,	0,	0,	2,	10,	4,	40,	92,	352,	724,	2680,	14200,	73712,	
 365596,	2279184,	14772512,	95815104,	666090624,	4968057848,	39029188884,314666222712,2691008701644,24233937684440,
@@ -26,7 +32,7 @@ inline void prefixesHandleSol(QueenRoot *root_prefixes, unsigned int flag, const
 		root_prefixes[num_sol].board[i] = board[i];
 }
 
-__device__ __host__ inline bool GPU_queens_stillLegal(const char *__restrict__  board, const int r){
+CHOP_HD inline bool queens_is_legal_placement(const int8_t *__restrict__  board, const int r){
 
 	bool safe = true;
 	int i, rev_i, offset;
@@ -43,7 +49,7 @@ unsigned long long int queens_subproblem_generation(int size, int initialDepth,
 
     unsigned int flag = 0;
     int bit_test = 0;
-    char board[MAX_SIZE]; 
+    int8_t board[MAX_SIZE]; 
     int i, depth; 
     unsigned long long int local_tree = 0ULL;
     unsigned long long int num_sol = 0;
@@ -69,7 +75,7 @@ unsigned long long int queens_subproblem_generation(int size, int initialDepth,
         if(board[depth] == size){
             board[depth] = EMPTY;
                
-        }else if ( !(flag &  bit_test ) && GPU_queens_stillLegal(board, depth) ){//it is a valid subsol 
+        }else if ( !(flag &  bit_test ) && queens_is_legal_placement(board, depth) ){//it is a valid subsol 
 
         	#ifdef IMPROVED
             if(depth == 1){
@@ -90,7 +96,7 @@ unsigned long long int queens_subproblem_generation(int size, int initialDepth,
             ++local_tree;
             
             if (depth == initialDepth){ //handle solution
-            	prefixesHandleSol(root_prefixes,flag,board,initialDepth,num_sol);
+            	prefixesHandleSol(root_prefixes,flag,(char*)board,initialDepth,num_sol);
     	     		num_sol++;
             }else continue;
         }else continue;

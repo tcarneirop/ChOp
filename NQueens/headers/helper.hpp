@@ -1,6 +1,12 @@
 #ifndef HELPER_HPP
 #define HELPER_HPP
 
+#if defined(__CUDACC__) || defined(__HIPCC__)
+    #define CHOP_HD __host__ __device__
+#else
+    #define CHOP_HD
+#endif
+
 
 
 double rtclock()
