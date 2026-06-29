@@ -7,73 +7,12 @@
 
 
 
-#include "../headers/helper.hpp"
+#include "../headers/timer.hpp"
 
 #include "../headers/queens.hpp"
 #include "../headers/queens_omp_aux.hpp"
+#include "../headers/queens_general_enumeration.hpp"
 
-
-void queens_omp_subtree_enumeration(const unsigned idx, const int N, const unsigned nPrefixes, 
-    const int initial_depth, QueenRoot *__restrict__ root_prefixes,
-    unsigned long long int *__restrict__ vector_of_tree_size, 
-    unsigned long long int *__restrict__ sols){
-
-
-    unsigned int flag = 0;
-    int8_t board[MAX_SIZE];
-    int N_l = N;
-    int i, depth;
-    unsigned long long  qtd_sols_thread = 0ULL;
-    int depthGlobal = initial_depth;
-    unsigned long long int tree_size = 0ULL;
-
-    for (i = 0; i < N_l; ++i) {
-        board[i] = EMPTY;
-    }
-
-    flag = root_prefixes[idx].control;
-
-    for (i = 0; i < depthGlobal; ++i)
-        board[i] = root_prefixes[idx].board[i];
-
-    depth=initial_depth;
-
-    do{
-
-        //board[depth]++;
-        const int mask = 1 << ++board[depth];
-
-        if(board[depth] == N_l){
-
-            board[depth] = EMPTY;
-            //--depth;
-            flag &= ~(1<<board[--depth]);
-        }
-        else{
-
-            if (!(flag &  mask ) && queens_is_legal_placement(board, depth)){
-
-                ++tree_size;
-                flag |= mask;
-
-                ++depth;
-
-                if (depth == N_l) { //sol
-                    ++qtd_sols_thread ;
-                    --depth;
-                    flag &= ~mask;
-                }//if 
-            }//else if
-        }
-
-
-    }while(depth >= depthGlobal); 
-
-    sols[idx] = qtd_sols_thread ;
-    vector_of_tree_size[idx] = tree_size;
-
-}//kernel
-////////
 
 
 #ifdef PERTHREAD
@@ -112,7 +51,7 @@ void REPORTcall_queens(const int size, const int initialDepth){
     #pragma omp parallel for schedule(runtime) default(none) shared(size, thread_load,n_subproblems, initialDepth, subproblems_pool, vector_of_tree_size_h, solutions_h)
     for(unsigned long long subproblem = 0; subproblem<n_subproblems; ++subproblem){
         int id = omp_get_thread_num();
-        queens_omp_subtree_enumeration(subproblem, size, n_subproblems, initialDepth, subproblems_pool,vector_of_tree_size_h, solutions_h);
+        queens_default_subtree_enumeration(subproblem, size, n_subproblems, initialDepth, subproblems_pool,vector_of_tree_size_h, solutions_h);
         #ifdef REPORT
         thread_load[id] += vector_of_tree_size_h[subproblem];
         #endif
@@ -191,7 +130,7 @@ void call_queens(const int size, const int initialDepth){
       
         unsigned long long l_treesize = 0ULL;
         unsigned long long l_sols =     0ULL;
-        queens_omp_subtree_enumeration(subproblem, size, n_subproblems, initialDepth, subproblems_pool,&l_treesize, &l_sols);
+        queens_default_subtree_enumeration(subproblem, size, n_subproblems, initialDepth, subproblems_pool,&l_treesize, &l_sols);
         total_tree_size+=l_treesize;
         qtd_sols_global+=l_sols;
     } 
@@ -208,7 +147,6 @@ void call_queens(const int size, const int initialDepth){
     printf("\nParallel Tree size: %llu\nTotal tree size: %llu\nNumber of solutions found: %llu\n", total_tree_size,(initial_tree_size+total_tree_size),qtd_sols_global );
     printf("\nElapsed total: %.3f\n", (final_time-initial_time));
 }
-
 #endif
 
 
@@ -218,24 +156,25 @@ int main(int argc, char *argv[]){
 
     int size;
     int initialDepth;
-
+    int block_size;
     #ifdef IMPROVED
         printf("### IMPROVED SEARCH - Avoiding mirrored solutions\n");
     #endif
 
-    if (argc != 3) {
-        printf("Usage: %s <size> <initial depth>\n", argv[0]);
+    if (argc != 4) {
+        printf("Usage: %s <size> <initial depth><block size>\n", argv[0]);
         return 1;
     }
 
     size = atoi(argv[1]);
     initialDepth = atoi(argv[2]);
+    block_size   = atoi(argv[3]);
+    
     #ifdef PERTHREAD
     printf("\n######## Version that does not use reduction and also provides a Per-thread load report ##########\n ");
     REPORTcall_queens(size, initialDepth);
     #else
     printf("\n######## Version that uses OMP reduction ##########\n ");
- 
     call_queens(size,initialDepth);
     #endif
     return 0;

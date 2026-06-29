@@ -7,6 +7,13 @@
     #define CHOP_HD
 #endif
 
+
+
+
+#if defined(_OPENMP) && (defined(__NVPTX__) || defined(__AMDGPU__))
+    #pragma omp declare target
+#endif
+
 CHOP_HD inline bool queens_is_legal_placement(const int8_t *__restrict__  board, const int r){
 
 	bool safe = true;
@@ -18,5 +25,9 @@ CHOP_HD inline bool queens_is_legal_placement(const int8_t *__restrict__  board,
 		safe &= !((board[i] == base) | ( (board[rev_i] == base-offset) |(board[rev_i] == base+offset)));
 	return safe;
 }
+
+#if defined(_OPENMP) && (defined(__NVPTX__) || defined(__AMDGPU__))
+    #pragma omp end declare target
+#endif
 
 #endif

@@ -5,7 +5,7 @@
 static constexpr unsigned long long FULL_WARP_MASK = 0xFFFFFFFFFFFFFFFFULL;
 
 
-__global__ void BP_queens_root_dfs(
+__global__ void CUDA_HIP__queens_dfs_enumeration(
 	const int N, const unsigned int nPrefixes, const int depthGlobal,
 	QueenRoot *__restrict__ root_prefixes,
 	unsigned long long *__restrict__ global_tree_size,

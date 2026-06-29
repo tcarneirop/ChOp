@@ -38,7 +38,7 @@ void HIP_call_queens(int size, int initial_depth, unsigned long long n_explorers
     
     hipMemcpy(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot), hipMemcpyHostToDevice);
 
-    hipLaunchKernelGGL(BP_queens_root_dfs, num_blocks, block_size, 0, 0, 
+    hipLaunchKernelGGL(CUDA_HIP__queens_dfs_enumeration, num_blocks, block_size, 0, 0, 
         size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
 
 

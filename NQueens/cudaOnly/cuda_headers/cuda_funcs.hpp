@@ -36,7 +36,7 @@ void CUDA_call_queens(int size, int initial_depth, unsigned long long n_explorer
     
     cudaMemcpy(root_prefixes_d, root_prefixes_h, n_explorers * sizeof(QueenRoot), cudaMemcpyHostToDevice);
 
-    BP_queens_root_dfs<<< num_blocks,block_size>>>(size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
+    CUDA_HIP__queens_dfs_enumeration<<< num_blocks,block_size>>>(size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
 
     cudaMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,sizeof(unsigned long long), cudaMemcpyDeviceToHost);
     cudaMemcpy(sols_h,sols_d                              ,sizeof(unsigned long long), cudaMemcpyDeviceToHost);
