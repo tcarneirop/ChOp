@@ -10,13 +10,11 @@ void SGPU_call_queens(int size, int initialDepth, int block_size){
     unsigned long long gpu_tree_size = 0ULL;
 
     unsigned long long nMaxPrefixes = 75580635;
-   
-  
+
     QueenRoot* root_prefixes_h = (QueenRoot*)malloc(sizeof(QueenRoot)*nMaxPrefixes);
     unsigned long long vector_of_tree_size_h = 0ULL;
     unsigned long long solutions_h =  0ULL;
 
-    
     //initial search, getting Feasible, Valid and Incomplete solutions -- subproblems;
     unsigned long long n_explorers = queens_subproblem_generation((char)size, initialDepth ,&initial_tree_size, root_prefixes_h);
 
@@ -33,7 +31,6 @@ void SGPU_call_queens(int size, int initialDepth, int block_size){
     exit(EXIT_FAILURE);
     #endif
 
-  
     //Reducing the metrics
     gpu_tree_size   += vector_of_tree_size_h;
     qtd_sols_global += solutions_h;

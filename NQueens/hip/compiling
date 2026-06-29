@@ -16,3 +16,5 @@ HIP_VISIBLE_DEVICES=0 ./a.out size cutoff_depth block_size
 There is no visible overhead when the multi-GPU version is used with a single GPU.l
 
 hipcc -DIMPROVED -DWARMPUP --offload-arch=$(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) -O3 queens.hip -o sgpu.exe 
+hipcc -DWARMUP -DIMPROVED  -DCHECKSOLS --offload-arch=$(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) -O3 singleGPUQueens.hip -o sgpu.exe 
+

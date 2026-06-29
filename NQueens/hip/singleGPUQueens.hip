@@ -10,6 +10,7 @@
 #include "../headers/queens_CPU_GPU_subproblem_eval.hpp"
 #include "../headers/queens_GPU_enumeration.hpp"
 #include "../headers/queens_sub_gen.hpp"
+#include "hip_headers/hip_warmup.hpp"
 #include "hip_headers/hip_funcs.hpp"
 #include "../headers/queens_GPU_call_queens.hpp"
 
