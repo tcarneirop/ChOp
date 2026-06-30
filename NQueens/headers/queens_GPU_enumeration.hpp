@@ -18,7 +18,7 @@ __global__ void CUDA_HIP__queens_dfs_enumeration(
 
   if (idx < nPrefixes) {
       unsigned int flag = 0;
-      int8_t board[24];
+      int8_t board[MAX_SIZE];
       int N_l = N;
       int i, depth;
     
