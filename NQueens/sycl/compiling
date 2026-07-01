@@ -1,1 +1,5 @@
 /home/carneiro/acpp/bin/acpp -DUSE_GPU -DCHECKSOL --acpp-targets=hip:gfx1102 -O3 -std=c++20 -ffast-math -DIMPROVED  main.cpp -o test_sycl
+
+
+how do i compile for intel? i dont know yet.
+ icpx -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend "--offload-arch=gfx1102" -DUSE_GPU -DCHECKSOL -O3 -std=c++20 -ffast-math -DIMPROVED main.cpp -o Stest_sycl
