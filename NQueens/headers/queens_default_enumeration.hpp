@@ -3,7 +3,7 @@
 #define QUEENS_GEN_ENUMERATION_HPP
 
 
-#if defined(_OPENMP) && (defined(__NVPTX__) || defined(__AMDGPU__))
+#if defined(_OPENMP) && defined(ENABLE_OMP_OFFLOAD)
     #pragma omp declare target
 #endif
 
@@ -68,7 +68,7 @@ void queens_default_subtree_enumeration(const unsigned idx, const int N, const u
     vector_of_tree_size[idx] = tree_size;
 
 }//kernel
-#if defined(_OPENMP) && (defined(__NVPTX__) || defined(__AMDGPU__))
+#if defined(_OPENMP) && defined(ENABLE_OMP_OFFLOAD)
     #pragma omp end declare target
 #endif
 

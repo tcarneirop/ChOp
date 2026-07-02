@@ -10,7 +10,7 @@
 
 
 
-#if defined(_OPENMP) && (defined(__NVPTX__) || defined(__AMDGPU__))
+#if defined(_OPENMP) && defined(ENABLE_OMP_OFFLOAD)
     #pragma omp declare target
 #endif
 
@@ -26,7 +26,7 @@ CHOP_HD inline bool queens_is_legal_placement(const int8_t *__restrict__  board,
 	return safe;
 }
 
-#if defined(_OPENMP) && (defined(__NVPTX__) || defined(__AMDGPU__))
+#if defined(_OPENMP) && defined(ENABLE_OMP_OFFLOAD)
     #pragma omp end declare target
 #endif
 

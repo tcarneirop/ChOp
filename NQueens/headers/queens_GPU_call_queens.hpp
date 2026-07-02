@@ -44,8 +44,8 @@ void SGPU_call_queens(int size, int initialDepth, int block_size){
     printf("\nInitial tree size: %llu", initial_tree_size );
     printf("\nGPU Tree size: %llu\nTotal tree size: %llu\nNumber of solutions found: %llu\n", gpu_tree_size,(initial_tree_size+gpu_tree_size),qtd_sols_global );
     printf("\nElapsed total: %.3f\n", (final_time-initial_time));
- 
-    #ifdef CHECKSOL
+
+    #ifdef CHECKSOLS
     if(qtd_sols_global == check_sols_number[size-1])
         printf("\n####### SUCCESS - CORRECT NUMBER OF SOLS. FOR SIZE %d\n", size);
     else

@@ -18,3 +18,24 @@ There is no visible overhead when the multi-GPU version is used with a single GP
 hipcc -DIMPROVED -DWARMPUP --offload-arch=$(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) -O3 queens.hip -o sgpu.exe 
 hipcc -DWARMUP -DIMPROVED  -DCHECKSOLS --offload-arch=$(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) -O3 singleGPUQueens.hip -o sgpu.exe 
 
+
+
+```
+unset MODULEPATH
+module use /grid5000/guix-modules/x86_64/latest
+```
+
+Here the version that you can get with this method : 
+
+  rocm-cmake: rocm-cmake/7.1.1
+  rocm-comgr: rocm-comgr/7.1.1
+  rocm-hip-runtime: rocm-hip-runtime/7.1.1
+  rocm-hipcc: rocm-hipcc/7.1.1
+  rocm-opencl-runtime: rocm-opencl-runtime/7.1.1
+  rocm-smi-lib: rocm-smi-lib/7.1.1
+  rocm-smi-lib-bin: rocm-smi-lib-bin/7.1.1
+  rocm-toolchain: rocm-toolchain/7.1.1
+  rocminfo: rocminfo/7.1.1
+
+export C_INCLUDE_PATH=$C_INCLUDE_PATH:$(guix build linux-libre-headers)/include:$(guix build glibc)/include
+export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$(guix build linux-libre-headers)/include:$(guix build glibc)/include
