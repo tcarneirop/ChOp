@@ -2,14 +2,14 @@
 #define QUEENS_ENUMERATION_HPP
 
 #if defined(__CUDACC__) || defined(__HIPCC__)
-#define CHOP_DEVICE __device__
+#define CHOP_GLOBAL __global__
 #else
-#define CHOP_DEVICE
+#define CHOP_GLOBAL
 #endif
 
 static constexpr unsigned long long FULL_WARP_MASK = 0xFFFFFFFFFFFFFFFFULL;
 
-CHOP_DEVICE void CUDA_HIP__queens_dfs_enumeration(
+CHOP_GLOBAL void CUDA_HIP__queens_dfs_enumeration(
     const int N, const unsigned int nPrefixes, const int depthGlobal,
     QueenRoot *__restrict__ root_prefixes,
     unsigned long long *__restrict__ global_tree_size,
@@ -73,29 +73,7 @@ CHOP_DEVICE void CUDA_HIP__queens_dfs_enumeration(
 
     } // if
 
-#if defined(SYCL_LANGUAGE_VERSION) || defined(__SYCL_DEVICE_ONLY__)
 
-    auto sg = item.get_sub_group();
-    unsigned long long reduced_tree = sycl::reduce_over_group(sg, tree_size, sycl::plus<>());
-    unsigned long long reduced_qtd_sols_thread = sycl::reduce_over_group(sg, qtd_sols_thread, sycl::plus<>());
-
-    // 3. Only the leader performs the atomic operation
-    if (sycl::leader(sg))
-    {
-
-        sycl::atomic_ref<unsigned long long, sycl::memory_order::relaxed,
-                         sycl::memory_scope::device>
-            atomic_tree(global_tree_size[0]);
-
-        sycl::atomic_ref<unsigned long long, sycl::memory_order::relaxed,
-                         sycl::memory_scope::device>
-            atomic_sols(sols[0]);
-
-        atomic_tree.fetch_add(reduced_tree);
-        atomic_sols.fetch_add(reduced_qtd_sols_thread);
-    }
-
-#else
       //  Warp-level reduction
     for (int offset = 16; offset > 0; offset /= 2)
     {
@@ -110,7 +88,6 @@ CHOP_DEVICE void CUDA_HIP__queens_dfs_enumeration(
         atomicAdd(sols, qtd_sols_thread);
     }
 
-#endif
 
 } // kernel
 
