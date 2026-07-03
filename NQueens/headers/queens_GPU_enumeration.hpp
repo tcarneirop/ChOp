@@ -77,8 +77,11 @@ CHOP_GLOBAL void CUDA_HIP__queens_dfs_enumeration(
       //  Warp-level reduction
     for (int offset = 16; offset > 0; offset /= 2)
     {
-        tree_size += __shfl_down_sync(FULL_WARP_MASK, tree_size, offset);
-        qtd_sols_thread += __shfl_down_sync(FULL_WARP_MASK, qtd_sols_thread, offset);
+        tree_size += __shfl_down(tree_size, offset);
+        qtd_sols_thread += __shfl_down(qtd_sols_thread, offset);
+
+       // tree_size += __shfl_down_sync(FULL_WARP_MASK, tree_size, offset);
+        //qtd_sols_thread += __shfl_down_sync(FULL_WARP_MASK, qtd_sols_thread, offset);
     }
 
     // Only one thread per warp adds the warp's result to the global total

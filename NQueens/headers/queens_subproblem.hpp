@@ -13,7 +13,7 @@ unsigned long long check_sols_number[] = {0,	0,	0,	2,	10,	4,	40,	92,	352,	724,	2
 227514171973736 };
 
 
-typedef __attribute__((aligned(16))) struct queen_root{
+typedef __attribute__((aligned(4))) struct queen_root{
 		unsigned int control;
 		int8_t board[SUBPROBLEM_SIZE]; //maximum depth of the solution space.
 } QueenRoot;

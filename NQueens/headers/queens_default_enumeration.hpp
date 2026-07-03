@@ -9,7 +9,7 @@
 
 
 void queens_default_subtree_enumeration(const unsigned idx, const int N, const unsigned nPrefixes, 
-    const int initial_depth, QueenRoot *__restrict__ root_prefixes,
+    const int initial_depth, const QueenRoot *__restrict__ root_prefixes,
     unsigned long long int *__restrict__ vector_of_tree_size, 
     unsigned long long int *__restrict__ sols){
 
