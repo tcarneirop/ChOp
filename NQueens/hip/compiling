@@ -1,4 +1,6 @@
 To compile de multi-GPU code:
+ hipcc -DHIP_OLD_VERSION -DWARMUP -DIMPROVED  -DCHECKSOLS --offload-arch=$(rocm_agent_enumerator | grep -v gfx000 | sort -u | head -1) -O3 singleGPUQueens.hip -o sgpu.exe 
+
 
 
 ml rocm-openmp-extras/5.2.0_gcc-10.4.0 

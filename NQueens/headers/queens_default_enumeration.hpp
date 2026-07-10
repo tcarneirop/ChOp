@@ -34,14 +34,12 @@ void queens_default_subtree_enumeration(const unsigned idx, const int N, const u
     depth=initial_depth;
 
     do{
-
-        //board[depth]++;
+        
         const int mask = 1 << ++board[depth];
 
         if(board[depth] == N_l){
 
             board[depth] = EMPTY;
-            //--depth;
             flag &= ~(1<<board[--depth]);
         }
         else{

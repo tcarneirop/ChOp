@@ -7,9 +7,6 @@
     #define CHOP_HD
 #endif
 
-
-
-
 #if defined(_OPENMP) && defined(ENABLE_OMP_OFFLOAD)
     #pragma omp declare target
 #endif
