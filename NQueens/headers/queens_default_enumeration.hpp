@@ -7,7 +7,10 @@
     #pragma omp declare target
 #endif
 
-
+// Core enumeration logic used inside the parallel STL loop
+//#ifdef __acpp__
+//[[acpp::flatten]]
+//#endif
 void queens_default_subtree_enumeration(const unsigned idx, const int N, const unsigned nPrefixes, 
     const int initial_depth, const QueenRoot *__restrict__ root_prefixes,
     unsigned long long int *__restrict__ vector_of_tree_size, 
@@ -35,12 +38,14 @@ void queens_default_subtree_enumeration(const unsigned idx, const int N, const u
 
     do{
         
-        const int mask = 1 << ++board[depth];
+        board[depth]++;
+        const int mask = 1 << board[depth];
 
         if(board[depth] == N_l){
 
             board[depth] = EMPTY;
-            flag &= ~(1<<board[--depth]);
+            --depth;
+            flag &= ~(1<<board[depth]);
         }
         else{
 

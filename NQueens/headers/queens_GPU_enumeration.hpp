@@ -44,14 +44,14 @@ CHOP_GLOBAL void CUDA_HIP__queens_dfs_enumeration(
         do
         {
 
-            //board[depth]++;
-            const int mask = 1 << ++board[depth];
+            board[depth]++;
+            const int mask = 1 << board[depth];
 
             if (board[depth] == N_l)
             {
                 board[depth] = EMPTY;
-               // depth--;
-                flag &= ~(1 << board[--depth]);
+                depth--;
+                flag &= ~(1 << board[depth]);
             }
             else if (!(flag & mask) && queens_is_legal_placement(board, depth))
             {

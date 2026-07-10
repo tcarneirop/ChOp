@@ -11,6 +11,10 @@
     #pragma omp declare target
 #endif
 
+#if defined(__CUDACC__)
+uifhudihfuidhfuihd
+#endif
+
 CHOP_HD inline bool queens_is_legal_placement(const int8_t *__restrict__  board, const int r){
 
 	bool safe = true;
