@@ -11,7 +11,7 @@ module queens_tree_exploration{
 
         var bit_test : uint(32) = 0;
         var control: uint(32) = 0;
-        var board: [0..MAX] int(8) = __EMPTY__;
+        var board: [0..MAX] uint(8) = __EMPTY__;
         var depth: int(32); //needs to be int because -1 is the break condition
         var number_sols: uint(64) = 0;
         var tree_size: uint(64) = 0;
