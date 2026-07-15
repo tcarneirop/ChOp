@@ -7,7 +7,7 @@
 #define CHOP_GLOBAL
 #endif
 
-static constexpr unsigned long long FULL_WARP_MASK = 0xFFFFFFFFFFFFFFFFULL;
+constexpr unsigned FULL_WARP_MASK = ~0u;
 
 CHOP_GLOBAL void CUDA_HIP__queens_dfs_enumeration(
     const int N, const unsigned int nPrefixes, const int depthGlobal,

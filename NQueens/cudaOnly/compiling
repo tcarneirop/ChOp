@@ -12,3 +12,6 @@ CUDA_VISIBLE_DEVICES=0 ./a.out size cutoff_depth block_size
 
 There is no visible overhead when the multi-GPU version is used with a single GPU.
 
+
+On Lille: ml cuda/11.4
+ nvcc -O3 -arch=sm_60 -DIMPROVED -DCHECKSOLS singleGPUQueens.cu

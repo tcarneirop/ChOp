@@ -38,6 +38,11 @@ void CUDA_call_queens(int size, int initial_depth, unsigned long long n_explorer
 
     CUDA_HIP__queens_dfs_enumeration<<< num_blocks,block_size>>>(size,n_explorers,initial_depth,root_prefixes_d, vector_of_tree_size_d,sols_d);
 
+    #ifdef CUDACHECKERROR
+    cudaError_t err = cudaGetLastError();
+    printf("\n\tLaunch: %s\n", cudaGetErrorString(err));
+    #endif
+   
     cudaMemcpy(vector_of_tree_size_h,vector_of_tree_size_d,sizeof(unsigned long long), cudaMemcpyDeviceToHost);
     cudaMemcpy(sols_h,sols_d                              ,sizeof(unsigned long long), cudaMemcpyDeviceToHost);
     
