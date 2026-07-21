@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --binary)
@@ -32,6 +33,17 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+
+USES_BLOCK=false
+
+##there is a block size for both cuda and hip
+case "$BINARY" in
+    *cuda*|*hip*)
+        USES_BLOCK=true
+        ;;
+esac
+
 
 CSV="${BINARY}.csv"
 
@@ -67,14 +79,30 @@ for ((board=15; board<=MAX_BOARD_SIZE; board++)); do
         for block in "${BLOCKS[@]}"; do
             for ((run=1; run<=RUNS; run++)); do
 
-                key="$MACHINE,$BINARY,$board,$depth,$block,$run,"
+
+                ##our exes that have block -- cuda and hip, mainly
+                if $USES_BLOCK; then
+                    csv_block="$block"
+                else
+                    csv_block=""
+                fi
+
+                key="$MACHINE,$BINARY,$board,$depth,$csv_block,$run,"
 
                 if grep -Fq "$key" "$CSV"; then
-                    echo "[SKIP] Board=$board Depth=$depth Block=$block Run=$run"
+                    if [[ "$BINARY" == *cuda* ]]; then
+                        echo "[SKIP] Board=$board Depth=$depth Block=$block Run=$run"
+                    else
+                        echo "[SKIP] Board=$board Depth=$depth Run=$run"
+                    fi
                     continue
                 fi
 
-                echo "[RUN ] Board=$board Depth=$depth Block=$block Run=$run"
+                if [[ "$BINARY" == *cuda* ]]; then
+                    echo "[RUN ] Board=$board Depth=$depth Block=$block Run=$run"
+                else
+                    echo "[RUN ] Board=$board Depth=$depth Run=$run"
+                fi
 
                 OUTPUT=$(mktemp)
 
@@ -86,7 +114,6 @@ for ((board=15; board<=MAX_BOARD_SIZE; board++)); do
                     CUDA_VISIBLE_DEVICES=0 ./"$BINARY" \
                         "$board" "$depth" \
                         > "$OUTPUT" 2>&1
-                    block=""
                 fi
 
                 elapsed=$(awk '/Elapsed total:/ {sub(/s$/, "", $NF); print $NF}' "$OUTPUT")
@@ -98,7 +125,7 @@ for ((board=15; board<=MAX_BOARD_SIZE; board++)); do
                     exit 1
                 fi
 
-                echo "$MACHINE,$BINARY,$board,$depth,$block,$run,$elapsed" >> "$CSV"
+                echo "$MACHINE,$BINARY,$board,$depth,$csv_block,$run,$elapsed" >> "$CSV"
 
                 rm "$OUTPUT"
 

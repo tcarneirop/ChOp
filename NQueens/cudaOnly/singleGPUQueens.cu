@@ -23,6 +23,7 @@ int main(int argc, char *argv[]){
     int initialDepth;
     int size;
 
+	cudaFree(0);
     #ifdef IMPROVED
         printf("### IMPROVED SEARCH - Avoiding mirrored solutions\n");
     #endif
