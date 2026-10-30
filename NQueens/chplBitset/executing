@@ -1,2 +1,0 @@
-time ./bin/main.out --size=19 --initial_depth=5 --slchunk=4 --mlchunk=2000 --mode="mlocale" --coordinated=true -nl17
-

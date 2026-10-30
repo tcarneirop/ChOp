@@ -1,2 +1,0 @@
-chpl -M modules --fast chplGPU.chpl -o chplGPU
-
